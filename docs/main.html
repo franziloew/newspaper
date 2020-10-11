@@ -1820,10 +1820,12 @@ summary {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#method">2. Method</a><ul>
-<li><a href="#estimate-topic-similarity">2.1 Estimate topic similarity</a></li>
-<li><a href="#regression-model">2.2 Regression model</a></li>
+<li><a href="#introduction">1. Introduction</a><ul>
+<li><a href="#motivation">1.1 Motivation</a></li>
+<li><a href="#empirical-strategy">1.2 Empirical strategy</a><ul>
+<li><a href="#estimate-topic-similarity">1.2.1 Estimate topic similarity</a></li>
+<li><a href="#regression-model">1.2.2 Regression model</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#data">2. Data</a></li>
 <li><a href="#structural-topic-model">3. Structural topic model</a><ul>
@@ -1858,47 +1860,50 @@ li {  /* List  */
 </style>
 <div id="introduction" class="section level1">
 <h1>1. Introduction</h1>
-<p><strong>Motivation</strong></p>
-<p>Following the good results of the AfD in the 2017 federal elections, the inevitable search for those responsible began almost immediately. Quite a few claimed that the selection of topics in the media contributed to the strong results of AfD. The underlying hypothesis of this accusation is that the mere quantity of reporting on a party, or on the issues it embraces, results in its gaining popularity.</p>
+<div id="motivation" class="section level2">
+<h2>1.1 Motivation</h2>
+<p>In recent decades, voices that criticize the role of the media in politics in general and especially in election campaigns have become louder. This criticism is fueled above all by the good performance of right-wing populist parties throughout Europe. The underlying argument is that mass media lends legitimacy to the populist right by giving attention to these parties and their issues (supply-side explanation for the success of right-wing populist parties).</p>
+<p>In Germany, the debate has culminated after the 2017 federal elections, with the AfD being elected to the Bundestag for the first time.</p>
 <p>Apart from the lack of evidence of a causal relationship between the frequency of reporting and AfD survey results, the following questions arise:</p>
-<ol style="list-style-type: decimal">
-<li><p>Have right-wing populists’ campaigns really been increasingly present in the media coverage?</p></li>
-<li><p>What incentives do the media have for biased reporting?</p></li>
-</ol>
+<p><strong>Did media report biased during the election campaign? Have AfD campaigns been increasingly present in the media coverage?</strong></p>
 <ul>
-<li>The media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting. In the case of AfD, a number of news factors are very high: conflict, drama, negativity, surprise, proximity. Finally, the AfD uses the mechanisms of the media attention economy like no other party.</li>
-<li>There are structural similarities between the “logic of right-wing populism” and the attention strategy of the mass media. (Gäbler 2017)</li>
+<li><p>It has been argued that the mass media can play a significant role in promoting the success of the populist right.</p>
+<ul>
+<li>The mass media are argued to provide legitimacy to the populist right by giving attention to these parties and their issues (Sheets et al. 2016)</li>
+<li>A higher dose of exposure to populist news coverage enhances both prior agreement and disagreement with populism.</li>
+<li>Issue ownership: By repeatedly paying attention to specific issues, media raise issue-related public concerns, subsequently increasing citizens’ likelihood to cast their vote on the basis of these salient issues (Damstra, 2019).</li>
+</ul></li>
 </ul>
-<ol start="3" style="list-style-type: decimal">
-<li><p>Did the reporting change after the election?</p></li>
-<li><p>What are possible reasons for a change?</p></li>
-</ol>
-<p>Questions 1. &amp; 3. can be analyzed on the basis of data. The second and the fourth question can be discussed on the basis of existing research.</p>
-<p><strong>Empirical strategy:</strong></p>
-<p>I develop and apply a machine learning approach based on structural topic modeling in combination with cosine similarity and a regression discontinuity framework in order to identify similarities between topics addressed in press releases and online news articles of different media sources before and after the Bundestag elections that took place the 24th of Sep 2017.</p>
-<p><strong>Results:</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>OLS without treatment effect: Considering the whole period, is there a difference between topic similarity of a newspaper and AfD compared to the topic similarity of that newspaper and all other parties? -&gt; Yes, looking at the whole time, nearly all newspapers have a significant higher topic similarity with the AfD press releases compared to the other parties.</p></li>
-<li><p>OLS with treatment effect (regression discont. model): Does the topic similarity of a newspaper and the AfD significantly change after the election date? -&gt; The model shows that for 4 newspapers (Die Welt, stern.de, FOCUS Online, Bild.de), topic similarity with AfD was significantly lower AFTER the election.</p></li>
-</ol>
-<p>The results indicate that - prior to the election - all newspapers (except for Handelsblatt) selected topics more similar to the AfD compared to the other parties. The election significantly changed the topic selection especially for Bild.de as the topic similarity increased significantly for nearly all parties (compared to AfD).</p>
-<p>The empirical results do not allow any conclusion about the motivation for selecting topics. However, different motives can be discussed based on the results. Possible reasons:</p>
+<p><strong>Is there a significant difference to the the time period after election?</strong></p>
 <ul>
-<li>political ideology of the editor</li>
-<li>economic considerations</li>
+<li><p>News media are often accused of partisanship and biased reporting, especially during election campaigns (Eberl, 2018)</p>
+<ul>
+<li>Content analyses in Europe as well as in the United States show that news outlets often differ in their coverage of parties and candidates during election campaigns (Eberl, 2018)</li>
+</ul></li>
+</ul>
+<p><strong>Theoretical explanation for the disproportionate media coverage of AfD issues.</strong></p>
+<ul>
+<li><p>There are structural similarities between the “logic of right-wing populism” and the attention strategy of the mass media. (Gäbler 2017)</p>
+<ul>
+<li><p>Populist key messages by political and media actors in news articles provoke more reader comments (Blassnig, 2019). Populist messages often co-occur witha negative, emotionalized, or dramatized communication style (Ernst, Blassnig, Engesser,Büchel, &amp; Esser,2019). Therefore, it can be assumed that the occurrence of populist key messages may have a positive impact on the amount of comments an article receives.</p></li>
+<li><p>Populist communication has been described as highly compatible with media logic and attributed with a high news value (Mazzoleni, 2008).</p></li>
+<li><p>The media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting. In the case of AfD, a number of news factors are very high: conflict, drama, negativity, surprise, proximity. Finally, the AfD uses the mechanisms of the media attention economy like no other party.</p></li>
+<li><p>Media logic (Takens et al. 2013): Media logic refers to ‘the news values and the storytelling techniques the media make use of to take advantage of their own medium and its format, and to be competitive in the ongoing struggle to capture people’s attention’ (Strömbäck, 2008:233).</p></li>
+</ul></li>
 </ul>
 </div>
-<div id="method" class="section level1">
-<h1>2. Method</h1>
-<div id="estimate-topic-similarity" class="section level2">
-<h2>2.1 Estimate topic similarity</h2>
+<div id="empirical-strategy" class="section level2">
+<h2>1.2 Empirical strategy</h2>
+<p>I develop and apply a machine learning approach based on structural topic modeling in combination with cosine similarity and a regression discontinuity framework in order to identify similarities between topics addressed in press releases and online news articles of different media sources before and after the Bundestag elections that took place the 24th of Sep 2017.</p>
+<div id="estimate-topic-similarity" class="section level3">
+<h3>1.2.1 Estimate topic similarity</h3>
 <ol style="list-style-type: decimal">
 <li><p>Estimate a <strong>structural topic model</strong> to obtain a topic distribution for each document (press release or news article)</p></li>
-<li><p>Estimate the <strong>cosine similarity</strong> of topic distribution between documents of the same week (Hier könnte man überlegen ob es mehr Sinn macht eher die Dokumente +/-7 Tage zu nehmen)</p></li>
+<li><p>Estimate the <strong>cosine similarity</strong> of topic distribution between a document and all documents released +/-7 days.</p></li>
 </ol>
 </div>
-<div id="regression-model" class="section level2">
-<h2>2.2 Regression model</h2>
+<div id="regression-model" class="section level3">
+<h3>1.2.2 Regression model</h3>
 <p>Use topic similarity as the external variable in a regression model</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Estimate an <strong>OLS model</strong> for each media outlet <span class="math inline">\(i\)</span></li>
@@ -1915,7 +1920,17 @@ li {  /* List  */
 <p><span class="math display">\[
 T_i = 1 \text{ if date } &gt;= \text{election date} \\
 T_i = 0 \text{ if date } &lt; \text{election date}
-\]</span></p>
+\]</span> ## 1.3 Results</p>
+<ol style="list-style-type: decimal">
+<li><strong>OLS model</strong> (without treatment effect): Considering the whole period, is there a difference between topic similarity of a newspaper and AfD compared to the topic similarity of that newspaper and all other parties?</li>
+</ol>
+<p>-&gt; Yes, looking at the whole time, nearly all newspapers have a significant higher topic similarity with the AfD press releases compared to the other parties.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Regression discont. model</strong> (OLS with treatment effect): Does the topic similarity of a newspaper and the AfD significantly change after the election date?</li>
+</ol>
+<p>-&gt; The model shows that for 4 newspapers (Die Welt, stern.de, FOCUS Online, Bild.de), topic similarity with AfD was significantly lower AFTER the election.</p>
+<p>The results indicate that - prior to the election - all newspapers (except for Handelsblatt) selected topics more similar to the AfD compared to the other parties. The election significantly changed the topic selection especially for Bild.de as the topic similarity increased significantly for nearly all parties (compared to AfD).</p>
+</div>
 </div>
 </div>
 <div id="data" class="section level1">
@@ -2308,7 +2323,7 @@ T_i = 0 \text{ if date } &lt; \text{election date}
 <div id="with-interaction-terms" class="section level3">
 <h3>4.1.2. With interaction terms</h3>
 <p><span class="math display">\[
-\text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_nDn_{j}+\beta_{n+n}T_iDn_{j}+\epsilon_i
+\text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_2Dn_{j}+\beta_3T_iDn_{j}+\epsilon_i
 \]</span></p>
 <p>The interaction term <span class="math inline">\(T_i*Dn\)</span> means that the slope can vary on either side of the treatment threshold for each party.</p>
 <ul>
@@ -2356,10 +2371,8 @@ T_i = 0 \text{ if date } &lt; \text{election date}
 <ul>
 <li>Treatment effect: Topic similarity with AfD decreased by 15,9%</li>
 </ul>
+<p><strong>stern.de</strong> - Treatment effect: Topic similarity with AfD decreased by 18,6%</p>
 <p><strong>ZEIT ONLINE</strong></p>
-<ul>
-<li>Treatment effect: Topic similarity with AfD decreased by 18,6%</li>
-</ul>
 <p><strong>Handelsblatt</strong></p>
 <p><strong>FOCUS Online</strong></p>
 <ul>
