@@ -2180,6 +2180,13 @@ T_i = 0 \text{ if date } &lt; \text{election date}
 ## F Statistic         25.404*** (df = 5; 1376) 7.377*** (df = 5; 1382) 8.142*** (df = 5; 1412) 0.425 (df = 5; 1202) 31.242*** (df = 5; 1436) 13.609*** (df = 5; 1330) 12.296*** (df = 5; 1432)
 ## ============================================================================================================================================================================================
 ## Note:                                                                                                                                                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<div id="interpretation" class="section level4">
+<h4>Interpretation:</h4>
+<p>When <span class="math inline">\(D\)</span> swichtes from from 0 to 1, the % impact of <span class="math inline">\(D\)</span> on <span class="math inline">\(Y\)</span> is: <span class="math inline">\(100(exp(\beta)-1)\)</span></p>
+<p><strong>DIE WELT</strong></p>
+<p><span class="math inline">\(100(exp(-0.25)-1) = -22\%\)</span></p>
+<p>Compared to AfD, the similarity of topics of DIE WELT and B90/G is 22% lower.</p>
+</div>
 </div>
 <div id="regression-discontinuity-model" class="section level2">
 <h2>4.2. Regression discontinuity model</h2>
@@ -2301,21 +2308,21 @@ T_i = 0 \text{ if date } &lt; \text{election date}
 ## F Statistic         22.396*** (df = 7; 1374) 8.892*** (df = 7; 1380) 17.105*** (df = 7; 1410) 1.714 (df = 7; 1200) 22.641*** (df = 7; 1434) 11.030*** (df = 7; 1328) 8.804*** (df = 7; 1430)
 ## ============================================================================================================================================================================================
 ## Note:                                                                                                                                                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-<div id="interpretation" class="section level4">
+<div id="interpretation-1" class="section level4">
 <h4>Interpretation:</h4>
 <p><strong>DIE WELT</strong></p>
 <ul>
-<li>Treatment effect: After the election, cosine similarity of news coverage drops by 11,5% on average.</li>
+<li>Treatment effect: After the election, cosine similarity of news coverage drops by ~10,8% on average.</li>
 <li>Dummy variables: Compared to AfD, news coverage with all other parties is less similar</li>
 </ul>
 <p><strong>stern.de</strong></p>
 <ul>
-<li>Treatment effect: After the election, cosine similarity of news coverage drops by 17,7% on average.</li>
+<li>Treatment effect: After the election, cosine similarity of news coverage drops by 16,2% on average.</li>
 <li>Dummies: Compared to AfD, news coverage with all other parties is less similar</li>
 </ul>
 <p><strong>Handelsblatt</strong></p>
 <ul>
-<li>Treatment effect: After the election, cosine similarity of news coverage drops by 15,8% on average.</li>
+<li>Treatment effect: After the election, cosine similarity of news coverage drops by 14,6% on average.</li>
 <li>Dummies: No significant difference</li>
 </ul>
 </div>
@@ -2365,32 +2372,33 @@ T_i = 0 \text{ if date } &lt; \text{election date}
 ## F Statistic                  13.475*** (df = 12; 1369) 5.543*** (df = 12; 1375) 10.236*** (df = 12; 1405) 1.603* (df = 12; 1195) 14.094*** (df = 12; 1429) 7.430*** (df = 12; 1323) 6.235*** (df = 12; 1425)
 ## ============================================================================================================================================================================================================
 ## Note:                                                                                                                                                                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-<div id="interpretation-1" class="section level4">
+<div id="interpretation-2" class="section level4">
 <h4>Interpretation:</h4>
 <p><strong>DIE WELT</strong></p>
 <ul>
-<li>Treatment effect: Topic similarity with AfD decreased by 15,9%</li>
+<li>Treatment effect: Topic similarity with AfD decreased by 14,7%</li>
 </ul>
-<p><strong>stern.de</strong> - Treatment effect: Topic similarity with AfD decreased by 18,6%</p>
+<p><strong>stern.de</strong></p>
+<ul>
+<li>Treatment effect: Topic similarity with AfD decreased by 16,9%</li>
+</ul>
 <p><strong>ZEIT ONLINE</strong></p>
 <p><strong>Handelsblatt</strong></p>
 <p><strong>FOCUS Online</strong></p>
 <ul>
-<li><p>Treatment effect: Topic similarity with AfD decreased by 11,8%</p></li>
-<li><p>Dummy variables: The cosine similarity is on average less for all parties compared to AfD <em>BEFORE</em> the election day. E.g. compared to the AfD, the cosine similarity of topics is 39,9% lower for B90/Grüne, meaning that topic coverage of Bild.de is 39,9% lower for B90/Grüne compared to AfD before the election day.</p></li>
-<li><p>Interaction terms: The effect of the election on topic coverage is 13.8% higher for B90/Grüne than for AfD.</p></li>
+<li><p>Treatment effect: Topic similarity with AfD decreased by 11,1%</p></li>
+<li><p>Dummy variables: The cosine similarity is on average less for all parties compared to AfD <em>BEFORE</em> the election day. E.g. compared to the AfD, the cosine similarity of topics is ~33% lower for B90/Grüne, meaning that topic coverage of Bild.de is 33% lower for B90/Grüne compared to AfD before the election day.</p></li>
+<li><p>Interaction terms</p></li>
 </ul>
 <p><span class="math display">\[
-\text{CosineSimilarity}_{FOCUS}(D_{B90}=1)=\beta_0-0.118*T-0.399+0.138*T \\
-\text{CosineSimilarity}_{FOCUS}(D_{B90}=1)= \beta_0-0.399+T*(-0.118+0.138)
-\]</span> <span class="math display">\[
-\text{CosineSimilarity}_{FOCUS}(D_{B90}=0)=\beta_0-0.118*T
+ln(\text{CosineSimilarity}_{FOCUS}(D_{B90}=1))=\beta_0=\beta_1(-0.118)*T+\beta_2+\beta_3(0.138)*T \\
+ln(\text{CosineSimilarity}_{FOCUS}(D_{B90}=1))= (\beta_0-\beta_2)+(-0.118+0.138)*T
 \]</span></p>
-<p><strong>Bild.de</strong></p>
-<ul>
-<li>Treatment effect: Topic similarity with AfD decreased by 17,3%</li>
-</ul>
-<p><strong>SPIEGEL ONLIINE</strong></p>
+<p><span class="math display">\[
+ln(\text{CosineSimilarity}_{FOCUS}(D_{B90}=0))=\beta_0-0.118*T
+\]</span> When <span class="math inline">\(D_{B90}\)</span> switches from 0 to 1, the coefficient of the treatment effect <span class="math inline">\(T\)</span> increases by 0.138.</p>
+<p>For <span class="math inline">\(D_{B90}=0\)</span> (treatment effect on AfD): <span class="math inline">\(100(exp(-0.118)-1) = -11,1%\)</span> –&gt; The election day had a negative impact on the topic similarity of FOCUS and AfD of ~11%</p>
+<p>For <span class="math inline">\(D_{B90}=1\)</span> (treatment effect on B90/Grüne): <span class="math inline">\(100(exp(-0.118+0.138)-1) = 2%\)</span> –&gt; The election day had a positive impact on the topic similarity of FOCUS and B90/Grüne (compared to AfD) of ~2%</p>
 </div>
 <div id="compare-models" class="section level4">
 <h4>Compare models</h4>

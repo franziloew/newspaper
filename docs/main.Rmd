@@ -606,6 +606,16 @@ stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model,
                      type = "text")
 ```
 
+#### Interpretation:
+
+When $D$ swichtes from from 0 to 1, the % impact of $D$ on $Y$ is: $100(exp(\beta)-1)$
+
+**DIE WELT**
+
+$100(exp(-0.25)-1) = -22\%$
+
+Compared to AfD, the similarity of topics of DIE WELT and B90/G is 22% lower.
+
 ## 4.2. Regression discontinuity model
 
 The idea of regression regression discontinuity design is to use observations with a $W_i$ close to $c$ for the estimation of $\beta_1$. $\beta_1$ is the average treatment effect for observations with $W_i = c$ which is assumed to be a good approximation to the overall treatment effect. In other words, $\beta_1$ gives us the average change of news coverage of media outlet $i$ after the election day. Since interaction terms $T_iDn_{j}$ are included, we can estimate the treatment effect for each party. 
@@ -725,17 +735,17 @@ stargazer::stargazer(welt_model1, stern_model1, zeit_model1, handelsblatt_model1
 
 **DIE WELT**
 
-- Treatment effect: After the election, cosine similarity of news coverage drops by 11,5% on average. 
+- Treatment effect: After the election, cosine similarity of news coverage drops by ~10,8% on average. 
 - Dummy variables: Compared to AfD, news coverage with all other parties is less similar
 
 **stern.de**
 
-- Treatment effect: After the election, cosine similarity of news coverage drops by 17,7% on average. 
+- Treatment effect: After the election, cosine similarity of news coverage drops by 16,2% on average. 
 - Dummies: Compared to AfD, news coverage with all other parties is less similar
 
 **Handelsblatt**
 
-- Treatment effect: After the election, cosine similarity of news coverage drops by 15,8% on average. 
+- Treatment effect: After the election, cosine similarity of news coverage drops by 14,6% on average. 
 - Dummies: No significant difference
 
 
@@ -763,10 +773,11 @@ stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2
 
 **DIE WELT**
 
-- Treatment effect: Topic similarity with AfD decreased by 15,9%
+- Treatment effect: Topic similarity with AfD decreased by 14,7%
 
 **stern.de**
-- Treatment effect: Topic similarity with AfD decreased by 18,6% 
+
+- Treatment effect: Topic similarity with AfD decreased by 16,9% 
 
 **ZEIT ONLINE**
 
@@ -774,25 +785,27 @@ stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2
 
 **FOCUS Online**
 
-- Treatment effect: Topic similarity with AfD decreased by 11,8%
+- Treatment effect: Topic similarity with AfD decreased by 11,1%
 
-- Dummy variables: The cosine similarity is on average less for all parties compared to AfD *BEFORE* the election day. E.g. compared to the AfD, the cosine similarity of topics is 39,9% lower for B90/Grüne, meaning that topic coverage of Bild.de is 39,9% lower for B90/Grüne compared to AfD before the election day.
+- Dummy variables: The cosine similarity is on average less for all parties compared to AfD *BEFORE* the election day. E.g. compared to the AfD, the cosine similarity of topics is ~33% lower for B90/Grüne, meaning that topic coverage of Bild.de is 33% lower for B90/Grüne compared to AfD before the election day.
 
-- Interaction terms: The effect of the election on topic coverage is 13.8% higher for B90/Grüne than for AfD.
+- Interaction terms
 
 $$
-\text{CosineSimilarity}_{FOCUS}(D_{B90}=1)=\beta_0-0.118*T-0.399+0.138*T \\
-\text{CosineSimilarity}_{FOCUS}(D_{B90}=1)= \beta_0-0.399+T*(-0.118+0.138)
-$$
-$$
-\text{CosineSimilarity}_{FOCUS}(D_{B90}=0)=\beta_0-0.118*T
+ln(\text{CosineSimilarity}_{FOCUS}(D_{B90}=1))=\beta_0=\beta_1(-0.118)*T+\beta_2+\beta_3(0.138)*T \\
+ln(\text{CosineSimilarity}_{FOCUS}(D_{B90}=1))= (\beta_0-\beta_2)+(-0.118+0.138)*T
 $$
 
-**Bild.de**
+$$
+ln(\text{CosineSimilarity}_{FOCUS}(D_{B90}=0))=\beta_0-0.118*T
+$$
+When $D_{B90}$ switches from 0 to 1, the coefficient of the treatment effect $T$ increases by 0.138.
 
-- Treatment effect: Topic similarity with AfD decreased by 17,3%
+For $D_{B90}=0$ (treatment effect on AfD): $100(exp(-0.118)-1) = -11,1%$
+--> The election day had a negative impact on the topic similarity of FOCUS and AfD of ~11%
 
-**SPIEGEL ONLIINE**
+For $D_{B90}=1$ (treatment effect on B90/Grüne): $100(exp(-0.118+0.138)-1) = 2%$
+--> The election day had a positive impact on the topic similarity of FOCUS and B90/Grüne (compared to AfD) of ~2%
 
 #### Compare models
 
