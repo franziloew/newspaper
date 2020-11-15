@@ -1,0 +1,111 @@
+---
+title: "Webhoseio"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(webhoser)
+library(RPostgreSQL)
+library(dplyr)
+library(ggplot2)
+
+# Sys.getenv("WEBHOSER_TOKEN") # check if token is set
+pg_password <- Sys.getenv("DB_NEWSPAPER")
+
+# Connect to postgres
+pg = dbDriver("PostgreSQL")
+
+con = dbConnect(pg, user="Franzi", 
+                password=pg_password, 
+                host="news-paper.cildx1grqozu.eu-west-2.rds.amazonaws.com", 
+                port=5432,
+                dbname="postgres")
+```
+
+```{r}
+prepare_cleaned_df <- function(df){
+  df_cleaned <- df %>%
+    dplyr::transmute(
+      date = as.POSIXct(published),
+      site = thread.site,
+      title = title,
+      text = text,
+      url = url,
+      title_text = paste(title, text, sep=" "),
+      text_length = sapply(gregexpr("\\S+", text), length),
+      section_title = thread.section_title,
+      category = sapply(thread.site_categories, function(x) x[1]),
+      thread.replies_count = thread.replies_count,
+      thread.participants_count = thread.participants_count,
+      thread.reach.per_million = thread.reach.per_million,
+      thread.reach.page_views.per_million = thread.reach.page_views.per_million,
+      thread.social.facebook.likes = thread.social.facebook.likes,
+      thread.social.facebook.comments = thread.social.facebook.comments,
+      thread.social.facebook.shares = thread.social.facebook.shares,
+      thread.social.linkedin.shares = thread.social.linkedin.shares
+    )
+  
+  df_cleaned
+}
+```
+
+```{r}
+media_outlets <- c('sueddeutsche.de', 'bild.de', 'focus.de', 'spiegel.de', 'stern.de', 'welt.de', 'handelsblatt.com')
+query <- 'language:german site_type:news has_video:false is_first:true site:'
+```
+
+```{r}
+for (i in 1:length(media_outlets)) {
+  temp_query = paste0(query, media_outlets[i])
+  print(media_outlets[i])
+  
+  news_temp <- wh_news(
+    q = temp_query, ts = (Sys.time() - (30 * 24 * 60 * 60))) %>%
+    wh_paginate() %>%
+    wh_collect()
+  
+  news_temp_cleaned <- prepare_cleaned_df(news_temp)
+  
+  dbWriteTable(con, "webhose_data", 
+             value = news_temp_cleaned, append = TRUE, row.names = FALSE)
+}
+```
+
+## Analyze an clean data
+
+```{r}
+dbListTables(con) 
+```
+
+```{r}
+sites_query <- dbSendQuery(con, 'SELECT date, site FROM webhose_data')
+result <- dbFetch(sites_query)
+
+result %>%
+  group_by(date, site) %>%
+  tally() %>%
+  ggplot(aes(date, n, color = site)) +
+  geom_line() +
+  ggthemes::theme_hc() +
+  labs(title = "# Articles", x=NULL, y=NULL) +
+  theme(legend.title = element_blank())
+```
+
+```{r fig.height=12, fig.width=6}
+news_query <- dbSendQuery(con, 'SELECT site, section_title FROM webhose_data')
+result <- dbFetch(news_query)
+
+result %>%
+  group_by(site, section_title) %>%
+  tally() %>%
+  slice_max(order_by = n, n = 10) %>%
+  ggplot(aes(reorder(section_title, n),n)) +
+  geom_col() +
+  ggthemes::theme_hc() +
+  coord_flip() +
+  facet_wrap(~site, scales = 'free', ncol = 1) +
+  labs(title = "Top 10 categories", x=NULL, y="# articles") 
+```
+
+
+
