@@ -354,7 +354,6 @@ gamma_terms %>%
        subtitle = "With the top words that contribute to each topic")
 ```
 
-To explore the words associated with each topic we use the words with the highest probability in each topic. As we included the source type (press release or news paper) as a control for the topical content (the word distribution of each topic), we have two different labels for each topic.
 
 ```{r include=FALSE}
 sagelabs <- sageLabels(stmModel, 20)
