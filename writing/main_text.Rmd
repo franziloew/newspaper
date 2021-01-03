@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align 
 
 # packages
 library(tidyr)
+library(tidytext)
 library(dplyr)
 library(ggridges)
 library(ggplot2)
@@ -25,6 +26,7 @@ library(ggthemes)
 library(readr)
 library(stringr)
 library(patchwork)
+library(stm)
 
 # data
 load("../output/models/model40_weekly_source.Rda")
@@ -36,7 +38,7 @@ color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#
 
 # Introduction
 
-In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence to support the accusation that media reports are biased, especially during election campaigns. 
+In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence that support the accusation of biased media reporting, especially during election campaigns. 
 
 <!-- Populist messaging follows same logic as media logic & attention economy, that's why it makes sense for media to report more about populist parties -->
 For advertising-financed media the battle for the attention of the recipients is at the center of economic decisions. Online media in particular, which offer their content to a large extent free of charge and generate their revenue through advertising space, compete for the scarce resource of attention. Consumers a non-monetary price providing their attention, which the media platform bundles and sells on to advertising customers. This business model corresponds to that of a platform market, in which media companies act as platforms that connect the market of advertising with the reader market to exploit the indirect network effects between them [@dewenter_einfuhrung_2014]. A profit-maximizing publisher therefore directs its economic decisions according to what will attract the most attention.
@@ -44,10 +46,10 @@ For advertising-financed media the battle for the attention of the recipients is
 This conclusion, derived from the economic theory of platform markets, corresponds to the notion of media logic, a central concept in the field of media and communication studies [@takens_media_2013]. The debate about media logic is embedded in the broader discussion about the interaction between the press, politics and the public. The underlying thesis is that the content of political news is the product of news values and narrative techniques that media use to attract audiences [@stromback_four_2008]. According to @takens_media_2013, three content attributes highly correspond with news values and influence how journalists interpret political events: 1) personalized content, i.e., the focus on individual politicians; 2) the framing of politics as a contest and 3) negative coverage. Similarly @blassnig_hitting_2019 states that media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting like conflict, drama, negativity, surprise or proximity. Likewise populist messages often co-occur with negative, emotionalized, or dramatized communication style, thus utilizing similar mechanisms as the media logic, respectively the attention economy. In fact, @blassnig_hitting_2019 shows that populist key messages by political and media actors in news articles provoke more reader comments under these articles. Media competing for the attention of readers therefore have an incentive to pick up on the key messages of these parties.
 
 <!--  Warum ist die Berichterstattung vor Wahlen besonders/anders? Eventuell: Wahlkampf verändert das Verhalten der Parteien -->
-Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004].
+Political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters, especially during election campaigns [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004].
 
 <!-- Does increased reporting also lead to rising survey results? -->
-But does increased reporting also lead to rising survey results? Especially if this reporting is largely negative. In political science, several studies have examined at least the first aspect of this question (see for example @druckman_impact_2005, @eberl_lying_2018). In general, it is assumed that smaller, non-established parties in particular benefit from placing their topics in the media in order to get them into the voters' heads. Here, the tendency of the reporting is irrelevant but rather the quantity is decisive. 
+But does increased reporting also lead to rising survey results? Especially if this reporting is largely negative, which is the case for reporting on AfD during electing campaign phase <!-- find sources! -->. In political science, several studies have examined at least the first aspect of this question (see for example @druckman_impact_2005, @eberl_lying_2018). In general, it is assumed that smaller, non-established parties in particular benefit from placing their topics in the media in order to get them into the voters' heads. Here, the tendency of the reporting is irrelevant but rather the quantity is decisive. 
 
 However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to investigate whether differences exist in media coverage of different parties before and after the 2017 federal elections in Germany. In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content (audio, video, text). Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
 Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties using a linear regression model.
@@ -94,7 +96,7 @@ p
 ```
 
 ## German online news market
-The analysis performed in this paper is based on the news articles of the following news websites: Bild.de, DIE WELT, FOCUS ONLINE, Handelsblatt.com, SPIEGEL ONLINE, stern.de, ZEIT ONLINE. As can be seen from \autoref{fig:news_market}(a), expect for Handelsbaltt.com (53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
+The analysis performed in this paper is based on the news articles of the following news websites: Bild.de, DIE WELT, FOCUS ONLINE, Handelsblatt.com, SPIEGEL ONLINE, stern.de, ZEIT ONLINE. As can be seen from \autoref{fig:news_market}(a), expect for Handelsbaltt.com (position 53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
 
 The main source of income for these privately managed media houses is digital advertising, even though paid content is playing an increasingly important role. However, according to a survey on digital news by the Reuters Institute [@newman_reuters_2018]  only 8% of respondents pay for online news. The online survey for German data was undertaken between 19th - 22nd January 2018 by the Hans Bredow Institute^[https://www.hans-bredow-institut.de/de/projekte/reuters-institute-digital-news-survey] with a total sample size of 2038 adults (aged 18+) who access news once a month or more. Among other questions, participants were asked which news sources they use to access news online.^[The exact question was: "Which of the following brands have you used to access news online in the last week (via websites, apps, social media, and other forms of Internet access)? Please select all that apply."] The results displayed in \autoref{fig:news_market}(b) indicate that the media used for the analysis play a relevant role in their consumption.
 
@@ -146,6 +148,7 @@ reutersDF1.grouped <- reutersDF1 %>%
 
 
 p2 <- reutersDF1.grouped %>%
+  filter(medium_order < 31) %>% 
   ggplot(aes(reorder(medium_order,count),count,
              fill = insample)) +
   geom_col(alpha=0.8, show.legend = F) +
@@ -162,9 +165,10 @@ p1 + p2
 ```
 
 
+
 # Data
 <!-- TODO: Prepare a summary table -->
-I conduct the estimation on a sample of 16,473 online news articles from seven German news providers^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
+I conduct the estimation on a sample of 16,473 online news articles from the seven German news providers mentioned in the previous section ^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
 
 <!-- News articles -->
 News articles scraped from the Webhose.io API.^[For more information see https://docs.webhose.io/reference#about-webhose. The scraping code was written in Python and can be made available on request.] In order to consider only news about national politics, the articles were filtered based on their URL.
@@ -198,19 +202,6 @@ p1 + p2 + plot_layout(widths = c(2,1))
 
 <!-- Press releases -->
 The press releases were scraped from the public websites of the political parties and parliamentary groups using an automated script written in *Python*.^[The scraping code was written in Python and can be made available on request.]
-
-<!-- table 1 -->
-
-: Online sources for press releases \label{table:press_releases_sources}
-
-                Party           Parliamentary Group            
-------          ----------      ------
-CDU             cdu.de          presseportal.de
-SPD             spd.de          spdfraktion.de
-FDP             fdp.de          fdpbt.de
-B90/Die Grünen  gruene.de       gruene-bundestag.de
-DIE LINKE       die-linke.de    die-linke.de/start/presse/aus-dem-bundestag
-AfD             afd.de          afdbundestag.de
 
 
 ```{r, press releases, fig.cap= "Distribution of press releases \\label{fig:press_distr}", out.width="90%", fig.height=3}
@@ -307,7 +298,7 @@ wordcloud::wordcloud(temp_df$text_cleaned, max.words = 200)
 dev.off()
 ```
 
-![Wordcloud before pre-processing](../figs/wordcloud.png)
+![Wordcloud before pre-processing](../figs/wordcloud.png){ width=40% }
 
 To remove distorting words, the pre-defined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of stop-words. Additionally punctuation character (e.g. ., ,, !, ?, etc.) and all numbers are removed from the data. A next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. I apply the widely used Porter-Stemmer algorithm, which is based on a set of shortening rules that are applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
 
@@ -319,7 +310,15 @@ As an example, the following word clouds represent the most frequent words of th
 :::
 
 <!--- Document-term-matrix -->
-The next step is to divide the entire dataset into individual documents and to represent these documents as a finite list of unique terms. In this setting, each news article and each press release represents a document $d$, whereby each of these documents can be assigned to a news website or a party. The sum of all documents forms what is called the corpus. For each document $d \in \lbrace 1,...,D \rbrace$ the number of occurrences of term $v$ in document $d$ is computed, in order to obtain the count $x_{d,v}$, where each unique term in the corpus is indexed by some $v \in \lbrace 1,...,V \rbrace$ and where $V$ is the number of unique terms. The $D$ x $V$ matrix $\boldsymbol{X}$ of all such counts is called the document-term matrix. Each row in this matrix represents a document, where each entry in this row counts the occurrences of a unique term in that document. This representation is often referred to as the bag of words model [@gentzkow_text_2017], since the order in which words are used within a document is disregarded.
+The next step is to divide the entire data set into individual documents and to represent these documents as a finite list of unique terms. In this setting, each news article and each press release represents a document $d$, whereby each of these documents can be assigned to a news website or a party. The sum of all documents forms what is called the corpus. For each document $d \in \lbrace 1,...,D \rbrace$ the number of occurrences of term $v$ in document $d$ is computed, in order to obtain the count $x_{d,v}$, where each unique term in the corpus is indexed by some $v \in \lbrace 1,...,V \rbrace$ and where $V$ is the number of unique terms. The $D$ x $V$ matrix $\boldsymbol{X}$ of all such counts is called the document-term matrix. Each row in this matrix represents a document, where each entry in this row counts the occurrences of a unique term in that document. \autoref{table:dtm} provides a sample output of the document-term matrix used in this paper, where each document is represented by a unique id (the row name in the example below). This representation is often referred to as the bag of words model [@gentzkow_text_2017], since the order in which words are used within a document is disregarded. 
+
+```{r Document term matrix, results='asis'}
+dtm <- as.data.frame(as.matrix(news_df_sparse))
+dtm[sample(nrow(dtm),10), sample(ncol(dtm),7)] %>% 
+  stargazer(type = 'latex', summary = FALSE, 
+            title = 'Document-term matrix - sample values',
+            label = 'table:dtm')
+```
 
 # Estimate topic similarity of documents
 
@@ -327,21 +326,125 @@ The next step is to divide the entire dataset into individual documents and to r
 
 To discover the latent topics in the corpus of press releases and news articles, a structural topic modeling (STM) developed by [@roberts_model_2016] is applied. In general, topic models formalize the idea that documents are formed by hidden variables (topics) that generate correlations among observed terms. They belong to the group of unsupervised generative models, meaning that the true attributes (topics) cannot be observed. The STM developed by [@roberts_model_2016] is a recent extension of the standard topic modelling technique, labeled as latent Dirichlet allocation (LDA), which refers to the Bayesian model in [@blei_latent_2003] that treats each word in a topic and each topic in a document as generated from a Dirichlet - distributed prior.^[See also @griffiths_probabilistic_2002, @griffiths_finding_2004 and @hofmann_probabilistic_1999]. 
 
-One crucial assumption to be made for such models is the number of topics ($K$) that occur over the entire corpus. The underlying idea for these models suggests that each individual topic $k$ potentially contains all of the unique terms within the vocabulary $V$ with different probability. Therefore, each topic $k$ can be represented as a probability vector $\phi_k$ over all unique terms $V$. Simultaneously, each individual document $d$ in the corpus can be represented as a probability distribution $\theta_d$ over the $K$ topics.
+The underlying idea for these models suggests that each individual topic $k$ potentially contains all of the unique terms within the vocabulary $V$ with different probability. Therefore, each topic $k$ can be represented as a probability vector $\phi_k$ over all unique terms $V$. Simultaneously, each individual document $d$ in the corpus can be represented as a probability distribution $\theta_d$ over the $K$ topics. 
 
-The difference between the widely used LDA and the STM approaches lies in how the posterior distributions ($\theta$ and $\phi$) are determined. LDA assumes that $\theta ~ \text{Dirichlet}(\alpha)$ and $\phi ~ \text{Dirichlet}(\beta)$, where $\alpha$ and $\beta$ are fitted with the model. While for STM, the prior distributions for $\theta$ and $\phi$ depend on document-level covariates (e.g. the author or date of a document). For this purpose, the the STM specifies two design matrices of covariates ($X$ and $Z$), where each line defines a vector of covariates for a specific document. In $X$, the covariates for topic prevalence are given, so that the probability of a topic for each document varies according to $X$, rather than resulting from a single common prior. The same applies to $Z$, in which the covariates for the word distribution within a topic are specified. The underlying data generating process to generate each individual word $w_{d,n}$ in a document $d$ for the $n^{th}$ word-position can be described as follows:
+The STM is an extension of the LDA process since it allows covariates of interest (such as the publication date of a document or it's author) to be included in the prior distributions for both topic proportions ($\theta$) and topic-word distributions ($\phi$). This way, STM offers a method of 'structuring' the prior distributions in the topic model, including additional information in the statistical inference procedure, while LDA assumes that $\theta ~ \text{Dirichlet}(\alpha)$ and $\phi ~ \text{Dirichlet}(\beta)$, where $\alpha$ and $\beta$ are fitted with the model. 
+
+In order to include the covariates in the statistical inference procedure, two design matrices of covariates ($X$ and $Z$) are specified, where each row defines a vector of covariates for a specific document. In $X$, the covariates for topic prevalence are given, so that the probability of a topic for each document varies according to $X$, rather than resulting from a single common prior. The same applies to $Z$, in which the covariates for the word distribution within a topic are specified. The underlying data generating process to generate each individual word $w_{d,n}$ in a document $d$ for the $n^{th}$ word-position can be described as follows:
 
 - for each document $i$, draw its distribution of topics $\theta_d$ depending on the metadata included in the model defined in $X$; 
 - for each topic $k$, draw its distribution of words $\phi_k$ depending on the metadata included in the model defined in $Z$;
 - for each word $n$, draw its topic $z_n$ based on $\theta_i$;
 - for each word word $n$, draw the term distribution for the selected topic $\phi_{z_{d,n}}$.
 
-<!-- number of topics -->
-STM assumes a fixed user-specified number of topics. There is not a "right" answer to the number of topics that are appropriate for a given corpus [@grimmer_text_2013]. [@roberts_stm:_2016] propose to measure topic quality through a combination of semantic coherence and exclusivity of words to topics. Semantic coherence is a criterion developed by [@mimno_optimizing_2011] and is closely related to pointwise mutual information [@newman_automatic_2010]: it is maximized when the most probable words in a given topic frequently co-occur together.
+<!-- model specification -->
+One crucial assumption to be made for topic models like LDA or STM is the number of topics ($K$) that occur over the entire corpus. There is not a "right" answer to the number of topics that are appropriate for a given corpus [@grimmer_text_2013]. [@roberts_stm:_2016] propose to measure topic quality through a combination of semantic coherence and exclusivity of words to topics. Semantic coherence is a criterion developed by [@mimno_optimizing_2011] and is closely related to pointwise mutual information [@newman_automatic_2010]: it is maximized when the most probable words in a given topic frequently co-occur together.
 
-Using the function $searchK$ from the $stm$ package several automated tests are  performed to help choose the number of topics including the average exclusivity and semantic coherence as well as the held out likelihood [@wallach_rethinking_2009] and the residuals [@taddy_estimation_2012].
+Using the function $searchK$ from the $stm$ package several automated tests are performed to help choose the number of topics including the average exclusivity and semantic coherence as well as the held out likelihood [@wallach_rethinking_2009] and the residuals [@taddy_estimation_2012]. This process revealed that a model with 40 topics best reflects the structure in the corpus. Furthermore, I use the author and bi-week dummies of a document as topical prevalence variable. In other words, I assume that the probability of a topic to be included in a news article or a press release depends on the author of that document and when it was published. I argue that these variables are best suited to capture temporal and publisher level variation in the documents.
+
+In general inference of mixed-membership models, such as the one applied in this paper, has been a thread of research in applied statistics [@blei_latent_2003, @erosheva_mixed-membership_2004, @braun_variational_2010]. Topic models are usually imprecise as the function to be optimized has multiple modes, such that the model results can be sensitive to the starting values (e.g. the number of topics and the covariates influencing the prior distributions). Since an ex ante valuation of a model is hardly possible, I compute a variety of different models and compare their posterior probability. This enables me to check how results vary for different model solution [@roberts_navigating_2016]. I then cross-checked some subset of assigned topic distributions to evaluate whether the estimates align with the concept of interest [@gentzkow_text_2017]. These manual audits are applied together with numeric optimization based on the topic coherence measure suggested by [@mimno_optimizing_2011]. 
+
+```{r STM specification}
+stmModel$settings$call
+```
 
 <!--Show results of the stm -->
+
+## Results of the STM
+
+As stated above, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$. The average of each topic across all documents results in the expected probability of a topic across the whole corpus. \autoref{fig:topic_distribution} displays the top 20 topics ordered by their average probability over the whole corpus. Since every topic is a probability distribution over words, top words may help to understand what each topic is about and are used as labels in \autoref{fig:topic_distribution}.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words not not necessarily the most exclusive words and they only represent represent a small fraction of the probability distribution, interpretation should be done very cautiously.
+
+- 1: Topic 35 is the most common topic across the corpus
+- 4: topic 38 about refugees
+- 5: topic 39 about the jamaica coalition
+- 6: followed by topic 8 about the "GroKo"
+
+```{r Topic distribution, fig.height=4, out.width="60%", fig.cap="Top 20 topics by prevalence \\label{fig:topic_distribution}"}
+td_beta <- tidy(stmModel)
+td_gamma <- tidy(stmModel, matrix = "gamma",
+                 document_names = rownames(model_df))
+
+top_terms <- td_beta %>%
+  arrange(beta) %>%
+  group_by(topic) %>%
+  top_n(7, beta) %>%
+  arrange(-beta) %>%
+  select(topic, term) %>%
+  summarise(terms = list(term)) %>%
+  mutate(terms = purrr::map(terms, paste, collapse = ", ")) %>% 
+  unnest()
+
+gamma_terms <- td_gamma %>%
+  group_by(topic) %>%
+  summarise(gamma = mean(gamma)) %>%
+  arrange(desc(gamma)) %>%
+  left_join(top_terms, by = "topic") %>%
+  mutate(topic_str = paste0("Topic ", topic),
+         topic_str = reorder(topic_str, gamma),
+         topic_label = paste0(topic_str,": ", terms))
+
+gamma_terms %>%
+  top_n(20, gamma) %>%
+  ggplot(aes(topic_str, gamma, label = terms)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(hjust = 0, nudge_y = 0.0005, size = 3) +
+  coord_flip() +
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0, 0.2)) +
+  theme_tufte(ticks = FALSE) +
+  labs(x = NULL, y = "Average topic proportion") 
+```
+
+Each document has a probability distribution over all topics, e.g.
+
+```{r Plotting sample documents}
+theta <- as.data.frame(stmModel$theta) %>% # get all theta values for each document
+  mutate(doc_index = as.numeric(rownames(.))) %>%
+  # convert to long format
+  gather(topic, theta, -doc_index) %>%
+  mutate(topic = as.numeric(gsub("V","",topic))) %>%
+  left_join(., gamma_terms, by="topic") %>%
+  left_join(., model_df %>% 
+              select(date,type,source,doc_index,title), by="doc_index") %>% 
+  select(doc_index, topic, theta, topic_label, date, type, source, title)
+
+plot_sample_document <- function(doc_id){
+  title <- theta %>% filter(doc_index == doc_id) %>% select(title, source)
+  theta %>% 
+    filter(doc_index == doc_id) %>% 
+    ggplot(aes(reorder(topic,topic), theta)) +
+    geom_col() +
+    #coord_flip() +
+    ylim(c(0,1)) +
+    labs(x = NULL, y = "Topic proportion",
+         caption = paste0(title$title," (",title$source,")")) +
+    theme(axis.title.y = element_text(angle = 90))
+  }
+```
+
+```{r News articles sample documents, fig.cap="Topic probability of sample news articles \\label{fig:sample_docs12}", fig.height=3, out.width="80%"}
+# Bundeswehr / v.d.Leyen
+sample1 <- 6397
+p1 <- plot_sample_document(sample1)
+
+# Wahlen (ZEIT ONLINE)
+sample2 <- 5833
+p2 <- plot_sample_document(sample2)
+
+p1 / p2
+```
+
+```{r Press releases sample documents, fig.cap="Topic probability of sample press releases \\label{fig:sample_docs34}", fig.height=3, out.width="80%"}
+# Linke Gefahr (AfD)
+sample3 <- 17511
+p1 <- plot_sample_document(sample3)
+
+# Trump (B90/Gruene)
+sample4 <- 17600
+p2 <- plot_sample_document(sample4)
+
+p1 / p2
+```
 
 ## Document Cosine similarity 
 
@@ -399,7 +502,20 @@ The interaction term $T_i*Dn$ means that the slope can vary on either side of th
 
 # Annex
 
-```{r, summary table, results='asis'}
+<!-- table 1 -->
+
+: Online sources for press releases \label{table:press_releases_sources}
+
+                Party           Parliamentary Group            
+------          ----------      ------
+CDU             cdu.de          presseportal.de
+SPD             spd.de          spdfraktion.de
+FDP             fdp.de          fdpbt.de
+B90/Die Grünen  gruene.de       gruene-bundestag.de
+DIE LINKE       die-linke.de    die-linke.de/start/presse/aus-dem-bundestag
+AfD             afd.de          afdbundestag.de
+
+```{r Text length summary , results='asis'}
 model_df %>%
   group_by(source) %>% 
   summarize(
@@ -411,6 +527,16 @@ model_df %>%
     max = max(text_length)
   ) %>% stargazer(type = 'latex', header = FALSE, rownames = FALSE, label = "table:text_length",
                   title = "Summary statistics of text length", summary = FALSE)
+```
+
+```{r Top terms table, results='asis'}
+gamma_terms %>% 
+  arrange(topic) %>% 
+  transmute(`Top Terms` = terms) %>% 
+  stargazer(type = 'latex', summary = FALSE,
+            #header = FALSE, rownames = FALSE, 
+            label = "table:top_terms",
+            title = "7 most probable terms per topic")
 ```
 
 # References
