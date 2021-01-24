@@ -12,6 +12,7 @@ linkcolor: blue
 ---
 
 ```{r, setup, include=FALSE}
+rm(list = ls())
 # chunk option defaults
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = 'center')
 
@@ -29,7 +30,16 @@ library(patchwork)
 library(stm)
 
 # data
+election_date <- as.Date('2017-09-24')
 load("../output/models/model40_weekly_source.Rda")
+model_df <- model_df %>%
+  dplyr::mutate(
+    doc_index = as.numeric(rownames(.)),
+    election_dummy = as.factor(ifelse(date <= election_date, "pre election", "post election")),
+    year_week = lubridate::floor_date(date, "1 week")
+  )
+# functions
+source("../docs/func/functions.R")
 
 # ggplot themes
 theme_set(theme_hc(base_size = 8))
@@ -164,8 +174,6 @@ p2 <- reutersDF1.grouped %>%
 p1 + p2
 ```
 
-
-
 # Data
 <!-- TODO: Prepare a summary table -->
 I conduct the estimation on a sample of 16,473 online news articles from the seven German news providers mentioned in the previous section ^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
@@ -203,7 +211,6 @@ p1 + p2 + plot_layout(widths = c(2,1))
 <!-- Press releases -->
 The press releases were scraped from the public websites of the political parties and parliamentary groups using an automated script written in *Python*.^[The scraping code was written in Python and can be made available on request.]
 
-
 ```{r, press releases, fig.cap= "Distribution of press releases \\label{fig:press_distr}", out.width="90%", fig.height=3}
 press_df <- model_df %>% filter(type == 'press')
 
@@ -236,7 +243,6 @@ Looking at the boxplots of text length (\autoref{fig:text_length}), it becomes e
 - press releases of CDU have the highest median (256), but also the highest standard dev. (106). press releases of FDP have the lowest median (144). 
 
 ```{r, text_length, fig.height=3, out.width="100%", fig.cap="Text length \\label{fig:text_length}"}
-
 # news articles
 maxval1 <- 4000
 dd <- news_df %>% filter(text_length > maxval1) %>% 
@@ -351,15 +357,7 @@ stmModel$settings$call
 <!--Show results of the stm -->
 
 ## Results of the STM
-
-As stated above, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$. The average of each topic across all documents results in the expected probability of a topic across the whole corpus. \autoref{fig:topic_distribution} displays the top 20 topics ordered by their average probability over the whole corpus. Since every topic is a probability distribution over words, top words may help to understand what each topic is about and are used as labels in \autoref{fig:topic_distribution}.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words not not necessarily the most exclusive words and they only represent represent a small fraction of the probability distribution, interpretation should be done very cautiously.
-
-- 1: Topic 35 is the most common topic across the corpus
-- 4: topic 38 about refugees
-- 5: topic 39 about the jamaica coalition
-- 6: followed by topic 8 about the "GroKo"
-
-```{r Topic distribution, fig.height=4, out.width="60%", fig.cap="Top 20 topics by prevalence \\label{fig:topic_distribution}"}
+```{r Prepare dataframes}
 td_beta <- tidy(stmModel)
 td_gamma <- tidy(stmModel, matrix = "gamma",
                  document_names = rownames(model_df))
@@ -383,6 +381,28 @@ gamma_terms <- td_gamma %>%
          topic_str = reorder(topic_str, gamma),
          topic_label = paste0(topic_str,": ", terms))
 
+theta <- as.data.frame(stmModel$theta) %>% 
+  mutate(doc_index = as.numeric(rownames(.))) %>%
+  # convert to long format
+  gather(topic, theta, -doc_index) %>%
+  mutate(topic = as.numeric(gsub("V","",topic))) %>%
+  left_join(., gamma_terms, by="topic") %>%
+  left_join(., model_df %>% 
+              select(date,type,source,doc_index,title, election_dummy, year_week), 
+            by="doc_index") %>% 
+  select(doc_index, topic, theta, topic_label, date, type, 
+         source, title, election_dummy, year_week)
+```
+
+
+As stated above, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$. The average of each topic across all documents results in the expected probability of a topic across the whole corpus. \autoref{fig:topic_distribution} displays the top 20 topics ordered by their average probability over the whole corpus. Since every topic is a probability distribution over words, top words may help to understand what each topic is about and are used as labels in \autoref{fig:topic_distribution}.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words not not necessarily the most exclusive words and they only represent represent a small fraction of the probability distribution, interpretation should be done very cautiously.
+
+- 1: Topic 35 is the most common topic across the corpus
+- 4: topic 38 about refugees
+- 5: topic 39 about the jamaica coalition
+- 6: followed by topic 8 about the "GroKo"
+
+```{r Topic distribution, fig.height=4, out.width="60%", fig.cap="Top 20 topics by prevalence \\label{fig:topic_distribution}"}
 gamma_terms %>%
   top_n(20, gamma) %>%
   ggplot(aes(topic_str, gamma, label = terms)) +
@@ -395,41 +415,20 @@ gamma_terms %>%
   labs(x = NULL, y = "Average topic proportion") 
 ```
 
-Each document has a probability distribution over all topics, e.g.
+Each document has a probability distribution over all topics. \autoref{fig:sample_docs12} illustrates the topic distribution of two news paper articles and \autoref{fig:sample_docs34} does the same for two press releases randomly chosen from the corpus.^[Translations news articles: (1) Bundeswehr scandal: ex-commander attacks Von Der Leyen. (2) Bundestag elections: 42 parties want to be elected to parliament.]^[Translations press releases: (1) Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left. (2) Trump chooses the path to isolation.] \autoref{fig:mean_theta} shows the distribution of mean topic probability of all topics for news articles and press releases before and after the election date.
 
-```{r Plotting sample documents}
-theta <- as.data.frame(stmModel$theta) %>% # get all theta values for each document
-  mutate(doc_index = as.numeric(rownames(.))) %>%
-  # convert to long format
-  gather(topic, theta, -doc_index) %>%
-  mutate(topic = as.numeric(gsub("V","",topic))) %>%
-  left_join(., gamma_terms, by="topic") %>%
-  left_join(., model_df %>% 
-              select(date,type,source,doc_index,title), by="doc_index") %>% 
-  select(doc_index, topic, theta, topic_label, date, type, source, title)
-
-plot_sample_document <- function(doc_id){
-  title <- theta %>% filter(doc_index == doc_id) %>% select(title, source)
-  theta %>% 
-    filter(doc_index == doc_id) %>% 
-    ggplot(aes(reorder(topic,topic), theta)) +
-    geom_col() +
-    #coord_flip() +
-    ylim(c(0,1)) +
-    labs(x = NULL, y = "Topic proportion",
-         caption = paste0(title$title," (",title$source,")")) +
-    theme(axis.title.y = element_text(angle = 90))
-  }
-```
+Observations:
+- High peak both before and after election for topic 35 & 20 
+- no big difference between pre and post election for press releases, but for news articles
 
 ```{r News articles sample documents, fig.cap="Topic probability of sample news articles \\label{fig:sample_docs12}", fig.height=3, out.width="80%"}
 # Bundeswehr / v.d.Leyen
 sample1 <- 6397
-p1 <- plot_sample_document(sample1)
+p1 <- plot_topic_distr_document(sample1)
 
 # Wahlen (ZEIT ONLINE)
 sample2 <- 5833
-p2 <- plot_sample_document(sample2)
+p2 <- plot_topic_distr_document(sample2)
 
 p1 / p2
 ```
@@ -437,23 +436,89 @@ p1 / p2
 ```{r Press releases sample documents, fig.cap="Topic probability of sample press releases \\label{fig:sample_docs34}", fig.height=3, out.width="80%"}
 # Linke Gefahr (AfD)
 sample3 <- 17511
-p1 <- plot_sample_document(sample3)
+p1 <- plot_topic_distr_document(sample3)
 
 # Trump (B90/Gruene)
 sample4 <- 17600
-p2 <- plot_sample_document(sample4)
+p2 <- plot_topic_distr_document(sample4)
 
 p1 / p2
 ```
 
+```{r Mean topic prevalence, fig.cap="Mean topic prevalence \\label{fig:mean_theta}", fig.height=3, out.width="80%"}
+theta %>% 
+  group_by(type, topic, topic_label, election_dummy) %>% 
+  summarise(theta_mean = mean(theta, na.rm = T)) %>% 
+  ungroup() %>% 
+  ggplot(aes(reorder(topic, topic), theta_mean, fill = election_dummy)) + 
+  geom_col(position = 'dodge') +
+  facet_grid(rows = vars(type)) +
+  labs(x = NULL, y = "Mean probability") +
+  theme(axis.title.y = element_text(angle = 90),
+        legend.title = element_blank())
+  
+```
+
+
 ## Document Cosine similarity 
 
-Cosine similarity is built on the geometric definition of the dot product of two vectors. It is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. 
+```{r Create matrix of topic distribution }
+td_gamma <- tidy(stmModel,
+  matrix = "gamma",
+  document_names = rownames(news_df_sparse)
+) %>%
+  mutate(doc_index = as.integer(document)) %>%
+  select(-document)
+
+# convert to "wide" data frame
+td_gamma_wide <- td_gamma %>%
+  spread(doc_index, gamma) # one row per topic, one column per document
+
+# convert to matrix
+gamma <- as.matrix(td_gamma_wide[, -1])
+```
+
+
+Next, the cosine similarity measure is used in order to compare the retrieved topic distribution of every document. Cosine similarity is built on the geometric definition of the dot product of two vectors. It is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. 
 
 $$
 \text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
 $$
 As topic proportions per document are vectors of the same length, the cosine similarity allows a comparison of the topic distribution between two documents.^[For applications of cosine similarity to compare of topic model outcomes see e.g. @rehs_structural_2020 and @ramage_characterizing_2010]
+
+For example, \autoref{table:cosine_sim_sample_doc} displays the most similar documents of the document with the title *Glyphosat-Streit vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)*. 
+
+```{r Documents with highest similarity, results='asis'}
+sample_doc <- 1202
+
+calc_cos_sim(sample_doc) %>%
+  mutate(doc_index = doc_code2) %>%
+  left_join(.,
+    model_df %>%
+      select(title, source, doc_index, type),
+    by = "doc_index"
+  ) %>%
+  filter(type == "press") %>%
+  arrange(desc(cos_sim)) %>%
+  top_n(5, cos_sim) %>%
+  select(title, source, cos_sim) %>% 
+  stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
+            label = "table:cosine_sim_sample_doc",
+            title = "Most similar documents", summary = FALSE)
+```
+
+In the next step, the cosine similarity between all topic-document distribution pairs is calculated. This means the topic distribution of document 1 is compared to document 2, document 3 and so on. Duplicated observations are dropped (e.g., cosine similarity between 2 and 3 is the same as between 3 and 2). Since we know for every observation of the cosine similarity we know the publication date and the author of the document, this information can be deployed in creating variables that can be attached to these similarity pairs (see Table 1 for an illustration of our dataset).
+
+```{r}
+target_source <- "DIE WELT"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+df <- df_prep_ols(welt)
+
+head(df)
+```
+
+
+We create a dummy diff_part that describes whether the two underlying dissertations for every similarity score are from different parts of Germany. The dummy variable post95 indicates whether a dissertation was written after 1995.
 
 # Linear regression model
 
