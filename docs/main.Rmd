@@ -37,6 +37,8 @@ library(stm)
 
 rm(list = ls())
 
+source("func/functions.R")
+
 color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#123f5a')
 ```
 
@@ -90,11 +92,6 @@ model_df <- news_df %>%
 
 ## 1.1 Motivation
 
-In recent decades, voices that criticize the role of the media in politics in general and especially in election campaigns have become louder. This criticism is fueled above all by the good performance of right-wing populist parties throughout Europe. The underlying argument is that mass media lends legitimacy to the populist right by giving attention to these parties and their issues (supply-side explanation for the success of right-wing populist parties).
-
-In Germany, the debate has culminated after the 2017 federal elections, with the AfD being elected to the Bundestag for the first time.
-
-Apart from the lack of evidence of a causal relationship between the frequency of reporting and AfD survey results, the following questions arise:
 
 **Did media report biased during the election campaign? Have AfD campaigns been increasingly present in the media coverage?**
 
@@ -124,26 +121,19 @@ Apart from the lack of evidence of a causal relationship between the frequency o
 
 ## 1.2 Empirical strategy
 
-I develop and apply a machine learning approach based on structural topic modeling in combination with cosine similarity and a regression discontinuity framework in order to identify similarities between topics addressed in press releases and online news articles of different media sources before and after the Bundestag elections that took place the 24th of Sep 2017.
-
-### 1.2.1 Estimate topic similarity
-
 1. Estimate a **structural topic model** to obtain a topic distribution for each document (press release or news article)
 
-2. Estimate the **cosine similarity** of topic distribution between a document and all documents released +/-7 days.
+2. Estimate the **cosine similarity** of topic distribution between a document and all documents released +/-4 days.
 
-### 1.2.2 Regression model
-
-Use topic similarity as the external variable in a regression model
-
-3. Estimate an **OLS model** for each media outlet $i$
+3. Use topic similarity as the external variable in a regression model: 
+  3a) Estimate an **OLS model** for each media outlet $i$
 
 $$
 \text{CosineSimilarity}_{i}=\beta_0+\beta_nDn_{j}+\epsilon_i
 $$ 
 where the $D2_{j}, D3_{j}, ... ,Dn_{j}$ represent dummy variables for a political party $j$
 
-4. Estimate a **regression discontinuity model** for each media outlet $i$
+  3b)Estimate a **regression discontinuity model** for each media outlet $i$
 
 $$
 \text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_nDn_{j}+\beta_{n+n}T_iDn_{j}+\epsilon_i
@@ -165,108 +155,7 @@ $$
 
 The results indicate that - prior to the election - all newspapers (except for Handelsblatt) selected topics more similar to the AfD compared to the other parties. The election significantly changed the topic selection especially for Bild.de as the topic similarity increased significantly for nearly all parties (compared to AfD).
 
-# 2. Data
-```{r include=FALSE}
-library(tidyverse)
-library(dplyr)
-library(patchwork)
-
-rm(list = ls())
-load("../output/models/model40_weekly_source.Rda")
-
-color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#123f5a')
-```
-
-- Time period: June 2017 - March 2018
-- 15.135 online news articles (Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Tagesschau.de)
-- 2.666 press releases (german parties in the Bundestag) 
-
-```{r Inspect data, fig.align="center"}
-model_df %>%
-  group_by(type, source) %>%
-  tally() %>%
-  ggplot(aes(reorder(source, n),n, fill = type)) +
-  geom_col(show.legend = F) +
-  ggthemes::theme_hc() +
-  ggthemes::scale_fill_ptol() +
-  coord_flip() +
-  labs(y="# documents", x=NULL, title = "Number of documents", subtitle = "June 2017 - March 2018") +
-  facet_wrap(~type, scales = "free")
-```
-
-# 2.1. News articles
-```{r fig.align="center", fig.width=6}
-news_df <- model_df %>% filter(type == 'news')
-
-p1 <- news_df %>%
-  mutate(date = lubridate::floor_date(date, "1 week")) %>%
-  group_by(date, source) %>%
-  tally() %>%
-  ggplot(aes(date, n, color = source)) +
-  geom_line(show.legend = F) +
-  ggthemes::theme_hc() +
-  labs(title = NULL, x=NULL, y=NULL) +
-  theme(legend.title = element_blank())
-# Save file
-ggsave(p1, filename = '../figs/news_time.png', 
-       device = "png",
-       width = 7, height = 4, dpi = 300)
-
-p2 <- news_df %>%
-  group_by(source) %>%
-  tally() %>%
-  ggplot(aes(n,reorder(source, n), fill = source)) +
-  geom_col(show.legend = F, alpha=0.8) +
-  scale_y_discrete(position = 'right') +
-  ggthemes::theme_hc() +
-  labs(title = NULL, x=NULL, y=NULL)
-# Save file
-ggsave(p2, filename = '../figs/news_distr.png', 
-       device = "png",
-       width = 4, height = 4, dpi = 300)
-
-p1 + p2 + plot_layout(widths = c(4,1))
-```
-
-# 2.1. Press releases
-```{r fig.align="center", fig.width=6}
-press_df <- model_df %>% filter(type == 'press')
-
-p1 <- press_df %>%
-  mutate(date = lubridate::floor_date(date, "1 week")) %>%
-  group_by(date, source) %>%
-  tally() %>%
-  ggplot(aes(date, n, color = source)) +
-  geom_line(show.legend = F) +
-  ggthemes::theme_hc() +
-  labs(title = NULL, x=NULL, y=NULL) +
-  theme(legend.title = element_blank())
-# Save file
-ggsave(p1, filename = '../figs/press_time.png', 
-       device = "png",
-       width = 7, height = 4, dpi = 300)
-
-p2 <- press_df %>%
-  group_by(source) %>%
-  tally() %>%
-  ggplot(aes(n,reorder(source, n), fill = source)) +
-  geom_col(show.legend = F, alpha=0.8) +
-  scale_y_discrete(position = 'right') +
-  ggthemes::theme_hc() +
-  labs(title = NULL, x=NULL, y=NULL)
-# Save file
-ggsave(p2, filename = '../figs/press_distr.png', 
-       device = "png",
-       width = 4, height = 4, dpi = 300)
-
-p1 + p2 + plot_layout(widths = c(4,1))
-```
-
-
-# 3. Structural topic model
-
-To discover the latent topics in the corpus of press releases and news articles, a structural topic modeling (STM) developed by [Roberts (2016)](https://scholar.princeton.edu/sites/default/files/bstewart/files/a_model_of_text_for_experimentation_in_the_social_sciences.pdf) is applied. The STM is an unsupervised machine learning approach that models topics as multinomial distributions of words and documents as multinomial distributions of topics, allowing to incorporate external variables that effect both, topical content and topical prevalence.
-
+# 3. Calculate STM
 ```{r Prepare data, eval=FALSE, include=FALSE}
 tidy_news_df <- model_df %>%
   select(source, year_week, text_cleaned, doc_index) %>%
@@ -296,118 +185,7 @@ stmModel <- stm(
 save(stmModel, covariates, model_df, tidy_news_df, news_df_sparse, file = "model40_weekly_source.Rda")
 ```
 
-## 3.1 Results of the STM
-
-```{r message=FALSE, warning=FALSE, include=FALSE}
-library(dplyr)
-library(ggplot2)
-library(stm)
-library(tidyr)
-library(tidytext)
-library(scales)
-library(purrr)
-
-rm(list = ls())
-
-load("../output/models/model40_weekly_source.Rda")
-
-td_beta <- tidy(stmModel)
-td_gamma <- tidy(stmModel, matrix = "gamma",
-                 document_names = rownames(model_df))
-```
-
-```{r echo=FALSE, fig.height=8, fig.width=10, fig.align="center", message=FALSE, warning=FALSE}
-library(ggthemes)
-
-top_terms <- td_beta %>%
-  arrange(beta) %>%
-  group_by(topic) %>%
-  top_n(7, beta) %>%
-  arrange(-beta) %>%
-  select(topic, term) %>%
-  summarise(terms = list(term)) %>%
-  mutate(terms = map(terms, paste, collapse = ", ")) %>% 
-  unnest()
-
-gamma_terms <- td_gamma %>%
-  group_by(topic) %>%
-  summarise(gamma = mean(gamma)) %>%
-  arrange(desc(gamma)) %>%
-  left_join(top_terms, by = "topic") %>%
-  mutate(topic = paste0("Topic ", topic),
-         topic = reorder(topic, gamma))
-
-gamma_terms %>%
-  top_n(40, gamma) %>%
-  ggplot(aes(topic, gamma, label = terms)) +
-  geom_col(show.legend = FALSE, fill="#235d72") +
-  geom_text(hjust = 0, nudge_y = 0.0005, size = 3) +
-  coord_flip() +
-  scale_y_continuous(expand = c(0,0),
-                     limits = c(0, 0.09),
-                     labels = percent_format()) +
-  theme_tufte(ticks = FALSE) +
-  theme(plot.title = element_text(size = 16),
-        plot.subtitle = element_text(size = 13)) +
-  labs(x = NULL, y = expression(gamma),
-       title = "Top 20 topics by prevalence",
-       subtitle = "With the top words that contribute to each topic")
-```
-
-
-```{r include=FALSE}
-sagelabs <- sageLabels(stmModel, 20)
-
-topics.df <- as.data.frame(sagelabs$cov.betas[[1]]$problabels) %>%  
-  transmute(topic = as.numeric(rownames(.)),
-            topic_label = paste(topic,"-",V1,V2,V3,V4,V5))
-
-theta <- as.data.frame(stmModel$theta) %>% # get all theta values for each document
-  
-  mutate(doc_index = as.numeric(rownames(.))) %>%
-  # convert to long format
-  gather(topic, theta, -doc_index) %>%
-  mutate(topic = as.numeric(gsub("V","",topic))) %>%
-  
-  # join with topic df
-  left_join(., topics.df, by="topic") %>%
-  
-  # join with model_df
-  left_join(., model_df %>% 
-              select(date,type,source,doc_index,title_text), by="doc_index")
-```
-
-Each document has a probability distribution over all topics, e.g.
-
-```{r}
-# select a random document
-#sample_doc <- sample(unique(theta$doc_index),1)
-sample_doc <- 1202
-
-sample <- theta %>% filter(doc_index == sample_doc) 
-title <- model_df %>% filter(doc_index == sample_doc) %>% select(title, source)
-title
-```
-
-```{r fig.height=6, width=6, fig.align="center"}
-sample %>%
-  ggplot(aes(reorder(topic_label,desc(topic)), theta)) +
-  geom_col(fill='#235d72') +
-  coord_flip() +
-  ylim(c(0,1)) +
-  theme_tufte(ticks = FALSE) +
-  labs(x = NULL, y = "Topic proportion", title = paste0(title$title," (",title$source,")"))
-```
-
-# 3. Cosine similarity
-
-Cosine similarity is built on the geometric definition of the dot product of two vectors. It is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. 
-
-$$
-\text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
-$$
-
-As topic proportions per news article / press release are vectors of the same length, the cosine similarity allows a comparison of the topic distribution between two documents. Applications of cosine similarity to compare of topic model outcomes: [Ramage et al. 2010](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.224.8995&rep=rep1&type=pdf), [Rehs 2020](https://link.springer.com/article/10.1007/s11192-020-03640-0#Sec8)
+# 3. Calculate cosine similarity
 
 ```{r Load and prepare data, include=FALSE}
 library(dplyr)
@@ -425,8 +203,6 @@ model_df <- model_df %>%
     election_dummy = as.factor(ifelse(date <= as.Date("24Sep2017", "%d%b%Y"), "pre", "post")),
     year_week = lubridate::floor_date(date, "1 week")
   )
-
-cosine_sim <- function(a, b) crossprod(a, b) / sqrt(crossprod(a) * crossprod(b))
 ```
 
 ```{r Create matrix of topic distribution, include=FALSE}
@@ -444,59 +220,6 @@ td_gamma_wide <- td_gamma %>%
 # convert to matrix
 gamma <- as.matrix(td_gamma_wide[, -1])
 ```
-
-```{r Calculate cosine simularity}
-calc_cos_sim <- function(doc_code,
-                         gamma_mat = gamma) {
-  # find the doc
-  doc_col_index <- which(colnames(gamma_mat) == as.character(doc_code))
-  # get the week of the doc
-  date_target <- filter(model_df, doc_index == doc_code)$date
-  # get all doc_codes +/- 4 days
-  date_seq <- seq(from=date_target-4,by="day",length.out = 9)
-  doc_code_pairs <- filter(model_df, year_week %in% date_seq)$doc_index
-  # calculate cosine similarity for each document based on gamma
-  # apply(..., 2) iterates over the columns of a matrix
-  cos_sims <- apply(gamma_mat[, doc_code_pairs], 2,
-    FUN = function(y) cosine_sim(gamma_mat[, doc_col_index], y)
-  )
-
-  # return results as data frame
-  data_frame(
-    doc_code1 = doc_code,
-    doc_code2 = as.numeric(names(cos_sims)),
-    cos_sim = cos_sims
-  ) %>%
-    filter(doc_code2 != doc_code) # remove self reference
-}
-```
-
-Calculate the cosine similarity for our sample document and all other documents and display the top 5 documents (the 5 documents most similar).
-
-```{r}
-#sample_doc <- sample(model_df$doc_index,1)
-sample_doc <- 1202
-title <- model_df %>% filter(doc_index == sample_doc) %>% select(title, source)
-title
-```
-
-```{r message=FALSE, warning=FALSE}
-#sample_doc <- 1202
-
-calc_cos_sim(sample_doc) %>%
-  mutate(doc_index = doc_code2) %>%
-  left_join(.,
-    model_df %>%
-      select(title, source, doc_index, type),
-    by = "doc_index"
-  ) %>%
-  filter(type == "press") %>%
-  arrange(desc(cos_sim)) %>%
-  top_n(5, cos_sim) %>%
-  select(title, source, cos_sim)
-```
-
-Finally, the function will be applied to all documents.
 
 ```{r Calculate cosine sim}
 run_cos_sim_loop <- function(target) {
@@ -519,10 +242,6 @@ run_cos_sim_loop <- function(target) {
 
   cosine_distances
 }
-```
-
-```{r eval=FALSE, include=FALSE}
-newspaper <- unique(filter(model_df, type == "news")$source)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -562,128 +281,7 @@ bild <- run_cos_sim_loop(target_source)
 save(bild, file = paste0("../output/cosine_dist_", target_source, ".Rda"))
 ```
 
-# 4. Estimate Model
-
-```{r message=FALSE, warning=FALSE}
-library(broom)
-library(magrittr)
-library(tidyverse)
-rm(list = ls())
-
-load("../output/models/model40_weekly_source.Rda")
-election_date <- as.Date("24Sep2017", "%d%b%Y")
-
-model_df <- model_df %>%
-  dplyr::mutate(
-    doc_index = as.numeric(rownames(.)),
-    election_dummy = as.factor(ifelse(date <= election_date, "pre", "post")),
-    year_week = lubridate::floor_date(date, "1 week")
-  )
-```
-
-```{r Prepare dataframe}
-df_prep <- function(cosine_df) {
-  cosine_df %>%
-    left_join(., model_df %>%
-      transmute(
-        doc_code1 = doc_index,
-        source1 = source, type1 = type,
-        date1 = date
-      ),
-    by = "doc_code1"
-    ) %>%
-    left_join(., model_df %>%
-      transmute(
-        doc_code2 = doc_index,
-        source2 = source, type2 = type,
-        date2 = date
-      ),
-    by = "doc_code2"
-    ) %>%
-    group_by(date1, source2, type2) %>%
-    summarise(cos_sim = mean(cos_sim, na.rm = TRUE)) %>%
-    ungroup() %>%
-    mutate(election_dummy = as.factor(ifelse(date1 <= election_date, "pre", "post")))
-}
-```
-
-## 4.1. OLS dummy 
-$$
-\text{CosineSimilarity}_{i}=\beta_0+\beta_nDn_{j}+\epsilon_i
-$$ 
-
-where the $D2_{j}, D3_{j}, ... ,Dn_{j}$ represent dummy variables for a political party $j$
-
-```{r}
-calc_dumm <- function(dataframe) { 
-  temp_df <- dataframe %>%
-    filter(type2 == "press")
-
-  model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ source2)
-}
-```
-
-```{r OLS dummy models, message=FALSE}
-# ----------------------------
-target_source <- "DIE WELT"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(welt)
-welt_model <- calc_dumm(cosine_distances_df)
-
-target_source <- "stern.de"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(stern)
-stern_model <- calc_dumm(cosine_distances_df)
-
-target_source <- "ZEIT ONLINE"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(zeit)
-zeit_model <- calc_dumm(cosine_distances_df)
-
-target_source <- "Handelsblatt"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(handelsblatt)
-handelsblatt_model <- calc_dumm(cosine_distances_df)
-
-target_source <- "FOCUS Online"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(focus)
-focus_model <- calc_dumm(cosine_distances_df)
-
-target_source <- "Bild.de"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(bild)
-bild_model <- calc_dumm(cosine_distances_df)
-
-target_source <- "SPIEGEL ONLINE"
-load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-cosine_distances_df <- df_prep(spiegel)
-spiegel_model <- calc_dumm(cosine_distances_df)
-```
-
-
-```{r Model reults without RD, message=FALSE, warning=FALSE}
-stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model,
-                     focus_model, bild_model, spiegel_model,
-                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", 
-                                       "Handelsblatt", "FOCUS Online", "Bild.de", 
-                                       "SPIEGEL ONLINE"),
-                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE,
-                     #font.size = "tiny",
-                     type = "text")
-```
-
-#### Interpretation:
-
-When $D$ swichtes from from 0 to 1, the % impact of $D$ on $Y$ is: $100(exp(\beta)-1)$
-
-**DIE WELT**
-
-$100(exp(-0.25)-1) = -22\%$
-
-Compared to AfD, the similarity of topics of DIE WELT and B90/G is 22% lower.
+# 4. Estimate OLS
 
 ## 4.2. Regression discontinuity model
 
