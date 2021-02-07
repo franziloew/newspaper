@@ -111,9 +111,9 @@ For advertising-financed media the battle for the attention of the
 recipients is at the center of economic decisions. Online media in
 particular, which offer their content to a large extent free of charge
 and generate their revenue through advertising space, compete for the
-scarce resource of attention. Consumers a non-monetary price providing
-their attention, which the media platform bundles and sells on to
-advertising customers. This business model corresponds to that of a
+scarce resource of attention. Consumers pay a non-monetary price
+providing their attention, which the media platform bundles and sells on
+to advertising customers. This business model corresponds to that of a
 platform market, in which media companies act as platforms that connect
 the market of advertising with the reader market to exploit the indirect
 network effects between them (Dewenter and Rösch
@@ -477,28 +477,25 @@ referred to as the bag of words model (Gentzkow, Kelly, and Taddy
 \protect\hyperlink{ref-gentzkow_text_2017}{2017}), since the order in
 which words are used within a document is disregarded.
 
-\% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Jan
-24, 2021 - 20:07:28
-
 \begin{table}[!htbp] \centering 
   \caption{Document-term matrix - sample values} 
   \label{table:dtm} 
+\tiny 
 \begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & richter & nachts & spenden & kandidieren & treten & tweets & sichere \\ 
+ & vater & islamismus & unterschiedliche & ie & ergebnissen & zeitraum & aktuelle \\ 
 \hline \\[-1.8ex] 
-12041 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-8012 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-9603 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-9633 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-13485 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-11285 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-17355 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-5105 & $2$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-12390 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-13969 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+11709 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+4971 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+273 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+4507 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+1830 & $2$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ \\ 
+10684 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+3614 & $0$ & $0$ & $0$ & $0$ & $1$ & $0$ & $0$ \\ 
+7319 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+13988 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+7670 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -671,15 +668,14 @@ probability distribution, interpretation should be done very cautiously.
 Each document has a probability distribution over all topics.
 \autoref{fig:sample_docs12} illustrates the topic distribution of two
 news paper articles and \autoref{fig:sample_docs34} does the same for
-two press releases randomly chosen from the
-corpus.\textsuperscript{{[}Translations news articles: (1) Bundeswehr
-scandal: ex-commander attacks Von Der Leyen. (2) Bundestag elections: 42
-parties want to be elected to parliament.{]}}{[}Translations press
-releases: (1) Lars Herrmann: The danger for Germany and its Basic Law is
-also coming from the left. (2) Trump chooses the path to isolation.{]}
-\autoref{fig:mean_theta} shows the distribution of mean topic
-probability of all topics for news articles and press releases before
-and after the election date.
+two press releases randomly chosen from the corpus.\footnote{Translations
+  news articles: (1) Bundeswehr scandal: ex-commander attacks Von Der
+  Leyen. (2) Bundestag elections: 42 parties want to be elected to
+  parliament. Translations press releases: (1) Lars Herrmann: The danger
+  for Germany and its Basic Law is also coming from the left. (2) Trump
+  chooses the path to isolation.}\autoref{fig:mean_theta} shows the
+distribution of mean topic probability of all topics for news articles
+and press releases before and after the election date.
 
 Observations: - High peak both before and after election for topic 35 \&
 20 - no big difference between pre and post election for press releases,
@@ -732,23 +728,58 @@ two documents.\footnote{For applications of cosine similarity to compare
   Dumais, and Liebling
   (\protect\hyperlink{ref-ramage_characterizing_2010}{2010})}
 
-For example, \autoref{fig:cosine_sim_sample_doc} displays the most
+For example, \autoref{table:cosine_sim_sample_doc} displays the most
 similar documents of the document with the title \emph{Glyphosat-Streit
 vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)}.
 
 \begin{table}[!htbp] \centering 
   \caption{Most similar documents} 
   \label{table:cosine_sim_sample_doc} 
+\tiny 
 \begin{tabular}{@{\extracolsep{5pt}} ccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
 title & source & cos\_sim \\ 
 \hline \\[-1.8ex] 
-Weidel/Protschka: Glyphosat-Verlängerung ist ein Skandal & AfD & c(`17495` = 0.803957237584893) \\ 
-André Poggenburg: Glyphosat – Keine Zulassung ohne Klärung der wirklichen Schädlichkeit & AfD & c(`17096` = 0.782142904319285) \\ 
-Verantwortung für Tierwohl endet nicht an der Grenze & SPD & c(`16812` = 0.648103564961982) \\ 
-Dokumente aus dem EU-Vermittlungsausschuss zeigen: Glyphosat-Beschluss ist ein einziges Trauerspiel  & DIE LINKE & c(`18107` = 0.556807338152615) \\ 
- Fakten müssen für Zulassung von Pflanzenschutzmitteln maßgeblich sein & FDP & c(`18749` = 0.474089274559313) \\ 
+Alice Weidel: Undemokratisches Ausgrenzen der AfD schadet dem Amt des Bundespräsidenten & AfD & 0.729 \\ 
+ Fakten müssen für Zulassung von Pflanzenschutzmitteln maßgeblich sein & FDP & 0.474 \\ 
+Dialog mit Russland garantiert Sicherheit in Europa & DIE LINKE & 0.415 \\ 
+Keine Verlängerung für Glyphosatanwendung & SPD & 0.31 \\ 
+Georg Pazderski: Rotrotgrün auf Bundesebene keine Option & AfD & 0.163 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+In the next step, for each news paper, the cosine similarity between all
+topic-document distribution pairs between the news papers articles and
+the press releases is calculated if that press releases was published in
+a range of +/- 4 days from the publication date of the news article.
+This means the topic distribution of news article 1 is compared to press
+release 1, press release 2, 3 and so on as long as the press releases
+was published within 7 days before the news article.
+
+\begin{itemize}
+\tightlist
+\item
+  Only pairs
+\item
+  See \autoref{table:dataset_structure} for an illustration of the data
+\end{itemize}
+
+\begin{table}[!htbp] \centering 
+  \caption{Dataset structure} 
+  \label{table:dataset_structure} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}} ccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2 \\ 
+\hline \\[-1.8ex] 
+Flüchtlingshilfe:... &  SPD-Bildungspoli... & 0.126 & DIE WELT & CDU & 2017-08-31 & 3 \\ 
+WELT-Trend: Welch... & René Springer: Af... & 0.358 & DIE WELT & AfD & 2017-11-20 & 0 \\ 
+AfD-Chef: Jörg Me... & Myanmar: Gewalt g... & 0.409 & DIE WELT & B90/GRÜNE & 2017-09-09 & 5 \\ 
+Dresden: Angeklag... & USA darf in Syrie... & 0.096 & DIE WELT & DIE LINKE & 2018-02-05 & 0 \\ 
+Jens Spahn: "Möch... & Koalition ohne Zu... & 0.299 & DIE WELT & DIE LINKE & 2018-02-11 & 4 \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -759,12 +790,95 @@ Dokumente aus dem EU-Vermittlungsausschuss zeigen: Glyphosat-Beschluss ist ein e
 \hypertarget{ols-dummy-regression}{%
 \subsection{OLS dummy regression}\label{ols-dummy-regression}}
 
-\[
-\text{CosineSimilarity}_{i}=\beta_0+\beta_nDn_{j}+\epsilon_i
-\]
+\begin{itemize}
+\tightlist
+\item
+  for each news publisher, a simple OLS regression is estimated, where
+  the similarity score (\(\ln(\text{CS}_{i,j})\)) for each pair of news
+  article and press release is the dependent variable and the political
+  party dummies are the independent variables.
+\end{itemize}
 
-where the \(D2_{j}, D3_{j}, ... ,Dn_{j}\) represent dummy variables for
-a political party \(j\)
+\[
+\ln(\text{CS}_{i,j})=\beta_0+\beta_nD_{j,k}+\epsilon_i
+\] - \(i\) = news article in pair, \(j\) = press release in pair, \(k\)
++ political party - \(CS_{i,j}\) = cosine similarity
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}}lcccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{4}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-5} 
+\\[-1.8ex] & \multicolumn{4}{c}{Cosine similarity of topic distribution} \\ 
+ & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
+\hline \\[-1.8ex] 
+ source2B90/GRÜNE & $-$0.248$^{***}$ (0.013) & $-$0.357$^{***}$ (0.013) & $-$0.120$^{***}$ (0.018) & 0.110$^{***}$ (0.013) \\ 
+  source2CDU & $-$0.332$^{***}$ (0.011) & $-$0.313$^{***}$ (0.013) & $-$0.221$^{***}$ (0.017) & 0.069$^{***}$ (0.013) \\ 
+  source2DIE LINKE & $-$0.390$^{***}$ (0.008) & $-$0.317$^{***}$ (0.010) & $-$0.313$^{***}$ (0.013) & $-$0.001 (0.010) \\ 
+  source2FDP & $-$0.206$^{***}$ (0.011) & $-$0.192$^{***}$ (0.013) & $-$0.135$^{***}$ (0.017) & 0.217$^{***}$ (0.012) \\ 
+  source2SPD & $-$0.342$^{***}$ (0.011) & $-$0.321$^{***}$ (0.012) & $-$0.183$^{***}$ (0.016) & 0.101$^{***}$ (0.012) \\ 
+  Constant & $-$2.460$^{***}$ (0.006) & $-$2.730$^{***}$ (0.008) & $-$2.376$^{***}$ (0.010) & $-$2.509$^{***}$ (0.007) \\ 
+ \hline \\[-1.8ex] 
+Observations & 183,050 & 172,774 & 79,103 & 156,527 \\ 
+R$^{2}$ & 0.013 & 0.008 & 0.008 & 0.003 \\ 
+Adjusted R$^{2}$ & 0.013 & 0.008 & 0.007 & 0.003 \\ 
+Residual Std. Error & 1.323 (df = 183044) & 1.464 (df = 172768) & 1.327 (df = 79097) & 1.377 (df = 156521) \\ 
+F Statistic & 490.804$^{***}$ (df = 5; 183044) & 274.121$^{***}$ (df = 5; 172768) & 119.913$^{***}$ (df = 5; 79097) & 93.328$^{***}$ (df = 5; 156521) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{Cosine similarity of topic distribution} \\ 
+ & FOCUS Online & Bild.de & SPIEGEL ONLINE \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ source2B90/GRÜNE & $-$0.283$^{***}$ (0.013) & $-$0.197$^{***}$ (0.021) & $-$0.195$^{***}$ (0.014) \\ 
+  source2CDU & $-$0.321$^{***}$ (0.011) & $-$0.306$^{***}$ (0.017) & $-$0.263$^{***}$ (0.013) \\ 
+  source2DIE LINKE & $-$0.366$^{***}$ (0.008) & $-$0.342$^{***}$ (0.012) & $-$0.302$^{***}$ (0.010) \\ 
+  source2FDP & $-$0.254$^{***}$ (0.010) & $-$0.174$^{***}$ (0.016) & $-$0.166$^{***}$ (0.013) \\ 
+  source2SPD & $-$0.346$^{***}$ (0.010) & $-$0.293$^{***}$ (0.016) & $-$0.266$^{***}$ (0.012) \\ 
+  Constant & $-$2.437$^{***}$ (0.006) & $-$2.330$^{***}$ (0.009) & $-$2.481$^{***}$ (0.008) \\ 
+ \hline \\[-1.8ex] 
+Observations & 162,794 & 72,725 & 120,550 \\ 
+R$^{2}$ & 0.013 & 0.012 & 0.008 \\ 
+Adjusted R$^{2}$ & 0.013 & 0.012 & 0.008 \\ 
+Residual Std. Error & 1.237 (df = 162788) & 1.260 (df = 72719) & 1.260 (df = 120544) \\ 
+F Statistic & 443.671$^{***}$ (df = 5; 162788) & 171.205$^{***}$ (df = 5; 72719) & 201.266$^{***}$ (df = 5; 120544) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+When \(D\) switches from from 0 (AfD) to 1 (any other party), the \%
+impact of \(D\) on \(Y\) is \(exp(\beta)-1\)
+
+\begin{verbatim}
+## [1] -0.2442163
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Compared to AfD, the similarity of topics of DIE WELT and B90/G is
+  24\% lower.
+\end{itemize}
 
 \hypertarget{regression-discontinuity-model}{%
 \subsection{Regression discontinuity
@@ -782,11 +896,10 @@ included, we can estimate the treatment effect for each party.
 Calculate a regression discontinuity model for each newspaper \(i\).
 
 \[
-\text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_2W_{centered}+\beta_nDn_{j}+\beta_{n+n}T_iDn_{j}+\epsilon_i
+\ln(\text{CS}_{i,j})=\beta_0+\beta_1T_i+\beta_2W_{centered}+\beta_nDn_{j}+\beta_{n+n}T_iDn_{j}+\epsilon_i
 \]
 
-where \(D2_{j}, D3_{j}, ... ,Dn_{j}\) represent dummy variables for a
-political party \(j\) and \$W\_\{centered\} = \$ date - election day.
+where \$W\_\{centered\} = \$ date - election day.
 
 \[
 T_i = 1 \text{ if date } >= \text{election date} \\
@@ -805,12 +918,154 @@ terms}\label{without-interaction-terms}}
 \text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_nDn_{j}+\epsilon_i
 \]
 
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}}lcccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{4}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-5} 
+\\[-1.8ex] & \multicolumn{4}{c}{Cosine similarity of topic distribution} \\ 
+ & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
+\hline \\[-1.8ex] 
+ treated & $-$0.056$^{***}$ (0.013) & $-$0.088$^{***}$ (0.015) & $-$0.350$^{***}$ (0.019) & $-$0.083$^{***}$ (0.016) \\ 
+  source2B90/GRÜNE & $-$0.297$^{***}$ (0.013) & $-$0.293$^{***}$ (0.014) & $-$0.285$^{***}$ (0.019) & 0.038$^{***}$ (0.014) \\ 
+  source2CDU & $-$0.355$^{***}$ (0.011) & $-$0.266$^{***}$ (0.013) & $-$0.293$^{***}$ (0.017) & 0.027$^{**}$ (0.013) \\ 
+  source2DIE LINKE & $-$0.397$^{***}$ (0.008) & $-$0.288$^{***}$ (0.010) & $-$0.327$^{***}$ (0.013) & $-$0.019$^{*}$ (0.010) \\ 
+  source2FDP & $-$0.204$^{***}$ (0.011) & $-$0.186$^{***}$ (0.013) & $-$0.145$^{***}$ (0.017) & 0.214$^{***}$ (0.012) \\ 
+  source2SPD & $-$0.368$^{***}$ (0.011) & $-$0.250$^{***}$ (0.012) & $-$0.272$^{***}$ (0.016) & 0.044$^{***}$ (0.012) \\ 
+  X\_centered & $-$0.0004$^{***}$ (0.0001) & 0.002$^{***}$ (0.0001) & 0.00000 (0.0001) & $-$0.0005$^{***}$ (0.0001) \\ 
+  Constant & $-$2.400$^{***}$ (0.009) & $-$2.717$^{***}$ (0.010) & $-$2.141$^{***}$ (0.013) & $-$2.433$^{***}$ (0.010) \\ 
+ \hline \\[-1.8ex] 
+Observations & 183,050 & 172,774 & 79,103 & 156,527 \\ 
+R$^{2}$ & 0.015 & 0.012 & 0.023 & 0.006 \\ 
+Adjusted R$^{2}$ & 0.015 & 0.012 & 0.023 & 0.006 \\ 
+Residual Std. Error & 1.322 (df = 183042) & 1.460 (df = 172766) & 1.317 (df = 79095) & 1.375 (df = 156519) \\ 
+F Statistic & 392.398$^{***}$ (df = 7; 183042) & 304.324$^{***}$ (df = 7; 172766) & 267.928$^{***}$ (df = 7; 79095) & 138.082$^{***}$ (df = 7; 156519) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{Cosine similarity of topic distribution} \\ 
+ & FOCUS Online & Bild.de & SPIEGEL ONLINE \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ treated & $-$0.143$^{***}$ (0.014) & $-$0.213$^{***}$ (0.019) & $-$0.226$^{***}$ (0.016) \\ 
+  source2B90/GRÜNE & $-$0.305$^{***}$ (0.013) & $-$0.260$^{***}$ (0.021) & $-$0.240$^{***}$ (0.015) \\ 
+  source2CDU & $-$0.324$^{***}$ (0.011) & $-$0.320$^{***}$ (0.017) & $-$0.275$^{***}$ (0.013) \\ 
+  source2DIE LINKE & $-$0.362$^{***}$ (0.008) & $-$0.338$^{***}$ (0.012) & $-$0.297$^{***}$ (0.010) \\ 
+  source2FDP & $-$0.259$^{***}$ (0.011) & $-$0.180$^{***}$ (0.016) & $-$0.174$^{***}$ (0.013) \\ 
+  source2SPD & $-$0.349$^{***}$ (0.011) & $-$0.308$^{***}$ (0.016) & $-$0.278$^{***}$ (0.012) \\ 
+  X\_centered & 0.001$^{***}$ (0.0001) & 0.001$^{***}$ (0.0001) & 0.001$^{***}$ (0.0001) \\ 
+  Constant & $-$2.365$^{***}$ (0.009) & $-$2.190$^{***}$ (0.014) & $-$2.366$^{***}$ (0.011) \\ 
+ \hline \\[-1.8ex] 
+Observations & 162,794 & 72,725 & 120,550 \\ 
+R$^{2}$ & 0.014 & 0.014 & 0.010 \\ 
+Adjusted R$^{2}$ & 0.014 & 0.014 & 0.010 \\ 
+Residual Std. Error & 1.237 (df = 162786) & 1.258 (df = 72717) & 1.258 (df = 120542) \\ 
+F Statistic & 332.672$^{***}$ (df = 7; 162786) & 147.708$^{***}$ (df = 7; 72717) & 179.855$^{***}$ (df = 7; 120542) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
 \hypertarget{with-interaction-terms}{%
 \subsubsection{With interaction terms}\label{with-interaction-terms}}
 
 \[
 \text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_2Dn_{j}+\beta_3T_iDn_{j}+\epsilon_i
 \]
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}}lcccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{4}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-5} 
+\\[-1.8ex] & \multicolumn{4}{c}{Cosine similarity of topic distribution} \\ 
+ & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
+\hline \\[-1.8ex] 
+ treated & $-$0.159$^{***}$ (0.018) & $-$0.071$^{***}$ (0.020) & $-$0.361$^{***}$ (0.026) & $-$0.045$^{**}$ (0.021) \\ 
+  source2B90/GRÜNE & $-$0.413$^{***}$ (0.017) & $-$0.319$^{***}$ (0.016) & $-$0.324$^{***}$ (0.024) & 0.063$^{***}$ (0.018) \\ 
+  source2CDU & $-$0.476$^{***}$ (0.018) & $-$0.264$^{***}$ (0.017) & $-$0.313$^{***}$ (0.026) & 0.042$^{**}$ (0.019) \\ 
+  source2DIE LINKE & $-$0.473$^{***}$ (0.016) & $-$0.256$^{***}$ (0.015) & $-$0.316$^{***}$ (0.022) & 0.034$^{**}$ (0.016) \\ 
+  source2FDP & $-$0.395$^{***}$ (0.020) & $-$0.320$^{***}$ (0.018) & $-$0.295$^{***}$ (0.028) & 0.023 (0.020) \\ 
+  source2SPD & $-$0.437$^{***}$ (0.017) & $-$0.227$^{***}$ (0.015) & $-$0.256$^{***}$ (0.024) & 0.092$^{***}$ (0.017) \\ 
+  X\_centered & $-$0.0005$^{***}$ (0.0001) & 0.002$^{***}$ (0.0001) & $-$0.0001 (0.0001) & $-$0.001$^{***}$ (0.0001) \\ 
+  treatedTRUE:source2B90/GRÜNE & 0.235$^{***}$ (0.028) & 0.179$^{***}$ (0.036) & 0.138$^{***}$ (0.044) & $-$0.090$^{***}$ (0.032) \\ 
+  treatedTRUE:source2CDU & 0.182$^{***}$ (0.024) & $-$0.017 (0.027) & 0.029 (0.035) & $-$0.029 (0.026) \\ 
+  treatedTRUE:source2DIE LINKE & 0.102$^{***}$ (0.019) & $-$0.072$^{***}$ (0.020) & $-$0.022 (0.027) & $-$0.093$^{***}$ (0.020) \\ 
+  treatedTRUE:source2FDP & 0.264$^{***}$ (0.024) & 0.277$^{***}$ (0.026) & 0.234$^{***}$ (0.035) & 0.315$^{***}$ (0.025) \\ 
+  treatedTRUE:source2SPD & 0.084$^{***}$ (0.022) & $-$0.104$^{***}$ (0.025) & $-$0.059$^{*}$ (0.033) & $-$0.135$^{***}$ (0.025) \\ 
+  Constant & $-$2.320$^{***}$ (0.013) & $-$2.723$^{***}$ (0.012) & $-$2.130$^{***}$ (0.018) & $-$2.452$^{***}$ (0.013) \\ 
+ \hline \\[-1.8ex] 
+Observations & 183,050 & 172,774 & 79,103 & 156,527 \\ 
+R$^{2}$ & 0.016 & 0.014 & 0.024 & 0.008 \\ 
+Adjusted R$^{2}$ & 0.016 & 0.014 & 0.024 & 0.008 \\ 
+Residual Std. Error & 1.322 (df = 183037) & 1.459 (df = 172761) & 1.316 (df = 79090) & 1.373 (df = 156514) \\ 
+F Statistic & 243.027$^{***}$ (df = 12; 183037) & 200.499$^{***}$ (df = 12; 172761) & 163.454$^{***}$ (df = 12; 79090) & 110.995$^{***}$ (df = 12; 156514) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\tiny 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{Cosine similarity of topic distribution} \\ 
+ & FOCUS Online & Bild.de & SPIEGEL ONLINE \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ treated & $-$0.215$^{***}$ (0.019) & $-$0.448$^{***}$ (0.029) & $-$0.221$^{***}$ (0.021) \\ 
+  source2B90/GRÜNE & $-$0.392$^{***}$ (0.018) & $-$0.504$^{***}$ (0.032) & $-$0.259$^{***}$ (0.019) \\ 
+  source2CDU & $-$0.426$^{***}$ (0.019) & $-$0.587$^{***}$ (0.035) & $-$0.292$^{***}$ (0.020) \\ 
+  source2DIE LINKE & $-$0.401$^{***}$ (0.016) & $-$0.555$^{***}$ (0.029) & $-$0.256$^{***}$ (0.017) \\ 
+  source2FDP & $-$0.426$^{***}$ (0.021) & $-$0.568$^{***}$ (0.038) & $-$0.304$^{***}$ (0.021) \\ 
+  source2SPD & $-$0.401$^{***}$ (0.017) & $-$0.518$^{***}$ (0.032) & $-$0.276$^{***}$ (0.018) \\ 
+  X\_centered & 0.001$^{***}$ (0.0001) & 0.0005$^{***}$ (0.0001) & 0.001$^{***}$ (0.0001) \\ 
+  treatedTRUE:source2B90/GRÜNE & 0.164$^{***}$ (0.029) & 0.349$^{***}$ (0.045) & 0.072$^{**}$ (0.035) \\ 
+  treatedTRUE:source2CDU & 0.151$^{***}$ (0.024) & 0.336$^{***}$ (0.040) & 0.032 (0.027) \\ 
+  treatedTRUE:source2DIE LINKE & 0.048$^{**}$ (0.019) & 0.261$^{***}$ (0.032) & $-$0.070$^{***}$ (0.021) \\ 
+  treatedTRUE:source2FDP & 0.227$^{***}$ (0.024) & 0.470$^{***}$ (0.042) & 0.212$^{***}$ (0.027) \\ 
+  treatedTRUE:source2SPD & 0.059$^{***}$ (0.022) & 0.253$^{***}$ (0.037) & $-$0.017 (0.025) \\ 
+  Constant & $-$2.306$^{***}$ (0.014) & $-$1.990$^{***}$ (0.023) & $-$2.365$^{***}$ (0.014) \\ 
+ \hline \\[-1.8ex] 
+Observations & 162,794 & 72,725 & 120,550 \\ 
+R$^{2}$ & 0.015 & 0.016 & 0.011 \\ 
+Adjusted R$^{2}$ & 0.015 & 0.016 & 0.011 \\ 
+Residual Std. Error & 1.236 (df = 162781) & 1.257 (df = 72712) & 1.258 (df = 120537) \\ 
+F Statistic & 204.476$^{***}$ (df = 12; 162781) & 99.675$^{***}$ (df = 12; 72712) & 116.171$^{***}$ (df = 12; 120537) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
 
 The interaction term \(T_i*Dn\) means that the slope can vary on either
 side of the treatment threshold for each party.
@@ -874,8 +1129,8 @@ ZEIT ONLINE & 1351 & 513.75 & 387.14 & 459 & 121 & 8015 \\
 \end{table}
 
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Jan
-24, 2021 - 20:07:32
+University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Feb
+07, 2021 - 19:22:54
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 

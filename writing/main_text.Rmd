@@ -28,6 +28,7 @@ library(readr)
 library(stringr)
 library(patchwork)
 library(stm)
+library(magrittr)
 
 # data
 election_date <- as.Date('2017-09-24')
@@ -51,7 +52,7 @@ color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#
 In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence that support the accusation of biased media reporting, especially during election campaigns. 
 
 <!-- Populist messaging follows same logic as media logic & attention economy, that's why it makes sense for media to report more about populist parties -->
-For advertising-financed media the battle for the attention of the recipients is at the center of economic decisions. Online media in particular, which offer their content to a large extent free of charge and generate their revenue through advertising space, compete for the scarce resource of attention. Consumers a non-monetary price providing their attention, which the media platform bundles and sells on to advertising customers. This business model corresponds to that of a platform market, in which media companies act as platforms that connect the market of advertising with the reader market to exploit the indirect network effects between them [@dewenter_einfuhrung_2014]. A profit-maximizing publisher therefore directs its economic decisions according to what will attract the most attention.
+For advertising-financed media the battle for the attention of the recipients is at the center of economic decisions. Online media in particular, which offer their content to a large extent free of charge and generate their revenue through advertising space, compete for the scarce resource of attention. Consumers pay a non-monetary price providing their attention, which the media platform bundles and sells on to advertising customers. This business model corresponds to that of a platform market, in which media companies act as platforms that connect the market of advertising with the reader market to exploit the indirect network effects between them [@dewenter_einfuhrung_2014]. A profit-maximizing publisher therefore directs its economic decisions according to what will attract the most attention.
 
 This conclusion, derived from the economic theory of platform markets, corresponds to the notion of media logic, a central concept in the field of media and communication studies [@takens_media_2013]. The debate about media logic is embedded in the broader discussion about the interaction between the press, politics and the public. The underlying thesis is that the content of political news is the product of news values and narrative techniques that media use to attract audiences [@stromback_four_2008]. According to @takens_media_2013, three content attributes highly correspond with news values and influence how journalists interpret political events: 1) personalized content, i.e., the focus on individual politicians; 2) the framing of politics as a contest and 3) negative coverage. Similarly @blassnig_hitting_2019 states that media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting like conflict, drama, negativity, surprise or proximity. Likewise populist messages often co-occur with negative, emotionalized, or dramatized communication style, thus utilizing similar mechanisms as the media logic, respectively the attention economy. In fact, @blassnig_hitting_2019 shows that populist key messages by political and media actors in news articles provoke more reader comments under these articles. Media competing for the attention of readers therefore have an incentive to pick up on the key messages of these parties.
 
@@ -175,7 +176,6 @@ p1 + p2
 ```
 
 # Data
-<!-- TODO: Prepare a summary table -->
 I conduct the estimation on a sample of 16,473 online news articles from the seven German news providers mentioned in the previous section ^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
 
 <!-- News articles -->
@@ -323,7 +323,9 @@ dtm <- as.data.frame(as.matrix(news_df_sparse))
 dtm[sample(nrow(dtm),10), sample(ncol(dtm),7)] %>% 
   stargazer(type = 'latex', summary = FALSE, 
             title = 'Document-term matrix - sample values',
-            label = 'table:dtm')
+            label = 'table:dtm', header=FALSE,
+            font.size = 'tiny'
+            )
 ```
 
 # Estimate topic similarity of documents
@@ -415,7 +417,8 @@ gamma_terms %>%
   labs(x = NULL, y = "Average topic proportion") 
 ```
 
-Each document has a probability distribution over all topics. \autoref{fig:sample_docs12} illustrates the topic distribution of two news paper articles and \autoref{fig:sample_docs34} does the same for two press releases randomly chosen from the corpus.^[Translations news articles: (1) Bundeswehr scandal: ex-commander attacks Von Der Leyen. (2) Bundestag elections: 42 parties want to be elected to parliament.]^[Translations press releases: (1) Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left. (2) Trump chooses the path to isolation.] \autoref{fig:mean_theta} shows the distribution of mean topic probability of all topics for news articles and press releases before and after the election date.
+
+Each document has a probability distribution over all topics. \autoref{fig:sample_docs12} illustrates the topic distribution of two news paper articles and \autoref{fig:sample_docs34} does the same for two press releases randomly chosen from the corpus.^[Translations news articles: (1) Bundeswehr scandal: ex-commander attacks Von Der Leyen. (2) Bundestag elections: 42 parties want to be elected to parliament. Translations press releases: (1) Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left. (2) Trump chooses the path to isolation.]\autoref{fig:mean_theta} shows the distribution of mean topic probability of all topics for news articles and press releases before and after the election date.
 
 Observations:
 - High peak both before and after election for topic 35 & 20 
@@ -478,7 +481,6 @@ td_gamma_wide <- td_gamma %>%
 gamma <- as.matrix(td_gamma_wide[, -1])
 ```
 
-
 Next, the cosine similarity measure is used in order to compare the retrieved topic distribution of every document. Cosine similarity is built on the geometric definition of the dot product of two vectors. It is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. 
 
 $$
@@ -486,7 +488,7 @@ $$
 $$
 As topic proportions per document are vectors of the same length, the cosine similarity allows a comparison of the topic distribution between two documents.^[For applications of cosine similarity to compare of topic model outcomes see e.g. @rehs_structural_2020 and @ramage_characterizing_2010]
 
-For example, \autoref{table:cosine_sim_sample_doc} displays the most similar documents of the document with the title *Glyphosat-Streit vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)*. 
+For example, \autoref{table:cosine_sim_sample_doc} displays the most similar documents of the document with the title *Glyphosat-Streit vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)*. <!-- add translations for all titles -->
 
 ```{r Documents with highest similarity, results='asis'}
 sample_doc <- 1202
@@ -500,34 +502,144 @@ calc_cos_sim(sample_doc) %>%
   ) %>%
   filter(type == "press") %>%
   arrange(desc(cos_sim)) %>%
-  top_n(5, cos_sim) %>%
+  top_n(5, cos_sim) %>% 
   select(title, source, cos_sim) %>% 
+  mutate(cos_sim = round(cos_sim,3)) %>% 
   stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
             label = "table:cosine_sim_sample_doc",
-            title = "Most similar documents", summary = FALSE)
+            title = "Most similar documents", summary = FALSE,
+            font.size = 'tiny'
+            )
 ```
 
-In the next step, the cosine similarity between all topic-document distribution pairs is calculated. This means the topic distribution of document 1 is compared to document 2, document 3 and so on. Duplicated observations are dropped (e.g., cosine similarity between 2 and 3 is the same as between 3 and 2). Since we know for every observation of the cosine similarity we know the publication date and the author of the document, this information can be deployed in creating variables that can be attached to these similarity pairs (see Table 1 for an illustration of our dataset).
+In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published in a range of +/- 4 days from the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, press release 2, 3 and so on as long as the press releases was published within 7 days before the news article.
 
-```{r}
+- Only pairs 
+- See \autoref{table:dataset_structure} for an illustration of the data
+
+```{r Dataset structure, results='asis'}
 target_source <- "DIE WELT"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
-df <- df_prep_ols(welt)
 
-head(df)
+welt %>%
+  left_join(., model_df %>%
+              transmute(
+                  title1 = title,
+                  doc_code1 = doc_index,
+                  source1 = source, type1 = type,
+                  date1 = date
+                ),
+              by = "doc_code1"
+    ) %>%
+  left_join(., model_df %>%
+              transmute(
+                title2 = title,
+                doc_code2 = doc_index,
+                source2 = source, type2 = type,
+                date2 = date
+                ),
+            by = "doc_code2"
+            ) %>%
+  filter(type2 == 'press') %>% 
+  sample_n(5) %>%
+  mutate(cos_sim = unname(cos_sim),
+         title1 = str_trunc(title1, 20, "right"),
+         title2 = str_trunc(title2, 20, "right"),
+         date2 = date1 - date2,
+         date1 = as.character(date1),
+         cosine_sim = round(cos_sim,3)
+         ) %>% 
+  select(title1, title2, cosine_sim, source1, source2, date1, date2) %>% 
+    stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
+            label = "table:dataset_structure",
+            title = "Dataset structure", summary = FALSE,
+            font.size = 'tiny'
+            )
 ```
-
-
-We create a dummy diff_part that describes whether the two underlying dissertations for every similarity score are from different parts of Germany. The dummy variable post95 indicates whether a dissertation was written after 1995.
 
 # Linear regression model
 
 ## OLS dummy regression
-$$
-\text{CosineSimilarity}_{i}=\beta_0+\beta_nDn_{j}+\epsilon_i
-$$ 
 
-where the $D2_{j}, D3_{j}, ... ,Dn_{j}$ represent dummy variables for a political party $j$
+- for each news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{i,j})$) for each pair of news article and press release is the dependent variable and the political party dummies are the independent variables. 
+
+$$
+\ln(\text{CS}_{i,j})=\beta_0+\beta_nD_{j,k}+\epsilon_i
+$$ 
+- $i$ = news article in pair, $j$ = press release in pair, $k$ + political party
+- $CS_{i,j}$ = cosine similarity 
+
+```{r Estimate OLS dummy models}
+# ----------------------------
+target_source <- "DIE WELT"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(welt)
+welt_model <- calc_ols_dummy(cosine_distances_df)
+
+target_source <- "stern.de"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(stern)
+stern_model <- calc_ols_dummy(cosine_distances_df)
+
+target_source <- "ZEIT ONLINE"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(zeit)
+zeit_model <- calc_ols_dummy(cosine_distances_df)
+
+target_source <- "Handelsblatt"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(handelsblatt)
+handelsblatt_model <- calc_ols_dummy(cosine_distances_df)
+
+target_source <- "FOCUS Online"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(focus)
+focus_model <- calc_ols_dummy(cosine_distances_df)
+
+target_source <- "Bild.de"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(bild)
+bild_model <- calc_ols_dummy(cosine_distances_df)
+
+target_source <- "SPIEGEL ONLINE"
+load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(spiegel)
+spiegel_model <- calc_ols_dummy(cosine_distances_df)
+```
+
+```{r Model results OLS dummy 1, results='asis' }
+stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model,
+                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", 
+                                       "Handelsblatt"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     single.row = TRUE, header = FALSE,
+                     font.size = "tiny",
+                     type = "latex")
+```
+
+```{r Model results OLS dummy 2, results='asis' }
+stargazer::stargazer(focus_model, bild_model, spiegel_model,
+                     column.labels = c("FOCUS Online", "Bild.de", 
+                                       "SPIEGEL ONLINE"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     single.row = TRUE, header = FALSE,
+                     font.size = "tiny",
+                     type = "latex")
+```
+
+<!-- Interpretation -->
+When $D$ switches from from 0 (AfD) to 1 (any other party), the % impact of $D$ on $Y$ is $exp(\beta)-1$
+```{r}
+transform_beta <- function(beta) {
+  exp(beta)-1
+}
+```
+
+```{r}
+transform_beta(-0.28)
+```
+
+- Compared to AfD, the similarity of topics of DIE WELT and B90/G is 24% lower.
 
 ## Regression discontinuity model
 
@@ -536,10 +648,10 @@ The idea of regression regression discontinuity design is to use observations wi
 Calculate a regression discontinuity model for each newspaper $i$.
 
 $$
-\text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_2W_{centered}+\beta_nDn_{j}+\beta_{n+n}T_iDn_{j}+\epsilon_i
+\ln(\text{CS}_{i,j})=\beta_0+\beta_1T_i+\beta_2W_{centered}+\beta_nDn_{j}+\beta_{n+n}T_iDn_{j}+\epsilon_i
 $$
 
-where $D2_{j}, D3_{j}, ... ,Dn_{j}$ represent dummy variables for a political party $j$ and $W_{centered} = $ date - election day. 
+where $W_{centered} = $ date - election day. 
 
 $$
 T_i = 1 \text{ if date } >= \text{election date} \\
@@ -548,17 +660,97 @@ $$
 
 so that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous variable $W_i$ (date), the so called running variable.
 
+```{r message=FALSE}
+target_source <- "DIE WELT"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(welt)
+welt_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+welt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+
+target_source <- "stern.de"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(stern)
+stern_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+stern_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+
+target_source <- "ZEIT ONLINE"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(zeit)
+zeit_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+zeit_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+
+target_source <- "Handelsblatt"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(handelsblatt)
+handelsblatt_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+handelsblatt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+
+target_source <- "FOCUS Online"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(focus)
+focus_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+focus_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+
+target_source <- "Bild.de"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(bild)
+bild_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+bild_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+
+target_source <- "SPIEGEL ONLINE"
+#load(paste0("../output/cosine_dist_", target_source, ".Rda"))
+cosine_distances_df <- df_prep_ols(spiegel)
+spiegel_model1 <- calc_rd_dummy(cosine_distances_df, target_source)
+spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source)
+```
+
+
 ### Without interaction terms
 
 $$
 \text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_nDn_{j}+\epsilon_i
 $$
+```{r Model reults without interaction terms 1, results='asis'}
+stargazer::stargazer(welt_model1, stern_model1, zeit_model1, handelsblatt_model1,
+                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     single.row = TRUE, header = FALSE,
+                     font.size = "tiny",
+                     type = "latex")
+```
+
+```{r Model reults without interaction terms 2, results='asis'}
+stargazer::stargazer(focus_model1, bild_model1, spiegel_model1,
+                     column.labels = c("FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     single.row = TRUE, header = FALSE,
+                     font.size = "tiny",
+                     type = "latex")
+```
 
 ### With interaction terms
 
 $$
 \text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_2Dn_{j}+\beta_3T_iDn_{j}+\epsilon_i
 $$
+
+```{r Model reults with interaction terms 1, results='asis'}
+stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2,
+                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     single.row = TRUE, header = FALSE,
+                     font.size = "tiny",
+                     type = "latex")
+```
+
+```{r Model reults with interaction terms 2, results='asis'}
+stargazer::stargazer(focus_model2, bild_model2, spiegel_model2,
+                     column.labels = c("FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     single.row = TRUE, header = FALSE,
+                     font.size = "tiny",
+                     type = "latex")
+```
 
 The interaction term $T_i*Dn$ means that the slope can vary on either side of the treatment threshold for each party. 
 
