@@ -9,7 +9,7 @@ library(RPostgreSQL)
 library(dplyr)
 library(ggplot2)
 
-# Sys.getenv("WEBHOSER_TOKEN") # check if token is set
+# wh_token('96ccea44-8a69-4ebb-9645-c9374c283716') set wh API key
 pg_password <- Sys.getenv("DB_NEWSPAPER")
 
 # Connect to postgres
