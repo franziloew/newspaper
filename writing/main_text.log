@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.11.28)  7 FEB 2021 19:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.11.28)  14 FEB 2021 19:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -639,21 +639,20 @@ df  used on input line 704.
 [10 <./main_text_files/figure-latex/News articles sample documents-1.pdf> <./ma
 in_text_files/figure-latex/Press releases sample documents-1.pdf>] [11 <./main_
 text_files/figure-latex/Mean topic prevalence-1.pdf>]
-Overfull \hbox (1.573pt too wide) in paragraph at lines 811--836
+<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=372, 469.7
+55pt x 289.08pt>
+File: main_text_files/figure-latex/Daily mean cosine similarity-1.pdf Graphic f
+ile (type pdf)
+<use main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>
+Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
+ity-1.pdf  used on input line 835.
+(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+[12 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>] [13]
+Overfull \hbox (9.53693pt too wide) in paragraph at lines 1065--1097
  [][] 
  []
 
-[12]
-Overfull \hbox (4.976pt too wide) in paragraph at lines 925--952
- [][] 
- []
-
-
-Overfull \hbox (60.85951pt too wide) in paragraph at lines 998--1030
- [][] 
- []
-
-[13] [14] [15] [16] [17] [18] (./main_text.aux)
+[14] [15] [16] [17] [18] [19] (./main_text.aux)
 Package rerunfilecheck Info: File `main_text.out' has not changed.
 (rerunfilecheck)             Checksum: 32574B6E953C5DFBBD0B3C10499FB156;3176.
 
@@ -664,13 +663,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 11300 strings out of 481433
- 165024 string characters out of 5919428
- 495623 words of memory out of 5000000
- 27700 multiletter control sequences out of 15000+600000
+ 11313 strings out of 481433
+ 165588 string characters out of 5919428
+ 492623 words of memory out of 5000000
+ 27709 multiletter control sequences out of 15000+600000
  617335 words of font info for 87 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 66i,11n,72p,427b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 66i,11n,72p,427b,391s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 }{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Us
 ers/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/f
@@ -694,11 +693,12 @@ dist/fonts/type1/public/lm/lmri7.pfb></Users/franzilow/Library/TinyTeX/texmf-di
 st/fonts/type1/public/lm/lmri8.pfb></Users/franzilow/Library/TinyTeX/texmf-dist
 /fonts/type1/public/lm/lmsy10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/
 fonts/type1/public/lm/lmsy5.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fo
-nts/type1/public/lm/lmtt10.pfb>
-Output written on main_text.pdf (18 pages, 789695 bytes).
+nts/type1/public/lm/lmsy7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/font
+s/type1/public/lm/lmtt10.pfb>
+Output written on main_text.pdf (19 pages, 1283289 bytes).
 PDF statistics:
- 551 PDF objects out of 1000 (max. 8388607)
- 483 compressed objects within 5 object streams
- 125 named destinations out of 1000 (max. 500000)
- 205 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 576 PDF objects out of 1000 (max. 8388607)
+ 503 compressed objects within 6 object streams
+ 128 named destinations out of 1000 (max. 500000)
+ 210 words of extra memory for PDF output out of 10000 (max. 10000000)
 
