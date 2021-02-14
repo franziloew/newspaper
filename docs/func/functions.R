@@ -78,18 +78,48 @@ df_prep_ols <- function(cosine_df) {
       election_dummy = as.factor(ifelse(date1 <= election_date, "pre", "post"))
       ) %>% 
     filter(election1 == election2) %>% 
-    select(-election1, election2)
+    filter(type2 == "press") %>% 
+    select(-election1, election2) %>% 
+    group_by(date1, source1, source2, election_dummy) %>% 
+    summarise(cos_sim = mean(cos_sim, na.rm = T)) %>% 
+    ungroup()
+}
+
+###############
+## Plot data ##
+###############
+plot_cosine_sim <- function(df, target) {
+  df %>% 
+    ggplot(aes(date1, cos_sim, color = source2)) +
+    geom_point(alpha = 0.2, size = 0.2) +
+    geom_smooth(method = lm, size = 0.3, fill=NA) +
+    ylim(0,0.7) +
+    scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
+    labs(x=NULL, y = NULL,
+         caption = paste0(target)) +
+    guides(colour = guide_legend(nrow = 1)) +
+    theme(axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.text.x = element_text(size = 4, angle = 45),
+          legend.title = element_blank(),
+          legend.position = 'bottom', 
+          legend.text = element_text(size=4),
+          legend.key.size = unit(0.2, "cm")) 
 }
 
 #####################
 ### Calculate OLS ###
 #####################
 calc_ols_dummy <- function(dataframe) { 
-temp_df <- dataframe %>%
-  filter(type2 == "press")
-
-model_outcome <- temp_df %$%
+model_outcome <- dataframe %$%
   lm(log(cos_sim) ~ source2)
+}
+
+#####################
+### Calculate OLS ###
+#####################
+transform_coeff_ols <- function(coeff) {
+  exp(coeff)-1
 }
 
 ##########################################
@@ -98,7 +128,6 @@ model_outcome <- temp_df %$%
 ### Dummy
 calc_rd_dummy<- function(dataframe, target_source) { 
   temp_df <- dataframe %>%
-    filter(type2 == "press") %>%
     mutate(
       X_centered = I(date1 - election_date),
       treatedTRUE = ifelse(date1 >= election_date, 1, 0))
@@ -110,7 +139,6 @@ calc_rd_dummy<- function(dataframe, target_source) {
 ### Dummy & interaction term
 calc_rd_dummy_interaction <- function(dataframe, target_source) { 
   temp_df <- dataframe %>%
-    filter(type2 == "press") %>%
     mutate(
       X_centered = I(date1 - election_date),
       treatedTRUE = ifelse(date1 >= election_date, 1, 0))
