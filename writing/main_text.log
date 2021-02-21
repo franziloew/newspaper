@@ -1,24 +1,24 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.11.28)  14 FEB 2021 19:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.21)  21 FEB 2021 14:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **main_text.tex
 (./main_text.tex
-LaTeX2e <2020-10-01> patch level 2
-L3 programming layer <2020-10-27> xparse <2020-03-03> (/Users/franzilow/Library
-/TinyTeX/texmf-dist/tex/latex/base/article.cls
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18> (/Users/franzilow/Library/TinyTeX/texmf-dist/
+tex/latex/base/article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
-\c@part=\count175
-\c@section=\count176
-\c@subsection=\count177
-\c@subsubsection=\count178
-\c@paragraph=\count179
-\c@subparagraph=\count180
-\c@figure=\count181
-\c@table=\count182
+\c@part=\count179
+\c@section=\count180
+\c@subsection=\count181
+\c@subsubsection=\count182
+\c@paragraph=\count183
+\c@subparagraph=\count184
+\c@figure=\count185
+\c@table=\count186
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
@@ -82,13 +82,13 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count183
+\inf@bad=\count187
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count184
-\leftroot@=\count185
+\uproot@=\count188
+\leftroot@=\count189
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count186
-\DOTSCASE@=\count187
+\classnum@=\count190
+\DOTSCASE@=\count191
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -97,15 +97,15 @@ LaTeX Info: Redefining \cdots on input line 620.
 \big@size=\dimen141
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count188
-\c@MaxMatrixCols=\count189
+\macc@depth=\count192
+\c@MaxMatrixCols=\count193
 \dotsspace@=\muskip16
-\c@parentequation=\count190
-\dspbrk@lvl=\count191
+\c@parentequation=\count194
+\dspbrk@lvl=\count195
 \tag@help=\toks17
-\row@=\count192
-\column@=\count193
-\maxfields@=\count194
+\row@=\count196
+\column@=\count197
+\maxfields@=\count198
 \andhelp@=\toks18
 \eqnshift@=\dimen142
 \alignsep@=\dimen143
@@ -162,7 +162,7 @@ File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/xcolor/x11nam.def
 File: x11nam.def 2016/05/11 v2.12 Predefined colors according to Unix/X11 (UK)
 )) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+Package: hyperref 2021-02-10 v7.00j Hypertext links for LaTeX
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 )
@@ -206,38 +206,43 @@ y
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
 \@linkdim=\dimen148
-\Hy@linkcounter=\count195
-\Hy@pagecounter=\count196
+\Hy@linkcounter=\count199
+\Hy@pagecounter=\count266
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2021-02-10 v7.00j Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
+)
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref-langpa
+tches.def
+File: hyperref-langpatches.def 2021-02-10 v7.00j Hyperref: patches for babel la
+nguages
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.st
 y
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count197
-Package hyperref Info: Option `unicode' set `true' on input line 4338.
+\Hy@SavedSpaceFactor=\count267
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2020-05-15 v7.00e Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2021-02-10 v7.00j Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Hyper figures OFF on input line 4464.
-Package hyperref Info: Link nesting OFF on input line 4469.
-Package hyperref Info: Hyper index ON on input line 4472.
-Package hyperref Info: Plain pages OFF on input line 4479.
-Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Option `unicode' set `true' on input line 4073.
+Package hyperref Info: Hyper figures OFF on input line 4192.
+Package hyperref Info: Link nesting OFF on input line 4197.
+Package hyperref Info: Hyper index ON on input line 4200.
+Package hyperref Info: Plain pages OFF on input line 4207.
+Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4717.
-\c@Hy@tempcnt=\count198
+Package hyperref Info: Bookmarks ON on input line 4445.
+\c@Hy@tempcnt=\count268
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5076.
+LaTeX Info: Redefining \url on input line 4804.
 \XeTeXLinkMargin=\dimen149
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -247,37 +252,37 @@ sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count199
+\Fld@menulength=\count269
 \Field@Width=\dimen150
 \Fld@charsize=\dimen151
-Package hyperref Info: Hyper figures OFF on input line 6347.
-Package hyperref Info: Link nesting OFF on input line 6352.
-Package hyperref Info: Hyper index ON on input line 6355.
-Package hyperref Info: backreferencing OFF on input line 6362.
-Package hyperref Info: Link coloring OFF on input line 6367.
-Package hyperref Info: Link coloring with OCG OFF on input line 6372.
-Package hyperref Info: PDF/A mode OFF on input line 6377.
-LaTeX Info: Redefining \ref on input line 6417.
-LaTeX Info: Redefining \pageref on input line 6421.
+Package hyperref Info: Hyper figures OFF on input line 6075.
+Package hyperref Info: Link nesting OFF on input line 6080.
+Package hyperref Info: Hyper index ON on input line 6083.
+Package hyperref Info: backreferencing OFF on input line 6090.
+Package hyperref Info: Link coloring OFF on input line 6095.
+Package hyperref Info: Link coloring with OCG OFF on input line 6100.
+Package hyperref Info: PDF/A mode OFF on input line 6105.
+LaTeX Info: Redefining \ref on input line 6145.
+LaTeX Info: Redefining \pageref on input line 6149.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
 ge
 with kernel methods
 )
-\Hy@abspage=\count266
-\c@Item=\count267
-\c@Hfootnote=\count268
+\Hy@abspage=\count270
+\c@Item=\count271
+\c@Hfootnote=\count272
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+File: hpdftex.def 2021-02-10 v7.00j Hyperref driver for pdfTeX
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
 e
 with kernel methods
 )
-\Fld@listcount=\count269
-\c@bookmark@seq@number=\count270
+\Fld@listcount=\count273
+\c@bookmark@seq@number=\count274
 
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfile
 check.sty
@@ -298,9 +303,9 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count271
-\Gm@cntv=\count272
-\c@Gm@tempcnt=\count273
+\Gm@cnth=\count275
+\Gm@cntv=\count276
+\c@Gm@tempcnt=\count277
 \Gm@bindingoffset=\dimen152
 \Gm@wd@mp=\dimen153
 \Gm@odd@mp=\dimen154
@@ -316,16 +321,16 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTright=\skip54
 \LTpre=\skip55
 \LTpost=\skip56
-\LTchunksize=\count274
+\LTchunksize=\count278
 \LTcapwidth=\dimen160
 \LT@head=\box49
 \LT@firsthead=\box50
 \LT@foot=\box51
 \LT@lastfoot=\box52
-\LT@cols=\count275
-\LT@rows=\count276
-\c@LT@tables=\count277
-\c@LT@chunks=\count278
+\LT@cols=\count279
+\LT@rows=\count280
+\c@LT@tables=\count281
+\c@LT@chunks=\count282
 \LT@p@ftn=\toks25
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
@@ -339,16 +344,16 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen168
 \cmidrulekern=\dimen169
 \defaultaddspace=\dimen170
-\@cmidla=\count279
-\@cmidlb=\count280
+\@cmidla=\count283
+\@cmidlb=\count284
 \@aboverulesep=\dimen171
 \@belowrulesep=\dimen172
-\@thisruleclass=\count281
-\@lastruleclass=\count282
+\@thisruleclass=\count285
+\@lastruleclass=\count286
 \@thisrulewidth=\dimen173
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count283
+\etb@tempcnta=\count287
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box53
@@ -376,21 +381,12 @@ line 40.
 )
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdft
 ex.def
-File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
-\l__kernel_color_stack_int=\count284
+File: l3backend-pdftex.def 2021-02-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count288
 \l__pdf_internal_box=\box54
 ) (./main_text.aux
 
 LaTeX Warning: Label `fig:text_length' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
 
 
 LaTeX Warning: Label `' multiply defined.
@@ -433,7 +429,7 @@ e
 ))
 Package hyperref Info: Link coloring ON on input line 89.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
@@ -441,7 +437,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 estring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count285
+\c@section@level=\count289
 )
 LaTeX Info: Redefining \ref on input line 89.
 LaTeX Info: Redefining \pageref on input line 89.
@@ -640,36 +636,60 @@ df  used on input line 704.
 in_text_files/figure-latex/Press releases sample documents-1.pdf>] [11 <./main_
 text_files/figure-latex/Mean topic prevalence-1.pdf>]
 <main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=372, 469.7
-55pt x 289.08pt>
+55pt x 216.81pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity-1.pdf Graphic f
 ile (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
 ity-1.pdf  used on input line 835.
-(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
-[12 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>] [13]
-Overfull \hbox (9.53693pt too wide) in paragraph at lines 1065--1097
+(pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
+
+Overfull \hbox (220.00185pt too wide) in paragraph at lines 869--894
  [][] 
  []
 
-[14] [15] [16] [17] [18] [19] (./main_text.aux)
-Package rerunfilecheck Info: File `main_text.out' has not changed.
-(rerunfilecheck)             Checksum: 32574B6E953C5DFBBD0B3C10499FB156;3176.
+[12 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>]
+<main_text_files/figure-latex/Daily mean cosine similarity - treatment-1.pdf, i
+d=390, 469.755pt x 216.81pt>
+File: main_text_files/figure-latex/Daily mean cosine similarity - treatment-1.p
+df Graphic file (type pdf)
+<use main_text_files/figure-latex/Daily mean cosine similarity - treatment-1.pd
+f>
+Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
+ity - treatment-1.pdf  used on input line 931.
+(pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
+[13 <./main_text_files/figure-latex/Daily mean cosine similarity - treatment-1.
+pdf>]
+Overfull \hbox (227.86302pt too wide) in paragraph at lines 1000--1027
+ [][] 
+ []
+
+
+Overfull \hbox (290.55254pt too wide) in paragraph at lines 1036--1068
+ [][] 
+ []
+
+[14]
+Overfull \vbox (183.41783pt too high) has occurred while \output is active []
+
+[15] [16] [17] [18] (./main_text.aux)
 
 LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
+Package rerunfilecheck Info: File `main_text.out' has not changed.
+(rerunfilecheck)             Checksum: 98555A7368473CF55F81207109E97C4F;3143.
  ) 
 Here is how much of TeX's memory you used:
- 11313 strings out of 481433
- 165588 string characters out of 5919428
- 492623 words of memory out of 5000000
- 27709 multiletter control sequences out of 15000+600000
- 617335 words of font info for 87 fonts, out of 8000000 for 9000
+ 10852 strings out of 480971
+ 161272 string characters out of 5906777
+ 514148 words of memory out of 5000000
+ 27708 multiletter control sequences out of 15000+600000
+ 485677 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 66i,11n,72p,427b,391s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,11n,74p,427b,437s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 }{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Us
 ers/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/f
@@ -695,10 +715,10 @@ st/fonts/type1/public/lm/lmri8.pfb></Users/franzilow/Library/TinyTeX/texmf-dist
 fonts/type1/public/lm/lmsy5.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmsy7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/font
 s/type1/public/lm/lmtt10.pfb>
-Output written on main_text.pdf (19 pages, 1283289 bytes).
+Output written on main_text.pdf (18 pages, 1083465 bytes).
 PDF statistics:
- 576 PDF objects out of 1000 (max. 8388607)
- 503 compressed objects within 6 object streams
- 128 named destinations out of 1000 (max. 500000)
- 210 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 587 PDF objects out of 1000 (max. 8388607)
+ 513 compressed objects within 6 object streams
+ 127 named destinations out of 1000 (max. 500000)
+ 215 words of extra memory for PDF output out of 10000 (max. 10000000)
 

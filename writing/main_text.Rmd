@@ -577,14 +577,15 @@ temp_df %>%
             )
 ```
 
-# Linear regression model
+# Model estimations
 
 ```{r Plot data & estimate models}
 # ----------------------------
 target_source <- "DIE WELT"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(welt)
-welt_p <- plot_cosine_sim(cosine_distances_df, target_source) # plot data
+welt_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
+welt_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 welt_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
 welt_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 welt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
@@ -592,7 +593,8 @@ welt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # e
 target_source <- "stern.de"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(stern)
-stern_p <- plot_cosine_sim(cosine_distances_df, target_source) # plot data
+stern_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
+stern_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 stern_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
 stern_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 stern_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
@@ -600,7 +602,8 @@ stern_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # 
 target_source <- "ZEIT ONLINE"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(zeit)
-zeit_p <- plot_cosine_sim(cosine_distances_df, target_source) # plot data
+zeit_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
+zeit_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 zeit_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
 zeit_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 zeit_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
@@ -608,7 +611,8 @@ zeit_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # e
 target_source <- "Handelsblatt"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(handelsblatt)
-handelsblatt_p <- plot_cosine_sim(cosine_distances_df, target_source) # plot data
+handelsblatt_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
+handelsblatt_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 handelsblatt_model <- calc_ols_dummy(cosine_distances_df)
 handelsblatt_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 handelsblatt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
@@ -616,7 +620,8 @@ handelsblatt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_sou
 target_source <- "FOCUS Online"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(focus)
-focus_p <- plot_cosine_sim(cosine_distances_df, target_source) # plot data
+focus_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
+focus_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 focus_model <- calc_ols_dummy(cosine_distances_df)
 focus_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 focus_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
@@ -624,7 +629,8 @@ focus_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # 
 target_source <- "Bild.de"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(bild)
-bild_p <- plot_cosine_sim(cosine_distances_df, target_source) # plot data
+bild_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
+bild_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 bild_model <- calc_ols_dummy(cosine_distances_df)
 bild_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 bild_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
@@ -632,13 +638,15 @@ bild_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # e
 target_source <- "SPIEGEL ONLINE"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(spiegel)
-spiegel_p <- plot_cosine_sim(cosine_distances_df, target_source)
+spiegel_p <- plot_cosine_sim_ols(cosine_distances_df, target_source)
+spiegel_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source)
 spiegel_model <- calc_ols_dummy(cosine_distances_df)
 spiegel_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
 spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 ```
 
-\autoref{fig:mean_cosine_sim} plots the data points for each news paper. The smoothed line shows the conditional mean for each party (cosine similarity between the news articles and each parties press releases conditional on the day). This helps to analyze the trend.
+
+\autoref{fig:mean_cosine_sim_ols} plots the data points for each news paper. The smoothed line shows the conditional mean for each party (cosine similarity between the news articles and each parties press releases conditional on the day). This helps to analyze the trend.
 
 Observations:
 
@@ -648,13 +656,10 @@ Observations:
 
 - stern.de, Bild.de, ZEIT ONLINE & SPIEGEL ONLINE: Similarity with AfD is lower at the end of the time period
 
-```{r Daily mean cosine similarity, fig.cap="Daily mean cosine similarity between topic distributions in newspaper/press articles pairs \\label{fig:mean_cosine_sim}", fig.height=4, out.width="100%"}
-welt_p + theme(axis.text.y = element_text(size = 5)) +
-  stern_p + zeit_p +
-  handelsblatt_p + 
-  focus_p + theme(axis.text.y = element_text(size = 5)) + 
-  bild_p + spiegel_p +
-  plot_layout(ncol = 4) + plot_layout(guides = 'collect')
+```{r Daily mean cosine similarity, fig.cap="Log of daily mean cosine similarity between topic distributions in newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols}", fig.height=3, out.width="80%"}
+handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
+  bild_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
+  plot_layout(ncol = 1)
 ```
 
 
@@ -669,32 +674,18 @@ $$
 - $i$ = date (date1), $k$ = political party (source2)
 
 ```{r Model results OLS dummy 1, results='asis' }
-stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model,
+stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model, 
+                     focus_model, bild_model, spiegel_model,
                      column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", 
-                                       "Handelsblatt"),
-                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE, header = FALSE,
-                     font.size = "tiny",
-                     type = "latex")
-```
-
-```{r Model results OLS dummy 2, results='asis' }
-stargazer::stargazer(focus_model, bild_model, spiegel_model,
-                     column.labels = c("FOCUS Online", "Bild.de", 
+                                       "Handelsblatt", "FOCUS Online", "Bild.de", 
                                        "SPIEGEL ONLINE"),
                      dep.var.labels = paste0("Cosine similarity of topic distribution"), 
                      single.row = TRUE, header = FALSE,
                      font.size = "tiny",
                      type = "latex")
 ```
+<!-- TODO: Model diagnostics: F-test, plot residuals -->
 
-<!-- Model diagnostics: F-test, plot residuals -->
-<!-- helpful links: 
-    1) https://towardsdatascience.com/how-to-model-time-series-data-with-linear-regression-cd94d1d901c0
-    2) https://medium.com/@oluvvafemi/dummy-variables-and-diagnostics-of-linear-regression-models-79e2aa0458c8 
-    3) https://daviddalpiaz.github.io/appliedstats/categorical-predictors-and-interactions.html#dummy-variables -->
-
-<!-- Interpretation -->
 Interpretation:
 
 When $D$ switches from from 0 (AfD) to 1 (any other party), the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$
@@ -706,26 +697,39 @@ transform_coeff_ols(welt_model$coefficients[2])
 ```
 
 - Compared to AfD, the similarity of topics of DIE WELT and B90/G is 20% lower.
-- In general, the document similarity is significantly less in for all news papers exepct for Handelsblatt, where no significant difference can be found between the parties. 
+- In general, the document similarity is significantly less in for all news papers except for Handelsblatt, where no significant difference can be found between the parties. 
 
 ## Regression discontinuity model
 
-The idea of regression regression discontinuity design is to use observations with a $W_i$ close to $c$ for the estimation of $\beta_1$. $\beta_1$ is the average treatment effect for observations with $W_i = c$ which is assumed to be a good approximation to the overall treatment effect. In other words, $\beta_1$ gives us the average change of news coverage of media outlet $i$ after the election day. Since interaction terms $T_iDn_{j}$ are included, we can estimate the treatment effect for each party. 
+- We assume that the topic similarity changes after the election day:
+
+```{r Daily mean cosine similarity - treatment, fig.cap="Log of mean cosine similarity between topic distributions in newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd}", fig.height=3, out.width="80%"}
+handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
+  bild_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
+  plot_layout(ncol = 1)
+```
+
+- Initially introduced by @thistlethwaite_regression-discontinuity_1960 & formalized by @hahn_identification_2001
+- It's a rigorous nonexperimental approach used to estimate treatment effects, where treatment is determined by whether an observed assignment variable (aka "forcing" or "running" variable) exceeds a known cutoff point.
+- In out model, the running variable $W$ is the time difference between date $i$ and the election date (in days) and the cutoff point $c$ is the election day
+- The idea of regression regression discontinuity design is to use observations with a $W_i$ close to $c$ for the estimation of $\beta_1$
+- $\beta_1$ is the average treatment effect for observations with $W_i = c$ which is assumed to be a good approximation to the overall treatment effect. 
+- In other words, $\beta_1$ gives us the average change of the similarity between the content of news articles and press releases after the election day
+- Including interaction terms terms $T_iDn_{j}$ in the second step allows us to estimate the treatment effect for each party --> since we are estimating an isolated model for each newspaper, we have the average treatment effect of the election day for each newspaper/party pair.
 
 Calculate a regression discontinuity model for each newspaper $i$.
 
 $$
 \ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_nD_{i,k-1}+\epsilon_i
 $$
-
-where $W = $ date $i$ - election day and
+where
 
 $$
-T_i = 1 \text{ if date } >= \text{election date} \\
+T_i = 1 \text{ if date } >= \text{election date} \\\
 T_i = 0 \text{ if date } < \text{election date}
 $$
 
-so that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous variable $W_i$ (date), the so called running variable.
+so that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous (running) variable $W_i$.
 
 ### Without interaction terms
 
@@ -733,46 +737,29 @@ $$
 \text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_nDn_{j}+\epsilon_i
 $$
 ```{r Model reults without interaction terms 1, results='asis'}
-stargazer::stargazer(welt_model1, stern_model1, zeit_model1, handelsblatt_model1,
-                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt"),
+stargazer::stargazer(welt_model1, stern_model1, zeit_model1, handelsblatt_model1, focus_model1, bild_model1, spiegel_model1,
+                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt","FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
                      dep.var.labels = paste0("Cosine similarity of topic distribution"), 
                      single.row = TRUE, header = FALSE,
                      font.size = "tiny",
                      type = "latex")
 ```
 
-```{r Model reults without interaction terms 2, results='asis'}
-stargazer::stargazer(focus_model1, bild_model1, spiegel_model1,
-                     column.labels = c("FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
-                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE, header = FALSE,
-                     font.size = "tiny",
-                     type = "latex")
-```
+<!-- Interpretation -->
 
 ### With interaction terms
 
-$$
-\text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_2Dn_{j}+\beta_3T_iDn_{j}+\epsilon_i
-$$
-
-```{r Model reults with interaction terms 1, results='asis'}
+```{r Model results with interaction terms, results='asis'}
 stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2,
-                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt"),
+                     focus_model2, bild_model2, spiegel_model2,
+                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt","FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
                      dep.var.labels = paste0("Cosine similarity of topic distribution"), 
                      single.row = TRUE, header = FALSE,
                      font.size = "tiny",
                      type = "latex")
 ```
 
-```{r Model reults with interaction terms 2, results='asis'}
-stargazer::stargazer(focus_model2, bild_model2, spiegel_model2,
-                     column.labels = c("FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
-                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE, header = FALSE,
-                     font.size = "tiny",
-                     type = "latex")
-```
+<!-- Interpretation -->
 
 The interaction term $T_i*Dn$ means that the slope can vary on either side of the treatment threshold for each party. 
 
