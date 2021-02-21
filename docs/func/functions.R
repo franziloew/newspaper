@@ -88,23 +88,46 @@ df_prep_ols <- function(cosine_df) {
 ###############
 ## Plot data ##
 ###############
-plot_cosine_sim <- function(df, target) {
-  df %>% 
-    ggplot(aes(date1, cos_sim, color = source2)) +
-    geom_point(alpha = 0.2, size = 0.2) +
-    geom_smooth(method = lm, size = 0.3, fill=NA) +
-    ylim(0,0.7) +
+plot_cosine_sim_ols <- function(df, target) {
+  ggplot(cosine_distances_df, 
+         aes(date1, log(cos_sim))) +
+    geom_point(size = 0.2, alpha = 0.5) +
+    geom_smooth(method = lm, 
+                formula = y ~ x,
+                se=FALSE, size = 0.3) +
     scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
-    labs(x=NULL, y = NULL,
+    facet_wrap(~source2, nrow = 1) +
+    labs(x=NULL, y = "ln(cosine similarity)",
          caption = paste0(target)) +
-    guides(colour = guide_legend(nrow = 1)) +
-    theme(axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          axis.text.x = element_text(size = 4, angle = 45),
-          legend.title = element_blank(),
-          legend.position = 'bottom', 
-          legend.text = element_text(size=4),
-          legend.key.size = unit(0.2, "cm")) 
+    theme(
+      strip.background = element_blank(),
+      strip.text.x = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.x = element_blank(),
+      axis.text.y = element_text(size = 3),
+      axis.title.y = element_text(size = 3, angle = 90)) 
+}
+
+plot_cosine_sim_rd <- function(df, target) {
+  ggplot(cosine_distances_df, 
+         aes(date1, log(cos_sim),
+             group = election_dummy)) +
+    geom_vline(xintercept = as.Date('2017-09-24'), size = 0.3, linetype = 'dashed') +
+    geom_point(size = 0.2, alpha = 0.5) +
+    geom_smooth(method = lm, 
+                formula = y ~ x,
+                se=FALSE, size = 0.3) +
+    scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
+    facet_wrap(~source2, nrow = 1) +
+    labs(x=NULL, y = "ln(cosine similarity)",
+         caption = paste0(target)) +
+    theme(
+      strip.background = element_blank(),
+      strip.text.x = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.x = element_blank(),
+      axis.text.y = element_text(size = 3),
+      axis.title.y = element_text(size = 3, angle = 90))  
 }
 
 #####################
@@ -115,9 +138,9 @@ model_outcome <- dataframe %$%
   lm(log(cos_sim) ~ source2)
 }
 
-#####################
-### Calculate OLS ###
-#####################
+##################################
+### Calculate OLS coefficients ###
+##################################
 transform_coeff_ols <- function(coeff) {
   exp(coeff)-1
 }
@@ -130,10 +153,10 @@ calc_rd_dummy<- function(dataframe, target_source) {
   temp_df <- dataframe %>%
     mutate(
       X_centered = I(date1 - election_date),
-      treatedTRUE = ifelse(date1 >= election_date, 1, 0))
+      treated = date1 >= election_date)
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ treatedTRUE + source2 + X_centered)
+    lm(log(cos_sim) ~ treated + X_centered + source2 )
 }
 
 ### Dummy & interaction term
@@ -141,8 +164,8 @@ calc_rd_dummy_interaction <- function(dataframe, target_source) {
   temp_df <- dataframe %>%
     mutate(
       X_centered = I(date1 - election_date),
-      treatedTRUE = ifelse(date1 >= election_date, 1, 0))
+      treated = date1 >= election_date)
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ treatedTRUE * source2 + X_centered)
+    lm(log(cos_sim) ~ treated + X_centered + source2 + treated:source2)
 }
