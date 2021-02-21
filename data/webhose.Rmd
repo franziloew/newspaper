@@ -9,7 +9,7 @@ library(RPostgreSQL)
 library(dplyr)
 library(ggplot2)
 
-# wh_token('96ccea44-8a69-4ebb-9645-c9374c283716') set wh API key
+# wh_token('4f9a19d7-6252-4b28-8032-c0dc73b4ec0a') set wh API key
 pg_password <- Sys.getenv("DB_NEWSPAPER")
 
 # Connect to postgres
@@ -81,17 +81,22 @@ dbListTables(con)
 sites_query <- dbSendQuery(con, 'SELECT date, site FROM webhose_data')
 result <- dbFetch(sites_query)
 
+max_date <- as.Date(max(result$date))
+min_date <- as.Date(min(result$date))
+
 result %>%
   group_by(date, site) %>%
   tally() %>%
   ggplot(aes(date, n, color = site)) +
   geom_line() +
   ggthemes::theme_hc() +
-  labs(title = "# Articles", x=NULL, y=NULL) +
+  labs(title = "# Articles",
+       subtitle = paste('Time period:',min_date,'-',max_date), 
+       x=NULL, y=NULL) +
   theme(legend.title = element_blank())
 ```
 
-```{r fig.height=12, fig.width=6}
+```{r fig.height=12, fig.width=10}
 news_query <- dbSendQuery(con, 'SELECT site, section_title FROM webhose_data')
 result <- dbFetch(news_query)
 
