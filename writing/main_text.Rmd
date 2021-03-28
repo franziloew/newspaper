@@ -1,8 +1,12 @@
 ---
-title: "Political news coverage of massmedia"
+title: "Political news coverage of online news"
 subtitle: "..."
 author: "Franziska Löw^[Institut für Industrieökonomik, Helmut Schmidt Universität. Email: .]"
 date: November 2020
+header-includes:
+- \usepackage{pdflscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
 output: 
     pdf_document:
         keep_tex: true
@@ -44,7 +48,7 @@ model_df <- model_df %>%
 source("../docs/func/functions.R")
 
 # ggplot themes
-theme_set(theme_hc(base_size = 8))
+theme_set(theme_hc(base_size = 6))
 color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#123f5a')
 ```
 
@@ -57,13 +61,12 @@ For advertising-financed media the battle for the attention of the recipients is
 
 This conclusion, derived from the economic theory of platform markets, corresponds to the notion of media logic, a central concept in the field of media and communication studies [@takens_media_2013]. The debate about media logic is embedded in the broader discussion about the interaction between the press, politics and the public. The underlying thesis is that the content of political news is the product of news values and narrative techniques that media use to attract audiences [@stromback_four_2008]. According to @takens_media_2013, three content attributes highly correspond with news values and influence how journalists interpret political events: 1) personalized content, i.e., the focus on individual politicians; 2) the framing of politics as a contest and 3) negative coverage. Similarly @blassnig_hitting_2019 states that media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting like conflict, drama, negativity, surprise or proximity. Likewise populist messages often co-occur with negative, emotionalized, or dramatized communication style, thus utilizing similar mechanisms as the media logic, respectively the attention economy. In fact, @blassnig_hitting_2019 shows that populist key messages by political and media actors in news articles provoke more reader comments under these articles. Media competing for the attention of readers therefore have an incentive to pick up on the key messages of these parties.
 
-<!--  Warum ist die Berichterstattung vor Wahlen besonders/anders? Eventuell: Wahlkampf verändert das Verhalten der Parteien -->
-Political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters, especially during election campaigns [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004].
-
 <!-- Does increased reporting also lead to rising survey results? -->
 But does increased reporting also lead to rising survey results? Especially if this reporting is largely negative, which is the case for reporting on AfD during electing campaign phase <!-- find sources! -->. In political science, several studies have examined at least the first aspect of this question (see for example @druckman_impact_2005, @eberl_lying_2018). In general, it is assumed that smaller, non-established parties in particular benefit from placing their topics in the media in order to get them into the voters' heads. Here, the tendency of the reporting is irrelevant but rather the quantity is decisive. 
 
-However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to investigate whether differences exist in media coverage of different parties before and after the 2017 federal elections in Germany. In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content (audio, video, text). Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
+However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to investigate how the reporting of online news is similar to the messaging of different political parties. Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004]. This paper therefore analyzes the period before and after the 2017 federal elections in Germany to answer the question whether political news report about similar topics and if this similarity changes after the election campaign is over. 
+
+In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content (audio, video, text). Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
 Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties using a linear regression model.
 
 # Literature review
@@ -83,32 +86,30 @@ After the failure of the Jamaica coalition talks, a possible re-election or a mi
 
 \autoref{fig:election_polls} shows that support for the two major popular parties has been declining in recent months since August 2017, with the CDU/CSU again showing positive survey results since November 2017.^[For each party the survey results of the seven major institutes are considered. To calculate a smooth line for each party on each day, the moving average within 15 days (7 before the day, 7 after the day, and the day itself) is estimated. The data source is https://www.wahlrecht.de/.] However,the poll results of the SPD have been falling since March 2017. At the same time, the AfD in particular has been recording increasingly positive survey results since June 2017.
 
-```{r election polls, fig.cap= "Election polls \\label{fig:election_polls}", out.width="60%", fig.height=3}
+```{r election polls, fig.cap= "Election polls during the period under review \\label{fig:election_polls}", out.width="60%", fig.height=3}
 load("../data/polldata.Rda")
 
 df.small %>%
-  filter(date > as.Date("2017-01-01")) %>%
-  filter(date < as.Date("2018-06-30")) -> df.plot
+  filter(date > as.Date("2017-06-01")) %>%
+  filter(date < as.Date("2018-03-01")) -> df.plot
 
-p <- ggplot(df.plot) +
+ggplot(df.plot) +
   geom_point(aes(date, pollvalue, 
                          text = paste("institute:", institute),
                          color = party),
-             alpha = 0.6, size = 0.8) +
-  geom_line(aes(date, ma, color = party), size = 1) +
+             alpha = 0.6, size = 0.4) +
+  geom_line(aes(date, ma, color = party), size = 0.8) +
   geom_vline(xintercept = as.Date("2017-09-24"), linetype=2) +
-  
-  geom_vline(xintercept = as.Date("2017-06-01"), linetype=2) +
-  geom_vline(xintercept = as.Date("2018-03-01"), linetype=2) +
   scale_color_manual(values = c("#009ee0", "#32302e","#ffed00","#46962b","#ec008c", "#E3000F")) +
+  scale_x_date(date_breaks = "1 month", labels = date_format("%m-%Y")) +
   theme_hc() +
-  labs(x=NULL,y=NULL,color=NULL)
-
-p
+  labs(x=NULL,y=NULL,color=NULL) +
+  guides(colour = guide_legend(nrow = 1)) +
+  theme(axis.text.x = element_text(angle = 45))
 ```
 
 ## German online news market
-The analysis performed in this paper is based on the news articles of the following news websites: Bild.de, DIE WELT, FOCUS ONLINE, Handelsblatt.com, SPIEGEL ONLINE, stern.de, ZEIT ONLINE. As can be seen from \autoref{fig:news_market}(a), expect for Handelsbaltt.com (position 53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
+The analysis performed in this paper is based on the news articles of the following news websites: *Bild.de*, *DIE WELT*, *FOCUS ONLINE*, *Handelsblatt*, *SPIEGEL ONLINE*, *stern.de*, *ZEIT ONLINE*. As can be seen from \autoref{fig:news_market}(a), expect for *Handelsbaltt* (position 53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
 
 The main source of income for these privately managed media houses is digital advertising, even though paid content is playing an increasingly important role. However, according to a survey on digital news by the Reuters Institute [@newman_reuters_2018]  only 8% of respondents pay for online news. The online survey for German data was undertaken between 19th - 22nd January 2018 by the Hans Bredow Institute^[https://www.hans-bredow-institut.de/de/projekte/reuters-institute-digital-news-survey] with a total sample size of 2038 adults (aged 18+) who access news once a month or more. Among other questions, participants were asked which news sources they use to access news online.^[The exact question was: "Which of the following brands have you used to access news online in the last week (via websites, apps, social media, and other forms of Internet access)? Please select all that apply."] The results displayed in \autoref{fig:news_market}(b) indicate that the media used for the analysis play a relevant role in their consumption.
 
@@ -177,14 +178,14 @@ p1 + p2
 ```
 
 # Data
-I conduct the estimation on a sample of 16,473 online news articles from the seven German news providers mentioned in the previous section ^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
+I conduct the estimation on a sample of 16,473 online news articles from the seven German news providers mentioned in the previous section ^[*Bild.de*, *DIE WELT*, *FOCUS ONLINE*, *SPIEGEL ONLINE*, *stern.de*, *ZEIT ONLINE*, *Handelsblatt*] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
 
 <!-- News articles -->
 News articles scraped from the Webhose.io API.^[For more information see https://docs.webhose.io/reference#about-webhose. The scraping code was written in Python and can be made available on request.] In order to consider only news about national politics, the articles were filtered based on their URL.
 
 \autoref{fig:news_distr} shows the distribution of the number of articles by date and media outlet. There is a high peak around the federal elections on September, 24th and another one shortly after the failure of the Jamaica coalition talks on November, 19th (indicated by the red dotted lines).^[The peak in July especially for *stern.de* is due to increased reporting about the G20 summit in Hamburg.] Furthermore, \autoref{fig:news_distr} shows that  *DIE WELT* published the most articles on domestic policy, followed by *stern.de*, *Handelsblatt* and *FOCUS ONLINE*.
 
-```{r, news articles, fig.cap= "Distribution of news articles \\label{fig:news_distr}", out.width="100%", fig.height=3}
+```{r Distribution of news articles, fig.height=2, fig.cap="Distribution of news articles \\label{fig:news_distr}", out.width="80%"}
 news_df <- model_df %>% filter(type == 'news')
 
 p1 <- news_df %>%
@@ -212,7 +213,7 @@ p1 + p2 + plot_layout(widths = c(2,1))
 <!-- Press releases -->
 The press releases were scraped from the public websites of the political parties and parliamentary groups using an automated script written in *Python*.^[The scraping code was written in Python and can be made available on request.]
 
-```{r, press releases, fig.cap= "Distribution of press releases \\label{fig:press_distr}", out.width="90%", fig.height=3}
+```{r Distribution of press releases, fig.height=2, out.width="80%", fig.cap="Distribution of press releases \\label{fig:press_distr}"}
 press_df <- model_df %>% filter(type == 'press')
 
 p1 <- press_df %>%
@@ -240,7 +241,7 @@ p1 + p2 + plot_layout(widths = c(3,1))
 Looking at the boxplots of text length (\autoref{fig:text_length}), it becomes evident that:^[See \autoref{table:text_length} for an overview of the summary statistics.]
 
 - mean and median text length of news articles is higher than in press releases
-- Handelsblatt published new articles with the highest median text length (488) followed by ZEIT ONLINE (459), however DIE WELT has the article with the highest word count (14.507).
+- *Handelsblatt* published new articles with the highest median text length (488) followed by *ZEIT ONLINE* (459), however *DIE WELT* has the article with the highest word count (14.507).
 - press releases of CDU have the highest median (256), but also the highest standard dev. (106). press releases of FDP have the lowest median (144). 
 
 ```{r, text_length, fig.height=3, out.width="100%", fig.cap="Text length \\label{fig:text_length}"}
@@ -309,7 +310,7 @@ dev.off()
 
 To remove distorting words, the pre-defined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of stop-words. Additionally punctuation character (e.g. ., ,, !, ?, etc.) and all numbers are removed from the data. A next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. I apply the widely used Porter-Stemmer algorithm, which is based on a set of shortening rules that are applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
 
-As an example, the following word clouds represent the most frequent words of the pre-processed articles for Bild.de and press releases of AfD. It becomes evident that these are texts discussing domestic policy issues. The SPD in particular seems to be highly frequent for $Bild.de$.
+As an example, the following word clouds represent the most frequent words of the pre-processed articles for *Bild.de* (left word cloud) and press releases of AfD (right word cloud). It becomes evident that these are texts discussing domestic policy issues. The SPD in particular seems to be highly frequent for *Bild.de*.
 
 ::: {.figure data-latex="\centering"}
 
@@ -398,32 +399,11 @@ theta <- as.data.frame(stmModel$theta) %>%
 ```
 
 
-As stated above, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$. The average of each topic across all documents results in the expected probability of a topic across the whole corpus. \autoref{fig:topic_distribution} displays the top 20 topics ordered by their average probability over the whole corpus. Since every topic is a probability distribution over words, top words may help to understand what each topic is about and are used as labels in \autoref{fig:topic_distribution}.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words not not necessarily the most exclusive words and they only represent represent a small fraction of the probability distribution, interpretation should be done very cautiously.
+The generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$ and a word distribution $\phi_k$ for each topic over all terms in the vocabulary. The most probable words of each topic may help to understand what each topic is about.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words are not necessarily the most exclusive words and they only represent a small fraction of the probability distribution, interpretation should be done very cautiously.
 
-- 1: Topic 35 is the most common topic across the corpus
-- 4: topic 38 about refugees
-- 5: topic 39 about the jamaica coalition
-- 6: followed by topic 8 about the "GroKo"
+For our analysis, we use the topic distribution of each document. \autoref{fig:sample_docs12} illustrates such a topic distribution of two news paper articles. The red numbers indicate the topic probability if it is greater than $0.02$. News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36 ($0.89$), for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does does not show such a clear tendency towards a single topic. Topic 40 ($0.34$),  18 ($0.24$) and 5 ($0.19$) are within a comparable range. However, for all three topics similar terms are among the top terms.
 
-```{r Topic distribution, fig.height=4, out.width="60%", fig.cap="Top 20 topics by prevalence \\label{fig:topic_distribution}"}
-gamma_terms %>%
-  top_n(20, gamma) %>%
-  ggplot(aes(topic_str, gamma, label = terms)) +
-  geom_col(show.legend = FALSE) +
-  geom_text(hjust = 0, nudge_y = 0.0005, size = 3) +
-  coord_flip() +
-  scale_y_continuous(expand = c(0,0),
-                     limits = c(0, 0.2)) +
-  theme_tufte(ticks = FALSE) +
-  labs(x = NULL, y = "Average topic proportion") 
-```
-
-
-Each document has a probability distribution over all topics. \autoref{fig:sample_docs12} illustrates the topic distribution of two news paper articles and \autoref{fig:sample_docs34} does the same for two press releases randomly chosen from the corpus.^[Translations news articles: (1) Bundeswehr scandal: ex-commander attacks Von Der Leyen. (2) Bundestag elections: 42 parties want to be elected to parliament. Translations press releases: (1) Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left. (2) Trump chooses the path to isolation.]\autoref{fig:mean_theta} shows the distribution of mean topic probability of all topics for news articles and press releases before and after the election date.
-
-Observations:
-- High peak both before and after election for topic 35 & 20 
-- no big difference between pre and post election for press releases, but for news articles
+Similarly as for the news articles, \autoref{fig:sample_docs34} illustrates the topic distribution for two press releases randomly chosen from the corpus. For press release 1^[Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left] topic 24 is the most probable topic which contains terms about the G20 Summit, during which left-wing radicals caused considerable riots. Topic distribution of press article 2^[Trump chooses the path to isolation] shows peaks for topic 6 ($0.39$) and 35 ($0.28$). Top terms of topic 6 contain the words trump, us, usa, deutschland (Germany) and präsident (president). Similarly topic 35 seems to deal with German foreign policy, since top terms include words like eu, deutschland (Germany), europa and bundesregierung (Federal Government).
 
 ```{r News articles sample documents, fig.cap="Topic probability of sample news articles \\label{fig:sample_docs12}", fig.height=3, out.width="80%"}
 # Bundeswehr / v.d.Leyen
@@ -449,19 +429,31 @@ p2 <- plot_topic_distr_document(sample4)
 p1 / p2
 ```
 
-```{r Mean topic prevalence, fig.cap="Mean topic prevalence \\label{fig:mean_theta}", fig.height=3, out.width="80%"}
-theta %>% 
-  group_by(type, topic, topic_label, election_dummy) %>% 
+The left chart of \autoref{fig:sample_topics_afd} displays the 15 topics with the highest probability for press releases of the AfD.  The right side of the figure shows how the probability of two sample topics changes over the period under consideration compared to two sample news papers. It becomes clear, that topic 9^[Topic 9: afd, party, saxony, gauland, parties, pazderski, höcke] is systematically more likely in the AfD's press releases compared to the two newspapers. There is a noticeable increase in probability during the election campaign period and ends in a peak on election day itself. For Handelsblatt and Bild.de, too, a slight increase around election day is discernible and the probability of this topic shows some peaks for Bild.de both before and after the election. The top words of Theme 38^[Topic 38: refugees, germany, people, number, refugees, family reunion, year] suggest that it addresses refugees - a topic the AfD has a very clear position on. The probability of this topic increases in the AfD's press releases until about a month before the election and then levels off somewhat. A similar trend can be seen for the news articles from Bild.de. The curve from Handelsblatt is rather flat and shows no apparent difference between before and after the election. 
+
+```{r Top AfD topics, fig.cap="Comparison of topic probability - sample topics \\label{fig:sample_topics_afd}", fig.height=3, out.width="100%"}
+p1 <- theta %>% 
+  filter(source == 'AfD') %>% 
+  group_by(topic, source) %>% 
   summarise(theta_mean = mean(theta, na.rm = T)) %>% 
   ungroup() %>% 
-  ggplot(aes(reorder(topic, topic), theta_mean, fill = election_dummy)) + 
-  geom_col(position = 'dodge') +
-  facet_grid(rows = vars(type)) +
-  labs(x = NULL, y = "Mean probability") +
-  theme(axis.title.y = element_text(angle = 90),
-        legend.title = element_blank())
-  
+  top_n(n = 15, wt = theta_mean) %>% 
+  ggplot(aes(reorder(topic, theta_mean), theta_mean, fill = source))+
+  geom_col(show.legend = F) +
+  scale_fill_hc()+
+  coord_flip() +
+  labs(x = NULL, y = 'Topic proportion', 
+       title = 'Mean topic proportion of AfD press releases',
+       subtitle = 'Top 15 topics with highest probability') +
+  theme(axis.title = element_text(size = 4))
+
+source_filter <- c('AfD', 'Bild.de', 'Handelsblatt')
+p2 <- plot_topic_distr_time(9, source_filter) + theme(legend.position = 'none')
+p3 <- plot_topic_distr_time(38, source_filter) + labs(title = NULL)
+
+p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
+
 
 ## Document Cosine similarity 
 
@@ -481,12 +473,11 @@ td_gamma_wide <- td_gamma %>%
 gamma <- as.matrix(td_gamma_wide[, -1])
 ```
 
-Next, the cosine similarity measure is used in order to compare the retrieved topic distribution of every document. Cosine similarity is built on the geometric definition of the dot product of two vectors. It is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. 
+Next, the cosine similarity measure is used in order to compare the retrieved topic distribution of documents. Cosine similarity is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. As topic proportions per document are vectors of the same length, the cosine similarity allows a comparison of the topic distribution between two documents.^[For applications of cosine similarity to compare of topic model outcomes see e.g. @rehs_structural_2020 and @ramage_characterizing_2010]
 
 $$
 \text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
 $$
-As topic proportions per document are vectors of the same length, the cosine similarity allows a comparison of the topic distribution between two documents.^[For applications of cosine similarity to compare of topic model outcomes see e.g. @rehs_structural_2020 and @ramage_characterizing_2010]
 
 For example, \autoref{table:cosine_sim_sample_doc} displays the most similar documents of the document with the title *Glyphosat-Streit vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)*. <!-- add translations for all titles -->
 
@@ -512,10 +503,9 @@ calc_cos_sim(sample_doc) %>%
             )
 ```
 
-In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published in a range of +/- 4 days from the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, press release 2, 3 and so on as long as the press releases was published within 7 days before the news article.
+In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published within 7 days before the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, 2, 3 and so on as long as the press release was published within 7 days before the news article.
 
-- Only pairs where both documents are published either before or after the election date. 
-- See \autoref{table:dataset_structure1} for an illustration of the data
+- See \autoref{table:dataset_structure1} for an example illustration of the data for *DIE WELT*
 
 ```{r Prepare sample dataframe, include=FALSE}
 target_source <- "DIE WELT"
@@ -545,7 +535,7 @@ temp_df <- welt %>%
   mutate(cos_sim = round(cos_sim, 2),
          title1 = str_trunc(title1, 20, "right"),
          title2 = str_trunc(title2, 20, "right"),
-         date2 = date1 - date2,
+         date2 = as.character(date2),
          date1 = as.character(date1),
          cosine_sim = round(cos_sim,3)
          )
@@ -557,12 +547,12 @@ temp_df %>%
   select(title1, title2, cosine_sim, source1, source2, date1, date2) %>% 
     stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
             label = "table:dataset_structure1",
-            title = "Dataset structure step 1", summary = FALSE,
+            title = "Dataset structure step 1 - DIE WELT", summary = FALSE,
             font.size = 'tiny'
             )
 ```
 
-Next, the mean cosine similarity for each date(1) and source(2) is estimated to obtain the final data frame (see \autoref{table:dataset_structure_final})
+Next, the mean cosine similarity for each news article publication date (date1) and party (source2) is estimated to obtain the final data frame (see \autoref{table:dataset_structure_final}).
 
 ```{r Dataset structure final, results='asis'}
 temp_df %>%
@@ -572,7 +562,7 @@ temp_df %>%
   sample_n(5) %>%
   stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
             label = "table:dataset_structure_final",
-            title = "Final dataset structure", summary = FALSE,
+            title = "Final dataset structure - DIE WELT", summary = FALSE,
             font.size = 'tiny'
             )
 ```
@@ -645,18 +635,17 @@ spiegel_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate r
 spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 ```
 
-
-\autoref{fig:mean_cosine_sim_ols} plots the data points for each news paper. The smoothed line shows the conditional mean for each party (cosine similarity between the news articles and each parties press releases conditional on the day). This helps to analyze the trend.
+To get a first idea of the trend of the data over time, the mean cosine similarity between the news articles and each parties press releases conditional on the day can be plotted. \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for *Handelsblatt* and *Bild.de* (See \autoref{fig:mean_cosine_sim_ols} for all news papers)
 
 Observations:
 
-- at the beginning, most news papers (except for Handelsblatt) have the highest similarity with the AfD.
+- at the beginning, most news papers (except for *Handelsblatt*) have the highest similarity with the AfD.
 
-- this similarity is diminishing over the course of time. However, for DIE WELT & Focus Online it is still the highest at the end of the time span.
+- this similarity is diminishing over the course of time. However, for *DIE WELT* & *FOCUS ONLINE* it is still the highest at the end of the time span.
 
-- stern.de, Bild.de, ZEIT ONLINE & SPIEGEL ONLINE: Similarity with AfD is lower at the end of the time period
+- *stern.de*, *Bild.de*, *ZEIT ONLINE* & *SPIEGEL ONLINE*: Similarity with AfD is lower at the end of the time period
 
-```{r Daily mean cosine similarity, fig.cap="Log of daily mean cosine similarity between topic distributions in newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols}", fig.height=3, out.width="80%"}
+```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="80%"}
 handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
   bild_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
   plot_layout(ncol = 1)
@@ -674,36 +663,45 @@ $$
 - $i$ = date (date1), $k$ = political party (source2)
 
 ```{r Model results OLS dummy 1, results='asis' }
-stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model, 
+table <- capture.output({
+  stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model, 
                      focus_model, bild_model, spiegel_model,
                      column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", 
                                        "Handelsblatt", "FOCUS Online", "Bild.de", 
                                        "SPIEGEL ONLINE"),
                      dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE, header = FALSE,
-                     font.size = "tiny",
-                     type = "latex")
+                     header = FALSE, digits = 3, 
+                     type = "latex",
+                     label = "table:results_ols",
+                     title = "Results from the OLS model")
+})
+
+table <- gsub("\\begin{tabular}","\\resizebox{0.99\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
+table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
+cat(table)
 ```
 <!-- TODO: Model diagnostics: F-test, plot residuals -->
 
-Interpretation:
+Interpretation (see \autoref{table:results_ols})
 
-When $D$ switches from from 0 (AfD) to 1 (any other party), the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$
+When $D_k$ switches from from 0 (AfD) to 1 (party $k$), the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$
 
-Example (B90/Gruene):
+Example (B90/GRÜNE):
 
 ```{r}
 transform_coeff_ols(welt_model$coefficients[2])
 ```
 
-- Compared to AfD, the similarity of topics of DIE WELT and B90/G is 20% lower.
-- In general, the document similarity is significantly less in for all news papers except for Handelsblatt, where no significant difference can be found between the parties. 
+- Compared to AfD, the similarity of topics of *DIE WELT* and B90/GRÜNE is 20% lower.
+
+In general, for all news papers (except for *Handelsblatt*) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties (compared to AfD).
 
 ## Regression discontinuity model
 
-- We assume that the topic similarity changes after the election day:
+- We assume that the topic similarity changes after the election day
+- See \autoref{fig:mean_cosine_sim_rd} for all news papers
 
-```{r Daily mean cosine similarity - treatment, fig.cap="Log of mean cosine similarity between topic distributions in newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd}", fig.height=3, out.width="80%"}
+```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="80%"}
 handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
   bild_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
   plot_layout(ncol = 1)
@@ -711,60 +709,101 @@ handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
 
 - Initially introduced by @thistlethwaite_regression-discontinuity_1960 & formalized by @hahn_identification_2001
 - It's a rigorous nonexperimental approach used to estimate treatment effects, where treatment is determined by whether an observed assignment variable (aka "forcing" or "running" variable) exceeds a known cutoff point.
-- In out model, the running variable $W$ is the time difference between date $i$ and the election date (in days) and the cutoff point $c$ is the election day
-- The idea of regression regression discontinuity design is to use observations with a $W_i$ close to $c$ for the estimation of $\beta_1$
+- In our model, the running variable $W$ is the time difference between date $i$ and the election date (in days) and the cutoff point $c$ is the election day
+- The idea of regression discontinuity design is to use observations with a $W_i$ close to $c$ for the estimation of $\beta_1$
 - $\beta_1$ is the average treatment effect for observations with $W_i = c$ which is assumed to be a good approximation to the overall treatment effect. 
 - In other words, $\beta_1$ gives us the average change of the similarity between the content of news articles and press releases after the election day
-- Including interaction terms terms $T_iDn_{j}$ in the second step allows us to estimate the treatment effect for each party --> since we are estimating an isolated model for each newspaper, we have the average treatment effect of the election day for each newspaper/party pair.
+- Including interaction terms terms $T_iDn_{j}$ allows us to estimate the treatment effect for each party --> since we are estimating an isolated model for each newspaper, we have the average treatment effect of the election day for each newspaper/party pair.
 
-Calculate a regression discontinuity model for each newspaper $i$.
+Calculate a regression discontinuity model for each news paper.
 
 $$
-\ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_nD_{i,k-1}+\epsilon_i
+\ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
 $$
 where
 
-$$
-T_i = 1 \text{ if date } >= \text{election date} \\\
+$$\begin{aligned}
+T_i = 1 \text{ if date } >= \text{election date} \\
 T_i = 0 \text{ if date } < \text{election date}
-$$
+\end{aligned}$$
 
 so that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous (running) variable $W_i$.
 
-### Without interaction terms
+The interaction term $T_iD_{i,k-1}$ means that the slope can vary on either side of the treatment threshold for each party.
 
-$$
-\text{CosineSimilarity}_{i}=\beta_0+\beta_1T_i+\beta_nDn_{j}+\epsilon_i
-$$
-```{r Model reults without interaction terms 1, results='asis'}
-stargazer::stargazer(welt_model1, stern_model1, zeit_model1, handelsblatt_model1, focus_model1, bild_model1, spiegel_model1,
-                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt","FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
-                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE, header = FALSE,
-                     font.size = "tiny",
-                     type = "latex")
-```
-
-<!-- Interpretation -->
-
-### With interaction terms
+- The coefficient $\beta_1$ is how the intercept jumps (the RDD effect). Since we are controlling for each party, the coefficient shows the treatment effect on the AfD. 
+- $\beta_4$ is how the slope changes for each party.
 
 ```{r Model results with interaction terms, results='asis'}
-stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2,
+table <- capture.output({
+  stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2,
                      focus_model2, bild_model2, spiegel_model2,
                      column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt","FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
                      dep.var.labels = paste0("Cosine similarity of topic distribution"), 
-                     single.row = TRUE, header = FALSE,
-                     font.size = "tiny",
-                     type = "latex")
+                     digits = 3, type = "latex",
+                     header = FALSE,
+                     label = "table:results_rd",
+                     title = "Results from the regression discontinuity model")
+})
+
+table <- gsub("\\begin{tabular}","\\resizebox{0.99\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
+table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
+cat(table)
 ```
 
 <!-- Interpretation -->
+Example interpretation for *Bild.de* (see \autoref{table:results_rd})
 
-The interaction term $T_i*Dn$ means that the slope can vary on either side of the treatment threshold for each party. 
+The coefficient $\beta_4$ for $D_{SPD} = 1$ shows the difference of the treatment effect for SPD. To illustrate this, we can compare the model equation for $D_{SPD} = 1$ and $D_{SPD} = 0$ 
 
-- The coefficient $\beta_1$ is how the intercept jumps (the RDD effect)
-- $\beta_3$ is how the slope changes for each party
+$D_{SPD} = 1$:
+$\begin{aligned}
+\ln(\text{CS})(D_{SPD}=1)=-1.647+(-0.189)T+(0.001)W-0.479+(0.252)T \\
+\ln(\text{CS})(D_{SPD}=1)=-2,126+(0.001)W+(0.252-0.189)T
+\end{aligned}$
+
+$D_{SPD} = 0$:
+$\begin{aligned}
+\ln(\text{CS})(D_{SPD}=0)=-1.647+(-0.189)T+(0.001)W \\
+\ln(\text{CS})(D_{SPD}=0)=-1.647+(0.001)W+(-0.189)T
+\end{aligned}$
+
+- When $D_{SPD}$ switches from 0 to 1, the treatment effect increases by $0.252$.
+
+To interpret this coefficient, we have to transform it (our dependent variable is log transformed).
+
+For $D_{SPD} = 0$: $\exp(-0.189)-1 = -0.172$
+```{r eval=FALSE, include=FALSE}
+coef <- bild_model2$coefficients["treatedTRUE"]
+transform_coeff_ols(coef)
+```
+
+After the election day the topic similarity between *Bild.de* and AfD decreased by ~17.2%
+
+$D_{SPD} = 1$: $\exp(-0.189+0.252)-1 = 0.065$
+```{r eval=FALSE, include=FALSE}
+coef <- bild_model2$coefficients["treatedTRUE:source2SPD"] + bild_model2$coefficients["treatedTRUE"]
+transform_coeff_ols(coef)
+```
+
+After the election day the topic similarity between *Bild.de* and SPD increased by ~6.5% compared to AfD.
+
+General interpretation:
+
+- News articles of *DIE WELT* and *Bild.de* show a significant decrease of topic similarity with AfD after the election. No such effect can be found for the other news papers.
+- News articles of *Handelsblatt* are significantly less similar with B90/G & CDU after the election (compared to AfD). The opposite is true for *Bild.de* where new articles are more similar to ALL party press releases (except for DIE LINKE) when compared to AfD.
+
+The results show, that for some news papers (*DIE WELT* & *Bild.de*), the there is a significant change in the topic similarity between their news articles and the press releases of parties. 
+
+# Discussion and conclusion
+
+This paper investigates whether political reporting of news papers is similar for all political parties. Results show, that the news articles of all news papers (except for *Handelsblatt*) are significantly more similar to press releases of the AfD than any other party.
+
+Furthermore, it was assumed, that this reporting differs between periods of election campaign. The results show a significant effect of the switch between "before" election (election campaign period) and "after" election for some news papers.
+
+- For *DIE WELT* and *Bild.de* the election date has a significant effect on the similarity with the AfD: The similarity between news articles and press releases of AfD decreases
+
+\newpage
 
 # Annex
 
@@ -791,7 +830,8 @@ model_df %>%
     median = median(text_length),
     min = min(text_length),
     max = max(text_length)
-  ) %>% stargazer(type = 'latex', header = FALSE, rownames = FALSE, label = "table:text_length",
+  ) %>% stargazer(type = 'latex', header = FALSE, 
+                  rownames = FALSE, label = "table:text_length",
                   title = "Summary statistics of text length", summary = FALSE)
 ```
 
@@ -804,5 +844,29 @@ gamma_terms %>%
             label = "table:top_terms",
             title = "7 most probable terms per topic")
 ```
+
+```{r Daily mean cosine similarity, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols}", fig.height=8, out.width="80%"}
+welt_p + theme(strip.text.x = element_text(size = 6)) +
+  stern_p +
+  zeit_p +
+  handelsblatt_p +
+  focus_p +
+  bild_p + 
+  spiegel_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
+  plot_layout(ncol = 1)
+```
+
+```{r Daily mean cosine similarity - cutoff value, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd}", fig.height=8, out.width="80%"}
+welt_p1 + theme(strip.text.x = element_text(size = 6)) +
+  stern_p1 +
+  zeit_p1 +
+  handelsblatt_p1 +
+  focus_p1 +
+  bild_p1 + 
+  spiegel_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
+  plot_layout(ncol = 1)
+```
+
+\newpage
 
 # References
