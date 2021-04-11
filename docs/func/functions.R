@@ -28,6 +28,7 @@ plot_topic_distr_time <- function(topic_filter, source_filter_array, group_color
   topic_label <-theta[theta$topic == topic_filter, ]$topic_label[1]
   
   theta %>% 
+    filter(date <= max_date) %>% 
     filter(topic == topic_filter) %>% 
     filter(source %in% source_filter_array) %>% 
     group_by(source, year_week, type) %>% 
@@ -125,10 +126,10 @@ plot_cosine_sim_ols <- function(df, target) {
                 color='red',
                 formula = y ~ x,
                 se=FALSE, size = 0.3) +
-    scale_y_continuous(limits = c(-5,-1)) +
+    scale_y_continuous(limits = c(-4,-1)) +
     scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
     facet_wrap(~source2, nrow = 1) +
-    labs(x=NULL, y = NULL,
+    labs(x=NULL, y = 'log(cos_sim)',
          caption = paste0(target)) +
     theme(
       strip.background = element_blank(),
@@ -149,9 +150,10 @@ plot_cosine_sim_rd <- function(df, target) {
                 color='red',
                 formula = y ~ x,
                 se=FALSE, size = 0.3) +
+    scale_y_continuous(limits = c(-4,-1)) +
     scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
     facet_wrap(~source2, nrow = 1) +
-    labs(x=NULL, y = NULL,
+    labs(x=NULL, y = 'log(cos_sim)',
          caption = paste0(target)) +
     theme(
       strip.background = element_blank(),

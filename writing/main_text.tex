@@ -107,7 +107,7 @@ contributing to the success of the right-wing populist AfD by
 increasingly including the party's content and using the same language
 in their articles as the AfD. Representatives of these media houses
 strongly opposed this accusation. The purpose of this study is to
-examine whether there is evidence that support the accusation of biased
+examine whether there is evidence that supports the accusation of biased
 media reporting, especially during election campaigns.
 
 For advertising-financed media the battle for the attention of the
@@ -209,12 +209,6 @@ document across all topics, which is then aggregated to calculate the
 degree of difference between the news articles of different media
 providers and the press releases of the parties using a linear
 regression model.
-
-\hypertarget{literature-review}{%
-\section{Literature review}\label{literature-review}}
-
-Newspaper articles and their metadata, such as publisher and publication
-date have been subject of investigation in economic research.
 
 \hypertarget{background-information}{%
 \section{Background information}\label{background-information}}
@@ -493,18 +487,18 @@ which words are used within a document is disregarded.
 \begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & terrorismus & vorsitzender & kollegin & genehmigung & kleinsten & umstände & beschäftigt \\ 
+ & veränderungen & pressemitteilung & vermehrt & frühestens & redaktion & heilbronner & vorsitz \\ 
 \hline \\[-1.8ex] 
-13990 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-6464 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-13863 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-11862 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-18506 & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-12838 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-5726 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-2609 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-13961 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-2656 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+434 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+2277 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+15322 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+2554 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+13952 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+8446 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+14120 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+7538 & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ & $0$ \\ 
+14599 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+11956 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -528,8 +522,8 @@ The STM is an extension of the standard topic modelling technique,
 labeled as latent Dirichlet allocation (LDA), which refers to the
 Bayesian model in Blei, Ng, and Jordan
 (\protect\hyperlink{ref-blei_latent_2003}{2003}) that treats each word
-in a topic and each topic in a document as generated from a Dirichlet -
-distributed prior.\footnote{See also Griffiths and Steyvers
+in a topic and each topic in a document as generated from a
+Dirichlet-distributed prior.\footnote{See also Griffiths and Steyvers
   (\protect\hyperlink{ref-griffiths_probabilistic_2002}{2002}),
   Griffiths and Steyvers
   (\protect\hyperlink{ref-griffiths_finding_2004}{2004}) and Hofmann
@@ -654,10 +648,9 @@ red numbers display the topic probability (for probabilities
 for which terms like Bundeswehr, Soldaten (soldiers), Nato,
 Verteidigungsministerin (defense minister) are among the most probable
 words. News article 2\footnote{Bundestag elections: 42 parties want to
-  be elected to parliament.} does does not show such a clear tendency
-towards a single topic. Topic 40, 18 and 5 are within a comparable
-range. However, for all three topics similar terms are among the top
-terms.
+  be elected to parliament.} does not show such a clear tendency towards
+a single topic. Topic 40, 18 and 5 are within a comparable range.
+However, for all three topics similar terms are among the top terms.
 
 Similarly as for the news articles, \autoref{fig:sample_docs34}
 illustrates the topic distribution for two press releases randomly
@@ -690,18 +683,21 @@ europa and bundesregierung (Federal Government).
 \caption{Topic probability of sample press releases \label{fig:sample_docs34}}\label{fig:Press releases sample documents}
 \end{figure}
 
-The left chart of \autoref{fig:sample_topics_afd} displays the 15 topics
-with the highest probability for press releases of the AfD. The right
-side of the figure shows how the probability of two sample topics
-changes over the period under consideration compared to two sample news
-papers. It becomes clear, that topic 9\footnote{Topic 9: afd, party,
+Since the source and publication date is known for each document, the
+probability of certain topics can be analysed, aggregated by this
+metadata. The left chart of \autoref{fig:sample_topics_afd} is showing
+the 15 topics with the highest probability for press releases published
+by the AfD. The right side of the figure is aggregating the probability
+by source and time (in weeks) for two sample topics, displaying how they
+change over time in the AfD press releases compared to two sample news
+papers. It becomes clear, that topic 9\footnote{translation: afd, party,
   saxony, gauland, parties, pazderski, höcke} is systematically more
 likely in the AfD's press releases compared to the two newspapers. There
 is a noticeable increase in probability during the election campaign
 period and ends in a peak on election day itself. For Handelsblatt and
 Bild.de, too, a slight increase around election day is discernible and
 the probability of this topic shows some peaks for Bild.de both before
-and after the election. The top words of Theme 38\footnote{Topic 38:
+and after the election. The top words of Theme 38\footnote{translation:
   refugees, germany, people, number, refugees, family reunion, year}
 suggest that it addresses refugees - a topic the AfD has a very clear
 position on. The probability of this topic increases in the AfD's press
@@ -718,6 +714,30 @@ apparent difference between before and after the election.
 
 \caption{Comparison of topic probability - sample topics AfD \label{fig:sample_topics_afd}}\label{fig:Top AfD topics}
 \end{figure}
+
+\autoref{fig:sample_topics_fdp} is doing a similar analysis for the
+aggregated topic distribution in press releases of the FDP. The chart on
+the left illustrates that, as in the case of the AfD, the topic 35 has
+the highest probability in the press releases of the FDP. Unlike in the
+case of the AfD, however, this is followed by topics that have clearer
+temporal peaks, as shown on the right using two example topics. Topic
+10\footnote{translation: diesel, enterprises, germany, cars, german,
+  industry, driving bans} has a clear peak for both the news papers and
+the FDP press releases around august 2017. At that time, there was a
+debate about whether and where driving bans for diesel cars would be
+introduced. After the states of Baden-Württemberg and North
+Rhine-Westphalia initially filed a lawsuit against this, the court
+proceedings that would decide whether driving bans are permissible began
+in mid-February 2018. The temporal curve of the FDP shows a further
+increase in topic probability at this time, which can also be detected
+at Handelsblatt. At Bild.de, however, the topic is apparently only taken
+up once briefly in August 2017, as only a very low topic probability can
+be seen thereafter. The peak of the probabilty of topic 39\footnote{translation:
+  fdp, grünen, jamaika, cdu, union, grüne, cdu} in all three sources
+right after the election is reflecting the exploratory talks on the
+possible formation of a Jamaica coalition, which officially failed on
+November 19, 2017 after the FDP announced its withdrawal from the
+negotiations.
 
 \begin{figure}
 
@@ -747,9 +767,18 @@ comparison of the topic distribution between two documents.\footnote{For
 \text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
 \]
 
-For example, \autoref{table:cosine_sim_sample_doc} displays the most
-similar documents of the document with the title \emph{Glyphosat-Streit
-vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)}.
+For example, \autoref{table:cosine_sim_sample_doc}\footnote{Translations:
+  1) Asylum figures 2017 - black-red (synonym for GroKo) introduces
+  upper limit through the back door (DIE LINKE) 2) Jörg Meuthen: Not a
+  new GroKo, but LoKo - Loser Coalition (AfD) 3) Pension plans of Union
+  and SPD worse than expected (FDP) 4) Union and SPD stabilize the
+  extreme social injustice in this country (DIE LINKE) 5) Jürgen Pohl:
+  Union and SPD agree on policy at the expense of pensioners and East
+  Germans (AfD)} displays the most similar documents of the document
+with the title \emph{Parteitag, Koalitions-Krimi, Ur-Wahl - Woran kann
+die GroKo jetzt noch scheitern? (Bild.de)}.\footnote{Translation: Party
+  conference, coalition thriller, primal election - what can fail the
+  GroKo now? (Bild.de)}
 
 \begin{table}[!htbp] \centering 
   \caption{Most similar documents} 
@@ -760,11 +789,11 @@ vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)}.
 \hline \\[-1.8ex] 
 title & source & cos\_sim \\ 
 \hline \\[-1.8ex] 
-Alice Weidel: Undemokratisches Ausgrenzen der AfD schadet dem Amt des Bundespräsidenten & AfD & 0.729 \\ 
- Fakten müssen für Zulassung von Pflanzenschutzmitteln maßgeblich sein & FDP & 0.474 \\ 
-Dialog mit Russland garantiert Sicherheit in Europa & DIE LINKE & 0.415 \\ 
-Keine Verlängerung für Glyphosatanwendung & SPD & 0.31 \\ 
-Georg Pazderski: Rotrotgrün auf Bundesebene keine Option & AfD & 0.163 \\ 
+Asylzahlen 2017 - schwarz-rot führt Obergrenze durch die Hintertür ein & DIE LINKE & 0.542 \\ 
+Jörg Meuthen: Nicht neue GroKo, sondern LoKo – Loser Koalition & AfD & 0.522 \\ 
+ Rentenpläne von Union und SPD schlimmer als erwartet & FDP & 0.478 \\ 
+Union und SPD stabilisieren die krasse soziale Ungerechtigkeit in diesem Land & DIE LINKE & 0.401 \\ 
+Jürgen Pohl: Union und SPD verabreden Politik zu Lasten von Rentnern und Ostdeutschen & AfD & 0.388 \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -776,13 +805,8 @@ within 7 days before the publication date of the news article. This
 means the topic distribution of news article 1 is compared to press
 release 1, 2, 3 and so on as long as the press release was published
 within 7 days before the news article.
-
-\begin{itemize}
-\tightlist
-\item
-  See \autoref{table:dataset_structure1} for an example illustration of
-  the data for \emph{DIE WELT}
-\end{itemize}
+\autoref{table:dataset_structure1} illustrates a sample subset of the
+data for \emph{DIE WELT}.
 
 \begin{table}[!htbp] \centering 
   \caption{Dataset structure step 1 - DIE WELT} 
@@ -793,11 +817,11 @@ within 7 days before the news article.
 \hline \\[-1.8ex] 
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2 \\ 
 \hline \\[-1.8ex] 
-Überlastete Ärzte... & Jürgen Pohl: Unio... & 0.29 & DIE WELT & AfD & 2018-01-15 & 2018-01-12 \\ 
-Bundestagswahl: S... & Ulle Schauws: Ges... & 0.08 & DIE WELT & B90/GRÜNE & 2017-07-23 & 2017-07-17 \\ 
-Polen verlangt Er... & Martin Hess: Schl... & 0.31 & DIE WELT & AfD & 2017-11-05 & 2017-11-03 \\ 
-Alice Schwarzer: ... & Weidel/Protschka:... & 0.1 & DIE WELT & AfD & 2017-11-30 & 2017-11-29 \\ 
-GroKo-Einigung - ... & Stalingrad: Geden... & 0.42 & DIE WELT & DIE LINKE & 2018-02-08 & 2018-02-02 \\ 
+VW-Chef zur Regie... &  Studienplatzverg... & 0.2 & DIE WELT & FDP & 2017-12-23 & 2017-12-19 \\ 
+Trotz prekärer Si... &  Brauchen technol... & 0.01 & DIE WELT & FDP & 2017-10-13 & 2017-10-10 \\ 
+Umfrageschock: SP... & Stephan Brandner:... & 0.01 & DIE WELT & AfD & 2018-01-23 & 2018-01-17 \\ 
+Große Koalition: ... & Giftgas-Berichte ... & 0.01 & DIE WELT & DIE LINKE & 2018-02-11 & 2018-02-06 \\ 
+AfD: Warum sie um... &  Große Koalition ... & 0.01 & DIE WELT & FDP & 2017-07-27 & 2017-07-24 \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -815,11 +839,11 @@ Next, the mean cosine similarity for each news article publication date
 \hline \\[-1.8ex] 
 date1 & source1 & source2 & cos\_sim \\ 
 \hline \\[-1.8ex] 
-2017-06-15 & DIE WELT & FDP & 0.12 \\ 
-2017-08-05 & DIE WELT & CDU & 0.09 \\ 
-2017-09-26 & DIE WELT & SPD & 0.1 \\ 
-2017-07-15 & DIE WELT & SPD & 0.09 \\ 
-2017-12-11 & DIE WELT & CDU & 0.18 \\ 
+2017-08-30 & DIE WELT & CDU & 0.13 \\ 
+2017-12-04 & DIE WELT & DIE LINKE & 0.09 \\ 
+2018-01-12 & DIE WELT & CDU & 0.11 \\ 
+2017-11-21 & DIE WELT & SPD & 0.1 \\ 
+2017-11-12 & DIE WELT & AfD & 0.1 \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -832,26 +856,15 @@ similarity between the news articles and each parties press releases
 conditional on the day can be plotted.
 \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for
 \emph{Handelsblatt} and \emph{Bild.de} (See
-\autoref{fig:mean_cosine_sim_ols} for all news papers)
-
-Observations:
-
-\begin{itemize}
-\item
-  at the beginning, most news papers (except for \emph{Handelsblatt})
-  have the highest similarity with the AfD.
-\item
-  this similarity is diminishing over the course of time. However, for
-  \emph{DIE WELT} \& \emph{FOCUS ONLINE} it is still the highest at the
-  end of the time span.
-\item
-  \emph{stern.de}, \emph{Bild.de}, \emph{ZEIT ONLINE} \& \emph{SPIEGEL
-  ONLINE}: Similarity with AfD is lower at the end of the time period
-\end{itemize}
+\autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these
+figures, a few observations can be made. The similarity with the FDP,
+e.g., seems to increase over time for both Handelsblatt and Bild.de. In
+the case of Bild.de, this applies to all parties, except for the AfD,
+where a slight downward trend is discernible.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - example-1} 
+{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - example-1} 
 
 }
 
@@ -861,66 +874,51 @@ Observations:
 \hypertarget{ols-dummy-regression}{%
 \subsection{OLS dummy regression}\label{ols-dummy-regression}}
 
-\begin{itemize}
-\tightlist
-\item
-  for each news publisher, a simple OLS regression is estimated, where
-  the similarity score (\(\ln(\text{CS}_{i})\)) on day \(i\) between the
-  news articles of that news paper and the press releases of a political
-  party \(k\) is the dependent variable and the political party dummies
-  are the independent variables.
-\end{itemize}
+To measure whether there is a significant difference in the topic
+similarity for each party for a news publisher, a simple OLS regression
+is estimated, where the similarity score (\(\ln(\text{CS}_{i})\)) on day
+\(i\) between the news articles of that news publisher and the press
+releases of a political party \(k\) is the dependent variable and the
+political party dummies are the independent variables.
 
 \[
-\ln(\text{CS}_{i})=\beta_0+\beta_nD_{i,k-1}+\epsilon_i
+\ln(\text{CS}_{i})=\beta_0+\beta_nD_{i,k-1}+\epsilon_i\text{,}
 \]
 
-\begin{itemize}
-\tightlist
-\item
-  \(i\) = date (date1), \(k\) = political party (source2)
-\end{itemize}
+with \(i\) = date\footnote{date1 in
+  \autoref{table:dataset_structure_final}}, \(k\) = political
+party\footnote{source2 in \autoref{table:dataset_structure_final}}
+
+\autoref{table:results_ols} display the result of that estimation. Since
+the dependent variable is log transformed, the the \% impact of \(D\) on
+\(Y\) can be estimated as \(exp(\beta)-1\). E.g. since the transformed
+coefficient for \(D_{B90/GRÜNE}\) is \(-0.2067\), a switch from from 0
+to 1 can be interpreted as a 21\% decrease of topic similarity for
+B90/GRÜNE compared to AfD (the base dummy group), holding everything
+else equal. Or, in other words: Compared to AfD, the similarity of
+topics of \emph{DIE WELT} and B90/GRÜNE is 21\% lower. In general, for
+all news papers (except for \emph{Handelsblatt}) the topic similarity is
+significantly less between the news articles of that news paper and
+press releases of political parties when compared to press releases of
+the AfD.
 
 \begin{table}[!htbp] \centering    \caption{Results from the OLS model}    \label{table:results_ols}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   source2B90/GRÜNE & $-$0.232$^{***}$ & $-$0.237$^{***}$ & $-$0.220$^{***}$ & 0.033 & $-$0.297$^{***}$ & $-$0.319$^{***}$ & $-$0.202$^{***}$ \\    & (0.036) & (0.045) & (0.057) & (0.050) & (0.038) & (0.055) & (0.045) \\    & & & & & & & \\   source2CDU & $-$0.274$^{***}$ & $-$0.207$^{***}$ & $-$0.280$^{***}$ & $-$0.003 & $-$0.300$^{***}$ & $-$0.347$^{***}$ & $-$0.240$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   source2DIE LINKE & $-$0.268$^{***}$ & $-$0.140$^{***}$ & $-$0.197$^{***}$ & 0.078$^{*}$ & $-$0.290$^{***}$ & $-$0.272$^{***}$ & $-$0.208$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.042) \\    & & & & & & & \\   source2FDP & $-$0.247$^{***}$ & $-$0.139$^{***}$ & $-$0.201$^{***}$ & 0.080$^{*}$ & $-$0.281$^{***}$ & $-$0.292$^{***}$ & $-$0.221$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   source2SPD & $-$0.263$^{***}$ & $-$0.180$^{***}$ & $-$0.228$^{***}$ & 0.026 & $-$0.301$^{***}$ & $-$0.337$^{***}$ & $-$0.267$^{***}$ \\    & (0.034) & (0.042) & (0.054) & (0.048) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   Constant & $-$1.765$^{***}$ & $-$1.991$^{***}$ & $-$1.764$^{***}$ & $-$1.856$^{***}$ & $-$1.831$^{***}$ & $-$1.746$^{***}$ & $-$1.878$^{***}$ \\    & (0.024) & (0.030) & (0.038) & (0.033) & (0.025) & (0.036) & (0.030) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,372 & 1,378 & 1,404 & 1,206 & 1,428 & 1,321 & 1,424 \\  R$^{2}$ & 0.069 & 0.027 & 0.023 & 0.005 & 0.072 & 0.047 & 0.035 \\  Adjusted R$^{2}$ & 0.065 & 0.023 & 0.019 & 0.001 & 0.069 & 0.044 & 0.031 \\  Residual Std. Error & 0.365 (df = 1366) & 0.458 (df = 1372) & 0.589 (df = 1398) & 0.484 (df = 1200) & 0.401 (df = 1422) & 0.549 (df = 1315) & 0.473 (df = 1418) \\  F Statistic & 20.144$^{***}$ (df = 5; 1366) & 7.532$^{***}$ (df = 5; 1372) & 6.540$^{***}$ (df = 5; 1398) & 1.188 (df = 5; 1200) & 22.193$^{***}$ (df = 5; 1422) & 13.048$^{***}$ (df = 5; 1315) & 10.136$^{***}$ (df = 5; 1418) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
-
-Interpretation (see \autoref{table:results_ols})
-
-When \(D_k\) switches from from 0 (AfD) to 1 (party \(k\)), the \%
-impact of \(D\) on \(Y\) can be estimated as \(exp(\beta)-1\)
-
-Example (B90/GRÜNE):
-
-\begin{verbatim}
-## source2B90/GRÜNE 
-##       -0.2067046
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Compared to AfD, the similarity of topics of \emph{DIE WELT} and
-  B90/GRÜNE is 20\% lower.
-\end{itemize}
-
-In general, for all news papers (except for \emph{Handelsblatt}) the
-topic similarity is significantly less between the news articles of that
-news paper and press releases of political parties (compared to AfD).
 
 \hypertarget{regression-discontinuity-model}{%
 \subsection{Regression discontinuity
 model}\label{regression-discontinuity-model}}
 
-\begin{itemize}
-\tightlist
-\item
-  We assume that the topic similarity changes after the election day
-\item
-  See \autoref{fig:mean_cosine_sim_rd} for all news papers
-\end{itemize}
+In order to test the hypothesis that news papers report significantly
+different during election campaigns, i.e.~the topic similarity changes
+after the election a regression discontinuity model is estimated. Again,
+\autoref{fig:mean_cosine_sim_rd_example} helps to visually analyse this
+question for the two sample new publisher \emph{Handelsblatt} and
+\emph{Bild.de} (see \autoref{fig:mean_cosine_sim_rd} for all news
+publisher).
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - rd example-1} 
+{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - rd example-1} 
 
 }
 
@@ -1117,7 +1115,7 @@ ZEIT ONLINE & 1351 & 513.75 & 387.14 & 459 & 121 & 8015 \\
 
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
 University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Apr
-04, 2021 - 14:55:32
+11, 2021 - 16:57:16
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 
@@ -1173,7 +1171,7 @@ University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Apr
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity-1} 
+{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity-1} 
 
 }
 
@@ -1182,7 +1180,7 @@ University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Apr
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1} 
+{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1} 
 
 }
 

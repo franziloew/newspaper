@@ -37,6 +37,8 @@ library(scales)
 
 # data
 election_date <- as.Date('2017-09-24')
+max_date <- as.Date('2018-02-13')
+
 load("../output/models/model40_weekly_source.Rda")
 model_df <- model_df %>%
   dplyr::mutate(
@@ -54,7 +56,7 @@ color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#
 
 # Introduction
 
-In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence that support the accusation of biased media reporting, especially during election campaigns. 
+In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence that supports the accusation of biased media reporting, especially during election campaigns. 
 
 <!-- Populist messaging follows same logic as media logic & attention economy, that's why it makes sense for media to report more about populist parties -->
 For advertising-financed media the battle for the attention of the recipients is at the center of economic decisions. Online media in particular, which offer their content to a large extent free of charge and generate their revenue through advertising space, compete for the scarce resource of attention. Consumers pay a non-monetary price providing their attention, which the media platform bundles and sells on to advertising customers. This business model corresponds to that of a platform market, in which media companies act as platforms that connect the market of advertising with the reader market to exploit the indirect network effects between them [@dewenter_einfuhrung_2014]. A profit-maximizing publisher therefore directs its economic decisions according to what will attract the most attention.
@@ -68,10 +70,6 @@ However, the causal relationship between reporting and voter preferences is not 
 
 In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content (audio, video, text). Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
 Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties using a linear regression model.
-
-# Literature review
-<!-- abstract about how newspaper articles have been used as a data source for economic research. -->
-Newspaper articles and their metadata, such as publisher and publication date have been subject of investigation in economic research. 
 
 # Background information
 
@@ -334,7 +332,7 @@ dtm[sample(nrow(dtm),10), sample(ncol(dtm),7)] %>%
 
 ## A structural topic model to identify the latent topics
 
-To discover the latent topics in the corpus of press releases and news articles, a structural topic modeling (STM) developed by [@roberts_model_2016] is applied. In general, topic models formalize the idea that documents are formed by hidden variables (topics) that generate correlations among observed terms. They belong to the group of unsupervised generative models, meaning that the true attributes (topics) cannot be observed. The STM is an extension of the standard topic modelling technique, labeled as latent Dirichlet allocation (LDA), which refers to the Bayesian model in @blei_latent_2003 that treats each word in a topic and each topic in a document as generated from a Dirichlet - distributed prior.^[See also @griffiths_probabilistic_2002, @griffiths_finding_2004 and @hofmann_probabilistic_1999]. 
+To discover the latent topics in the corpus of press releases and news articles, a structural topic modeling (STM) developed by [@roberts_model_2016] is applied. In general, topic models formalize the idea that documents are formed by hidden variables (topics) that generate correlations among observed terms. They belong to the group of unsupervised generative models, meaning that the true attributes (topics) cannot be observed. The STM is an extension of the standard topic modelling technique, labeled as latent Dirichlet allocation (LDA), which refers to the Bayesian model in @blei_latent_2003 that treats each word in a topic and each topic in a document as generated from a Dirichlet-distributed prior.^[See also @griffiths_probabilistic_2002, @griffiths_finding_2004 and @hofmann_probabilistic_1999]. 
 
 The underlying idea for these models suggests that each individual topic $k$ potentially contains all of the unique terms within the vocabulary $V$ with different probability. Therefore, each topic $k$ can be represented as a probability vector $\phi_k$ over all unique terms $V$. Simultaneously, each individual document $d$ in the corpus can be represented as a probability distribution $\theta_d$ over the $K$ topics. 
 
@@ -400,7 +398,7 @@ theta <- as.data.frame(stmModel$theta) %>%
 
 As mentioned in the previous section, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$ and a word distribution $\phi_k$ for each topic over all terms in the vocabulary. The most probable words of each topic may help to understand what each topic is about.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words are not necessarily the most exclusive words and they only represent a small fraction of the probability distribution, interpretation should be done very cautiously.
 
-For our analysis, we use the topic distribution of each document to estimate the similarity of documents. \autoref{fig:sample_docs12} illustrates such a topic distribution of two news paper articles. The red numbers display the topic probability (for probabilities $>= 0.02$). News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36, for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does does not show such a clear tendency towards a single topic. Topic 40, 18 and 5 are within a comparable range. However, for all three topics similar terms are among the top terms.
+For our analysis, we use the topic distribution of each document to estimate the similarity of documents. \autoref{fig:sample_docs12} illustrates such a topic distribution of two news paper articles. The red numbers display the topic probability (for probabilities $>= 0.02$). News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36, for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does not show such a clear tendency towards a single topic. Topic 40, 18 and 5 are within a comparable range. However, for all three topics similar terms are among the top terms.
 
 Similarly as for the news articles, \autoref{fig:sample_docs34} illustrates the topic distribution for two press releases randomly chosen from the corpus. For press release 1^[Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left] topic 24 is the most probable topic which contains terms about the G20 Summit, during which left-wing radicals caused considerable riots. Topic distribution of press article 2^[Trump chooses the path to isolation] shows peaks for topic 6 and 35. Top terms of topic 6 contain the words trump, us, usa, deutschland (Germany) and präsident (president). Similarly topic 35 seems to deal with German foreign policy, since top terms include words like eu, deutschland (Germany), europa and bundesregierung (Federal Government).
 
@@ -428,11 +426,13 @@ p2 <- plot_topic_distr_document(sample4)
 p1 / p2
 ```
 
-The left chart of \autoref{fig:sample_topics_afd} displays the 15 topics with the highest probability for press releases of the AfD.  The right side of the figure shows how the probability of two sample topics changes over the period under consideration compared to two sample news papers. It becomes clear, that topic 9^[Topic 9: afd, party, saxony, gauland, parties, pazderski, höcke] is systematically more likely in the AfD's press releases compared to the two newspapers. There is a noticeable increase in probability during the election campaign period and ends in a peak on election day itself. For Handelsblatt and Bild.de, too, a slight increase around election day is discernible and the probability of this topic shows some peaks for Bild.de both before and after the election. The top words of Theme 38^[Topic 38: refugees, germany, people, number, refugees, family reunion, year] suggest that it addresses refugees - a topic the AfD has a very clear position on. The probability of this topic increases in the AfD's press releases until about a month before the election and then levels off somewhat. A similar trend can be seen for the news articles from Bild.de. The curve from Handelsblatt is rather flat and shows no apparent difference between before and after the election. 
+Since the source and publication date is known for each document, the probability of certain topics can be analysed, aggregated by this metadata. The left chart of \autoref{fig:sample_topics_afd} is showing the 15 topics with the highest probability for press releases published by the AfD. The right side of the figure is aggregating the probability by source and time (in weeks) for two sample topics, displaying how they change over time in the AfD press releases compared to two sample news papers. It becomes clear, that topic 9^[translation: afd, party, saxony, gauland, parties, pazderski, höcke] is systematically more likely in the AfD's press releases compared to the two newspapers. There is a noticeable increase in probability during the election campaign period and ends in a peak on election day itself. For Handelsblatt and Bild.de, too, a slight increase around election day is discernible and the probability of this topic shows some peaks for Bild.de both before and after the election. 
+The top words of Theme 38^[translation: refugees, germany, people, number, refugees, family reunion, year] suggest that it addresses refugees - a topic the AfD has a very clear position on. The probability of this topic increases in the AfD's press releases until about a month before the election and then levels off somewhat. A similar trend can be seen for the news articles from Bild.de. The curve from Handelsblatt is rather flat and shows no apparent difference between before and after the election. 
 
 ```{r Top AfD topics, fig.cap="Comparison of topic probability - sample topics AfD \\label{fig:sample_topics_afd}", fig.height=3, out.width="100%"}
-p1 <- theta %>% 
+p1 <- theta %>%
   filter(source == 'AfD') %>% 
+  filter(date <= max_date) %>% 
   group_by(topic, source) %>% 
   summarise(theta_mean = mean(theta, na.rm = T)) %>% 
   ungroup() %>% 
@@ -454,8 +454,12 @@ p3 <- plot_topic_distr_time(38, source_filter, group_colors) + labs(title = NULL
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
 
+\autoref{fig:sample_topics_fdp} is doing a similar analysis for the aggregated topic distribution in press releases of the FDP. The chart on the left illustrates that, as in the case of the AfD, the topic 35 has the highest probability in the press releases of the FDP. Unlike in the case of the AfD, however, this is followed by topics that have clearer temporal peaks, as shown on the right using two example topics. Topic 10^[translation: diesel, enterprises, germany, cars, german, industry, driving bans] has a clear peak for both the news papers and the FDP press releases around august 2017. At that time, there was a debate about whether and where driving bans for diesel cars would be introduced. After the states of Baden-Württemberg and North Rhine-Westphalia initially filed a lawsuit against this, the court proceedings that would decide whether driving bans are permissible began in mid-February 2018. The temporal curve of the FDP shows a further increase in topic probability at this time, which can also be detected at Handelsblatt. At Bild.de, however, the topic is apparently only taken up once briefly in August 2017, as only a very low topic probability can be seen thereafter.
+The peak of the probabilty of topic 39^[translation: fdp, grünen, jamaika, cdu, union, grüne, cdu] in all three sources right after the election is reflecting the exploratory talks on the possible formation of a Jamaica coalition, which officially failed on November 19, 2017 after the FDP announced its withdrawal from the negotiations.
+
 ```{r Top FDP topics, fig.cap="Comparison of topic probability - sample topics FDP \\label{fig:sample_topics_fdp}", fig.height=3, out.width="100%"}
 p1 <- theta %>% 
+  filter(date <= max_date) %>% 
   filter(source == 'FDP') %>% 
   group_by(topic, source) %>% 
   summarise(theta_mean = mean(theta, na.rm = T)) %>% 
@@ -471,13 +475,11 @@ p1 <- theta %>%
 
 group_colors <- c(FDP = "#ffed00", Bild.de = "#CC6600", Handelsblatt ="#9633FF")
 source_filter <- c('FDP', 'Bild.de', 'Handelsblatt')
-p2 <- plot_topic_distr_time(39, source_filter, group_colors) + theme(legend.position = 'none')
-p3 <- plot_topic_distr_time(10, source_filter, group_colors) + labs(title = NULL)
+p2 <- plot_topic_distr_time(10, source_filter, group_colors) + theme(legend.position = 'none')
+p3 <- plot_topic_distr_time(39, source_filter, group_colors) + labs(title = NULL)
 
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
-
-
 
 ## Document Cosine similarity 
 
@@ -503,10 +505,10 @@ $$
 \text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
 $$
 
-For example, \autoref{table:cosine_sim_sample_doc} displays the most similar documents of the document with the title *Glyphosat-Streit vergiftet GroKo-Verhandlungen: Was wusste Merkel? (Bild.de)*. <!-- add translations for all titles -->
+For example, \autoref{table:cosine_sim_sample_doc}^[Translations: 1) Asylum figures 2017 - black-red (synonym for GroKo) introduces upper limit through the back door (DIE LINKE) 2) Jörg Meuthen: Not a new GroKo, but LoKo - Loser Coalition (AfD) 3) Pension plans of Union and SPD worse than expected (FDP) 4) Union and SPD stabilize the extreme social injustice in this country (DIE LINKE) 5) Jürgen Pohl: Union and SPD agree on policy at the expense of pensioners and East Germans (AfD)] displays the most similar documents of the document with the title *Parteitag, Koalitions-Krimi, Ur-Wahl - Woran kann die GroKo jetzt noch scheitern? (Bild.de)*.^[Translation: Party conference, coalition thriller, primal election - what can fail the GroKo now? (Bild.de)]
 
 ```{r Documents with highest similarity, results='asis'}
-sample_doc <- 1202
+sample_doc <- 453
 
 calc_cos_sim(sample_doc) %>%
   mutate(doc_index = doc_code2) %>%
@@ -527,9 +529,7 @@ calc_cos_sim(sample_doc) %>%
             )
 ```
 
-In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published within 7 days before the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, 2, 3 and so on as long as the press release was published within 7 days before the news article.
-
-- See \autoref{table:dataset_structure1} for an example illustration of the data for *DIE WELT*
+In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published within 7 days before the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, 2, 3 and so on as long as the press release was published within 7 days before the news article. \autoref{table:dataset_structure1} illustrates a sample subset of the data for *DIE WELT*.
 
 ```{r Prepare sample dataframe, include=FALSE}
 target_source <- "DIE WELT"
@@ -659,17 +659,9 @@ spiegel_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate r
 spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 ```
 
-To get a first idea of the trend of the data over time, the mean cosine similarity between the news articles and each parties press releases conditional on the day can be plotted. \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for *Handelsblatt* and *Bild.de* (See \autoref{fig:mean_cosine_sim_ols} for all news papers)
+To get a first idea of the trend of the data over time, the mean cosine similarity between the news articles and each parties press releases conditional on the day can be plotted. \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for *Handelsblatt* and *Bild.de* (See \autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these figures, a few observations can be made. The similarity with the FDP, e.g., seems to increase over time for both Handelsblatt and Bild.de. In the case of Bild.de, this applies to all parties, except for the AfD, where a slight downward trend is discernible.
 
-Observations:
-
-- at the beginning, most news papers (except for *Handelsblatt*) have the highest similarity with the AfD.
-
-- this similarity is diminishing over the course of time. However, for *DIE WELT* & *FOCUS ONLINE* it is still the highest at the end of the time span.
-
-- *stern.de*, *Bild.de*, *ZEIT ONLINE* & *SPIEGEL ONLINE*: Similarity with AfD is lower at the end of the time period
-
-```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="80%"}
+```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="90%"}
 handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
   bild_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
   plot_layout(ncol = 1)
@@ -678,13 +670,19 @@ handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
 
 ## OLS dummy regression
 
-- for each news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{i})$) on day $i$ between the news articles of that news paper and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
+To measure whether there is a significant difference in the topic similarity for each party for a news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{i})$) on day $i$ between the news articles of that news publisher and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
 
 $$
-\ln(\text{CS}_{i})=\beta_0+\beta_nD_{i,k-1}+\epsilon_i
+\ln(\text{CS}_{i})=\beta_0+\beta_nD_{i,k-1}+\epsilon_i\text{,}
 $$ 
 
-- $i$ = date (date1), $k$ = political party (source2)
+with $i$ = date^[date1 in \autoref{table:dataset_structure_final}], $k$ = political party^[source2 in \autoref{table:dataset_structure_final}]
+
+\autoref{table:results_ols} display the result of that estimation. Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ is $-0.2067$, a switch from from 0 to 1 can be interpreted as a 21% decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. Or, in other words: Compared to AfD, the similarity of topics of *DIE WELT* and B90/GRÜNE is 21% lower. In general, for all news papers (except for *Handelsblatt*) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD.
+
+```{r eval=FALSE, include=FALSE}
+transform_coeff_ols(welt_model$coefficients[2])
+```
 
 ```{r Model results OLS dummy 1, results='asis' }
 table <- capture.output({
@@ -706,26 +704,11 @@ cat(table)
 ```
 <!-- TODO: Model diagnostics: F-test, plot residuals -->
 
-Interpretation (see \autoref{table:results_ols})
-
-When $D_k$ switches from from 0 (AfD) to 1 (party $k$), the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$
-
-Example (B90/GRÜNE):
-
-```{r}
-transform_coeff_ols(welt_model$coefficients[2])
-```
-
-- Compared to AfD, the similarity of topics of *DIE WELT* and B90/GRÜNE is 20% lower.
-
-In general, for all news papers (except for *Handelsblatt*) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties (compared to AfD).
-
 ## Regression discontinuity model
 
-- We assume that the topic similarity changes after the election day
-- See \autoref{fig:mean_cosine_sim_rd} for all news papers
+In order to test the hypothesis that news papers report significantly different during election campaigns, i.e. the topic similarity changes after the election a regression discontinuity model is estimated. Again, \autoref{fig:mean_cosine_sim_rd_example} helps to visually analyse this question for the two sample new publisher *Handelsblatt* and *Bild.de* (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
 
-```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="80%"}
+```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
 handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
   bild_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
   plot_layout(ncol = 1)
@@ -869,7 +852,7 @@ gamma_terms %>%
             title = "7 most probable terms per topic")
 ```
 
-```{r Daily mean cosine similarity, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols}", fig.height=8, out.width="80%"}
+```{r Daily mean cosine similarity, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols}", fig.height=8, out.width="100%"}
 welt_p + theme(strip.text.x = element_text(size = 6)) +
   stern_p +
   zeit_p +
@@ -880,7 +863,7 @@ welt_p + theme(strip.text.x = element_text(size = 6)) +
   plot_layout(ncol = 1)
 ```
 
-```{r Daily mean cosine similarity - cutoff value, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd}", fig.height=8, out.width="80%"}
+```{r Daily mean cosine similarity - cutoff value, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd}", fig.height=8, out.width="100%"}
 welt_p1 + theme(strip.text.x = element_text(size = 6)) +
   stern_p1 +
   zeit_p1 +

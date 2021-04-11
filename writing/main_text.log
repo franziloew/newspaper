@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.3.7)  4 APR 2021 14:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.3.7)  11 APR 2021 16:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -534,152 +534,155 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 201.
 [2]
-<main_text_files/figure-latex/election polls-1.pdf, id=125, 469.755pt x 216.81p
+<main_text_files/figure-latex/election polls-1.pdf, id=120, 469.755pt x 216.81p
 t>
 File: main_text_files/figure-latex/election polls-1.pdf Graphic file (type pdf)
 
 <use main_text_files/figure-latex/election polls-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/election polls-1.pdf  use
-d on input line 285.
+d on input line 279.
 (pdftex.def)             Requested size: 281.85518pt x 130.08699pt.
-<main_text_files/figure-latex/unnamed-chunk-1-1.pdf, id=133, 469.755pt x 289.08
+<main_text_files/figure-latex/unnamed-chunk-1-1.pdf, id=128, 469.755pt x 289.08
 pt>
 File: main_text_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf
 )
 <use main_text_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/unnamed-chunk-1-1.pdf  us
-ed on input line 326.
+ed on input line 320.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
 [3 <./main_text_files/figure-latex/election polls-1.pdf>]
-<main_text_files/figure-latex/Distribution of news articles-1.pdf, id=164, 469.
+<main_text_files/figure-latex/Distribution of news articles-1.pdf, id=159, 469.
 755pt x 144.54pt>
 File: main_text_files/figure-latex/Distribution of news articles-1.pdf Graphic 
 file (type pdf)
 <use main_text_files/figure-latex/Distribution of news articles-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Distribution of news arti
-cles-1.pdf  used on input line 365.
+cles-1.pdf  used on input line 359.
 (pdftex.def)             Requested size: 375.80452pt x 115.63214pt.
-<main_text_files/figure-latex/Distribution of press releases-1.pdf, id=166, 469
+<main_text_files/figure-latex/Distribution of press releases-1.pdf, id=161, 469
 .755pt x 144.54pt>
 File: main_text_files/figure-latex/Distribution of press releases-1.pdf Graphic
  file (type pdf)
 <use main_text_files/figure-latex/Distribution of press releases-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Distribution of press rel
-eases-1.pdf  used on input line 379.
+eases-1.pdf  used on input line 373.
 (pdftex.def)             Requested size: 375.80452pt x 115.63214pt.
 [4 <./main_text_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<main_text_files/figure-latex/text_length-1.pdf, id=194, 469.755pt x 216.81pt>
+<main_text_files/figure-latex/text_length-1.pdf, id=189, 469.755pt x 216.81pt>
 File: main_text_files/figure-latex/text_length-1.pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/text_length-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/text_length-1.pdf  used o
-n input line 407.
+n input line 401.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
 
-LaTeX Warning: Reference `fig:wordcloud' on page 5 undefined on input line 427.
+LaTeX Warning: Reference `fig:wordcloud' on page 5 undefined on input line 421.
 
 
-<../figs/wordcloud.png, id=197, 481.8pt x 481.8pt>
+<../figs/wordcloud.png, id=192, 481.8pt x 481.8pt>
 File: ../figs/wordcloud.png Graphic file (type png)
 <use ../figs/wordcloud.png>
-Package pdftex.def Info: ../figs/wordcloud.png  used on input line 438.
+Package pdftex.def Info: ../figs/wordcloud.png  used on input line 432.
 (pdftex.def)             Requested size: 187.89389pt x 187.89389pt.
 [5 <./main_text_files/figure-latex/Distribution of news articles-1.pdf> <./main
 _text_files/figure-latex/Distribution of press releases-1.pdf>] [6 <./main_text
 _files/figure-latex/text_length-1.pdf> <../figs/wordcloud.png>]
-<../figs/wordcloud_bild.png, id=241, 481.8pt x 481.8pt>
+<../figs/wordcloud_bild.png, id=236, 481.8pt x 481.8pt>
 File: ../figs/wordcloud_bild.png Graphic file (type png)
 <use ../figs/wordcloud_bild.png>
-Package pdftex.def Info: ../figs/wordcloud_bild.png  used on input line 464.
+Package pdftex.def Info: ../figs/wordcloud_bild.png  used on input line 458.
 (pdftex.def)             Requested size: 187.89389pt x 187.89389pt.
-<../figs/wordcloud_afd.png, id=242, 481.8pt x 481.8pt>
+<../figs/wordcloud_afd.png, id=237, 481.8pt x 481.8pt>
 File: ../figs/wordcloud_afd.png Graphic file (type png)
 <use ../figs/wordcloud_afd.png>
-Package pdftex.def Info: ../figs/wordcloud_afd.png  used on input line 465.
+Package pdftex.def Info: ../figs/wordcloud_afd.png  used on input line 459.
 (pdftex.def)             Requested size: 187.89389pt x 187.89389pt.
 [7 <../figs/wordcloud_bild.png> <../figs/wordcloud_afd.png>]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6
-12.
+06.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [8]
-<main_text_files/figure-latex/News articles sample documents-1.pdf, id=306, 469
+<main_text_files/figure-latex/News articles sample documents-1.pdf, id=301, 469
 .755pt x 216.81pt>
 File: main_text_files/figure-latex/News articles sample documents-1.pdf Graphic
  file (type pdf)
 <use main_text_files/figure-latex/News articles sample documents-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/News articles sample docu
-ments-1.pdf  used on input line 677.
+ments-1.pdf  used on input line 670.
 (pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
-<main_text_files/figure-latex/Press releases sample documents-1.pdf, id=307, 46
+<main_text_files/figure-latex/Press releases sample documents-1.pdf, id=302, 46
 9.755pt x 216.81pt>
 File: main_text_files/figure-latex/Press releases sample documents-1.pdf Graphi
 c file (type pdf)
 <use main_text_files/figure-latex/Press releases sample documents-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Press releases sample doc
-uments-1.pdf  used on input line 686.
+uments-1.pdf  used on input line 679.
 (pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
 [9 <./main_text_files/figure-latex/News articles sample documents-1.pdf>]
-<main_text_files/figure-latex/Top AfD topics-1.pdf, id=333, 469.755pt x 216.81p
+<main_text_files/figure-latex/Top AfD topics-1.pdf, id=328, 469.755pt x 216.81p
 t>
 File: main_text_files/figure-latex/Top AfD topics-1.pdf Graphic file (type pdf)
 
 <use main_text_files/figure-latex/Top AfD topics-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Top AfD topics-1.pdf  use
-d on input line 715.
+d on input line 711.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-<main_text_files/figure-latex/Top FDP topics-1.pdf, id=334, 469.755pt x 216.81p
+[10 <./main_text_files/figure-latex/Press releases sample documents-1.pdf> <./m
+ain_text_files/figure-latex/Top AfD topics-1.pdf>]
+<main_text_files/figure-latex/Top FDP topics-1.pdf, id=349, 469.755pt x 216.81p
 t>
 File: main_text_files/figure-latex/Top FDP topics-1.pdf Graphic file (type pdf)
 
 <use main_text_files/figure-latex/Top FDP topics-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Top FDP topics-1.pdf  use
-d on input line 724.
+d on input line 744.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-[10 <./main_text_files/figure-latex/Press releases sample documents-1.pdf> <./m
-ain_text_files/figure-latex/Top AfD topics-1.pdf>] [11 <./main_text_files/figur
-e-latex/Top FDP topics-1.pdf>]
+[11 <./main_text_files/figure-latex/Top FDP topics-1.pdf>]
 <main_text_files/figure-latex/Daily mean cosine similarity - example-1.pdf, id=
-379, 469.755pt x 216.81pt>
+380, 469.755pt x 216.81pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - example-1.pdf
  Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - example-1.pdf>
 
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - example-1.pdf  used on input line 854.
-(pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
+ity - example-1.pdf  used on input line 867.
+(pdftex.def)             Requested size: 422.7756pt x 195.12718pt.
 [12 <./main_text_files/figure-latex/Daily mean cosine similarity - example-1.pd
 f>]
+
+LaTeX Warning: Command \" invalid in math mode on input line 895.
+
 <main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf, 
-id=402, 469.755pt x 216.81pt>
+id=407, 469.755pt x 216.81pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.
 pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.p
 df>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - rd example-1.pdf  used on input line 923.
-(pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
-[13 <./main_text_files/figure-latex/Daily mean cosine similarity - rd example-1
-.pdf>] [14] [15]
-<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=435, 469.7
+ity - rd example-1.pdf  used on input line 921.
+(pdftex.def)             Requested size: 422.7756pt x 195.12718pt.
+[13] [14 <./main_text_files/figure-latex/Daily mean cosine similarity - rd exam
+ple-1.pdf>] [15] [16]
+<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=450, 469.7
 55pt x 578.16pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity-1.pdf Graphic f
 ile (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity-1.pdf  used on input line 1176.
-(pdftex.def)             Requested size: 375.80452pt x 462.52863pt.
+ity-1.pdf  used on input line 1174.
+(pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
 <main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf
-, id=436, 469.755pt x 578.16pt>
+, id=451, 469.755pt x 578.16pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-
 1.pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1
 .pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - cutoff value-1.pdf  used on input line 1185.
-(pdftex.def)             Requested size: 375.80452pt x 462.52863pt.
-[16] [17] [18 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pd
-f>] [19 <./main_text_files/figure-latex/Daily mean cosine similarity - cutoff v
-alue-1.pdf>] [20] [21] (./main_text.aux)
+ity - cutoff value-1.pdf  used on input line 1183.
+(pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
+[17] [18] [19 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pd
+f>] [20 <./main_text_files/figure-latex/Daily mean cosine similarity - cutoff v
+alue-1.pdf>] [21] [22] (./main_text.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -687,16 +690,16 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main_text.out' has not changed.
-(rerunfilecheck)             Checksum: 15D0666E79DB6729B282D0E7EA70DA58;2959.
+(rerunfilecheck)             Checksum: C130EADD12DCFCF50AE4798DABC793D5;2825.
  ) 
 Here is how much of TeX's memory you used:
- 10939 strings out of 480971
- 164194 string characters out of 5906778
- 516493 words of memory out of 5000000
- 27777 multiletter control sequences out of 15000+600000
+ 10942 strings out of 480971
+ 164213 string characters out of 5906778
+ 515452 words of memory out of 5000000
+ 27775 multiletter control sequences out of 15000+600000
  481409 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,11n,74p,4253b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,11n,74p,4253b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 }{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Us
 ers/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/f
@@ -720,10 +723,10 @@ dist/fonts/type1/public/lm/lmri8.pfb></Users/franzilow/Library/TinyTeX/texmf-di
 st/fonts/type1/public/lm/lmsy10.pfb></Users/franzilow/Library/TinyTeX/texmf-dis
 t/fonts/type1/public/lm/lmsy7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/
 fonts/type1/public/lm/lmtt10.pfb>
-Output written on main_text.pdf (21 pages, 2089459 bytes).
+Output written on main_text.pdf (22 pages, 2080770 bytes).
 PDF statistics:
- 623 PDF objects out of 1000 (max. 8388607)
- 544 compressed objects within 6 object streams
- 134 named destinations out of 1000 (max. 500000)
- 217 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 639 PDF objects out of 1000 (max. 8388607)
+ 559 compressed objects within 6 object streams
+ 139 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 

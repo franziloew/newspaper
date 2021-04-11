@@ -40,6 +40,7 @@ rm(list = ls())
 source("func/functions.R")
 
 color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#123f5a')
+max_date <- as.Date('2018-02-13')
 ```
 
 ```{r Connect to PostgresDB, eval=FALSE, include=FALSE}
@@ -82,6 +83,7 @@ model_df <- news_df %>%
   select(date, title, title_text, text_length, text_cleaned, type, source) %>%
   bind_rows(press_df %>%
     select(title, date, title_text, type, source, text_length, text_cleaned)) %>%
+  filter(date <= max_date) %>% 
   dplyr::mutate(
     doc_index = as.numeric(rownames(.)),
     year_week = lubridate::floor_date(date, "1 week")
