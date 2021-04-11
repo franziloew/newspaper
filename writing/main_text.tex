@@ -493,18 +493,18 @@ which words are used within a document is disregarded.
 \begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & beginn & etablierten & dublin & gewordenen & versucht & brand & besitzen \\ 
+ & terrorismus & vorsitzender & kollegin & genehmigung & kleinsten & umstände & beschäftigt \\ 
 \hline \\[-1.8ex] 
-12909 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-8270 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-14797 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-4037 & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-15251 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-974 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-5650 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-5850 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-17665 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-7568 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+13990 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+6464 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+13863 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+11862 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+18506 & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+12838 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+5726 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+2609 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+13961 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
+2656 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -524,13 +524,12 @@ is applied. In general, topic models formalize the idea that documents
 are formed by hidden variables (topics) that generate correlations among
 observed terms. They belong to the group of unsupervised generative
 models, meaning that the true attributes (topics) cannot be observed.
-The STM developed by (M. E. Roberts, Stewart, and Airoldi
-\protect\hyperlink{ref-roberts_model_2016}{2016}) is a recent extension
-of the standard topic modelling technique, labeled as latent Dirichlet
-allocation (LDA), which refers to the Bayesian model in (Blei, Ng, and
-Jordan \protect\hyperlink{ref-blei_latent_2003}{2003}) that treats each
-word in a topic and each topic in a document as generated from a
-Dirichlet - distributed prior.\footnote{See also Griffiths and Steyvers
+The STM is an extension of the standard topic modelling technique,
+labeled as latent Dirichlet allocation (LDA), which refers to the
+Bayesian model in Blei, Ng, and Jordan
+(\protect\hyperlink{ref-blei_latent_2003}{2003}) that treats each word
+in a topic and each topic in a document as generated from a Dirichlet -
+distributed prior.\footnote{See also Griffiths and Steyvers
   (\protect\hyperlink{ref-griffiths_probabilistic_2002}{2002}),
   Griffiths and Steyvers
   (\protect\hyperlink{ref-griffiths_finding_2004}{2004}) and Hofmann
@@ -584,13 +583,13 @@ One crucial assumption to be made for topic models like LDA or STM is
 the number of topics (\(K\)) that occur over the entire corpus. There is
 not a ``right'' answer to the number of topics that are appropriate for
 a given corpus (Grimmer and Stewart
-\protect\hyperlink{ref-grimmer_text_2013}{2013}). (M. Roberts, Stewart,
+\protect\hyperlink{ref-grimmer_text_2013}{2013}). M. Roberts, Stewart,
 and Tingley
-\protect\hyperlink{ref-roberts_stm:_2016}{2016}\protect\hyperlink{ref-roberts_stm:_2016}{b})
+(\protect\hyperlink{ref-roberts_stm:_2016}{2016}\protect\hyperlink{ref-roberts_stm:_2016}{b})
 propose to measure topic quality through a combination of semantic
 coherence and exclusivity of words to topics. Semantic coherence is a
-criterion developed by (Mimno et al.
-\protect\hyperlink{ref-mimno_optimizing_2011}{2011}) and is closely
+criterion developed by Mimno et al.
+(\protect\hyperlink{ref-mimno_optimizing_2011}{2011}) and is closely
 related to pointwise mutual information (Newman et al.
 \protect\hyperlink{ref-newman_automatic_2010}{2010}): it is maximized
 when the most probable words in a given topic frequently co-occur
@@ -610,6 +609,11 @@ release depends on the author of that document and when it was
 published. I argue that these variables are best suited to capture
 temporal and publisher level variation in the documents.
 
+\begin{verbatim}
+## stm(documents = news_df_sparse, K = 40, prevalence = ~source + 
+##     s(year_biweek), data = covariates, init.type = "Spectral")
+\end{verbatim}
+
 In general inference of mixed-membership models, such as the one applied
 in this paper, has been a thread of research in applied statistics
 (Blei, Ng, and Jordan \protect\hyperlink{ref-blei_latent_2003}{2003},
@@ -620,47 +624,40 @@ starting values (e.g.~the number of topics and the covariates
 influencing the prior distributions). Since an ex ante valuation of a
 model is hardly possible, I compute a variety of different models and
 compare their posterior probability. This enables me to check how
-results vary for different model solution (M. Roberts, Stewart, and
-Tingley
+results vary for different model specifications (M. Roberts, Stewart,
+and Tingley
 \protect\hyperlink{ref-roberts_navigating_2016}{2016}\protect\hyperlink{ref-roberts_navigating_2016}{a}).
 I then cross-checked some subset of assigned topic distributions to
 evaluate whether the estimates align with the concept of interest
 (Gentzkow, Kelly, and Taddy
-\protect\hyperlink{ref-gentzkow_text_2017}{2017}). These manual audits
-are applied together with numeric optimization based on the topic
-coherence measure suggested by (Mimno et al.
-\protect\hyperlink{ref-mimno_optimizing_2011}{2011}).
-
-\begin{verbatim}
-## stm(documents = news_df_sparse, K = 40, prevalence = ~source + 
-##     s(year_biweek), data = covariates, init.type = "Spectral")
-\end{verbatim}
+\protect\hyperlink{ref-gentzkow_text_2017}{2017}).
 
 \hypertarget{results-of-the-stm}{%
 \subsection{Results of the STM}\label{results-of-the-stm}}
 
-The generative process of the STM results in a topic distribution
-\(\theta_d\) for each document \(d\) over all topics \(k\) and a word
-distribution \(\phi_k\) for each topic over all terms in the vocabulary.
-The most probable words of each topic may help to understand what each
-topic is about.\footnote{\autoref{table:top_terms} gives an overview of
-  the most probable terms for each topic.} However, since those most
-probable words are not necessarily the most exclusive words and they
-only represent a small fraction of the probability distribution,
-interpretation should be done very cautiously.
+As mentioned in the previous section, the generative process of the STM
+results in a topic distribution \(\theta_d\) for each document \(d\)
+over all topics \(k\) and a word distribution \(\phi_k\) for each topic
+over all terms in the vocabulary. The most probable words of each topic
+may help to understand what each topic is about.\footnote{\autoref{table:top_terms}
+  gives an overview of the most probable terms for each topic.} However,
+since those most probable words are not necessarily the most exclusive
+words and they only represent a small fraction of the probability
+distribution, interpretation should be done very cautiously.
 
-For our analysis, we use the topic distribution of each document.
-\autoref{fig:sample_docs12} illustrates such a topic distribution of two
-news paper articles. The red numbers indicate the topic probability if
-it is greater than \(0.02\). News article 1\footnote{Bundeswehr scandal:
-  ex-commander attacks Von Der Leyen} shows a clear distribution towards
-topic 36 (\(0.89\)), for which terms like Bundeswehr, Soldaten
-(soldiers), Nato, Verteidigungsministerin (defense minister) are among
-the most probable words. News article 2\footnote{Bundestag elections: 42
-  parties want to be elected to parliament.} does does not show such a
-clear tendency towards a single topic. Topic 40 (\(0.34\)), 18
-(\(0.24\)) and 5 (\(0.19\)) are within a comparable range. However, for
-all three topics similar terms are among the top terms.
+For our analysis, we use the topic distribution of each document to
+estimate the similarity of documents. \autoref{fig:sample_docs12}
+illustrates such a topic distribution of two news paper articles. The
+red numbers display the topic probability (for probabilities
+\(>= 0.02\)). News article 1\footnote{Bundeswehr scandal: ex-commander
+  attacks Von Der Leyen} shows a clear distribution towards topic 36,
+for which terms like Bundeswehr, Soldaten (soldiers), Nato,
+Verteidigungsministerin (defense minister) are among the most probable
+words. News article 2\footnote{Bundestag elections: 42 parties want to
+  be elected to parliament.} does does not show such a clear tendency
+towards a single topic. Topic 40, 18 and 5 are within a comparable
+range. However, for all three topics similar terms are among the top
+terms.
 
 Similarly as for the news articles, \autoref{fig:sample_docs34}
 illustrates the topic distribution for two press releases randomly
@@ -669,11 +666,11 @@ chosen from the corpus. For press release 1\footnote{Lars Herrmann: The
 topic 24 is the most probable topic which contains terms about the G20
 Summit, during which left-wing radicals caused considerable riots. Topic
 distribution of press article 2\footnote{Trump chooses the path to
-  isolation} shows peaks for topic 6 (\(0.39\)) and 35 (\(0.28\)). Top
-terms of topic 6 contain the words trump, us, usa, deutschland (Germany)
-and präsident (president). Similarly topic 35 seems to deal with German
-foreign policy, since top terms include words like eu, deutschland
-(Germany), europa and bundesregierung (Federal Government).
+  isolation} shows peaks for topic 6 and 35. Top terms of topic 6
+contain the words trump, us, usa, deutschland (Germany) and präsident
+(president). Similarly topic 35 seems to deal with German foreign
+policy, since top terms include words like eu, deutschland (Germany),
+europa and bundesregierung (Federal Government).
 
 \begin{figure}
 
@@ -719,7 +716,16 @@ apparent difference between before and after the election.
 
 }
 
-\caption{Comparison of topic probability - sample topics \label{fig:sample_topics_afd}}\label{fig:Top AfD topics}
+\caption{Comparison of topic probability - sample topics AfD \label{fig:sample_topics_afd}}\label{fig:Top AfD topics}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/Top FDP topics-1} 
+
+}
+
+\caption{Comparison of topic probability - sample topics FDP \label{fig:sample_topics_fdp}}\label{fig:Top FDP topics}
 \end{figure}
 
 \hypertarget{document-cosine-similarity}{%
@@ -787,11 +793,11 @@ within 7 days before the news article.
 \hline \\[-1.8ex] 
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2 \\ 
 \hline \\[-1.8ex] 
-Union und SPD ein... &  Antisemitismus j... & 0.05 & DIE WELT & CDU & 2018-02-01 & 2018-01-26 \\ 
-Umfage unter Flüc... & Georg Pazderski: ... & 0.03 & DIE WELT & AfD & 2018-01-24 & 2018-01-22 \\ 
-Parlamentarische ... & Den Konflikt um K... & 0.45 & DIE WELT & DIE LINKE & 2017-11-01 & 2017-11-01 \\ 
-Messerangreifer v... & Wichtiges Urteil ... & 0.05 & DIE WELT & SPD & 2017-11-10 & 2017-11-08 \\ 
-"Beschimpfte mich... & André Poggenburg:... & 0.03 & DIE WELT & AfD & 2017-12-04 & 2017-11-29 \\ 
+Überlastete Ärzte... & Jürgen Pohl: Unio... & 0.29 & DIE WELT & AfD & 2018-01-15 & 2018-01-12 \\ 
+Bundestagswahl: S... & Ulle Schauws: Ges... & 0.08 & DIE WELT & B90/GRÜNE & 2017-07-23 & 2017-07-17 \\ 
+Polen verlangt Er... & Martin Hess: Schl... & 0.31 & DIE WELT & AfD & 2017-11-05 & 2017-11-03 \\ 
+Alice Schwarzer: ... & Weidel/Protschka:... & 0.1 & DIE WELT & AfD & 2017-11-30 & 2017-11-29 \\ 
+GroKo-Einigung - ... & Stalingrad: Geden... & 0.42 & DIE WELT & DIE LINKE & 2018-02-08 & 2018-02-02 \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -809,11 +815,11 @@ Next, the mean cosine similarity for each news article publication date
 \hline \\[-1.8ex] 
 date1 & source1 & source2 & cos\_sim \\ 
 \hline \\[-1.8ex] 
-2017-07-24 & DIE WELT & AfD & 0.28 \\ 
-2017-07-08 & DIE WELT & B90/GRÜNE & 0.16 \\ 
-2017-08-28 & DIE WELT & CDU & 0.2 \\ 
-2017-07-21 & DIE WELT & FDP & 0.18 \\ 
-2017-07-20 & DIE WELT & B90/GRÜNE & 0.17 \\ 
+2017-06-15 & DIE WELT & FDP & 0.12 \\ 
+2017-08-05 & DIE WELT & CDU & 0.09 \\ 
+2017-09-26 & DIE WELT & SPD & 0.1 \\ 
+2017-07-15 & DIE WELT & SPD & 0.09 \\ 
+2017-12-11 & DIE WELT & CDU & 0.18 \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
@@ -1110,8 +1116,8 @@ ZEIT ONLINE & 1351 & 513.75 & 387.14 & 459 & 121 & 8015 \\
 \end{table}
 
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Mar
-28, 2021 - 14:10:13
+University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Apr
+04, 2021 - 14:55:32
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 

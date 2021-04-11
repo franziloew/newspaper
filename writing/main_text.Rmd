@@ -334,7 +334,7 @@ dtm[sample(nrow(dtm),10), sample(ncol(dtm),7)] %>%
 
 ## A structural topic model to identify the latent topics
 
-To discover the latent topics in the corpus of press releases and news articles, a structural topic modeling (STM) developed by [@roberts_model_2016] is applied. In general, topic models formalize the idea that documents are formed by hidden variables (topics) that generate correlations among observed terms. They belong to the group of unsupervised generative models, meaning that the true attributes (topics) cannot be observed. The STM developed by [@roberts_model_2016] is a recent extension of the standard topic modelling technique, labeled as latent Dirichlet allocation (LDA), which refers to the Bayesian model in [@blei_latent_2003] that treats each word in a topic and each topic in a document as generated from a Dirichlet - distributed prior.^[See also @griffiths_probabilistic_2002, @griffiths_finding_2004 and @hofmann_probabilistic_1999]. 
+To discover the latent topics in the corpus of press releases and news articles, a structural topic modeling (STM) developed by [@roberts_model_2016] is applied. In general, topic models formalize the idea that documents are formed by hidden variables (topics) that generate correlations among observed terms. They belong to the group of unsupervised generative models, meaning that the true attributes (topics) cannot be observed. The STM is an extension of the standard topic modelling technique, labeled as latent Dirichlet allocation (LDA), which refers to the Bayesian model in @blei_latent_2003 that treats each word in a topic and each topic in a document as generated from a Dirichlet - distributed prior.^[See also @griffiths_probabilistic_2002, @griffiths_finding_2004 and @hofmann_probabilistic_1999]. 
 
 The underlying idea for these models suggests that each individual topic $k$ potentially contains all of the unique terms within the vocabulary $V$ with different probability. Therefore, each topic $k$ can be represented as a probability vector $\phi_k$ over all unique terms $V$. Simultaneously, each individual document $d$ in the corpus can be represented as a probability distribution $\theta_d$ over the $K$ topics. 
 
@@ -348,15 +348,15 @@ In order to include the covariates in the statistical inference procedure, two d
 - for each word word $n$, draw the term distribution for the selected topic $\phi_{z_{d,n}}$.
 
 <!-- model specification -->
-One crucial assumption to be made for topic models like LDA or STM is the number of topics ($K$) that occur over the entire corpus. There is not a "right" answer to the number of topics that are appropriate for a given corpus [@grimmer_text_2013]. [@roberts_stm:_2016] propose to measure topic quality through a combination of semantic coherence and exclusivity of words to topics. Semantic coherence is a criterion developed by [@mimno_optimizing_2011] and is closely related to pointwise mutual information [@newman_automatic_2010]: it is maximized when the most probable words in a given topic frequently co-occur together.
+One crucial assumption to be made for topic models like LDA or STM is the number of topics ($K$) that occur over the entire corpus. There is not a "right" answer to the number of topics that are appropriate for a given corpus [@grimmer_text_2013]. @roberts_stm:_2016 propose to measure topic quality through a combination of semantic coherence and exclusivity of words to topics. Semantic coherence is a criterion developed by @mimno_optimizing_2011 and is closely related to pointwise mutual information [@newman_automatic_2010]: it is maximized when the most probable words in a given topic frequently co-occur together.
 
 Using the function $searchK$ from the $stm$ package several automated tests are performed to help choose the number of topics including the average exclusivity and semantic coherence as well as the held out likelihood [@wallach_rethinking_2009] and the residuals [@taddy_estimation_2012]. This process revealed that a model with 40 topics best reflects the structure in the corpus. Furthermore, I use the author and bi-week dummies of a document as topical prevalence variable. In other words, I assume that the probability of a topic to be included in a news article or a press release depends on the author of that document and when it was published. I argue that these variables are best suited to capture temporal and publisher level variation in the documents.
-
-In general inference of mixed-membership models, such as the one applied in this paper, has been a thread of research in applied statistics [@blei_latent_2003, @erosheva_mixed-membership_2004, @braun_variational_2010]. Topic models are usually imprecise as the function to be optimized has multiple modes, such that the model results can be sensitive to the starting values (e.g. the number of topics and the covariates influencing the prior distributions). Since an ex ante valuation of a model is hardly possible, I compute a variety of different models and compare their posterior probability. This enables me to check how results vary for different model solution [@roberts_navigating_2016]. I then cross-checked some subset of assigned topic distributions to evaluate whether the estimates align with the concept of interest [@gentzkow_text_2017]. These manual audits are applied together with numeric optimization based on the topic coherence measure suggested by [@mimno_optimizing_2011]. 
 
 ```{r STM specification}
 stmModel$settings$call
 ```
+
+In general inference of mixed-membership models, such as the one applied in this paper, has been a thread of research in applied statistics [@blei_latent_2003, @erosheva_mixed-membership_2004, @braun_variational_2010]. Topic models are usually imprecise as the function to be optimized has multiple modes, such that the model results can be sensitive to the starting values (e.g. the number of topics and the covariates influencing the prior distributions). Since an ex ante valuation of a model is hardly possible, I compute a variety of different models and compare their posterior probability. This enables me to check how results vary for different model specifications [@roberts_navigating_2016]. I then cross-checked some subset of assigned topic distributions to evaluate whether the estimates align with the concept of interest [@gentzkow_text_2017]. 
 
 <!--Show results of the stm -->
 
@@ -398,12 +398,11 @@ theta <- as.data.frame(stmModel$theta) %>%
          source, title, election_dummy, year_week)
 ```
 
+As mentioned in the previous section, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$ and a word distribution $\phi_k$ for each topic over all terms in the vocabulary. The most probable words of each topic may help to understand what each topic is about.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words are not necessarily the most exclusive words and they only represent a small fraction of the probability distribution, interpretation should be done very cautiously.
 
-The generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$ and a word distribution $\phi_k$ for each topic over all terms in the vocabulary. The most probable words of each topic may help to understand what each topic is about.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words are not necessarily the most exclusive words and they only represent a small fraction of the probability distribution, interpretation should be done very cautiously.
+For our analysis, we use the topic distribution of each document to estimate the similarity of documents. \autoref{fig:sample_docs12} illustrates such a topic distribution of two news paper articles. The red numbers display the topic probability (for probabilities $>= 0.02$). News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36, for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does does not show such a clear tendency towards a single topic. Topic 40, 18 and 5 are within a comparable range. However, for all three topics similar terms are among the top terms.
 
-For our analysis, we use the topic distribution of each document. \autoref{fig:sample_docs12} illustrates such a topic distribution of two news paper articles. The red numbers indicate the topic probability if it is greater than $0.02$. News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36 ($0.89$), for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does does not show such a clear tendency towards a single topic. Topic 40 ($0.34$),  18 ($0.24$) and 5 ($0.19$) are within a comparable range. However, for all three topics similar terms are among the top terms.
-
-Similarly as for the news articles, \autoref{fig:sample_docs34} illustrates the topic distribution for two press releases randomly chosen from the corpus. For press release 1^[Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left] topic 24 is the most probable topic which contains terms about the G20 Summit, during which left-wing radicals caused considerable riots. Topic distribution of press article 2^[Trump chooses the path to isolation] shows peaks for topic 6 ($0.39$) and 35 ($0.28$). Top terms of topic 6 contain the words trump, us, usa, deutschland (Germany) and präsident (president). Similarly topic 35 seems to deal with German foreign policy, since top terms include words like eu, deutschland (Germany), europa and bundesregierung (Federal Government).
+Similarly as for the news articles, \autoref{fig:sample_docs34} illustrates the topic distribution for two press releases randomly chosen from the corpus. For press release 1^[Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left] topic 24 is the most probable topic which contains terms about the G20 Summit, during which left-wing radicals caused considerable riots. Topic distribution of press article 2^[Trump chooses the path to isolation] shows peaks for topic 6 and 35. Top terms of topic 6 contain the words trump, us, usa, deutschland (Germany) and präsident (president). Similarly topic 35 seems to deal with German foreign policy, since top terms include words like eu, deutschland (Germany), europa and bundesregierung (Federal Government).
 
 ```{r News articles sample documents, fig.cap="Topic probability of sample news articles \\label{fig:sample_docs12}", fig.height=3, out.width="80%"}
 # Bundeswehr / v.d.Leyen
@@ -431,16 +430,15 @@ p1 / p2
 
 The left chart of \autoref{fig:sample_topics_afd} displays the 15 topics with the highest probability for press releases of the AfD.  The right side of the figure shows how the probability of two sample topics changes over the period under consideration compared to two sample news papers. It becomes clear, that topic 9^[Topic 9: afd, party, saxony, gauland, parties, pazderski, höcke] is systematically more likely in the AfD's press releases compared to the two newspapers. There is a noticeable increase in probability during the election campaign period and ends in a peak on election day itself. For Handelsblatt and Bild.de, too, a slight increase around election day is discernible and the probability of this topic shows some peaks for Bild.de both before and after the election. The top words of Theme 38^[Topic 38: refugees, germany, people, number, refugees, family reunion, year] suggest that it addresses refugees - a topic the AfD has a very clear position on. The probability of this topic increases in the AfD's press releases until about a month before the election and then levels off somewhat. A similar trend can be seen for the news articles from Bild.de. The curve from Handelsblatt is rather flat and shows no apparent difference between before and after the election. 
 
-```{r Top AfD topics, fig.cap="Comparison of topic probability - sample topics \\label{fig:sample_topics_afd}", fig.height=3, out.width="100%"}
+```{r Top AfD topics, fig.cap="Comparison of topic probability - sample topics AfD \\label{fig:sample_topics_afd}", fig.height=3, out.width="100%"}
 p1 <- theta %>% 
   filter(source == 'AfD') %>% 
   group_by(topic, source) %>% 
   summarise(theta_mean = mean(theta, na.rm = T)) %>% 
   ungroup() %>% 
-  top_n(n = 15, wt = theta_mean) %>% 
+  top_n(n = 10, wt = theta_mean) %>% 
   ggplot(aes(reorder(topic, theta_mean), theta_mean, fill = source))+
-  geom_col(show.legend = F) +
-  scale_fill_hc()+
+  geom_col(show.legend = F, fill='#009ee0', aplha = 0.7) +
   coord_flip() +
   labs(x = NULL, y = 'Topic proportion', 
        title = 'Mean topic proportion of AfD press releases',
@@ -448,11 +446,37 @@ p1 <- theta %>%
   theme(axis.title = element_text(size = 4))
 
 source_filter <- c('AfD', 'Bild.de', 'Handelsblatt')
-p2 <- plot_topic_distr_time(9, source_filter) + theme(legend.position = 'none')
-p3 <- plot_topic_distr_time(38, source_filter) + labs(title = NULL)
+group_colors <- c(AfD = "#009ee0", Bild.de = "#CC6600", Handelsblatt ="#9633FF")
+
+p2 <- plot_topic_distr_time(9, source_filter, group_colors) + theme(legend.position = 'none')
+p3 <- plot_topic_distr_time(38, source_filter, group_colors) + labs(title = NULL)
 
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
+
+```{r Top FDP topics, fig.cap="Comparison of topic probability - sample topics FDP \\label{fig:sample_topics_fdp}", fig.height=3, out.width="100%"}
+p1 <- theta %>% 
+  filter(source == 'FDP') %>% 
+  group_by(topic, source) %>% 
+  summarise(theta_mean = mean(theta, na.rm = T)) %>% 
+  ungroup() %>% 
+  top_n(n = 10, wt = theta_mean) %>% 
+  ggplot(aes(reorder(topic, theta_mean), theta_mean, fill = source))+
+  geom_col(show.legend = F, fill="#ffed00", alpha = 0.7 ) +
+  coord_flip() +
+  labs(x = NULL, y = 'Topic proportion', 
+       title = 'Mean topic proportion of FDP press releases',
+       subtitle = 'Top 15 topics with highest probability') +
+  theme(axis.title = element_text(size = 4))
+
+group_colors <- c(FDP = "#ffed00", Bild.de = "#CC6600", Handelsblatt ="#9633FF")
+source_filter <- c('FDP', 'Bild.de', 'Handelsblatt')
+p2 <- plot_topic_distr_time(39, source_filter, group_colors) + theme(legend.position = 'none')
+p3 <- plot_topic_distr_time(10, source_filter, group_colors) + labs(title = NULL)
+
+p1 + (p2 / p3) + plot_layout(widths = c(1,2))
+```
+
 
 
 ## Document Cosine similarity 
