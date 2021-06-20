@@ -702,7 +702,12 @@ cat(table)
 
 ## Regression discontinuity model
 
-In order to test the hypothesis that news papers report significantly different during election campaigns, i.e. the topic similarity changes after the election a regression discontinuity model is estimated. Again, \autoref{fig:mean_cosine_sim_rd_example} helps to visually analyse this question for the two sample new publisher *Handelsblatt* and *Bild.de* (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
+We assume that news paper report differently during election campaigns and that the election day introduces a change in the reporting. The assumption, that news papers report differently before elections (during election campaigns) coincides with the basic idea of regression discontinuity design (RDD). Therefore, a RDD is applied to identify the short-term effect of the election on the topic similarity between news paper articles and press releases.
+The RDD was designed by @thistlethwaite_regression-discontinuity_1960 and formalized by @hahn_identification_2001 to measure the effect of a treatment in a nonexperimental setting, where the treatment defined as discontinuous function of a continuous, observed variable (the 'running' or 'forcing' variable). Like @thistlethwaite_regression-discontinuity_1960, who estimated the effect of receiving the National Merit Scholarship on future academic outcomes, early studies that rely on RD designs estimate the effects of certain thresholds of a running variable on educational outcomes (i.e. financial aid (@van_der_klaauw_estimating_2002) or class size (@angrist_using_1999)). Following these early studies in the area of education, the RDD has received attention in a wider range of the economic literature, including labor economics, political economy, health economics, and environmental economics. Compared to alternative quasi-experimental estimators like difference-in-difference and matching techniques, RDD is considered as the estimator with the greatest internal validity (@lee_regression_2010).
+
+In our model, the running variable $W$ is the time difference between date $i$ and the election date (in days) and the cutoff point $c$ is the election day. We use a sharp RDD, where the probability that an individual receives a treatment jumps from 0 to 1 at the cutoff (i.e. at the threshold $W_i = c$).\footnote{In the other design - the fuzzy RDD - the probability that an individual receives a treatment increases discontinuously from a to b (where $0 <a < b < 1$) at the threshold $W_i = c$.}
+
+The visual representation of the treatment effect for the two sample new publisher Handelsblatt and Bild.de in \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic similarity for Handelsblatt decreases after the election for CDU, FDP and B90/Grüne. A less clear to no effect can be seen for SPD, DIE LINKE and AfD. In contrast, the treatment effect at Bild.de seems to exist only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
 
 ```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
 handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
@@ -710,32 +715,23 @@ handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
   plot_layout(ncol = 1)
 ```
 
-- Initially introduced by @thistlethwaite_regression-discontinuity_1960 & formalized by @hahn_identification_2001
-- It's a rigorous nonexperimental approach used to estimate treatment effects, where treatment is determined by whether an observed assignment variable (aka "forcing" or "running" variable) exceeds a known cutoff point.
-- In our model, the running variable $W$ is the time difference between date $i$ and the election date (in days) and the cutoff point $c$ is the election day
-- The idea of regression discontinuity design is to use observations with a $W_i$ close to $c$ for the estimation of $\beta_1$
-- $\beta_1$ is the average treatment effect for observations with $W_i = c$ which is assumed to be a good approximation to the overall treatment effect. 
-- In other words, $\beta_1$ gives us the average change of the similarity between the content of news articles and press releases after the election day
-- Including interaction terms terms $T_iDn_{j}$ allows us to estimate the treatment effect for each party --> since we are estimating an isolated model for each newspaper, we have the average treatment effect of the election day for each newspaper/party pair.
-
-Calculate a regression discontinuity model for each news paper.
+In order to statistically evaluate this observations, for each news paper the following model is estimated.
 
 $$
 \ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
 $$
 where
 
-$$\begin{aligned}
-T_i = 1 \text{ if date } >= \text{election date} \\
-T_i = 0 \text{ if date } < \text{election date}
-\end{aligned}$$
+$$
+T_i = 
+\begin{cases}
+1, & \text{ if date } \geq \text{election date} \\
+0, & \text{ if date } < \text{election date}
+\end{cases}
+$$
+such that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous (running) variable $W_i$ and $\beta_1$ is the average treatment effect for observations with $W_i = c$. In other words, $\beta_1$ gives the average change of the similarity between the content of news articles and press releases after the election day.
 
-so that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous (running) variable $W_i$.
-
-The interaction term $T_iD_{i,k-1}$ means that the slope can vary on either side of the treatment threshold for each party.
-
-- The coefficient $\beta_1$ is how the intercept jumps (the RDD effect). Since we are controlling for each party, the coefficient shows the treatment effect on the AfD. 
-- $\beta_4$ is how the slope changes for each party.
+Including interaction terms $T_iD_{i,k-1}$ and since we are estimating an isolated model for each newspaper $\beta_4$ gives the average treatment effect for each newspaper/party pair (i.e. how how much the slope changes for each party).
 
 ```{r Model results with interaction terms, results='asis'}
 table <- capture.output({

@@ -5,8 +5,8 @@
 %
 \documentclass[
 ]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -47,7 +47,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -56,7 +57,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -92,6 +93,29 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Political news coverage of online news}
 \usepackage{etoolbox}
@@ -101,8 +125,8 @@
 }
 \makeatother
 \subtitle{\ldots{}}
-\author{Franziska Löw\footnote{Institut für Industrieökonomik, Helmut Schmidt
-  Universität. Email: .}}
+\author{Franziska Löw\footnote{Institut für Industrieökonomik, Helmut
+  Schmidt Universität. Email: .}}
 \date{November 2020}
 
 \begin{document}
@@ -135,39 +159,43 @@ providing their attention, which the media platform bundles and sells on
 to advertising customers. This business model corresponds to that of a
 platform market, in which media companies act as platforms that connect
 the market of advertising with the reader market to exploit the indirect
-network effects between them (Dewenter and Rösch
-\protect\hyperlink{ref-dewenter_einfuhrung_2014}{2014}). A
-profit-maximizing publisher therefore directs its economic decisions
-according to what will attract the most attention.
+network effects between them
+(\protect\hyperlink{ref-dewenter_einfuhrung_2014}{Dewenter and Rösch
+2014}). A profit-maximizing publisher therefore directs its economic
+decisions according to what will attract the most attention.
 
 This conclusion, derived from the economic theory of platform markets,
 corresponds to the notion of media logic, a central concept in the field
-of media and communication studies (Takens et al.
-\protect\hyperlink{ref-takens_media_2013}{2013}). The debate about media
-logic is embedded in the broader discussion about the interaction
-between the press, politics and the public. The underlying thesis is
-that the content of political news is the product of news values and
-narrative techniques that media use to attract audiences (Strömbäck
-\protect\hyperlink{ref-stromback_four_2008}{2008}). According to Takens
-et al. (\protect\hyperlink{ref-takens_media_2013}{2013}), three content
+of media and communication studies
+(\protect\hyperlink{ref-takens_media_2013}{Takens et al. 2013}). The
+debate about media logic is embedded in the broader discussion about the
+interaction between the press, politics and the public. The underlying
+thesis is that the content of political news is the product of news
+values and narrative techniques that media use to attract audiences
+(\protect\hyperlink{ref-stromback_four_2008}{Strömbäck 2008}). According
+to \protect\hyperlink{ref-takens_media_2013}{Takens et al.}
+(\protect\hyperlink{ref-takens_media_2013}{2013}), three content
 attributes highly correspond with news values and influence how
 journalists interpret political events: 1) personalized content, i.e.,
 the focus on individual politicians; 2) the framing of politics as a
-contest and 3) negative coverage. Similarly Blassnig et al.
+contest and 3) negative coverage. Similarly
+\protect\hyperlink{ref-blassnig_hitting_2019}{Blassnig et al.}
 (\protect\hyperlink{ref-blassnig_hitting_2019}{2019}) states that media
 primarily focus on news factors, i.e.~the factors that turn an event
 into news worth reporting like conflict, drama, negativity, surprise or
 proximity. Likewise populist messages often co-occur with negative,
 emotionalized, or dramatized communication style, thus utilizing similar
 mechanisms as the media logic, respectively the attention economy. In
-fact, Blassnig et al.
+fact, \protect\hyperlink{ref-blassnig_hitting_2019}{Blassnig et al.}
 (\protect\hyperlink{ref-blassnig_hitting_2019}{2019}) shows that
 populist key messages by political and media actors in news articles
 provoke more reader comments under these articles. Media competing for
 the attention of readers therefore have an incentive to pick up on the
 key messages of these parties. These, in turn, benefit from being able
-to place their agendas in the public debate (Druckman and Parkin
-(\protect\hyperlink{ref-druckman_impact_2005}{2005}), Eberl
+to place their agendas in the public debate
+(\protect\hyperlink{ref-druckman_impact_2005}{Druckman and Parkin}
+(\protect\hyperlink{ref-druckman_impact_2005}{2005}),
+\protect\hyperlink{ref-eberl_lying_2018}{Eberl}
 (\protect\hyperlink{ref-eberl_lying_2018}{2018})). It is assumed, that
 smaller, non-established parties in particular benefit from placing
 their topics in the media in order to get them into the voters' heads.
@@ -179,16 +207,16 @@ is not the subject of this study. Rather, it is intended to measure how
 online news coverage coincides with the messaging of different political
 parties. Especially during election campaigns political parties want the
 media agenda to be congruent with their own agenda to define the
-issue-based criteria on which they will be evaluated by voters (Eberl,
-Boomgaarden, and Wagner \protect\hyperlink{ref-eberl_one_2017}{2017}).
-Parties instrumentalize their public relations in order to highlight
-issues that they are perceived to be competent on, that they ``own'' and
-that are important to their voters (Kepplinger and Maurer
-\protect\hyperlink{ref-kepplinger_einfluss_2004}{2004}). This paper
-therefore analyzes the period before and after the 2017 federal
-elections in Germany to answer the question whether political news
-report about similar topics and if this similarity changes after the
-election campaign is over.
+issue-based criteria on which they will be evaluated by voters
+(\protect\hyperlink{ref-eberl_one_2017}{Eberl, Boomgaarden, and Wagner
+2017}). Parties instrumentalize their public relations in order to
+highlight issues that they are perceived to be competent on, that they
+``own'' and that are important to their voters
+(\protect\hyperlink{ref-kepplinger_einfluss_2004}{Kepplinger and Maurer
+2004}). This paper therefore analyzes the period before and after the
+2017 federal elections in Germany to answer the question whether
+political news report about similar topics and if this similarity
+changes after the election campaign is over.
 
 In order to answer these and other media-related questions in the
 political context, quantifying the content of media is a prerequisite.
@@ -200,23 +228,25 @@ tonality (how they are evaluated). Other studies examine the topics
 discussed or the language used in the media, in order to identify
 whether political actors are able to place their own policy positions in
 the media. Leading studies from economic literature, for example,
-examine how often a newspaper quotes the same think tanks (Groseclose
-and Milyo (\protect\hyperlink{ref-groseclose_measure_2005}{2005}), Lott
-and Hassett (\protect\hyperlink{ref-lott_is_2014}{2014})) or uses the
-same language (Gentzkow and Shapiro
-\protect\hyperlink{ref-gentzkow_media_2004}{2004}) as members of
-Congress. Following this approach, the present paper compares topics
-discussed in media outlets with topics addressed in the press releases
-of the parties in the German ``Bundestag'', to measure the content
-similarity between online news and parties press releases.\footnote{For
-  the sake of simplicity, both news articles and press releases will be
-  referred to as documents in the following.} To discover the latent
-topics in the corpus of text data, the structural topic model (STM)
-developed by M. E. Roberts, Stewart, and Airoldi
-(\protect\hyperlink{ref-roberts_model_2016}{2016}) is applied. This
-probabilistic text model results in a probability distribution for each
-document across all topics, which is then aggregated to calculate the
-degree of difference between the news articles of different media
+examine how often a newspaper quotes the same think tanks
+(\protect\hyperlink{ref-groseclose_measure_2005}{Groseclose and Milyo}
+(\protect\hyperlink{ref-groseclose_measure_2005}{2005}),
+\protect\hyperlink{ref-lott_is_2014}{Lott and Hassett}
+(\protect\hyperlink{ref-lott_is_2014}{2014})) or uses the same language
+(\protect\hyperlink{ref-gentzkow_media_2004}{M. A. Gentzkow and Shapiro
+2004}) as members of Congress. Following this approach, the present
+paper compares topics discussed in media outlets with topics addressed
+in the press releases of the parties in the German ``Bundestag,'' to
+measure the content similarity between online news and parties press
+releases.\footnote{For the sake of simplicity, both news articles and
+  press releases will be referred to as documents in the following.} To
+discover the latent topics in the corpus of text data, the structural
+topic model (STM) developed by
+\protect\hyperlink{ref-roberts_model_2016}{M. E. Roberts, Stewart, and
+Airoldi} (\protect\hyperlink{ref-roberts_model_2016}{2016}) is applied.
+This probabilistic text model results in a probability distribution for
+each document across all topics, which is then aggregated to calculate
+the degree of difference between the news articles of different media
 providers and the press releases of the parties using a linear
 regression model.
 
@@ -310,11 +340,10 @@ the period under review in terms of visits.\footnote{The term visit is
 The main source of income for these privately managed media houses is
 digital advertising, even though paid content is playing an increasingly
 important role. However, according to a survey on digital news by the
-Reuters Institute (Newman et al.
-\protect\hyperlink{ref-newman_reuters_2018}{2018}) only 8\% of
-respondents pay for online news. The online survey for German data was
-undertaken between 19th - 22nd January 2018 by the Hans Bredow
-Institute\footnote{\url{https://www.hans-bredow-institut.de/de/projekte/reuters-institute-digital-news-survey}}
+Reuters Institute (\protect\hyperlink{ref-newman_reuters_2018}{N. Newman
+et al. 2018}) only 8\% of respondents pay for online news. The online
+survey for German data was undertaken between 19th - 22nd January 2018
+by the Hans Bredow Institute\footnote{\url{https://www.hans-bredow-institut.de/de/projekte/reuters-institute-digital-news-survey}}
 with a total sample size of 2038 adults (aged 18+) who access news once
 a month or more. Among other questions, participants were asked which
 news sources they use to access news online.\footnote{The exact question
@@ -429,21 +458,22 @@ To use text as data for statistical analysis, different pre-processing
 steps have to be conducted. In fact, in order to use text as data and
 reduce the dimensionality to avoid unnecessary computational complexity
 and overfitting, pre-processsing the text is a central task in text
-mining (Gentzkow, Kelly, and Taddy
-(\protect\hyperlink{ref-gentzkow_text_2017}{2017}), Bholat et al.
+mining (\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow, Kelly,
+and Taddy} (\protect\hyperlink{ref-gentzkow_text_2017}{2017}),
+\protect\hyperlink{ref-bholat_text_2015}{Bholat et al.}
 (\protect\hyperlink{ref-bholat_text_2015}{2015})). Intuitively the term
 frequency (tf) of a word is a measure of how important that word may be
 for the understanding of the text. To visualize these terms, word clouds
 are a commonly used technique in text mining as they translate the tf
 into the size of the term in the cloud. As can be seen in
 \autoref{fig:wordcloud1}, problems arise with words that are highly
-frequent. For example ``die'', or ``der'' (eng. ``the''), ``und'' (eng.
+frequent. For example ``die,'' or ``der'' (eng. ``the''), ``und'' (eng.
 ``and''), and ``ist'' (eng. ``is'') are extremely common but unrelated
 to the quantity of interest. These terms, often called stop words
-(Gentzkow, Kelly, and Taddy
-\protect\hyperlink{ref-gentzkow_text_2017}{2017}), are important to the
-grammatical structure of a text, but typically don't add any additional
-meaning and can therefore be neglected.
+(\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow, Kelly, and
+Taddy 2017}), are important to the grammatical structure of a text, but
+typically don't add any additional meaning and can therefore be
+neglected.
 
 \begin{figure}
 
@@ -500,9 +530,10 @@ in this row counts the occurrences of a unique term in that document.
 \autoref{table:dtm} provides a sample output of the document-term matrix
 used in this paper, where each document is represented by a unique id
 (the row name in the example below). This representation is often
-referred to as the bag of words model (Gentzkow, Kelly, and Taddy
-\protect\hyperlink{ref-gentzkow_text_2017}{2017}), since the order in
-which words are used within a document is disregarded.
+referred to as the bag of words model
+(\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow, Kelly, and
+Taddy 2017}), since the order in which words are used within a document
+is disregarded.
 
 \begin{table}[H]
 
@@ -511,19 +542,19 @@ which words are used within a document is disregarded.
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
-  & behandlung & vereins & geplant & einzelne & baut & begehen & umweltminister\\
+  & betreibt & bedeutung & erstmals & putschversuch & gegangen & kontrollieren & castor\\
 \midrule
-\cellcolor{gray!6}{7890} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{1} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-13558 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{10093} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-7363 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{17396} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\cellcolor{gray!6}{12788} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+16034 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{6953} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+16394 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{16620} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
 \addlinespace
-5205 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{5743} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-9171 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{1745} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-11954 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+14203 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{15551} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+5333 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{18667} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+10532 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -537,21 +568,25 @@ documents}\label{estimate-topic-similarity-of-documents}}
 topics}\label{a-structural-topic-model-to-identify-the-latent-topics}}
 
 To discover the latent topics in the corpus of press releases and news
-articles, a structural topic modeling (STM) developed by (M. E. Roberts,
-Stewart, and Airoldi \protect\hyperlink{ref-roberts_model_2016}{2016})
-is applied. In general, topic models formalize the idea that documents
-are formed by hidden variables (topics) that generate correlations among
-observed terms. They belong to the group of unsupervised generative
-models, meaning that the true attributes (topics) cannot be observed.
-The STM is an extension of the standard topic modelling technique,
-labeled as latent Dirichlet allocation (LDA), which refers to the
-Bayesian model in Blei, Ng, and Jordan
+articles, a structural topic modeling (STM) developed by
+(\protect\hyperlink{ref-roberts_model_2016}{M. E. Roberts, Stewart, and
+Airoldi 2016}) is applied. In general, topic models formalize the idea
+that documents are formed by hidden variables (topics) that generate
+correlations among observed terms. They belong to the group of
+unsupervised generative models, meaning that the true attributes
+(topics) cannot be observed. The STM is an extension of the standard
+topic modelling technique, labeled as latent Dirichlet allocation (LDA),
+which refers to the Bayesian model in
+\protect\hyperlink{ref-blei_latent_2003}{Blei, Ng, and Jordan}
 (\protect\hyperlink{ref-blei_latent_2003}{2003}) that treats each word
 in a topic and each topic in a document as generated from a
-Dirichlet-distributed prior.\footnote{See also Griffiths and Steyvers
+Dirichlet-distributed prior.\footnote{See also
+  \protect\hyperlink{ref-griffiths_probabilistic_2002}{Griffiths and
+  Steyvers}
   (\protect\hyperlink{ref-griffiths_probabilistic_2002}{2002}),
-  Griffiths and Steyvers
-  (\protect\hyperlink{ref-griffiths_finding_2004}{2004}) and Hofmann
+  \protect\hyperlink{ref-griffiths_finding_2004}{Griffiths and Steyvers}
+  (\protect\hyperlink{ref-griffiths_finding_2004}{2004}) and
+  \protect\hyperlink{ref-hofmann_probabilistic_1999}{Hofmann}
   (\protect\hyperlink{ref-hofmann_probabilistic_1999}{1999})}.
 
 The underlying idea for these models suggests that each individual topic
@@ -601,25 +636,26 @@ generate each individual word \(w_{d,n}\) in a document \(d\) for the
 One crucial assumption to be made for topic models like LDA or STM is
 the number of topics (\(K\)) that occur over the entire corpus. There is
 not a ``right'' answer to the number of topics that are appropriate for
-a given corpus (Grimmer and Stewart
-\protect\hyperlink{ref-grimmer_text_2013}{2013}). M. Roberts, Stewart,
-and Tingley
-(\protect\hyperlink{ref-roberts_stm:_2016}{2016}\protect\hyperlink{ref-roberts_stm:_2016}{b})
+a given corpus (\protect\hyperlink{ref-grimmer_text_2013}{Grimmer and
+Stewart 2013}). \protect\hyperlink{ref-roberts_stm:_2016}{M. Roberts,
+Stewart, and Tingley} (\protect\hyperlink{ref-roberts_stm:_2016}{2016b})
 propose to measure topic quality through a combination of semantic
 coherence and exclusivity of words to topics. Semantic coherence is a
-criterion developed by Mimno et al.
+criterion developed by
+\protect\hyperlink{ref-mimno_optimizing_2011}{Mimno et al.}
 (\protect\hyperlink{ref-mimno_optimizing_2011}{2011}) and is closely
-related to pointwise mutual information (Newman et al.
-\protect\hyperlink{ref-newman_automatic_2010}{2010}): it is maximized
-when the most probable words in a given topic frequently co-occur
-together.
+related to pointwise mutual information
+(\protect\hyperlink{ref-newman_automatic_2010}{D. Newman et al. 2010}):
+it is maximized when the most probable words in a given topic frequently
+co-occur together.
 
 Using the function \(searchK\) from the \(stm\) package several
 automated tests are performed to help choose the number of topics
 including the average exclusivity and semantic coherence as well as the
-held out likelihood (Wallach, Mimno, and McCallum
-\protect\hyperlink{ref-wallach_rethinking_2009}{2009}) and the residuals
-(Taddy \protect\hyperlink{ref-taddy_estimation_2012}{2012}). This
+held out likelihood
+(\protect\hyperlink{ref-wallach_rethinking_2009}{Wallach, Mimno, and
+McCallum 2009}) and the residuals
+(\protect\hyperlink{ref-taddy_estimation_2012}{Taddy 2012}). This
 process revealed that a model with 40 topics best reflects the structure
 in the corpus. Furthermore, I use the author and bi-week dummies of a
 document as topical prevalence variable. In other words, I assume that
@@ -635,21 +671,20 @@ temporal and publisher level variation in the documents.
 
 In general inference of mixed-membership models, such as the one applied
 in this paper, has been a thread of research in applied statistics
-(Blei, Ng, and Jordan \protect\hyperlink{ref-blei_latent_2003}{2003},
-@erosheva\_mixed--membership\_2004, @braun\_variational\_2010). Topic
-models are usually imprecise as the function to be optimized has
-multiple modes, such that the model results can be sensitive to the
-starting values (e.g.~the number of topics and the covariates
-influencing the prior distributions). Since an ex ante valuation of a
-model is hardly possible, I compute a variety of different models and
-compare their posterior probability. This enables me to check how
-results vary for different model specifications (M. Roberts, Stewart,
-and Tingley
-\protect\hyperlink{ref-roberts_navigating_2016}{2016}\protect\hyperlink{ref-roberts_navigating_2016}{a}).
-I then cross-checked some subset of assigned topic distributions to
-evaluate whether the estimates align with the concept of interest
-(Gentzkow, Kelly, and Taddy
-\protect\hyperlink{ref-gentzkow_text_2017}{2017}).
+\protect\hyperlink{ref-braun_variational_2010}{Braun and McAuliffe}
+(\protect\hyperlink{ref-braun_variational_2010}{2010}). Topic models are
+usually imprecise as the function to be optimized has multiple modes,
+such that the model results can be sensitive to the starting values
+(e.g.~the number of topics and the covariates influencing the prior
+distributions). Since an ex ante valuation of a model is hardly
+possible, I compute a variety of different models and compare their
+posterior probability. This enables me to check how results vary for
+different model specifications
+(\protect\hyperlink{ref-roberts_navigating_2016}{M. Roberts, Stewart,
+and Tingley 2016a}). I then cross-checked some subset of assigned topic
+distributions to evaluate whether the estimates align with the concept
+of interest (\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow,
+Kelly, and Taddy 2017}).
 
 \hypertarget{results-of-the-stm}{%
 \subsection{Results of the STM}\label{results-of-the-stm}}
@@ -784,12 +819,13 @@ and one; values towards 1 indicate similarity. As topic proportions per
 document are vectors of the same length, the cosine similarity allows a
 comparison of the topic distribution between two documents.\footnote{For
   applications of cosine similarity to compare of topic model outcomes
-  see e.g.~Rehs (\protect\hyperlink{ref-rehs_structural_2020}{2020}) and
-  Ramage, Dumais, and Liebling
-  (\protect\hyperlink{ref-ramage_characterizing_2010}{2010})}
+  see e.g. \protect\hyperlink{ref-rehs_structural_2020}{Rehs}
+  (\protect\hyperlink{ref-rehs_structural_2020}{2020}) and
+  \protect\hyperlink{ref-ramage_characterizing_2010}{Ramage, Dumais, and
+  Liebling} (\protect\hyperlink{ref-ramage_characterizing_2010}{2010})}
 
 \[
-\text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
+\text{CS} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
 \]
 
 For example, \autoref{table:cosine_sim_sample_doc}\footnote{Translations:
@@ -831,7 +867,7 @@ means the topic distribution of news article 1 is compared to press
 release 1, 2, 3 and so on as long as the press release was published
 within 7 days before the news article.
 \autoref{table:dataset_structure1} illustrates a sample subset of the
-data for \emph{DIE WELT}.
+data for DIE WELT.
 
 \begin{table}[H]
 
@@ -842,11 +878,11 @@ data for \emph{DIE WELT}.
 \toprule
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
 \midrule
-\cellcolor{gray!6}{Bundestagswahlkam...} & \cellcolor{gray!6}{Tag der Bundesweh...} & \cellcolor{gray!6}{0.08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-06-12} & \cellcolor{gray!6}{2017-06-09}\\
-Facebook-Profil: ... & Beate Walter-Rose... & 0.18 & DIE WELT & B90/GRÜNE & 2017-08-17 & 2017-08-11\\
-\cellcolor{gray!6}{Umfrage: Scheiter...} & \cellcolor{gray!6}{Alice Weidel: Jam...} & \cellcolor{gray!6}{0.11} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-11-19} & \cellcolor{gray!6}{2017-11-15}\\
-Bundesverfassungs... & Georg Pazderski: ... & 0.01 & DIE WELT & AfD & 2017-07-27 & 2017-07-21\\
-\cellcolor{gray!6}{Insa-Umfrage: SPD...} & \cellcolor{gray!6}{Gerold Otten: Geg...} & \cellcolor{gray!6}{0.01} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-01-16} & \cellcolor{gray!6}{2018-01-15}\\
+\cellcolor{gray!6}{Groko: Durchbruch...} & \cellcolor{gray!6}{Bernd Baumann: Di...} & \cellcolor{gray!6}{0.03} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-01-12} & \cellcolor{gray!6}{2018-01-07}\\
+Asylverfahren: De... & Gedenken an Hiros... & 0.14 & DIE WELT & B90/GRÜNE & 2017-08-10 & 2017-08-04\\
+\cellcolor{gray!6}{Seehofer zu GroKo...} & \cellcolor{gray!6}{Götz Frömming:  A...} & \cellcolor{gray!6}{0.08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-02-09} & \cellcolor{gray!6}{2018-02-06}\\
+Grüne: „Ehe für a... & Koalition stärkt... & 0.35 & DIE WELT & CDU & 2017-06-20 & 2017-06-16\\
+\cellcolor{gray!6}{ARD-Format: Polit...} & \cellcolor{gray!6}{Paul Hampel: BIBB...} & \cellcolor{gray!6}{0.28} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-08-22} & \cellcolor{gray!6}{2017-08-22}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -864,11 +900,11 @@ Next, the mean cosine similarity for each news article publication date
 \toprule
 date1 & source1 & source2 & cos\_sim\\
 \midrule
-\cellcolor{gray!6}{2017-07-29} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.07}\\
-2017-11-11 & DIE WELT & FDP & 0.21\\
-\cellcolor{gray!6}{2017-08-24} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.13}\\
-2017-07-12 & DIE WELT & DIE LINKE & 0.14\\
-\cellcolor{gray!6}{2017-09-04} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.07}\\
+\cellcolor{gray!6}{2017-12-28} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{0.13}\\
+2017-06-30 & DIE WELT & FDP & 0.23\\
+\cellcolor{gray!6}{2017-12-22} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.15}\\
+2017-06-27 & DIE WELT & B90/GRÜNE & 0.09\\
+\cellcolor{gray!6}{2017-06-20} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.12}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -880,12 +916,12 @@ To get a first idea of the trend of the data over time, the mean cosine
 similarity between the news articles and each parties press releases
 conditional on the day can be plotted.
 \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for
-\emph{Handelsblatt} and \emph{Bild.de} (See
-\autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these
-figures, a few observations can be made. The similarity with the FDP,
-e.g., seems to increase over time for both Handelsblatt and Bild.de. In
-the case of Bild.de, this applies to all parties, except for the AfD,
-where a slight downward trend is discernible.
+Handelsblatt and Bild.de (See \autoref{fig:mean_cosine_sim_ols} for all
+news papers). Based on these figures, a few observations can be made.
+The similarity with the FDP, e.g., seems to increase over time for both
+Handelsblatt and Bild.de. In the case of Bild.de, this applies to all
+parties, except for the AfD, where a slight downward trend is
+discernible.
 
 \begin{figure}
 
@@ -932,12 +968,54 @@ political parties when compared to press releases of the AfD.
 \subsection{Regression discontinuity
 model}\label{regression-discontinuity-model}}
 
-In order to test the hypothesis that news papers report significantly
-different during election campaigns, i.e.~the topic similarity changes
-after the election a regression discontinuity model is estimated. Again,
-\autoref{fig:mean_cosine_sim_rd_example} helps to visually analyse this
-question for the two sample new publisher \emph{Handelsblatt} and
-\emph{Bild.de} (see \autoref{fig:mean_cosine_sim_rd} for all news
+We assume that news paper report differently during election campaigns
+and that the election day introduces a change in the reporting. The
+assumption, that news papers report differently before elections (during
+election campaigns) coincides with the basic idea of regression
+discontinuity design (RDD). Therefore, a RDD is applied to identify the
+short-term effect of the election on the topic similarity between news
+paper articles and press releases. The RDD was designed by
+\protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{Thistlethwaite
+and Campbell}
+(\protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{1960})
+and formalized by \protect\hyperlink{ref-hahn_identification_2001}{Hahn,
+Todd, and Van der Klaauw}
+(\protect\hyperlink{ref-hahn_identification_2001}{2001}) to measure the
+effect of a treatment in a nonexperimental setting, where the treatment
+defined as discontinuous function of a continuous, observed variable
+(the `running' or `forcing' variable). Like
+\protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{Thistlethwaite
+and Campbell}
+(\protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{1960}),
+who estimated the effect of receiving the National Merit Scholarship on
+future academic outcomes, early studies that rely on RD designs estimate
+the effects of certain thresholds of a running variable on educational
+outcomes (i.e.~financial aid
+((\protect\hyperlink{ref-van_der_klaauw_estimating_2002}{\textbf{van\_der\_klaauw\_estimating\_2002?}}))
+or class size
+((\protect\hyperlink{ref-angrist_using_1999}{\textbf{angrist\_using\_1999?}}))).
+Following these early studies in the area of education, the RDD has
+received attention in a wider range of the economic literature,
+including labor economics, political economy, health economics, and
+environmental economics. Compared to alternative quasi-experimental
+estimators like difference-in-difference and matching techniques, RDD is
+considered as the estimator with the greatest internal validity
+((\protect\hyperlink{ref-lee_regression_2010}{\textbf{lee\_regression\_2010?}})).
+
+In our model, the running variable \(W\) is the time difference between
+date \(i\) and the election date (in days) and the cutoff point \(c\) is
+the election day. We use a sharp RDD, where the probability that an
+individual receives a treatment jumps from 0 to 1 at the cutoff (i.e.~at
+the threshold
+\(W_i = c\)).\footnote{In the other design - the fuzzy RDD - the probability that an individual receives a treatment increases discontinuously from a to b (where $0 <a < b < 1$) at the threshold $W_i = c$.}
+
+The visual representation of the treatment effect for the two sample new
+publisher Handelsblatt and Bild.de in
+\autoref{fig:mean_cosine_sim_rd_example} reveals that the topic
+similarity for Handelsblatt decreases after the election for CDU, FDP
+and B90/Grüne. A less clear to no effect can be seen for SPD, DIE LINKE
+and AfD. In contrast, the treatment effect at Bild.de seems to exist
+only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news
 publisher).
 
 \begin{figure}
@@ -949,66 +1027,30 @@ publisher).
 \caption{Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \label{fig:mean_cosine_sim_rd_example}}\label{fig:Daily mean cosine similarity - rd example}
 \end{figure}
 
-\begin{itemize}
-\tightlist
-\item
-  Initially introduced by Thistlethwaite and Campbell
-  (\protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{1960})
-  \& formalized by Hahn, Todd, and Van der Klaauw
-  (\protect\hyperlink{ref-hahn_identification_2001}{2001})
-\item
-  It's a rigorous nonexperimental approach used to estimate treatment
-  effects, where treatment is determined by whether an observed
-  assignment variable (aka ``forcing'' or ``running'' variable) exceeds
-  a known cutoff point.
-\item
-  In our model, the running variable \(W\) is the time difference
-  between date \(i\) and the election date (in days) and the cutoff
-  point \(c\) is the election day
-\item
-  The idea of regression discontinuity design is to use observations
-  with a \(W_i\) close to \(c\) for the estimation of \(\beta_1\)
-\item
-  \(\beta_1\) is the average treatment effect for observations with
-  \(W_i = c\) which is assumed to be a good approximation to the overall
-  treatment effect.
-\item
-  In other words, \(\beta_1\) gives us the average change of the
-  similarity between the content of news articles and press releases
-  after the election day
-\item
-  Including interaction terms terms \(T_iDn_{j}\) allows us to estimate
-  the treatment effect for each party --\textgreater{} since we are
-  estimating an isolated model for each newspaper, we have the average
-  treatment effect of the election day for each newspaper/party pair.
-\end{itemize}
-
-Calculate a regression discontinuity model for each news paper.
+In order to statistically evaluate this observations, for each news
+paper the following model is estimated.
 
 \[
 \ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
 \] where
 
-\[\begin{aligned}
-T_i = 1 \text{ if date } >= \text{election date} \\
-T_i = 0 \text{ if date } < \text{election date}
-\end{aligned}\]
+\[
+T_i = 
+\begin{cases}
+1, & \text{ if date } \geq \text{election date} \\
+0, & \text{ if date } < \text{election date}
+\end{cases}
+\] such that the receipt of treatment \(T_i\) is determined by the
+threshold \(c\) (election day) of the continuous (running) variable
+\(W_i\) and \(\beta_1\) is the average treatment effect for observations
+with \(W_i = c\). In other words, \(\beta_1\) gives the average change
+of the similarity between the content of news articles and press
+releases after the election day.
 
-so that the receipt of treatment \(T_i\) is determined by the threshold
-\(c\) (election day) of the continuous (running) variable \(W_i\).
-
-The interaction term \(T_iD_{i,k-1}\) means that the slope can vary on
-either side of the treatment threshold for each party.
-
-\begin{itemize}
-\tightlist
-\item
-  The coefficient \(\beta_1\) is how the intercept jumps (the RDD
-  effect). Since we are controlling for each party, the coefficient
-  shows the treatment effect on the AfD.
-\item
-  \(\beta_4\) is how the slope changes for each party.
-\end{itemize}
+Including interaction terms \(T_iD_{i,k-1}\) and since we are estimating
+an isolated model for each newspaper \(\beta_4\) gives the average
+treatment effect for each newspaper/party pair (i.e.~how how much the
+slope changes for each party).
 
 \begin{table}[!htbp] \centering    \caption{Results from the regression discontinuity model}    \label{table:results_rd}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   treated & $-$0.149$^{**}$ & $-$0.090 & $-$0.113 & $-$0.089 & $-$0.100 & $-$0.189$^{**}$ & 0.047 \\    & (0.058) & (0.073) & (0.089) & (0.081) & (0.062) & (0.087) & (0.073) \\    & & & & & & & \\   X\_centered & 0.0002 & 0.001$^{***}$ & $-$0.001$^{**}$ & 0.001$^{***}$ & 0.0003 & 0.001 & $-$0.0003 \\    & (0.0003) & (0.0003) & (0.0004) & (0.0004) & (0.0003) & (0.0004) & (0.0003) \\    & & & & & & & \\   source2B90/GRÜNE & $-$0.267$^{***}$ & $-$0.216$^{***}$ & $-$0.180$^{**}$ & 0.105 & $-$0.338$^{***}$ & $-$0.445$^{***}$ & $-$0.187$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2CDU & $-$0.259$^{***}$ & $-$0.115$^{*}$ & $-$0.232$^{***}$ & 0.098 & $-$0.288$^{***}$ & $-$0.450$^{***}$ & $-$0.170$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2DIE LINKE & $-$0.251$^{***}$ & $-$0.109$^{*}$ & $-$0.160$^{**}$ & 0.134$^{**}$ & $-$0.270$^{***}$ & $-$0.342$^{***}$ & $-$0.156$^{**}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2FDP & $-$0.291$^{***}$ & $-$0.195$^{***}$ & $-$0.201$^{***}$ & 0.069 & $-$0.355$^{***}$ & $-$0.441$^{***}$ & $-$0.292$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2SPD & $-$0.278$^{***}$ & $-$0.143$^{**}$ & $-$0.201$^{***}$ & 0.098 & $-$0.339$^{***}$ & $-$0.479$^{***}$ & $-$0.266$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   treatedTRUE:source2B90/GRÜNE & 0.050 & $-$0.042 & $-$0.154 & $-$0.184$^{*}$ & 0.078 & 0.245$^{**}$ & $-$0.031 \\    & (0.071) & (0.089) & (0.112) & (0.102) & (0.077) & (0.110) & (0.091) \\    & & & & & & & \\   treatedTRUE:source2CDU & $-$0.030 & $-$0.175$^{**}$ & $-$0.090 & $-$0.204$^{**}$ & $-$0.022 & 0.178$^{*}$ & $-$0.131 \\    & (0.066) & (0.083) & (0.104) & (0.094) & (0.072) & (0.103) & (0.085) \\    & & & & & & & \\   treatedTRUE:source2DIE LINKE & $-$0.032 & $-$0.059 & $-$0.068 & $-$0.113 & $-$0.037 & 0.120 & $-$0.097 \\    & (0.066) & (0.083) & (0.104) & (0.094) & (0.072) & (0.103) & (0.085) \\    & & & & & & & \\   treatedTRUE:source2FDP & 0.084 & 0.109 & $-$0.002 & 0.024 & 0.137$^{*}$ & 0.260$^{**}$ & 0.134 \\    & (0.066) & (0.083) & (0.104) & (0.094) & (0.072) & (0.103) & (0.085) \\    & & & & & & & \\   treatedTRUE:source2SPD & 0.025 & $-$0.068 & $-$0.058 & $-$0.145 & 0.070 & 0.252$^{**}$ & $-$0.002 \\    & (0.067) & (0.084) & (0.105) & (0.095) & (0.072) & (0.104) & (0.086) \\    & & & & & & & \\   Constant & $-$1.689$^{***}$ & $-$1.956$^{***}$ & $-$1.692$^{***}$ & $-$1.816$^{***}$ & $-$1.780$^{***}$ & $-$1.647$^{***}$ & $-$1.900$^{***}$ \\    & (0.037) & (0.047) & (0.059) & (0.051) & (0.041) & (0.059) & (0.048) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,372 & 1,378 & 1,404 & 1,206 & 1,428 & 1,321 & 1,424 \\  R$^{2}$ & 0.091 & 0.045 & 0.080 & 0.023 & 0.080 & 0.059 & 0.043 \\  Adjusted R$^{2}$ & 0.083 & 0.037 & 0.072 & 0.013 & 0.072 & 0.050 & 0.035 \\  Residual Std. Error & 0.361 (df = 1359) & 0.455 (df = 1365) & 0.573 (df = 1391) & 0.481 (df = 1193) & 0.401 (df = 1415) & 0.547 (df = 1308) & 0.472 (df = 1411) \\  F Statistic & 11.334$^{***}$ (df = 12; 1359) & 5.354$^{***}$ (df = 12; 1365) & 10.113$^{***}$ (df = 12; 1391) & 2.335$^{***}$ (df = 12; 1193) & 10.240$^{***}$ (df = 12; 1415) & 6.847$^{***}$ (df = 12; 1308) & 5.310$^{***}$ (df = 12; 1411) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
 
@@ -1095,26 +1137,26 @@ switch between ``before'' election (election campaign period) and
 \caption{Online sources for press releases
 \label{table:press_releases_sources}}\tabularnewline
 \toprule
-& Party & Parliamentary Group\tabularnewline
+& Party & Parliamentary Group \\
 \midrule
 \endfirsthead
 \toprule
-& Party & Parliamentary Group\tabularnewline
+& Party & Parliamentary Group \\
 \midrule
 \endhead
-CDU & cdu.de & presseportal.de\tabularnewline
-SPD & spd.de & spdfraktion.de\tabularnewline
-FDP & fdp.de & fdpbt.de\tabularnewline
-B90/Die Grünen & gruene.de & gruene-bundestag.de\tabularnewline
+CDU & cdu.de & presseportal.de \\
+SPD & spd.de & spdfraktion.de \\
+FDP & fdp.de & fdpbt.de \\
+B90/Die Grünen & gruene.de & gruene-bundestag.de \\
 DIE LINKE & die-linke.de &
-die-linke.de/start/presse/aus-dem-bundestag\tabularnewline
-AfD & afd.de & afdbundestag.de\tabularnewline
+die-linke.de/start/presse/aus-dem-bundestag \\
+AfD & afd.de & afdbundestag.de \\
 \bottomrule
 \end{longtable}
 
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Mon, May
-24, 2021 - 13:02:02
+University. E-mail: hlavac at fas.harvard.edu \% Date and time: So, Jun
+20, 2021 - 20:15:07
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 
@@ -1193,26 +1235,27 @@ University. E-mail: hlavac at fas.harvard.edu \% Date and time: Mon, May
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-bholat_text_2015}{}%
 Bholat, David M., Stephen Hansen, Pedro M. Santos, and Cheryl
-Schonhardt-Bailey. 2015. ``Text Mining for Central Banks.'' \emph{SSRN
-Electronic Journal}, June.
+Schonhardt-Bailey. 2015. {``Text Mining for Central Banks.''}
+\emph{{SSRN} Electronic Journal}, June.
 \url{http://www.academia.edu/13430482/Text_mining_for_central_banks}.
 
 \leavevmode\hypertarget{ref-blassnig_hitting_2019}{}%
 Blassnig, Sina, Sven Engesser, Nicole Ernst, and Frank Esser. 2019.
-``Hitting a Nerve: Populist News Articles Lead to More Frequent and More
-Populist Reader Comments.'' \emph{Political Communication}, August,
-1--23. \url{https://doi.org/10.1080/10584609.2019.1637980}.
+{``Hitting a Nerve: Populist News Articles Lead to More Frequent and
+More Populist Reader Comments.''} \emph{Political Communication},
+August, 1--23. \url{https://doi.org/10.1080/10584609.2019.1637980}.
 
 \leavevmode\hypertarget{ref-blei_latent_2003}{}%
-Blei, David M., Andrew Y Ng, and Michael I Jordan. 2003. ``Latent
-Dirichlet Allocation.'' \emph{Journal of Machine Learning Research} 3
+Blei, David M., Andrew Y Ng, and Michael I Jordan. 2003. {``Latent
+Dirichlet Allocation.''} \emph{Journal of Machine Learning Research} 3
 (January): 993--1022.
 
 \leavevmode\hypertarget{ref-braun_variational_2010}{}%
-Braun, Michael, and Jon McAuliffe. 2010. ``Variational Inference for
-Large-Scale Models of Discrete Choice.'' \emph{Journal of the American
+Braun, Michael, and Jon McAuliffe. 2010. {``Variational Inference for
+Large-Scale Models of Discrete Choice.''} \emph{Journal of the American
 Statistical Association} 105 (489): 324--35.
 \url{https://doi.org/10.1198/jasa.2009.tm08030}.
 
@@ -1222,108 +1265,108 @@ Dewenter, Ralf, and Jürgen Rösch. 2014. \emph{Einführung in die neue
 Sicht der Theorie der zweiseitigen Märkte}. Springer-Verlag.
 
 \leavevmode\hypertarget{ref-druckman_impact_2005}{}%
-Druckman, James N., and Michael Parkin. 2005. ``The Impact of Media
-Bias: How Editorial Slant Affects Voters.'' \emph{The Journal of
+Druckman, James N., and Michael Parkin. 2005. {``The Impact of Media
+Bias: How Editorial Slant Affects Voters.''} \emph{The Journal of
 Politics} 67 (4): 1030--49.
 \url{https://doi.org/10.1111/j.1468-2508.2005.00349.x}.
 
 \leavevmode\hypertarget{ref-eberl_lying_2018}{}%
-Eberl, Jakob-Moritz. 2018. ``Lying Press: Three Levels of Perceived
-Media Bias and Their Relationship with Political Preferences.''
+Eberl, Jakob-Moritz. 2018. {``Lying Press: Three Levels of Perceived
+Media Bias and Their Relationship with Political Preferences.''}
 \emph{Communications}, March.
 \url{https://doi.org/10.1515/commun-2018-0002}.
 
 \leavevmode\hypertarget{ref-eberl_one_2017}{}%
-Eberl, Jakob-Moritz, Hajo G. Boomgaarden, and Markus Wagner. 2017. ``One
-Bias Fits All? Three Types of Media Bias and Their Effects on Party
-Preferences.'' \emph{Communication Research} 44 (8): 1125--48.
+Eberl, Jakob-Moritz, Hajo G. Boomgaarden, and Markus Wagner. 2017.
+{``One Bias Fits All? Three Types of Media Bias and Their Effects on
+Party Preferences.''} \emph{Communication Research} 44 (8): 1125--48.
 \url{https://doi.org/10.1177/0093650215614364}.
 
 \leavevmode\hypertarget{ref-erosheva_mixed-membership_2004}{}%
 Erosheva, Elena, Stephen Fienberg, and John Lafferty. 2004.
-``Mixed-Membership Models of Scientific Publications.''
-\emph{Proceedings of the National Academy of Sciences} 101 (suppl 1):
-5220--7. \url{https://doi.org/10.1073/pnas.0307760101}.
+{``Mixed-Membership Models of Scientific Publications.''}
+\emph{Proceedings of the National Academy of Sciences} 101 (April):
+5220--27. \url{https://doi.org/10.1073/pnas.0307760101}.
 
 \leavevmode\hypertarget{ref-gentzkow_media_2004}{}%
-Gentzkow, Matthew A., and Jesse M. Shapiro. 2004. ``Media, Education and
-Anti-Americanism in the Muslim World.'' \emph{Journal of Economic
+Gentzkow, Matthew A., and Jesse M. Shapiro. 2004. {``Media, Education
+and Anti-Americanism in the Muslim World.''} \emph{Journal of Economic
 Perspectives} 18 (3): 117--33.
 \url{https://doi.org/10.1257/0895330042162313}.
 
 \leavevmode\hypertarget{ref-gentzkow_text_2017}{}%
-Gentzkow, Matthew, Bryan T. Kelly, and Matt Taddy. 2017. ``Text as
-Data.'' Working Paper 23276. National Bureau of Economic Research.
+Gentzkow, Matthew, Bryan T. Kelly, and Matt Taddy. 2017. {``Text as
+Data.''} Working Paper 23276. National Bureau of Economic Research.
 \url{https://doi.org/10.3386/w23276}.
 
 \leavevmode\hypertarget{ref-griffiths_probabilistic_2002}{}%
-Griffiths, Thomas L., and Mark Steyvers. 2002. ``A Probabilistic
-Approach to Semantic Representation.'' \emph{Proceedings of the Annual
+Griffiths, Thomas L., and Mark Steyvers. 2002. {``A Probabilistic
+Approach to Semantic Representation.''} \emph{Proceedings of the Annual
 Meeting of the Cognitive Science Society} 24 (24).
 \url{https://escholarship.org/uc/item/44x9v7m7}.
 
 \leavevmode\hypertarget{ref-griffiths_finding_2004}{}%
----------. 2004. ``Finding Scientific Topics.'' \emph{Proceedings of the
-National Academy of Sciences} 101 (suppl 1): 5228--35.
+---------. 2004. {``Finding Scientific Topics.''} \emph{Proceedings of
+the National Academy of Sciences} 101 (April): 5228--35.
 \url{https://doi.org/10.1073/pnas.0307752101}.
 
 \leavevmode\hypertarget{ref-grimmer_text_2013}{}%
-Grimmer, Justin, and Brandon Stewart. 2013. ``Text as Data: The Promise
+Grimmer, Justin, and Brandon Stewart. 2013. {``Text as Data: The Promise
 and Pitfalls of Automatic Content Analysis Methods for Political
-Texts.'' \emph{Political Analysis} 21: 267--97.
+Texts.''} \emph{Political Analysis} 21: 267--97.
 
 \leavevmode\hypertarget{ref-groseclose_measure_2005}{}%
-Groseclose, Tim, and Jeffrey Milyo. 2005. ``A Measure of Media Bias.''
+Groseclose, Tim, and Jeffrey Milyo. 2005. {``A Measure of Media Bias.''}
 \emph{The Quarterly Journal of Economics} 120 (4): 1191--1237.
 \url{https://www.jstor.org/stable/25098770}.
 
 \leavevmode\hypertarget{ref-hahn_identification_2001}{}%
 Hahn, Jinyong, Petra Todd, and Wilbert Van der Klaauw. 2001.
-``Identification and Estimation of Treatment Effects with a
-Regression-Discontinuity Design.'' \emph{Econometrica} 69 (1): 201--9.
+{``Identification and Estimation of Treatment Effects with a
+Regression-Discontinuity Design.''} \emph{Econometrica} 69 (1): 201--9.
 \url{https://www.jstor.org/stable/2692190}.
 
 \leavevmode\hypertarget{ref-hofmann_probabilistic_1999}{}%
-Hofmann, Thomas. 1999. ``Probabilistic Latent Semantic Indexing.'' In
-\emph{Proceedings of the 22Nd Annual International ACM SIGIR Conference
-on Research and Development in Information Retrieval}, 50--57. SIGIR
-'99. New York, NY, USA: ACM.
+Hofmann, Thomas. 1999. {``Probabilistic Latent Semantic Indexing.''} In
+\emph{Proceedings of the 22Nd Annual International {ACM} {SIGIR}
+Conference on Research and Development in Information Retrieval},
+50--57. {SIGIR} '99. New York, {NY}, {USA}: {ACM}.
 \url{https://doi.org/10.1145/312624.312649}.
 
 \leavevmode\hypertarget{ref-kepplinger_einfluss_2004}{}%
-Kepplinger, Hans Mathias, and Marcus Maurer. 2004. ``Der Einfluss Der
+Kepplinger, Hans Mathias, and Marcus Maurer. 2004. {``Der Einfluss Der
 Pressemitteilungen Der Bundesparteien Auf Die Berichterstattung Im
-Bundestagswahlkampf 2002.'' In \emph{Quo Vadis Public Relations? Auf Dem
-Weg Zum Kommunikationsmanagement: Bestandsaufnahmen Und Entwicklungen},
-edited by Juliana Raupp and Joachim Klewes, 113--24. Wiesbaden: VS
-Verlag für Sozialwissenschaften.
+Bundestagswahlkampf 2002.''} In \emph{Quo Vadis Public Relations? Auf
+Dem Weg Zum Kommunikationsmanagement: Bestandsaufnahmen Und
+Entwicklungen}, edited by Juliana Raupp and Joachim Klewes, 113--24.
+Wiesbaden: {VS} Verlag für Sozialwissenschaften.
 \url{https://doi.org/10.1007/978-3-322-83381-5_9}.
 
 \leavevmode\hypertarget{ref-lott_is_2014}{}%
-Lott, John R., and Kevin A. Hassett. 2014. ``Is Newspaper Coverage of
-Economic Events Politically Biased?'' \emph{Public Choice} 160 (1):
+Lott, John R., and Kevin A. Hassett. 2014. {``Is Newspaper Coverage of
+Economic Events Politically Biased?''} \emph{Public Choice} 160 (1):
 65--108. \url{https://doi.org/10.1007/s11127-014-0171-5}.
 
 \leavevmode\hypertarget{ref-mimno_optimizing_2011}{}%
 Mimno, David, Hanna M. Wallach, Edmund Talley, Miriam Leenders, and
-Andrew McCallum. 2011. ``Optimizing Semantic Coherence in Topic
-Models.'' In \emph{Proceedings of the Conference on Empirical Methods in
-Natural Language Processing}, 262--72. EMNLP '11. Stroudsburg, PA, USA:
-Association for Computational Linguistics.
+Andrew McCallum. 2011. {``Optimizing Semantic Coherence in Topic
+Models.''} In \emph{Proceedings of the Conference on Empirical Methods
+in Natural Language Processing}, 262--72. {EMNLP} '11. Stroudsburg,
+{PA}, {USA}: Association for Computational Linguistics.
 \url{http://dl.acm.org/citation.cfm?id=2145432.2145462}.
 
 \leavevmode\hypertarget{ref-newman_automatic_2010}{}%
 Newman, David, Jey Han Lau, Karl Grieser, and Timothy Baldwin. 2010.
-``Automatic Evaluation of Topic Coherence.'' In \emph{Human Language
+{``Automatic Evaluation of Topic Coherence.''} In \emph{Human Language
 Technologies: The 2010 Annual Conference of the North American Chapter
-of the Association for Computational Linguistics}, 100--108. HLT '10.
-Stroudsburg, PA, USA: Association for Computational Linguistics.
+of the Association for Computational Linguistics}, 100--108. {HLT} '10.
+Stroudsburg, {PA}, {USA}: Association for Computational Linguistics.
 \url{http://dl.acm.org/citation.cfm?id=1857999.1858011}.
 
 \leavevmode\hypertarget{ref-newman_reuters_2018}{}%
 Newman, Nic, Richard Fletcher, Antonis Kalogeropoulos, David Levy, and
-Rasmus Kleis Nielsen. 2018. ``Reuters Institute Digital News Report
-2018.'' Reuters Institute for the Study of Journalism.
+Rasmus Kleis Nielsen. 2018. {``Reuters Institute Digital News Report
+2018.''} Reuters Institute for the Study of Journalism.
 \url{http://media.digitalnewsreport.org/wp-content/uploads/2018/06/digital-news-report-2018.pdf?x89475}.
 
 \leavevmode\hypertarget{ref-ramage_characterizing_2010}{}%
@@ -1331,56 +1374,58 @@ Ramage, Daniel, Susan Dumais, and Daniel Liebling. 2010.
 \emph{Characterizing Microblogs with Topic Models}.
 
 \leavevmode\hypertarget{ref-rehs_structural_2020}{}%
-Rehs, Andreas. 2020. ``A Structural Topic Model Approach to Scientific
-Reorientation of Economics and Chemistry After German Reunification.''
+Rehs, Andreas. 2020. {``A Structural Topic Model Approach to Scientific
+Reorientation of Economics and Chemistry After German Reunification.''}
 \emph{Scientometrics} 125 (2): 1229--51.
 \url{https://doi.org/10.1007/s11192-020-03640-0}.
 
 \leavevmode\hypertarget{ref-roberts_model_2016}{}%
 Roberts, Margaret E., Brandon M. Stewart, and Edoardo M. Airoldi. 2016.
-``A Model of Text for Experimentation in the Social Sciences.''
+{``A Model of Text for Experimentation in the Social Sciences.''}
 \emph{Journal of the American Statistical Association} 111 (515):
 988--1003. \url{https://doi.org/10.1080/01621459.2016.1141684}.
 
 \leavevmode\hypertarget{ref-roberts_navigating_2016}{}%
 Roberts, Margaret, Brandon Stewart, and Dustin Tingley. 2016a.
-``Navigating the Local Modes of Big Data: The Case of Topic Models.'' In
-\emph{Computational Social Science: Discovery and Prediction}. New York:
-Cambridge University Press.
+{``Navigating the Local Modes of Big Data: The Case of Topic Models.''}
+In \emph{Computational Social Science: Discovery and Prediction}. New
+York: Cambridge University Press.
 
 \leavevmode\hypertarget{ref-roberts_stm:_2016}{}%
----------. 2016b. ``Stm: R Package for Structural Topic Models.''
+---------. 2016b. {``Stm: R Package for Structural Topic Models.''}
 \emph{Journal of Statistical Software} forthcoming (December).
 
 \leavevmode\hypertarget{ref-stromback_four_2008}{}%
-Strömbäck, Jesper. 2008. ``Four Phases of Mediatization: An Analysis of
-the Mediatization of Politics.'' \emph{The International Journal of
+Strömbäck, Jesper. 2008. {``Four Phases of Mediatization: An Analysis of
+the Mediatization of Politics.''} \emph{The International Journal of
 Press/Politics} 13 (3): 228--46.
 \url{https://doi.org/10.1177/1940161208319097}.
 
 \leavevmode\hypertarget{ref-taddy_estimation_2012}{}%
-Taddy, Matt. 2012. ``On Estimation and Selection for Topic Models.'' In
-\emph{Proceedings of the 15th International Conference on Artificial
+Taddy, Matt. 2012. {``On Estimation and Selection for Topic Models.''}
+In \emph{Proceedings of the 15th International Conference on Artificial
 Intelligence and Statistics}.
 
 \leavevmode\hypertarget{ref-takens_media_2013}{}%
 Takens, Janet, Wouter Atteveldt, Anita van Hoof, and Jan Kleinnijenhuis.
-2013. ``Media Logic in Election Campaign Coverage.'' \emph{European
+2013. {``Media Logic in Election Campaign Coverage.''} \emph{European
 Journal of Communication} 28 (June): 277--93.
 \url{https://doi.org/10.1177/0267323113478522}.
 
 \leavevmode\hypertarget{ref-thistlethwaite_regression-discontinuity_1960}{}%
 Thistlethwaite, Donald L., and Donald T. Campbell. 1960.
-``Regression-Discontinuity Analysis: An Alternative to the Ex Post Facto
-Experiment.'' \emph{Journal of Educational Psychology} 51 (6): 309--17.
-\url{https://doi.org/10.1037/h0044319}.
+{``Regression-Discontinuity Analysis: An Alternative to the Ex Post
+Facto Experiment.''} \emph{Journal of Educational Psychology} 51 (6):
+309--17. \url{https://doi.org/10.1037/h0044319}.
 
 \leavevmode\hypertarget{ref-wallach_rethinking_2009}{}%
 Wallach, Hanna M., David M. Mimno, and Andrew McCallum. 2009.
-``Rethinking LDA: Why Priors Matter.'' In \emph{Advances in Neural
+{``Rethinking {LDA}: Why Priors Matter.''} In \emph{Advances in Neural
 Information Processing Systems 22}, edited by Y. Bengio, D. Schuurmans,
 J. D. Lafferty, C. K. I. Williams, and A. Culotta, 1973--81. Curran
 Associates, Inc.
 \url{http://papers.nips.cc/paper/3854-rethinking-lda-why-priors-matter.pdf}.
+
+\end{CSLReferences}
 
 \end{document}
