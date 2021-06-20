@@ -24,7 +24,7 @@ plot_topic_distr_document <- function(doc_id){
 #######################################
 ## Plot Topic distribution over time ##
 #######################################
-plot_topic_distr_time <- function(topic_filter, source_filter_array, group_colors) {
+plot_topic_distr_time <- function(topic_filter, source_filter_array) {
   topic_label <-theta[theta$topic == topic_filter, ]$topic_label[1]
   
   theta %>% 
@@ -38,13 +38,16 @@ plot_topic_distr_time <- function(topic_filter, source_filter_array, group_color
     ylim(c(0,0.35)) +
     geom_line(size = 0.3) +
     geom_vline(xintercept = election_date, linetype = 'dashed', size = 0.3) +
-    scale_color_manual(values = group_colors) +
+    scale_color_manual(values = custom_colors) +
     scale_x_date(date_breaks = "1 month", labels = date_format("%m-%Y")) +
     labs(x = NULL, y = 'Topic proportion', 
-         title = 'Mean topic proportion',
+         title = NULL,
          subtitle = topic_label) +
     theme(
-      axis.title = element_text(size=4),
+      legend.position = "bottom",
+      plot.subtitle = element_text(size=6),
+      axis.title = element_text(size=5),
+      axis.text = element_text(size=5),
       axis.title.y = element_text(angle = 90),
       legend.title = element_blank()
     )

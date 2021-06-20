@@ -4,12 +4,14 @@ subtitle: "..."
 author: "Franziska Löw^[Institut für Industrieökonomik, Helmut Schmidt Universität. Email: .]"
 date: November 2020
 header-includes:
+- \usepackage{float}
 - \usepackage{pdflscape}
 - \newcommand{\blandscape}{\begin{landscape}}
 - \newcommand{\elandscape}{\end{landscape}}
 output: 
     pdf_document:
         keep_tex: true
+        extra_dependencies: "subfig"
 bibliography: ref.bib
 link-citations: yes
 linkcolor: blue
@@ -27,6 +29,7 @@ library(dplyr)
 library(ggridges)
 library(ggplot2)
 library(stargazer)
+library(kableExtra)
 library(ggthemes)
 library(readr)
 library(stringr)
@@ -49,9 +52,18 @@ model_df <- model_df %>%
 # functions
 source("../docs/func/functions.R")
 
-# ggplot themes
-theme_set(theme_hc(base_size = 6))
-color_palette <-c('#d2fbd4','#a5dbc2','#7bbcb0','#559c9e','#3a7c89','#235d72','#123f5a')
+custom_colors <- c(
+  # news articles
+  'DIE WELT'='#1b9e77','stern.de'='#d95f02','Handelsblatt'='#7570b3',
+  'FOCUS Online'='#a6761d','SPIEGEL ONLINE'='#66a61e','ZEIT ONLINE'='#e6ab02',
+  'Bild.de'='#e7298a',
+  # parties
+  "AfD"="#009ee0","CDU"="#32302e","CDU/CSU"="#32302e","FDP"="#ffed00",
+  "B90/GRÜNE"="#46962b","DIE LINKE"="#ec008c","SPD"="#E3000F")
+
+theme_set(theme_bw(base_size=8))
+theme_update(axis.text = element_text(size = 8),
+             axis.title = element_text(size=10))
 ```
 
 # Introduction
@@ -61,15 +73,14 @@ In democracies, the media fulfill fundamental functions: They should inform the 
 <!-- Populist messaging follows same logic as media logic & attention economy, that's why it makes sense for media to report more about populist parties -->
 For advertising-financed media the battle for the attention of the recipients is at the center of economic decisions. Online media in particular, which offer their content to a large extent free of charge and generate their revenue through advertising space, compete for the scarce resource of attention. Consumers pay a non-monetary price providing their attention, which the media platform bundles and sells on to advertising customers. This business model corresponds to that of a platform market, in which media companies act as platforms that connect the market of advertising with the reader market to exploit the indirect network effects between them [@dewenter_einfuhrung_2014]. A profit-maximizing publisher therefore directs its economic decisions according to what will attract the most attention.
 
-This conclusion, derived from the economic theory of platform markets, corresponds to the notion of media logic, a central concept in the field of media and communication studies [@takens_media_2013]. The debate about media logic is embedded in the broader discussion about the interaction between the press, politics and the public. The underlying thesis is that the content of political news is the product of news values and narrative techniques that media use to attract audiences [@stromback_four_2008]. According to @takens_media_2013, three content attributes highly correspond with news values and influence how journalists interpret political events: 1) personalized content, i.e., the focus on individual politicians; 2) the framing of politics as a contest and 3) negative coverage. Similarly @blassnig_hitting_2019 states that media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting like conflict, drama, negativity, surprise or proximity. Likewise populist messages often co-occur with negative, emotionalized, or dramatized communication style, thus utilizing similar mechanisms as the media logic, respectively the attention economy. In fact, @blassnig_hitting_2019 shows that populist key messages by political and media actors in news articles provoke more reader comments under these articles. Media competing for the attention of readers therefore have an incentive to pick up on the key messages of these parties.
+This conclusion, derived from the economic theory of platform markets, corresponds to the notion of media logic, a central concept in the field of media and communication studies [@takens_media_2013]. The debate about media logic is embedded in the broader discussion about the interaction between the press, politics and the public. The underlying thesis is that the content of political news is the product of news values and narrative techniques that media use to attract audiences [@stromback_four_2008]. According to @takens_media_2013, three content attributes highly correspond with news values and influence how journalists interpret political events: 1) personalized content, i.e., the focus on individual politicians; 2) the framing of politics as a contest and 3) negative coverage. Similarly @blassnig_hitting_2019 states that media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting like conflict, drama, negativity, surprise or proximity. Likewise populist messages often co-occur with negative, emotionalized, or dramatized communication style, thus utilizing similar mechanisms as the media logic, respectively the attention economy. In fact, @blassnig_hitting_2019 shows that populist key messages by political and media actors in news articles provoke more reader comments under these articles. Media competing for the attention of readers therefore have an incentive to pick up on the key messages of these parties. These, in turn, benefit from being able to place their agendas in the public debate (@druckman_impact_2005, @eberl_lying_2018). It is assumed, that smaller, non-established parties in particular benefit from placing their topics in the media in order to get them into the voters' heads. Here, the tendency of the reporting is irrelevant but rather the quantity is decisive. 
 
-<!-- Does increased reporting also lead to rising survey results? -->
-But does increased reporting also lead to rising survey results? Especially if this reporting is largely negative, which is the case for reporting on AfD during electing campaign phase <!-- find sources! -->. In political science, several studies have examined at least the first aspect of this question (see for example @druckman_impact_2005, @eberl_lying_2018). In general, it is assumed that smaller, non-established parties in particular benefit from placing their topics in the media in order to get them into the voters' heads. Here, the tendency of the reporting is irrelevant but rather the quantity is decisive. 
+However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to measure how online news coverage coincides with the messaging of different political parties. Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004]. This paper therefore analyzes the period before and after the 2017 federal elections in Germany to answer the question whether political news report about similar topics and if this similarity changes after the election campaign is over. 
 
-However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to investigate how the reporting of online news is similar to the messaging of different political parties. Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004]. This paper therefore analyzes the period before and after the 2017 federal elections in Germany to answer the question whether political news report about similar topics and if this similarity changes after the election campaign is over. 
-
-In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content (audio, video, text). Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
+In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content - be it audio, video or text content. Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
 Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties using a linear regression model.
+
+<!-- To Do: Point out distribution to research -->
 
 # Background information
 
@@ -84,30 +95,33 @@ After the failure of the Jamaica coalition talks, a possible re-election or a mi
 
 \autoref{fig:election_polls} shows that support for the two major popular parties has been declining in recent months since August 2017, with the CDU/CSU again showing positive survey results since November 2017.^[For each party the survey results of the seven major institutes are considered. To calculate a smooth line for each party on each day, the moving average within 15 days (7 before the day, 7 after the day, and the day itself) is estimated. The data source is https://www.wahlrecht.de/.] However,the poll results of the SPD have been falling since March 2017. At the same time, the AfD in particular has been recording increasingly positive survey results since June 2017.
 
-```{r election polls, fig.cap= "Election polls during the period under review \\label{fig:election_polls}", out.width="60%", fig.height=3}
+```{r election polls, fig.cap= "Election polls during the period under review \\label{fig:election_polls}", out.width="50%", fig.height=4}
 load("../data/polldata.Rda")
 
-df.small %>%
+df.plot <- df.small %>%
   filter(date > as.Date("2017-06-01")) %>%
-  filter(date < as.Date("2018-03-01")) -> df.plot
+  filter(date < as.Date("2018-03-01")) %>% 
+  mutate(
+    party = case_when(
+      party == "GRÜNE" ~ "B90/GRÜNE",
+      party == "LINKE" ~ "DIE LINKE",
+      TRUE ~ party
+    )
+  )
 
 ggplot(df.plot) +
-  geom_point(aes(date, pollvalue, 
-                         text = paste("institute:", institute),
-                         color = party),
+  geom_point(aes(date, pollvalue,color = party),
              alpha = 0.6, size = 0.4) +
   geom_line(aes(date, ma, color = party), size = 0.8) +
   geom_vline(xintercept = as.Date("2017-09-24"), linetype=2) +
-  scale_color_manual(values = c("#009ee0", "#32302e","#ffed00","#46962b","#ec008c", "#E3000F")) +
+  scale_color_manual(values = custom_colors) +
   scale_x_date(date_breaks = "1 month", labels = date_format("%m-%Y")) +
-  theme_hc() +
   labs(x=NULL,y=NULL,color=NULL) +
-  guides(colour = guide_legend(nrow = 1)) +
   theme(axis.text.x = element_text(angle = 45))
 ```
 
 ## German online news market
-The analysis performed in this paper is based on the news articles of the following news websites: *Bild.de*, *DIE WELT*, *FOCUS ONLINE*, *Handelsblatt*, *SPIEGEL ONLINE*, *stern.de*, *ZEIT ONLINE*. As can be seen from \autoref{fig:news_market}(a), expect for *Handelsbaltt* (position 53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
+The analysis performed in this paper is based on the news articles of the following news websites: Bild.de, DIE WELT, FOCUS ONLINE, Handelsblatt, SPIEGEL ONLINE, stern.de, ZEIT ONLINE. As can be seen from \autoref{fig:news_market}(a), expect for Handelsblatt (position 53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
 
 The main source of income for these privately managed media houses is digital advertising, even though paid content is playing an increasingly important role. However, according to a survey on digital news by the Reuters Institute [@newman_reuters_2018]  only 8% of respondents pay for online news. The online survey for German data was undertaken between 19th - 22nd January 2018 by the Hans Bredow Institute^[https://www.hans-bredow-institut.de/de/projekte/reuters-institute-digital-news-survey] with a total sample size of 2038 adults (aged 18+) who access news once a month or more. Among other questions, participants were asked which news sources they use to access news online.^[The exact question was: "Which of the following brands have you used to access news online in the last week (via websites, apps, social media, and other forms of Internet access)? Please select all that apply."] The results displayed in \autoref{fig:news_market}(b) indicate that the media used for the analysis play a relevant role in their consumption.
 
@@ -136,11 +150,10 @@ p1 <-visits.df %>%
   ggplot(aes(reorder(medium_order, visits), visits/1000000, fill = insample)) +
   geom_col(alpha=0.8, show.legend = F) +
   coord_flip() +
-  scale_fill_hc() +
+  scale_fill_manual(values = c('#1b9e77','#d95f02')) +
   labs(x = NULL, y= NULL, 
-       title = '(a) Total visits in million (Jan 2018)',
-       caption = "Data source: AGOF daily digital facts") +
-  theme(legend.position = "right", title = element_text(size = 5)) 
+       title = NULL,
+       caption = "Data source: AGOF daily digital facts")
 ```
 
 ```{r Reuters - use of a brand to access news online}
@@ -164,26 +177,27 @@ p2 <- reutersDF1.grouped %>%
              fill = insample)) +
   geom_col(alpha=0.8, show.legend = F) +
   coord_flip() +
-  scale_fill_hc() +
+  scale_fill_manual(values = c('#1b9e77','#d95f02')) +
+  scale_x_discrete(position = 'top') +
   labs(x = NULL, y = NULL,
-       title = '(b) Use of a brand to access news online', 
-       caption = "Source: Hans-Bredow-Institut") +
-  theme(legend.position = "right", title = element_text(size = 5))
+       title = NULL, 
+       caption = "Source: Hans-Bredow-Institut") 
 ```
 
-```{r fig.cap= "Selected german news brands \\label{fig:news_market}", out.width="100%", fig.height=4}
-p1 + p2
+```{r fig.cap="Selected german news brands \\label{fig:news_market}", fig.subcap=c('Total visits in million (Jan 2018)', 'Use of a brand to access news online'), out.width="40%", fig.height=5, fig.ncol=2}
+p1
+p2
 ```
 
 # Data
-I conduct the estimation on a sample of 16,473 online news articles from the seven German news providers mentioned in the previous section ^[*Bild.de*, *DIE WELT*, *FOCUS ONLINE*, *SPIEGEL ONLINE*, *stern.de*, *ZEIT ONLINE*, *Handelsblatt*] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
+I conduct the estimation on a sample of 18,757 online news articles from the seven German news providers described in the previous section ^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
 
 <!-- News articles -->
-News articles scraped from the Webhose.io API.^[For more information see https://docs.webhose.io/reference#about-webhose. The scraping code was written in Python and can be made available on request.] In order to consider only news about national politics, the articles were filtered based on their URL.
+News articles scraped from the Webhose.io API.^[For more information see https://docs.webhose.io/reference#about-webhose.] In order to consider only news about national politics, the articles were filtered based on their URL. The press releases were scraped from the public websites of the political parties and parliamentary groups using an automated script.^[The scraping code was written in R and can be made available on request.]
 
-\autoref{fig:news_distr} shows the distribution of the number of articles by date and media outlet. There is a high peak around the federal elections on September, 24th and another one shortly after the failure of the Jamaica coalition talks on November, 19th (indicated by the red dotted lines).^[The peak in July especially for *stern.de* is due to increased reporting about the G20 summit in Hamburg.] Furthermore, \autoref{fig:news_distr} shows that  *DIE WELT* published the most articles on domestic policy, followed by *stern.de*, *Handelsblatt* and *FOCUS ONLINE*.
+\autoref{fig:news_distr} shows the distribution of the number of articles by date and media outlet. There is a high peak around the federal elections on September, 24th and another one shortly after the failure of the Jamaica coalition talks on November, 19th (indicated by the red dotted lines).^[The peak in July especially for stern.de is due to increased reporting about the G20 summit in Hamburg.] Furthermore, \autoref{fig:news_distr} shows that DIE WELT published the most articles on domestic policy, followed by stern.de, Handelsblatt and FOCUS ONLINE.
 
-```{r Distribution of news articles, fig.height=2, fig.cap="Distribution of news articles \\label{fig:news_distr}", out.width="80%"}
+```{r Distribution of news articles, fig.height=2, fig.cap="Distribution of news articles \\label{fig:news_distr}", out.width="70%"}
 news_df <- model_df %>% filter(type == 'news')
 
 p1 <- news_df %>%
@@ -192,15 +206,15 @@ p1 <- news_df %>%
   tally() %>%
   ggplot(aes(date, n, color = source)) +
   geom_line(show.legend = F) +
-  labs(title = NULL, x=NULL, y=NULL) +
-  scale_colour_hc()+
+  labs(title = NULL, x=NULL, y="# of articles") +
+  scale_colour_manual(values = custom_colors)+
   theme(legend.title = element_blank())
 
 p2 <- news_df %>%
   group_by(source) %>%
   tally() %>%
   ggplot(aes(n,reorder(source, n), fill = source)) +
-  scale_fill_hc() +
+  scale_fill_manual(values = custom_colors) +
   geom_col(show.legend = F, alpha=0.8) +
   scale_y_discrete(position = 'right') +
   labs(title = NULL, x=NULL, y=NULL)
@@ -208,10 +222,7 @@ p2 <- news_df %>%
 p1 + p2 + plot_layout(widths = c(2,1))
 ```
 
-<!-- Press releases -->
-The press releases were scraped from the public websites of the political parties and parliamentary groups using an automated script written in *Python*.^[The scraping code was written in Python and can be made available on request.]
-
-```{r Distribution of press releases, fig.height=2, out.width="80%", fig.cap="Distribution of press releases \\label{fig:press_distr}"}
+```{r Distribution of press releases, fig.height=2, out.width="70%", fig.cap="Distribution of press releases \\label{fig:press_distr}"}
 press_df <- model_df %>% filter(type == 'press')
 
 p1 <- press_df %>%
@@ -220,8 +231,8 @@ p1 <- press_df %>%
   tally() %>%
   ggplot(aes(date, n, color = source)) +
   geom_line(show.legend = F) +
-  scale_colour_hc()+
-  labs(title = NULL, x=NULL, y=NULL) +
+  scale_colour_manual(values =  custom_colors)+
+  labs(title = NULL, x=NULL, y="# of press releases") +
   theme(legend.title = element_blank())
 
 p2 <- press_df %>%
@@ -229,91 +240,70 @@ p2 <- press_df %>%
   tally() %>%
   ggplot(aes(n,reorder(source, n), fill = source)) +
   geom_col(show.legend = F, alpha=0.8) +
-  scale_fill_hc() +
+  scale_fill_manual(values =  custom_colors) +
   scale_y_discrete(position = 'right') +
   labs(title = NULL, x=NULL, y=NULL)
-
-p1 + p2 + plot_layout(widths = c(3,1))
-```
-
-Looking at the boxplots of text length (\autoref{fig:text_length}), it becomes evident that:^[See \autoref{table:text_length} for an overview of the summary statistics.]
-
-- mean and median text length of news articles is higher than in press releases
-- *Handelsblatt* published new articles with the highest median text length (488) followed by *ZEIT ONLINE* (459), however *DIE WELT* has the article with the highest word count (14.507).
-- press releases of CDU have the highest median (256), but also the highest standard dev. (106). press releases of FDP have the lowest median (144). 
-
-```{r, text_length, fig.height=3, out.width="100%", fig.cap="Text length \\label{fig:text_length}"}
-# news articles
-maxval1 <- 4000
-dd <- news_df %>% filter(text_length > maxval1) %>% 
-  group_by(source) %>% 
-  summarise(outlier_txt= paste(n()))
-
-p1 <- news_df %>%
-  filter(text_length < maxval1) %>%
-  ggplot(aes(x=source, y=text_length)) +
-  geom_boxplot() +
-  geom_text(data=dd,aes(y=maxval1+400,label= outlier_txt),
-            size=2, color = "red") +
-  geom_segment(data=dd, 
-               aes(y=maxval1+20,yend=maxval1+250,xend=source),
-               color = "red", arrow = arrow(length = unit(0.1,"cm"))) +
-  stat_summary(fun.y=mean, geom="point", shape=20, size=1, color="blue", fill="blue") +
-  labs(x=NULL,  y=NULL) +
-  theme(axis.text.x = element_text(angle = 45))
-
-# press releases
-maxval2 <- 600
-dd <- press_df %>% filter(text_length > maxval2) %>% 
-  group_by(source) %>% 
-  summarise(outlier_txt= paste(n()))
-
-p2 <- press_df %>%
-  filter(text_length < maxval2) %>%
-  ggplot(aes(x=source, y=text_length)) +
-  geom_boxplot() +
-  geom_text(data=dd,aes(y=maxval2+60,label= outlier_txt),
-            size=2, color = "red") +
-  geom_segment(data=dd, 
-               aes(y=maxval2+10,yend=maxval2+40,xend=source),
-               color = "red", arrow = arrow(length = unit(0.1,"cm"))) +
-  stat_summary(fun.y=mean, geom="point", shape=20, size=1, color="blue", fill="blue") +
-  labs(x=NULL,  y=NULL) +
-  theme(axis.text.x = element_text(angle = 45))
 
 p1 + p2 + plot_layout(widths = c(2,1))
 ```
 
+
+```{r table text length}
+model_df %>%
+  group_by(source, type) %>% 
+  summarize(
+    n = n(),
+    mean = round(mean(text_length),2),
+    sd = round(sd(text_length),2),
+    median = median(text_length),
+    min = min(text_length),
+    max = max(text_length)
+  ) %>% arrange(type) %>% select(-type) %>% 
+  kbl(format = 'latex', 
+      caption = "Summary statistics of text length \\label{tab:textlength}",
+      booktabs = T) %>% 
+  kable_styling(latex_options = c("striped","HOLD_position"), 
+                font_size = 7,
+                full_width = F) %>% 
+    pack_rows("News articles", 1, 7) %>% 
+    pack_rows("Press releases", 8, 13)
+```
+
+<!-- text length -->
+\autoref{tab:textlength} illustrates that on average, news articles are longer than the parties' press releases.^[News articles with less than 120 words were filtered out in advance, as these were mostly reader comments. Similarly press releases with less than 100 words were filtered out.] While for news articles the average is between 394 (FOCUS Online) and 590 (Handelsblatt), with press releases the range is between 162 (FDP) and 275 (CDU). The article with the most words (14.507) was published by DIE WELT - the longest press release has 1.048 words and was published by DIE LINKE.
+
 ## Data preparation
 
-To use text as data for statistical analysis, different pre-processing steps have to be conducted. In fact, in order to use text as data and reduce the dimensionality to avoid unnecessary computational complexity and overfitting, pre-processsing the text is a central task in text mining [@gentzkow_text_2017, @bholat_text_2015]. Intuitively the term frequency (tf) of a word is a measure of how important that word may be for the understanding of the text. To visualize these terms, word clouds are a commonly used technique in text mining as they translate the tf into the size of the term in the cloud. As can be seen in \autoref{fig:wordcloud}, problems arise with words that are highly frequent. For example "die", or "der (eng. "the"), "und" (eng. "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. These terms, often called stop words [@gentzkow_text_2017], are important to the grammatical structure of a text, but typically don't add any additional meaning and can therefore be neglected. 
+To use text as data for statistical analysis, different pre-processing steps have to be conducted. In fact, in order to use text as data and reduce the dimensionality to avoid unnecessary computational complexity and overfitting, pre-processsing the text is a central task in text mining (@gentzkow_text_2017, @bholat_text_2015). Intuitively the term frequency (tf) of a word is a measure of how important that word may be for the understanding of the text. To visualize these terms, word clouds are a commonly used technique in text mining as they translate the tf into the size of the term in the cloud. As can be seen in \autoref{fig:wordcloud1}, problems arise with words that are highly frequent. For example "die", or "der" (eng. "the"), "und" (eng.  "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. These terms, often called stop words [@gentzkow_text_2017], are important to the grammatical structure of a text, but typically don't add any additional meaning and can therefore be neglected. 
 
-```{r, wordclouds, eval=FALSE, include=FALSE}
-png('../figs/wordcloud.png')
+```{r eval=FALSE, include=FALSE}
+png('../figs/wordcloud.png', width = 300, height = 300)
 wordcloud::wordcloud(model_df$title_text, max.words = 200)
 dev.off()
 
-png('../figs/wordcloud_bild.png')
+png('../figs/wordcloud_bild.png', width = 300, height = 300)
 temp_df <- model_df %>% filter(source=="Bild.de")
 wordcloud::wordcloud(temp_df$text_cleaned, max.words = 200)
 dev.off()
-
-png('../figs/wordcloud_afd.png')
+ 
+png('../figs/wordcloud_afd.png', width = 300, height = 300,)
 temp_df <- model_df %>% filter(source=="AfD")
 wordcloud::wordcloud(temp_df$text_cleaned, max.words = 200)
 dev.off()
 ```
 
-![Wordcloud before pre-processing](../figs/wordcloud.png){ width=40% }
+```{r wordcloud pre-processing, fig.height=2, out.width="40%", fig.cap="Wordcloud before pre-processing \\label{fig:wordcloud1}"}
+knitr::include_graphics("../figs/wordcloud.png")
+```
 
 To remove distorting words, the pre-defined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of stop-words. Additionally punctuation character (e.g. ., ,, !, ?, etc.) and all numbers are removed from the data. A next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. I apply the widely used Porter-Stemmer algorithm, which is based on a set of shortening rules that are applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
 
-As an example, the following word clouds represent the most frequent words of the pre-processed articles for *Bild.de* (left word cloud) and press releases of AfD (right word cloud). It becomes evident that these are texts discussing domestic policy issues. The SPD in particular seems to be highly frequent for *Bild.de*.
+As an example, the following word clouds represent the most frequent words of the pre-processed articles for Bild.de (\autoref{fig:wordclouds2}(a)) and press releases of AfD (\autoref{fig:wordclouds2}(b)). It becomes evident that these are texts discussing domestic policy issues. The SPD in particular seems to be highly frequent for Bild.de.
 
-::: {.figure data-latex="\centering"}
-
-![Worldcloud after pre-processing - Bild.de](../figs/wordcloud_bild.png){ width=40% } ![Worldcloud after pre-processing - AfD](../figs/wordcloud_afd.png){ width=40% }
-:::
+```{r wordclouds2, fig.align="center", fig.cap="Wordcloud after pre-processing \\label{fig:wordclouds2}", fig.height=3, fig.ncol=2, fig.subcap=c('Bild', 'AfD'), message=FALSE, warning=FALSE, out.width="40%"}
+knitr::include_graphics("../figs/wordcloud_bild.png")
+knitr::include_graphics("../figs/wordcloud_afd.png")
+```
 
 <!--- Document-term-matrix -->
 The next step is to divide the entire data set into individual documents and to represent these documents as a finite list of unique terms. In this setting, each news article and each press release represents a document $d$, whereby each of these documents can be assigned to a news website or a party. The sum of all documents forms what is called the corpus. For each document $d \in \lbrace 1,...,D \rbrace$ the number of occurrences of term $v$ in document $d$ is computed, in order to obtain the count $x_{d,v}$, where each unique term in the corpus is indexed by some $v \in \lbrace 1,...,V \rbrace$ and where $V$ is the number of unique terms. The $D$ x $V$ matrix $\boldsymbol{X}$ of all such counts is called the document-term matrix. Each row in this matrix represents a document, where each entry in this row counts the occurrences of a unique term in that document. \autoref{table:dtm} provides a sample output of the document-term matrix used in this paper, where each document is represented by a unique id (the row name in the example below). This representation is often referred to as the bag of words model [@gentzkow_text_2017], since the order in which words are used within a document is disregarded. 
@@ -321,11 +311,12 @@ The next step is to divide the entire data set into individual documents and to 
 ```{r Document term matrix, results='asis'}
 dtm <- as.data.frame(as.matrix(news_df_sparse))
 dtm[sample(nrow(dtm),10), sample(ncol(dtm),7)] %>% 
-  stargazer(type = 'latex', summary = FALSE, 
-            title = 'Document-term matrix - sample values',
-            label = 'table:dtm', header=FALSE,
-            font.size = 'tiny'
-            )
+  kbl(format = 'latex', 
+      caption = "Document-term matrix - sample values \\label{table:dtm}",
+      booktabs = T) %>% 
+  kable_styling(latex_options = c("striped","HOLD_position"), 
+                font_size = 7,
+                full_width = F)
 ```
 
 # Estimate topic similarity of documents
@@ -441,15 +432,16 @@ p1 <- theta %>%
   geom_col(show.legend = F, fill='#009ee0', aplha = 0.7) +
   coord_flip() +
   labs(x = NULL, y = 'Topic proportion', 
-       title = 'Mean topic proportion of AfD press releases',
+       title = NULL,
        subtitle = 'Top 15 topics with highest probability') +
-  theme(axis.title = element_text(size = 4))
+  theme(axis.text = element_text(size = 5),
+        axis.title = element_text(size= 5),
+        plot.subtitle = element_text(size=6))
 
 source_filter <- c('AfD', 'Bild.de', 'Handelsblatt')
-group_colors <- c(AfD = "#009ee0", Bild.de = "#CC6600", Handelsblatt ="#9633FF")
 
-p2 <- plot_topic_distr_time(9, source_filter, group_colors) + theme(legend.position = 'none')
-p3 <- plot_topic_distr_time(38, source_filter, group_colors) + labs(title = NULL)
+p2 <- plot_topic_distr_time(9, source_filter) + theme(legend.position = 'none')
+p3 <- plot_topic_distr_time(38, source_filter) + labs(title = NULL)
 
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
@@ -466,17 +458,18 @@ p1 <- theta %>%
   ungroup() %>% 
   top_n(n = 10, wt = theta_mean) %>% 
   ggplot(aes(reorder(topic, theta_mean), theta_mean, fill = source))+
-  geom_col(show.legend = F, fill="#ffed00", alpha = 0.7 ) +
+  geom_col(show.legend = F, fill="#ffed00", alpha = 0.9) +
   coord_flip() +
   labs(x = NULL, y = 'Topic proportion', 
-       title = 'Mean topic proportion of FDP press releases',
+       title = NULL,
        subtitle = 'Top 15 topics with highest probability') +
-  theme(axis.title = element_text(size = 4))
+  theme(axis.text = element_text(size = 5),
+        axis.title = element_text(size= 5),
+        plot.subtitle = element_text(size=6))
 
-group_colors <- c(FDP = "#ffed00", Bild.de = "#CC6600", Handelsblatt ="#9633FF")
 source_filter <- c('FDP', 'Bild.de', 'Handelsblatt')
-p2 <- plot_topic_distr_time(10, source_filter, group_colors) + theme(legend.position = 'none')
-p3 <- plot_topic_distr_time(39, source_filter, group_colors) + labs(title = NULL)
+p2 <- plot_topic_distr_time(10, source_filter) + theme(legend.position = 'none')
+p3 <- plot_topic_distr_time(39, source_filter) + labs(title = NULL)
 
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
@@ -502,7 +495,7 @@ gamma <- as.matrix(td_gamma_wide[, -1])
 Next, the cosine similarity measure is used in order to compare the retrieved topic distribution of documents. Cosine similarity is a measure for the distance between two vectors and is defined between zero and one; values towards 1 indicate similarity. As topic proportions per document are vectors of the same length, the cosine similarity allows a comparison of the topic distribution between two documents.^[For applications of cosine similarity to compare of topic model outcomes see e.g. @rehs_structural_2020 and @ramage_characterizing_2010]
 
 $$
-\text{cosine similarity} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
+\text{CS} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
 $$
 
 For example, \autoref{table:cosine_sim_sample_doc}^[Translations: 1) Asylum figures 2017 - black-red (synonym for GroKo) introduces upper limit through the back door (DIE LINKE) 2) Jörg Meuthen: Not a new GroKo, but LoKo - Loser Coalition (AfD) 3) Pension plans of Union and SPD worse than expected (FDP) 4) Union and SPD stabilize the extreme social injustice in this country (DIE LINKE) 5) Jürgen Pohl: Union and SPD agree on policy at the expense of pensioners and East Germans (AfD)] displays the most similar documents of the document with the title *Parteitag, Koalitions-Krimi, Ur-Wahl - Woran kann die GroKo jetzt noch scheitern? (Bild.de)*.^[Translation: Party conference, coalition thriller, primal election - what can fail the GroKo now? (Bild.de)]
@@ -522,14 +515,15 @@ calc_cos_sim(sample_doc) %>%
   top_n(5, cos_sim) %>% 
   select(title, source, cos_sim) %>% 
   mutate(cos_sim = round(cos_sim,3)) %>% 
-  stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
-            label = "table:cosine_sim_sample_doc",
-            title = "Most similar documents", summary = FALSE,
-            font.size = 'tiny'
-            )
+  kbl(format = 'latex', 
+      caption = "Most similar documents \\label{table:cosine_sim_sample_doc}",
+      booktabs = T) %>% 
+  kable_styling(latex_options = c("striped","HOLD_position"), 
+                font_size = 7,
+                full_width = F)
 ```
 
-In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published within 7 days before the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, 2, 3 and so on as long as the press release was published within 7 days before the news article. \autoref{table:dataset_structure1} illustrates a sample subset of the data for *DIE WELT*.
+In the next step, for each news paper, the cosine similarity between all topic-document distribution pairs between the news papers articles and the press releases is calculated if that press releases was published within 7 days before the publication date of the news article. This means the topic distribution of news article 1 is compared to press release 1, 2, 3 and so on as long as the press release was published within 7 days before the news article. \autoref{table:dataset_structure1} illustrates a sample subset of the data for DIE WELT.
 
 ```{r Prepare sample dataframe, include=FALSE}
 target_source <- "DIE WELT"
@@ -568,12 +562,13 @@ temp_df <- welt %>%
 ```{r Dataset structure 1, results='asis'}
 temp_df %>% 
   sample_n(5) %>%
-  select(title1, title2, cosine_sim, source1, source2, date1, date2) %>% 
-    stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
-            label = "table:dataset_structure1",
-            title = "Dataset structure step 1 - DIE WELT", summary = FALSE,
-            font.size = 'tiny'
-            )
+  select(title1, title2, cosine_sim, source1, source2, date1, date2) %>%
+  kbl(format = 'latex', 
+      caption = "Dataset structure step 1 - DIE WELT \\label{table:dataset_structure1}",
+      booktabs = T) %>% 
+  kable_styling(latex_options = c("striped","HOLD_position"), 
+                font_size = 7,
+                full_width = F)
 ```
 
 Next, the mean cosine similarity for each news article publication date (date1) and party (source2) is estimated to obtain the final data frame (see \autoref{table:dataset_structure_final}).
@@ -584,11 +579,12 @@ temp_df %>%
   summarise(cos_sim = round(mean(cos_sim, na.rm = T),2)) %>% 
   ungroup() %>% 
   sample_n(5) %>%
-  stargazer(type = 'latex', header = FALSE, rownames = FALSE, 
-            label = "table:dataset_structure_final",
-            title = "Final dataset structure - DIE WELT", summary = FALSE,
-            font.size = 'tiny'
-            )
+  kbl(format = 'latex', 
+      caption = "Final dataset structure - DIE WELT \\label{table:dataset_structure_final}",
+      booktabs = T) %>% 
+  kable_styling(latex_options = c("striped","HOLD_position"), 
+                font_size = 7,
+                full_width = F)
 ```
 
 # Model estimations
@@ -659,7 +655,7 @@ spiegel_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate r
 spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 ```
 
-To get a first idea of the trend of the data over time, the mean cosine similarity between the news articles and each parties press releases conditional on the day can be plotted. \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for *Handelsblatt* and *Bild.de* (See \autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these figures, a few observations can be made. The similarity with the FDP, e.g., seems to increase over time for both Handelsblatt and Bild.de. In the case of Bild.de, this applies to all parties, except for the AfD, where a slight downward trend is discernible.
+To get a first idea of the trend of the data over time, the mean cosine similarity between the news articles and each parties press releases conditional on the day can be plotted. \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for Handelsblatt and Bild.de (See \autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these figures, a few observations can be made. The similarity with the FDP, e.g., seems to increase over time for both Handelsblatt and Bild.de. In the case of Bild.de, this applies to all parties, except for the AfD, where a slight downward trend is discernible.
 
 ```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="90%"}
 handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
@@ -678,7 +674,7 @@ $$
 
 with $i$ = date^[date1 in \autoref{table:dataset_structure_final}], $k$ = political party^[source2 in \autoref{table:dataset_structure_final}]
 
-\autoref{table:results_ols} display the result of that estimation. Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ is $-0.2067$, a switch from from 0 to 1 can be interpreted as a 21% decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. Or, in other words: Compared to AfD, the similarity of topics of *DIE WELT* and B90/GRÜNE is 21% lower. In general, for all news papers (except for *Handelsblatt*) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD.
+\autoref{table:results_ols} display the result of that estimation. Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ is $-0.2067$, a switch from from 0 to 1 can be interpreted as a 21% decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. Or, in other words: Compared to AfD, the similarity of topics of DIE WELT and B90/GRÜNE is 21% lower. In general, for all news papers (except for Handelsblat) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD.
 
 ```{r eval=FALSE, include=FALSE}
 transform_coeff_ols(welt_model$coefficients[2])
@@ -827,20 +823,6 @@ B90/Die Grünen  gruene.de       gruene-bundestag.de
 DIE LINKE       die-linke.de    die-linke.de/start/presse/aus-dem-bundestag
 AfD             afd.de          afdbundestag.de
 
-```{r Text length summary , results='asis'}
-model_df %>%
-  group_by(source) %>% 
-  summarize(
-    n = n(),
-    mean = round(mean(text_length),2),
-    sd = round(sd(text_length),2),
-    median = median(text_length),
-    min = min(text_length),
-    max = max(text_length)
-  ) %>% stargazer(type = 'latex', header = FALSE, 
-                  rownames = FALSE, label = "table:text_length",
-                  title = "Summary statistics of text length", summary = FALSE)
-```
 
 ```{r Top terms table, results='asis'}
 gamma_terms %>% 

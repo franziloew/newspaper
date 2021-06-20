@@ -73,9 +73,25 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{float}
 \usepackage{pdflscape}
 \newcommand{\blandscape}{\begin{landscape}}
 \newcommand{\elandscape}{\end{landscape}}
+\usepackage{subfig}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 \title{Political news coverage of online news}
 \usepackage{etoolbox}
@@ -149,31 +165,25 @@ fact, Blassnig et al.
 populist key messages by political and media actors in news articles
 provoke more reader comments under these articles. Media competing for
 the attention of readers therefore have an incentive to pick up on the
-key messages of these parties.
-
-But does increased reporting also lead to rising survey results?
-Especially if this reporting is largely negative, which is the case for
-reporting on AfD during electing campaign phase . In political science,
-several studies have examined at least the first aspect of this question
-(see for example Druckman and Parkin
+key messages of these parties. These, in turn, benefit from being able
+to place their agendas in the public debate (Druckman and Parkin
 (\protect\hyperlink{ref-druckman_impact_2005}{2005}), Eberl
-(\protect\hyperlink{ref-eberl_lying_2018}{2018})). In general, it is
-assumed that smaller, non-established parties in particular benefit from
-placing their topics in the media in order to get them into the voters'
-heads. Here, the tendency of the reporting is irrelevant but rather the
+(\protect\hyperlink{ref-eberl_lying_2018}{2018})). It is assumed, that
+smaller, non-established parties in particular benefit from placing
+their topics in the media in order to get them into the voters' heads.
+Here, the tendency of the reporting is irrelevant but rather the
 quantity is decisive.
 
 However, the causal relationship between reporting and voter preferences
-is not the subject of this study. Rather, it is intended to investigate
-how the reporting of online news is similar to the messaging of
-different political parties. Especially during election campaigns
-political parties want the media agenda to be congruent with their own
-agenda to define the issue-based criteria on which they will be
-evaluated by voters (Eberl, Boomgaarden, and Wagner
-\protect\hyperlink{ref-eberl_one_2017}{2017}). Parties instrumentalize
-their public relations in order to highlight issues that they are
-perceived to be competent on, that they ``own'' and that are important
-to their voters (Kepplinger and Maurer
+is not the subject of this study. Rather, it is intended to measure how
+online news coverage coincides with the messaging of different political
+parties. Especially during election campaigns political parties want the
+media agenda to be congruent with their own agenda to define the
+issue-based criteria on which they will be evaluated by voters (Eberl,
+Boomgaarden, and Wagner \protect\hyperlink{ref-eberl_one_2017}{2017}).
+Parties instrumentalize their public relations in order to highlight
+issues that they are perceived to be competent on, that they ``own'' and
+that are important to their voters (Kepplinger and Maurer
 \protect\hyperlink{ref-kepplinger_einfluss_2004}{2004}). This paper
 therefore analyzes the period before and after the 2017 federal
 elections in Germany to answer the question whether political news
@@ -183,17 +193,17 @@ election campaign is over.
 In order to answer these and other media-related questions in the
 political context, quantifying the content of media is a prerequisite.
 One of the key challenges is to determine the features that are used to
-describe media content (audio, video, text). Studies that rely on
-quantifying media content for their analyses use, for example,
-visibility (how often political actors appear in the media) or tonality
-(how they are evaluated). Other studies examine the topics discussed or
-the language used in the media, in order to identify whether political
-actors are able to place their own policy positions in the media.
-Leading studies from economic literature, for example, examine how often
-a newspaper quotes the same think tanks (Groseclose and Milyo
-(\protect\hyperlink{ref-groseclose_measure_2005}{2005}), Lott and
-Hassett (\protect\hyperlink{ref-lott_is_2014}{2014})) or uses the same
-language (Gentzkow and Shapiro
+describe media content - be it audio, video or text content. Studies
+that rely on quantifying media content for their analyses use, for
+example, visibility (how often political actors appear in the media) or
+tonality (how they are evaluated). Other studies examine the topics
+discussed or the language used in the media, in order to identify
+whether political actors are able to place their own policy positions in
+the media. Leading studies from economic literature, for example,
+examine how often a newspaper quotes the same think tanks (Groseclose
+and Milyo (\protect\hyperlink{ref-groseclose_measure_2005}{2005}), Lott
+and Hassett (\protect\hyperlink{ref-lott_is_2014}{2014})) or uses the
+same language (Gentzkow and Shapiro
 \protect\hyperlink{ref-gentzkow_media_2004}{2004}) as members of
 Congress. Following this approach, the present paper compares topics
 discussed in media outlets with topics addressed in the press releases
@@ -276,7 +286,7 @@ June 2017.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth]{main_text_files/figure-latex/election polls-1} 
+{\centering \includegraphics[width=0.5\linewidth]{main_text_files/figure-latex/election polls-1} 
 
 }
 
@@ -287,16 +297,15 @@ June 2017.
 \subsection{German online news market}\label{german-online-news-market}}
 
 The analysis performed in this paper is based on the news articles of
-the following news websites: \emph{Bild.de}, \emph{DIE WELT},
-\emph{FOCUS ONLINE}, \emph{Handelsblatt}, \emph{SPIEGEL ONLINE},
-\emph{stern.de}, \emph{ZEIT ONLINE}. As can be seen from
-\autoref{fig:news_market}(a), expect for \emph{Handelsbaltt} (position
-53), these media outlets are among the top 30 German online news
-providers in the period under review in terms of visits.\footnote{The
-  term visit is used to describe the call to a website by a visitor. The
-  visit begins as soon as a user generates a page impression (PI) within
-  an offer and each additional PI, which the user generates within the
-  offer, belongs to this visit.}
+the following news websites: Bild.de, DIE WELT, FOCUS ONLINE,
+Handelsblatt, SPIEGEL ONLINE, stern.de, ZEIT ONLINE. As can be seen from
+\autoref{fig:news_market}(a), expect for Handelsblatt (position 53),
+these media outlets are among the top 30 German online news providers in
+the period under review in terms of visits.\footnote{The term visit is
+  used to describe the call to a website by a visitor. The visit begins
+  as soon as a user generates a page impression (PI) within an offer and
+  each additional PI, which the user generates within the offer, belongs
+  to this visit.}
 
 The main source of income for these privately managed media houses is
 digital advertising, even though paid content is playing an increasingly
@@ -317,7 +326,7 @@ media used for the analysis play a relevant role in their consumption.
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-1} 
+{\centering \subfloat[Total visits in million (Jan 2018)\label{fig:unnamed-chunk-1-1}]{\includegraphics[width=0.4\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-1} }\subfloat[Use of a brand to access news online\label{fig:unnamed-chunk-1-2}]{\includegraphics[width=0.4\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-2} }
 
 }
 
@@ -327,83 +336,91 @@ media used for the analysis play a relevant role in their consumption.
 \hypertarget{data}{%
 \section{Data}\label{data}}
 
-I conduct the estimation on a sample of 16,473 online news articles from
-the seven German news providers mentioned in the previous
-section\footnote{\emph{Bild.de}, \emph{DIE WELT}, \emph{FOCUS ONLINE},
-  \emph{SPIEGEL ONLINE}, \emph{stern.de}, \emph{ZEIT ONLINE},
-  \emph{Handelsblatt}} about domestic politics and press releases of the
-seven parties that have been in the Bundestag since the 2017 federal
-elections\footnote{CDU, SPD, B90/Grüne, FDP, AfD, Die Linke}. Both news
-articles and press releases are dated from June 1, 2017 to March 1,
-2018.
+I conduct the estimation on a sample of 18,757 online news articles from
+the seven German news providers described in the previous
+section\footnote{Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE,
+  stern.de, ZEIT ONLINE, Handelsblatt} about domestic politics and press
+releases of the seven parties that have been in the Bundestag since the
+2017 federal elections\footnote{CDU, SPD, B90/Grüne, FDP, AfD, Die Linke}.
+Both news articles and press releases are dated from June 1, 2017 to
+March 1, 2018.
 
 News articles scraped from the Webhose.io API.\footnote{For more
   information see
-  \url{https://docs.webhose.io/reference\#about-webhose}. The scraping
-  code was written in Python and can be made available on request.} In
-order to consider only news about national politics, the articles were
-filtered based on their URL.
+  \url{https://docs.webhose.io/reference\#about-webhose}.} In order to
+consider only news about national politics, the articles were filtered
+based on their URL. The press releases were scraped from the public
+websites of the political parties and parliamentary groups using an
+automated script.\footnote{The scraping code was written in R and can be
+  made available on request.}
 
 \autoref{fig:news_distr} shows the distribution of the number of
 articles by date and media outlet. There is a high peak around the
 federal elections on September, 24th and another one shortly after the
 failure of the Jamaica coalition talks on November, 19th (indicated by
-the red dotted lines).\footnote{The peak in July especially for
-  \emph{stern.de} is due to increased reporting about the G20 summit in
-  Hamburg.} Furthermore, \autoref{fig:news_distr} shows that \emph{DIE
-WELT} published the most articles on domestic policy, followed by
-\emph{stern.de}, \emph{Handelsblatt} and \emph{FOCUS ONLINE}.
+the red dotted lines).\footnote{The peak in July especially for stern.de
+  is due to increased reporting about the G20 summit in Hamburg.}
+Furthermore, \autoref{fig:news_distr} shows that DIE WELT published the
+most articles on domestic policy, followed by stern.de, Handelsblatt and
+FOCUS ONLINE.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Distribution of news articles-1} 
+{\centering \includegraphics[width=0.7\linewidth]{main_text_files/figure-latex/Distribution of news articles-1} 
 
 }
 
 \caption{Distribution of news articles \label{fig:news_distr}}\label{fig:Distribution of news articles}
 \end{figure}
 
-The press releases were scraped from the public websites of the
-political parties and parliamentary groups using an automated script
-written in \emph{Python}.\footnote{The scraping code was written in
-  Python and can be made available on request.}
-
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Distribution of press releases-1} 
+{\centering \includegraphics[width=0.7\linewidth]{main_text_files/figure-latex/Distribution of press releases-1} 
 
 }
 
 \caption{Distribution of press releases \label{fig:press_distr}}\label{fig:Distribution of press releases}
 \end{figure}
 
-Looking at the boxplots of text length (\autoref{fig:text_length}), it
-becomes evident that:\footnote{See \autoref{table:text_length} for an
-  overview of the summary statistics.}
+\begin{table}[H]
 
-\begin{itemize}
-\tightlist
-\item
-  mean and median text length of news articles is higher than in press
-  releases
-\item
-  \emph{Handelsblatt} published new articles with the highest median
-  text length (488) followed by \emph{ZEIT ONLINE} (459), however
-  \emph{DIE WELT} has the article with the highest word count (14.507).
-\item
-  press releases of CDU have the highest median (256), but also the
-  highest standard dev. (106). press releases of FDP have the lowest
-  median (144).
-\end{itemize}
+\caption{\label{tab:table text length}Summary statistics of text length \label{tab:textlength}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+source & n & mean & sd & median & min & max\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{News articles}}\\
+\hspace{1em}\cellcolor{gray!6}{Bild.de} & \cellcolor{gray!6}{1303} & \cellcolor{gray!6}{476.07} & \cellcolor{gray!6}{318.28} & \cellcolor{gray!6}{398.0} & \cellcolor{gray!6}{121} & \cellcolor{gray!6}{3710}\\
+\hspace{1em}DIE WELT & 3222 & 509.57 & 612.06 & 380.0 & 121 & 14507\\
+\hspace{1em}\cellcolor{gray!6}{FOCUS Online} & \cellcolor{gray!6}{2780} & \cellcolor{gray!6}{393.89} & \cellcolor{gray!6}{317.05} & \cellcolor{gray!6}{297.5} & \cellcolor{gray!6}{121} & \cellcolor{gray!6}{5647}\\
+\hspace{1em}Handelsblatt & 2785 & 589.51 & 495.82 & 488.0 & 121 & 6899\\
+\hspace{1em}\cellcolor{gray!6}{SPIEGEL ONLINE} & \cellcolor{gray!6}{2089} & \cellcolor{gray!6}{539.09} & \cellcolor{gray!6}{415.05} & \cellcolor{gray!6}{413.0} & \cellcolor{gray!6}{121} & \cellcolor{gray!6}{3466}\\
+\hspace{1em}stern.de & 2943 & 514.66 & 616.55 & 373.0 & 121 & 9287\\
+\hspace{1em}\cellcolor{gray!6}{ZEIT ONLINE} & \cellcolor{gray!6}{1351} & \cellcolor{gray!6}{513.75} & \cellcolor{gray!6}{387.14} & \cellcolor{gray!6}{459.0} & \cellcolor{gray!6}{121} & \cellcolor{gray!6}{8015}\\
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Press releases}}\\
+\hspace{1em}AfD & 523 & 212.83 & 72.16 & 196.0 & 103 & 553\\
+\hspace{1em}\cellcolor{gray!6}{B90/GRÜNE} & \cellcolor{gray!6}{211} & \cellcolor{gray!6}{229.32} & \cellcolor{gray!6}{63.37} & \cellcolor{gray!6}{219.0} & \cellcolor{gray!6}{104} & \cellcolor{gray!6}{399}\\
+\hspace{1em}CDU & 248 & 274.54 & 106.08 & 256.0 & 100 & 1030\\
+\hspace{1em}\cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{686} & \cellcolor{gray!6}{200.47} & \cellcolor{gray!6}{71.78} & \cellcolor{gray!6}{190.0} & \cellcolor{gray!6}{101} & \cellcolor{gray!6}{1048}\\
+\hspace{1em}FDP & 301 & 161.90 & 83.78 & 144.0 & 100 & 999\\
+\hspace{1em}\cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{315} & \cellcolor{gray!6}{213.41} & \cellcolor{gray!6}{56.16} & \cellcolor{gray!6}{208.0} & \cellcolor{gray!6}{103} & \cellcolor{gray!6}{429}\\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/text_length-1} 
-
-}
-
-\caption{Text length \label{fig:text_length}}\label{fig:text_length}
-\end{figure}
+\autoref{tab:textlength} illustrates that on average, news articles are
+longer than the parties' press releases.\footnote{News articles with
+  less than 120 words were filtered out in advance, as these were mostly
+  reader comments. Similarly press releases with less than 100 words
+  were filtered out.} While for news articles the average is between 394
+(FOCUS Online) and 590 (Handelsblatt), with press releases the range is
+between 162 (FDP) and 275 (CDU). The article with the most words
+(14.507) was published by DIE WELT - the longest press release has 1.048
+words and was published by DIE LINKE.
 
 \hypertarget{data-preparation}{%
 \subsection{Data preparation}\label{data-preparation}}
@@ -413,24 +430,28 @@ steps have to be conducted. In fact, in order to use text as data and
 reduce the dimensionality to avoid unnecessary computational complexity
 and overfitting, pre-processsing the text is a central task in text
 mining (Gentzkow, Kelly, and Taddy
-\protect\hyperlink{ref-gentzkow_text_2017}{2017}, @bholat\_text\_2015).
-Intuitively the term frequency (tf) of a word is a measure of how
-important that word may be for the understanding of the text. To
-visualize these terms, word clouds are a commonly used technique in text
-mining as they translate the tf into the size of the term in the cloud.
-As can be seen in \autoref{fig:wordcloud}, problems arise with words
-that are highly frequent. For example ``die'', or ``der
-(eng.''the``),''und" (eng. ``and''), and ``ist'' (eng. ``is'') are
-extremely common but unrelated to the quantity of interest. These terms,
-often called stop words (Gentzkow, Kelly, and Taddy
+(\protect\hyperlink{ref-gentzkow_text_2017}{2017}), Bholat et al.
+(\protect\hyperlink{ref-bholat_text_2015}{2015})). Intuitively the term
+frequency (tf) of a word is a measure of how important that word may be
+for the understanding of the text. To visualize these terms, word clouds
+are a commonly used technique in text mining as they translate the tf
+into the size of the term in the cloud. As can be seen in
+\autoref{fig:wordcloud1}, problems arise with words that are highly
+frequent. For example ``die'', or ``der'' (eng. ``the''), ``und'' (eng.
+``and''), and ``ist'' (eng. ``is'') are extremely common but unrelated
+to the quantity of interest. These terms, often called stop words
+(Gentzkow, Kelly, and Taddy
 \protect\hyperlink{ref-gentzkow_text_2017}{2017}), are important to the
 grammatical structure of a text, but typically don't add any additional
 meaning and can therefore be neglected.
 
 \begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth,height=\textheight]{../figs/wordcloud.png}
-\caption{Wordcloud before pre-processing}
+
+{\centering \includegraphics[width=0.4\linewidth]{../figs/wordcloud} 
+
+}
+
+\caption{Wordcloud before pre-processing \label{fig:wordcloud1}}\label{fig:wordcloud pre-processing}
 \end{figure}
 
 To remove distorting words, the pre-defined stop word list from the
@@ -448,16 +469,19 @@ based on a set of shortening rules that are applied to a word until it
 has a minimum number of syllables.\footnote{\url{https://tartarus.org/martin/PorterStemmer/}}
 
 As an example, the following word clouds represent the most frequent
-words of the pre-processed articles for \emph{Bild.de} (left word cloud)
-and press releases of AfD (right word cloud). It becomes evident that
-these are texts discussing domestic policy issues. The SPD in particular
-seems to be highly frequent for \emph{Bild.de}.
+words of the pre-processed articles for Bild.de
+(\autoref{fig:wordclouds2}(a)) and press releases of AfD
+(\autoref{fig:wordclouds2}(b)). It becomes evident that these are texts
+discussing domestic policy issues. The SPD in particular seems to be
+highly frequent for Bild.de.
 
-\begin{figure}\centering
+\begin{figure}
 
-\includegraphics[width=0.4\textwidth,height=\textheight]{../figs/wordcloud_bild.png}
-\includegraphics[width=0.4\textwidth,height=\textheight]{../figs/wordcloud_afd.png}
+{\centering \subfloat[Bild\label{fig:wordclouds2-1}]{\includegraphics[width=0.4\linewidth]{../figs/wordcloud_bild} }\subfloat[AfD\label{fig:wordclouds2-2}]{\includegraphics[width=0.4\linewidth]{../figs/wordcloud_afd} }
 
+}
+
+\caption{Wordcloud after pre-processing \label{fig:wordclouds2}}\label{fig:wordclouds2}
 \end{figure}
 
 The next step is to divide the entire data set into individual documents
@@ -480,27 +504,28 @@ referred to as the bag of words model (Gentzkow, Kelly, and Taddy
 \protect\hyperlink{ref-gentzkow_text_2017}{2017}), since the order in
 which words are used within a document is disregarded.
 
-\begin{table}[!htbp] \centering 
-  \caption{Document-term matrix - sample values} 
-  \label{table:dtm} 
-\tiny 
-\begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & veränderungen & pressemitteilung & vermehrt & frühestens & redaktion & heilbronner & vorsitz \\ 
-\hline \\[-1.8ex] 
-434 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-2277 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-15322 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-2554 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-13952 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-8446 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-14120 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-7538 & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ & $0$ \\ 
-14599 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-11956 & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+\begin{table}[H]
+
+\caption{\label{tab:Document term matrix}Document-term matrix - sample values \label{table:dtm}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{lrrrrrrr}
+\toprule
+  & behandlung & vereins & geplant & einzelne & baut & begehen & umweltminister\\
+\midrule
+\cellcolor{gray!6}{7890} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{1} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+13558 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{10093} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+7363 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{17396} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\addlinespace
+5205 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{5743} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+9171 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{1745} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+11954 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\bottomrule
+\end{tabular}
 \end{table}
 
 \hypertarget{estimate-topic-similarity-of-documents}{%
@@ -780,22 +805,22 @@ die GroKo jetzt noch scheitern? (Bild.de)}.\footnote{Translation: Party
   conference, coalition thriller, primal election - what can fail the
   GroKo now? (Bild.de)}
 
-\begin{table}[!htbp] \centering 
-  \caption{Most similar documents} 
-  \label{table:cosine_sim_sample_doc} 
-\tiny 
-\begin{tabular}{@{\extracolsep{5pt}} ccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-title & source & cos\_sim \\ 
-\hline \\[-1.8ex] 
-Asylzahlen 2017 - schwarz-rot führt Obergrenze durch die Hintertür ein & DIE LINKE & 0.542 \\ 
-Jörg Meuthen: Nicht neue GroKo, sondern LoKo – Loser Koalition & AfD & 0.522 \\ 
- Rentenpläne von Union und SPD schlimmer als erwartet & FDP & 0.478 \\ 
-Union und SPD stabilisieren die krasse soziale Ungerechtigkeit in diesem Land & DIE LINKE & 0.401 \\ 
-Jürgen Pohl: Union und SPD verabreden Politik zu Lasten von Rentnern und Ostdeutschen & AfD & 0.388 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+\begin{table}[H]
+
+\caption{\label{tab:Documents with highest similarity}Most similar documents \label{table:cosine_sim_sample_doc}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{llr}
+\toprule
+title & source & cos\_sim\\
+\midrule
+\cellcolor{gray!6}{Asylzahlen 2017 - schwarz-rot führt Obergrenze durch die Hintertür ein} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.542}\\
+Jörg Meuthen: Nicht neue GroKo, sondern LoKo – Loser Koalition & AfD & 0.522\\
+\cellcolor{gray!6}{Rentenpläne von Union und SPD schlimmer als erwartet} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.478}\\
+Union und SPD stabilisieren die krasse soziale Ungerechtigkeit in diesem Land & DIE LINKE & 0.401\\
+\cellcolor{gray!6}{Jürgen Pohl: Union und SPD verabreden Politik zu Lasten von Rentnern und Ostdeutschen} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{0.388}\\
+\bottomrule
+\end{tabular}
 \end{table}
 
 In the next step, for each news paper, the cosine similarity between all
@@ -808,44 +833,44 @@ within 7 days before the news article.
 \autoref{table:dataset_structure1} illustrates a sample subset of the
 data for \emph{DIE WELT}.
 
-\begin{table}[!htbp] \centering 
-  \caption{Dataset structure step 1 - DIE WELT} 
-  \label{table:dataset_structure1} 
-\tiny 
-\begin{tabular}{@{\extracolsep{5pt}} ccccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2 \\ 
-\hline \\[-1.8ex] 
-VW-Chef zur Regie... &  Studienplatzverg... & 0.2 & DIE WELT & FDP & 2017-12-23 & 2017-12-19 \\ 
-Trotz prekärer Si... &  Brauchen technol... & 0.01 & DIE WELT & FDP & 2017-10-13 & 2017-10-10 \\ 
-Umfrageschock: SP... & Stephan Brandner:... & 0.01 & DIE WELT & AfD & 2018-01-23 & 2018-01-17 \\ 
-Große Koalition: ... & Giftgas-Berichte ... & 0.01 & DIE WELT & DIE LINKE & 2018-02-11 & 2018-02-06 \\ 
-AfD: Warum sie um... &  Große Koalition ... & 0.01 & DIE WELT & FDP & 2017-07-27 & 2017-07-24 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+\begin{table}[H]
+
+\caption{\label{tab:Dataset structure 1}Dataset structure step 1 - DIE WELT \label{table:dataset_structure1}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{llrllll}
+\toprule
+title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
+\midrule
+\cellcolor{gray!6}{Bundestagswahlkam...} & \cellcolor{gray!6}{Tag der Bundesweh...} & \cellcolor{gray!6}{0.08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-06-12} & \cellcolor{gray!6}{2017-06-09}\\
+Facebook-Profil: ... & Beate Walter-Rose... & 0.18 & DIE WELT & B90/GRÜNE & 2017-08-17 & 2017-08-11\\
+\cellcolor{gray!6}{Umfrage: Scheiter...} & \cellcolor{gray!6}{Alice Weidel: Jam...} & \cellcolor{gray!6}{0.11} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-11-19} & \cellcolor{gray!6}{2017-11-15}\\
+Bundesverfassungs... & Georg Pazderski: ... & 0.01 & DIE WELT & AfD & 2017-07-27 & 2017-07-21\\
+\cellcolor{gray!6}{Insa-Umfrage: SPD...} & \cellcolor{gray!6}{Gerold Otten: Geg...} & \cellcolor{gray!6}{0.01} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-01-16} & \cellcolor{gray!6}{2018-01-15}\\
+\bottomrule
+\end{tabular}
 \end{table}
 
 Next, the mean cosine similarity for each news article publication date
 (date1) and party (source2) is estimated to obtain the final data frame
 (see \autoref{table:dataset_structure_final}).
 
-\begin{table}[!htbp] \centering 
-  \caption{Final dataset structure - DIE WELT} 
-  \label{table:dataset_structure_final} 
-\tiny 
-\begin{tabular}{@{\extracolsep{5pt}} cccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-date1 & source1 & source2 & cos\_sim \\ 
-\hline \\[-1.8ex] 
-2017-08-30 & DIE WELT & CDU & 0.13 \\ 
-2017-12-04 & DIE WELT & DIE LINKE & 0.09 \\ 
-2018-01-12 & DIE WELT & CDU & 0.11 \\ 
-2017-11-21 & DIE WELT & SPD & 0.1 \\ 
-2017-11-12 & DIE WELT & AfD & 0.1 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+\begin{table}[H]
+
+\caption{\label{tab:Dataset structure final}Final dataset structure - DIE WELT \label{table:dataset_structure_final}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{lllr}
+\toprule
+date1 & source1 & source2 & cos\_sim\\
+\midrule
+\cellcolor{gray!6}{2017-07-29} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.07}\\
+2017-11-11 & DIE WELT & FDP & 0.21\\
+\cellcolor{gray!6}{2017-08-24} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.13}\\
+2017-07-12 & DIE WELT & DIE LINKE & 0.14\\
+\cellcolor{gray!6}{2017-09-04} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.07}\\
+\bottomrule
+\end{tabular}
 \end{table}
 
 \hypertarget{model-estimations}{%
@@ -896,11 +921,10 @@ coefficient for \(D_{B90/GRÜNE}\) is \(-0.2067\), a switch from from 0
 to 1 can be interpreted as a 21\% decrease of topic similarity for
 B90/GRÜNE compared to AfD (the base dummy group), holding everything
 else equal. Or, in other words: Compared to AfD, the similarity of
-topics of \emph{DIE WELT} and B90/GRÜNE is 21\% lower. In general, for
-all news papers (except for \emph{Handelsblatt}) the topic similarity is
-significantly less between the news articles of that news paper and
-press releases of political parties when compared to press releases of
-the AfD.
+topics of DIE WELT and B90/GRÜNE is 21\% lower. In general, for all news
+papers (except for Handelsblat) the topic similarity is significantly
+less between the news articles of that news paper and press releases of
+political parties when compared to press releases of the AfD.
 
 \begin{table}[!htbp] \centering    \caption{Results from the OLS model}    \label{table:results_ols}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   source2B90/GRÜNE & $-$0.232$^{***}$ & $-$0.237$^{***}$ & $-$0.220$^{***}$ & 0.033 & $-$0.297$^{***}$ & $-$0.319$^{***}$ & $-$0.202$^{***}$ \\    & (0.036) & (0.045) & (0.057) & (0.050) & (0.038) & (0.055) & (0.045) \\    & & & & & & & \\   source2CDU & $-$0.274$^{***}$ & $-$0.207$^{***}$ & $-$0.280$^{***}$ & $-$0.003 & $-$0.300$^{***}$ & $-$0.347$^{***}$ & $-$0.240$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   source2DIE LINKE & $-$0.268$^{***}$ & $-$0.140$^{***}$ & $-$0.197$^{***}$ & 0.078$^{*}$ & $-$0.290$^{***}$ & $-$0.272$^{***}$ & $-$0.208$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.042) \\    & & & & & & & \\   source2FDP & $-$0.247$^{***}$ & $-$0.139$^{***}$ & $-$0.201$^{***}$ & 0.080$^{*}$ & $-$0.281$^{***}$ & $-$0.292$^{***}$ & $-$0.221$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   source2SPD & $-$0.263$^{***}$ & $-$0.180$^{***}$ & $-$0.228$^{***}$ & 0.026 & $-$0.301$^{***}$ & $-$0.337$^{***}$ & $-$0.267$^{***}$ \\    & (0.034) & (0.042) & (0.054) & (0.048) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   Constant & $-$1.765$^{***}$ & $-$1.991$^{***}$ & $-$1.764$^{***}$ & $-$1.856$^{***}$ & $-$1.831$^{***}$ & $-$1.746$^{***}$ & $-$1.878$^{***}$ \\    & (0.024) & (0.030) & (0.038) & (0.033) & (0.025) & (0.036) & (0.030) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,372 & 1,378 & 1,404 & 1,206 & 1,428 & 1,321 & 1,424 \\  R$^{2}$ & 0.069 & 0.027 & 0.023 & 0.005 & 0.072 & 0.047 & 0.035 \\  Adjusted R$^{2}$ & 0.065 & 0.023 & 0.019 & 0.001 & 0.069 & 0.044 & 0.031 \\  Residual Std. Error & 0.365 (df = 1366) & 0.458 (df = 1372) & 0.589 (df = 1398) & 0.484 (df = 1200) & 0.401 (df = 1422) & 0.549 (df = 1315) & 0.473 (df = 1418) \\  F Statistic & 20.144$^{***}$ (df = 5; 1366) & 7.532$^{***}$ (df = 5; 1372) & 6.540$^{***}$ (df = 5; 1398) & 1.188 (df = 5; 1200) & 22.193$^{***}$ (df = 5; 1422) & 13.048$^{***}$ (df = 5; 1315) & 10.136$^{***}$ (df = 5; 1418) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
 
@@ -1088,34 +1112,9 @@ AfD & afd.de & afdbundestag.de\tabularnewline
 \bottomrule
 \end{longtable}
 
-\begin{table}[!htbp] \centering 
-  \caption{Summary statistics of text length} 
-  \label{table:text_length} 
-\begin{tabular}{@{\extracolsep{5pt}} ccccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-source & n & mean & sd & median & min & max \\ 
-\hline \\[-1.8ex] 
-AfD & 523 & 212.83 & 72.16 & 196 & 103 & 553 \\ 
-B90/GRÜNE & 211 & 229.32 & 63.37 & 219 & 104 & 399 \\ 
-Bild.de & 1303 & 476.07 & 318.28 & 398 & 121 & 3710 \\ 
-CDU & 248 & 274.54 & 106.08 & 256 & 100 & 1030 \\ 
-DIE LINKE & 686 & 200.47 & 71.78 & 190 & 101 & 1048 \\ 
-DIE WELT & 3222 & 509.57 & 612.06 & 380 & 121 & 14507 \\ 
-FDP & 301 & 161.9 & 83.78 & 144 & 100 & 999 \\ 
-FOCUS Online & 2780 & 393.89 & 317.05 & 297.5 & 121 & 5647 \\ 
-Handelsblatt & 2785 & 589.51 & 495.82 & 488 & 121 & 6899 \\ 
-SPD & 315 & 213.41 & 56.16 & 208 & 103 & 429 \\ 
-SPIEGEL ONLINE & 2089 & 539.09 & 415.05 & 413 & 121 & 3466 \\ 
-stern.de & 2943 & 514.66 & 616.55 & 373 & 121 & 9287 \\ 
-ZEIT ONLINE & 1351 & 513.75 & 387.14 & 459 & 121 & 8015 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table}
-
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Sun, Apr
-11, 2021 - 16:57:16
+University. E-mail: hlavac at fas.harvard.edu \% Date and time: Mon, May
+24, 2021 - 13:02:02
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 

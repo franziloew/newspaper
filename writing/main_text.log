@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.3.7)  11 APR 2021 16:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.23)  24 MAY 2021 13:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **main_text.tex
 (./main_text.tex
 LaTeX2e <2020-10-01> patch level 4
-L3 programming layer <2021-02-18> (/Users/franzilow/Library/TinyTeX/texmf-dist/
+L3 programming layer <2021-05-11> (/Users/franzilow/Library/TinyTeX/texmf-dist/
 tex/latex/base/article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo
@@ -23,7 +23,7 @@ File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
-Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
@@ -130,7 +130,7 @@ Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
 2.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
-File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2020/08/01 v1.3d Input encoding file
 \inpenc@prehook=\toks21
@@ -138,7 +138,7 @@ Package: inputenc 2020/08/01 v1.3d Input encoding file
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/parskip/parskip.sty
-Package: parskip 2021-03-02 v2.0g non-zero parskip adjustments
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
@@ -379,6 +379,13 @@ Package: grffile 2019/11/11 v2.1 Extended file name support for graphics (legac
 y)
 Package grffile Info: This package is an empty stub for compatibility on input 
 line 40.
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count288
+\float@exts=\toks26
+\float@box=\box54
+\@float@everytoks=\toks27
+\@floatcapt=\box55
 ) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.st
 y
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
@@ -386,37 +393,163 @@ Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen177
+\captionmargin@=\dimen178
+\captionwidth=\dimen179
+\caption@tempdima=\dimen180
+\caption@indent=\dimen181
+\caption@parindent=\dimen182
+\caption@hangindent=\dimen183
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count289
+\c@continuedfloat=\count290
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
+))
+\c@KVtest=\count291
+\sf@farskip=\skip57
+\sf@captopadj=\dimen184
+\sf@capskip=\skip58
+\sf@nearskip=\skip59
+\c@subfigure=\count292
+\c@subfigure@save=\count293
+\c@lofdepth=\count294
+\c@subtable=\count295
+\c@subtable@save=\count296
+\c@lotdepth=\count297
+\sf@top=\skip60
+\sf@bottom=\skip61
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
+\col@sep=\dimen185
+\ar@mcellbox=\box56
+\extrarowheight=\dimen186
+\NC@list=\toks28
+\extratabsurround=\skip62
+\backup@length=\skip63
+\ar@cellbox=\box57
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip64
+\multirow@cntb=\count298
+\multirow@dima=\skip65
+\bigstrutjot=\dimen187
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen188
+\WF@size=\dimen189
+\c@WF@wrappedlines=\count299
+\WF@box=\box58
+\WF@everypar=\toks29
+Package: wrapfig 2003/01/31  v 3.6
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+\everycr=\toks30
+\minrowclearance=\skip66
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box59
+\sift@deathcycles=\count300
+\@vwid@loff=\dimen190
+\@vwid@roff=\dimen191
+)
+\c@taburow=\count301
+\tabu@nbcols=\count302
+\tabu@cnt=\count303
+\tabu@Xcol=\count304
+\tabu@alloc=\count305
+\tabu@nested=\count306
+\tabu@target=\dimen192
+\tabu@spreadtarget=\dimen193
+\tabu@naturalX=\dimen194
+\tabucolX=\dimen195
+\tabu@Xsum=\dimen196
+\extrarowdepth=\dimen197
+\abovetabulinesep=\dimen198
+\belowtabulinesep=\dimen199
+\tabustrutrule=\dimen256
+\tabu@thebody=\toks31
+\tabu@footnotes=\toks32
+\tabu@box=\box60
+\tabu@arstrutbox=\box61
+\tabu@hleads=\box62
+\tabu@vleads=\box63
+\tabu@cellskip=\skip67
+)
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threepart
+table.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box64
+)
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/threeparttablex/threepar
+ttablex.sty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.st
+y
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\TPTL@width=\skip68
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box65
+\UL@hyphenbox=\box66
+\UL@skip=\skip69
+\UL@hook=\toks33
+\UL@height=\dimen257
+\UL@pe=\count307
+\UL@pixel=\dimen258
+\ULC@box=\box67
+Package: ulem 2019/11/18
+\ULdepth=\dimen259
+) (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen260
+\c@nlinenum=\count308
+\TeXr@lab=\toks34
 )
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdft
 ex.def
-File: l3backend-pdftex.def 2021-03-02 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count288
-\l__pdf_internal_box=\box54
+File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count309
+\l__pdf_internal_box=\box68
 ) (./main_text.aux
 
-LaTeX Warning: Label `fig:text_length' multiply defined.
+LaTeX Warning: Label `fig:wordclouds2' multiply defined.
 
 )
 \openout1 = `main_text.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
 
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-ba
 se.sty
@@ -429,7 +562,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 92.
+Package hyperref Info: Link coloring ON on input line 108.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
@@ -439,11 +572,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 estring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count289
+\c@section@level=\count310
 )
-LaTeX Info: Redefining \ref on input line 92.
-LaTeX Info: Redefining \pageref on input line 92.
-LaTeX Info: Redefining \nameref on input line 92.
+LaTeX Info: Redefining \ref on input line 108.
+LaTeX Info: Redefining \pageref on input line 108.
+LaTeX Info: Redefining \nameref on input line 108.
 (./main_text.out) (./main_text.out)
 \@outlinefile=\write3
 \openout3 = `main_text.out'.
@@ -482,251 +615,251 @@ LaTeX Info: Redefining \nameref on input line 92.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 9
-4.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: threeparttable package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+10.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 9
-4.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+10.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-94.
+110.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-94.
+110.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 94.
+(Font)              <12> on input line 110.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 94.
+(Font)              <8> on input line 110.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 94.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 94.
-
+(Font)              <6> on input line 110.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 110
+.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 94.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 110
+.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 9
-4.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+10.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 94.
+(Font)              <5> on input line 110.
 [1
 
 {/Users/franzilow/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 201.
+(Font)              <10> on input line 211.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 201.
+(Font)              <7> on input line 211.
 [2]
-<main_text_files/figure-latex/election polls-1.pdf, id=120, 469.755pt x 216.81p
+<main_text_files/figure-latex/election polls-1.pdf, id=120, 469.755pt x 289.08p
 t>
 File: main_text_files/figure-latex/election polls-1.pdf Graphic file (type pdf)
 
 <use main_text_files/figure-latex/election polls-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/election polls-1.pdf  use
-d on input line 279.
-(pdftex.def)             Requested size: 281.85518pt x 130.08699pt.
-<main_text_files/figure-latex/unnamed-chunk-1-1.pdf, id=128, 469.755pt x 289.08
+d on input line 289.
+(pdftex.def)             Requested size: 234.87692pt x 144.53964pt.
+<main_text_files/figure-latex/unnamed-chunk-1-1.pdf, id=128, 469.755pt x 361.35
 pt>
 File: main_text_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf
 )
 <use main_text_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/unnamed-chunk-1-1.pdf  us
-ed on input line 320.
-(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+ed on input line 329.
+(pdftex.def)             Requested size: 187.89867pt x 144.53743pt.
+<main_text_files/figure-latex/unnamed-chunk-1-2.pdf, id=129, 469.755pt x 361.35
+pt>
+File: main_text_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (type pdf
+)
+<use main_text_files/figure-latex/unnamed-chunk-1-2.pdf>
+Package pdftex.def Info: main_text_files/figure-latex/unnamed-chunk-1-2.pdf  us
+ed on input line 329.
+(pdftex.def)             Requested size: 187.89867pt x 144.53743pt.
 [3 <./main_text_files/figure-latex/election polls-1.pdf>]
-<main_text_files/figure-latex/Distribution of news articles-1.pdf, id=159, 469.
+<main_text_files/figure-latex/Distribution of news articles-1.pdf, id=160, 469.
 755pt x 144.54pt>
 File: main_text_files/figure-latex/Distribution of news articles-1.pdf Graphic 
 file (type pdf)
 <use main_text_files/figure-latex/Distribution of news articles-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Distribution of news arti
-cles-1.pdf  used on input line 359.
-(pdftex.def)             Requested size: 375.80452pt x 115.63214pt.
+cles-1.pdf  used on input line 369.
+(pdftex.def)             Requested size: 328.82626pt x 101.17729pt.
 <main_text_files/figure-latex/Distribution of press releases-1.pdf, id=161, 469
 .755pt x 144.54pt>
 File: main_text_files/figure-latex/Distribution of press releases-1.pdf Graphic
  file (type pdf)
 <use main_text_files/figure-latex/Distribution of press releases-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Distribution of press rel
-eases-1.pdf  used on input line 373.
-(pdftex.def)             Requested size: 375.80452pt x 115.63214pt.
-[4 <./main_text_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<main_text_files/figure-latex/text_length-1.pdf, id=189, 469.755pt x 216.81pt>
-File: main_text_files/figure-latex/text_length-1.pdf Graphic file (type pdf)
-<use main_text_files/figure-latex/text_length-1.pdf>
-Package pdftex.def Info: main_text_files/figure-latex/text_length-1.pdf  used o
-n input line 401.
-(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-
-LaTeX Warning: Reference `fig:wordcloud' on page 5 undefined on input line 421.
-
-
-<../figs/wordcloud.png, id=192, 481.8pt x 481.8pt>
+eases-1.pdf  used on input line 378.
+(pdftex.def)             Requested size: 328.82626pt x 101.17729pt.
+[4 <./main_text_files/figure-latex/unnamed-chunk-1-1.pdf> <./main_text_files/fi
+gure-latex/unnamed-chunk-1-2.pdf> <./main_text_files/figure-latex/Distribution 
+of news articles-1.pdf>]
+<../figs/wordcloud.png, id=205, 301.125pt x 301.125pt>
 File: ../figs/wordcloud.png Graphic file (type png)
 <use ../figs/wordcloud.png>
-Package pdftex.def Info: ../figs/wordcloud.png  used on input line 432.
-(pdftex.def)             Requested size: 187.89389pt x 187.89389pt.
-[5 <./main_text_files/figure-latex/Distribution of news articles-1.pdf> <./main
-_text_files/figure-latex/Distribution of press releases-1.pdf>] [6 <./main_text
-_files/figure-latex/text_length-1.pdf> <../figs/wordcloud.png>]
-<../figs/wordcloud_bild.png, id=236, 481.8pt x 481.8pt>
+Package pdftex.def Info: ../figs/wordcloud.png  used on input line 450.
+(pdftex.def)             Requested size: 187.90399pt x 187.90399pt.
+[5 <./main_text_files/figure-latex/Distribution of press releases-1.pdf>]
+<../figs/wordcloud_bild.png, id=234, 301.125pt x 301.125pt>
 File: ../figs/wordcloud_bild.png Graphic file (type png)
 <use ../figs/wordcloud_bild.png>
-Package pdftex.def Info: ../figs/wordcloud_bild.png  used on input line 458.
-(pdftex.def)             Requested size: 187.89389pt x 187.89389pt.
-<../figs/wordcloud_afd.png, id=237, 481.8pt x 481.8pt>
+Package pdftex.def Info: ../figs/wordcloud_bild.png  used on input line 480.
+(pdftex.def)             Requested size: 187.90399pt x 187.90399pt.
+<../figs/wordcloud_afd.png, id=235, 301.125pt x 301.125pt>
 File: ../figs/wordcloud_afd.png Graphic file (type png)
 <use ../figs/wordcloud_afd.png>
-Package pdftex.def Info: ../figs/wordcloud_afd.png  used on input line 459.
-(pdftex.def)             Requested size: 187.89389pt x 187.89389pt.
-[7 <../figs/wordcloud_bild.png> <../figs/wordcloud_afd.png>]
+Package pdftex.def Info: ../figs/wordcloud_afd.png  used on input line 480.
+(pdftex.def)             Requested size: 187.90399pt x 187.90399pt.
+[6 <../figs/wordcloud.png> <../figs/wordcloud_bild.png> <../figs/wordcloud_afd.
+png>] [7]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6
-06.
+31.
 (/Users/franzilow/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [8]
-<main_text_files/figure-latex/News articles sample documents-1.pdf, id=301, 469
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+<main_text_files/figure-latex/News articles sample documents-1.pdf, id=293, 469
 .755pt x 216.81pt>
 File: main_text_files/figure-latex/News articles sample documents-1.pdf Graphic
  file (type pdf)
 <use main_text_files/figure-latex/News articles sample documents-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/News articles sample docu
-ments-1.pdf  used on input line 670.
+ments-1.pdf  used on input line 695.
 (pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
-<main_text_files/figure-latex/Press releases sample documents-1.pdf, id=302, 46
+[8]
+<main_text_files/figure-latex/Press releases sample documents-1.pdf, id=317, 46
 9.755pt x 216.81pt>
 File: main_text_files/figure-latex/Press releases sample documents-1.pdf Graphi
 c file (type pdf)
 <use main_text_files/figure-latex/Press releases sample documents-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Press releases sample doc
-uments-1.pdf  used on input line 679.
+uments-1.pdf  used on input line 704.
 (pdftex.def)             Requested size: 375.80452pt x 173.44823pt.
-[9 <./main_text_files/figure-latex/News articles sample documents-1.pdf>]
-<main_text_files/figure-latex/Top AfD topics-1.pdf, id=328, 469.755pt x 216.81p
+<main_text_files/figure-latex/Top AfD topics-1.pdf, id=321, 469.755pt x 216.81p
 t>
 File: main_text_files/figure-latex/Top AfD topics-1.pdf Graphic file (type pdf)
 
 <use main_text_files/figure-latex/Top AfD topics-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Top AfD topics-1.pdf  use
-d on input line 711.
+d on input line 736.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-[10 <./main_text_files/figure-latex/Press releases sample documents-1.pdf> <./m
-ain_text_files/figure-latex/Top AfD topics-1.pdf>]
-<main_text_files/figure-latex/Top FDP topics-1.pdf, id=349, 469.755pt x 216.81p
+[9 <./main_text_files/figure-latex/News articles sample documents-1.pdf> <./mai
+n_text_files/figure-latex/Press releases sample documents-1.pdf>]
+<main_text_files/figure-latex/Top FDP topics-1.pdf, id=342, 469.755pt x 216.81p
 t>
 File: main_text_files/figure-latex/Top FDP topics-1.pdf Graphic file (type pdf)
 
 <use main_text_files/figure-latex/Top FDP topics-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Top FDP topics-1.pdf  use
-d on input line 744.
+d on input line 769.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-[11 <./main_text_files/figure-latex/Top FDP topics-1.pdf>]
+[10 <./main_text_files/figure-latex/Top AfD topics-1.pdf>] [11 <./main_text_fil
+es/figure-latex/Top FDP topics-1.pdf>]
 <main_text_files/figure-latex/Daily mean cosine similarity - example-1.pdf, id=
-380, 469.755pt x 216.81pt>
+387, 469.755pt x 216.81pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - example-1.pdf
  Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - example-1.pdf>
 
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - example-1.pdf  used on input line 867.
+ity - example-1.pdf  used on input line 892.
 (pdftex.def)             Requested size: 422.7756pt x 195.12718pt.
+
+LaTeX Warning: Command \" invalid in math mode on input line 920.
+
 [12 <./main_text_files/figure-latex/Daily mean cosine similarity - example-1.pd
 f>]
-
-LaTeX Warning: Command \" invalid in math mode on input line 895.
-
 <main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf, 
-id=407, 469.755pt x 216.81pt>
+id=417, 469.755pt x 216.81pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.
 pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.p
 df>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - rd example-1.pdf  used on input line 921.
+ity - rd example-1.pdf  used on input line 945.
 (pdftex.def)             Requested size: 422.7756pt x 195.12718pt.
-[13] [14 <./main_text_files/figure-latex/Daily mean cosine similarity - rd exam
-ple-1.pdf>] [15] [16]
-<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=450, 469.7
+[13 <./main_text_files/figure-latex/Daily mean cosine similarity - rd example-1
+.pdf>] [14] [15]
+<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=451, 469.7
 55pt x 578.16pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity-1.pdf Graphic f
 ile (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity-1.pdf  used on input line 1174.
+ity-1.pdf  used on input line 1173.
 (pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
 <main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf
-, id=451, 469.755pt x 578.16pt>
+, id=452, 469.755pt x 578.16pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-
 1.pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1
 .pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - cutoff value-1.pdf  used on input line 1183.
+ity - cutoff value-1.pdf  used on input line 1182.
 (pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
-[17] [18] [19 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pd
-f>] [20 <./main_text_files/figure-latex/Daily mean cosine similarity - cutoff v
-alue-1.pdf>] [21] [22] (./main_text.aux)
-
-LaTeX Warning: There were undefined references.
-
+[16] [17] [18 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pd
+f>] [19 <./main_text_files/figure-latex/Daily mean cosine similarity - cutoff v
+alue-1.pdf>] [20] [21] (./main_text.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main_text.out' has not changed.
-(rerunfilecheck)             Checksum: C130EADD12DCFCF50AE4798DABC793D5;2825.
+(rerunfilecheck)             Checksum: EB375F678A2BF9D611E05E4B9BD06429;2832.
  ) 
 Here is how much of TeX's memory you used:
- 10942 strings out of 480971
- 164213 string characters out of 5906778
- 515452 words of memory out of 5000000
- 27775 multiletter control sequences out of 15000+600000
- 481409 words of font info for 84 fonts, out of 8000000 for 9000
+ 13848 strings out of 480796
+ 216157 string characters out of 5903864
+ 572970 words of memory out of 5000000
+ 30784 multiletter control sequences out of 15000+600000
+ 477250 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,11n,74p,4253b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,12n,79p,4259b,468s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 }{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Us
 ers/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/f
 ranzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/fr
 anzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</Users/franzi
-low/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/franzil
-ow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/franzilo
-w/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/franzilow
-/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></Users/franzilow/L
-ibrary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/franzilow/Lib
-rary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></Users/franzilow/Lib
-rary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/franzilow/Libra
-ry/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/franzilow/Library
-/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/franzilow/Library/T
-inyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></Users/franzilow/Library/Tiny
-TeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/franzilow/Library/TinyTeX
-/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/franzilow/Library/TinyTeX/te
-xmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/franzilow/Library/TinyTeX/texmf
--dist/fonts/type1/public/lm/lmri10.pfb></Users/franzilow/Library/TinyTeX/texmf-
-dist/fonts/type1/public/lm/lmri8.pfb></Users/franzilow/Library/TinyTeX/texmf-di
-st/fonts/type1/public/lm/lmsy10.pfb></Users/franzilow/Library/TinyTeX/texmf-dis
-t/fonts/type1/public/lm/lmsy7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/
-fonts/type1/public/lm/lmtt10.pfb>
-Output written on main_text.pdf (22 pages, 2080770 bytes).
+low/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/franzil
+ow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></Users/franzilow
+/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/franzilow/
+Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></Users/franzilow/Li
+brary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/franzilow/Libr
+ary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></Users/franzilow/Libr
+ary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/franzilow/Librar
+y/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/franzilow/Library/
+TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/franzilow/Library/Ti
+nyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/franzilow/Library/TinyT
+eX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/franzilow/Library/TinyTeX/
+texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/franzilow/Library/TinyTeX/tex
+mf-dist/fonts/type1/public/lm/lmri10.pfb></Users/franzilow/Library/TinyTeX/texm
+f-dist/fonts/type1/public/lm/lmsy10.pfb></Users/franzilow/Library/TinyTeX/texmf
+-dist/fonts/type1/public/lm/lmsy7.pfb></Users/franzilow/Library/TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on main_text.pdf (21 pages, 1963151 bytes).
 PDF statistics:
- 639 PDF objects out of 1000 (max. 8388607)
- 559 compressed objects within 6 object streams
- 139 named destinations out of 1000 (max. 500000)
+ 632 PDF objects out of 1000 (max. 8388607)
+ 555 compressed objects within 6 object streams
+ 142 named destinations out of 1000 (max. 500000)
  209 words of extra memory for PDF output out of 10000 (max. 10000000)
 
