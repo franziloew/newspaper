@@ -66,7 +66,7 @@ theme_update(axis.text = element_text(size = 8),
              axis.title = element_text(size=10))
 ```
 
-# Introduction
+# I Introduction
 
 In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence that supports the accusation of biased media reporting, especially during election campaigns. 
 
@@ -80,9 +80,15 @@ However, the causal relationship between reporting and voter preferences is not 
 In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content - be it audio, video or text content. Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
 Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties using a linear regression model.
 
+The figure below gives a high level overview of the research method: 
+1. in section III: explain which data is used and how the text is processed in order to use it as input for the structural topic model. 
+2. in section IV: explains how the cosine similarity between documents is calculated using the output of the structural topic model
+3. in section V: model estimation 
+
+![High level overview](../figs/high_level_overview.png)
 <!-- To Do: Point out distribution to research -->
 
-# Background information
+# II Background information
 
 ## The political situation in Germany (June 2017 - March 2018)
 The articles analyzed in this paper cover a period from June 1, 2017 to March 1, 2018 and thus cover both the most important election campaign topics for the Bundestag elections on September 24, 2017 and the process of forming a government that lasted until February 2018. After four years in a grand coalition with the Social Democrats (SPD), German Chancellor Angela Merkel, member of the conservative party CDU/CSU (also known as Union), ran for re-election. The SPD nominated Martin Schulz as their candidate.
@@ -189,7 +195,7 @@ p1
 p2
 ```
 
-# Data
+# III Text data
 I conduct the estimation on a sample of 18,757 online news articles from the seven German news providers described in the previous section ^[Bild.de, DIE WELT, FOCUS ONLINE, SPIEGEL ONLINE, stern.de, ZEIT ONLINE, Handelsblatt] about domestic politics and press releases of the seven parties that have been in the Bundestag since the 2017 federal elections^[CDU, SPD, B90/Grüne, FDP, AfD, Die Linke]. Both news articles and press releases are dated from June 1, 2017 to March 1, 2018.
 
 <!-- News articles -->
@@ -272,7 +278,7 @@ model_df %>%
 <!-- text length -->
 \autoref{tab:textlength} illustrates that on average, news articles are longer than the parties' press releases.^[News articles with less than 120 words were filtered out in advance, as these were mostly reader comments. Similarly press releases with less than 100 words were filtered out.] While for news articles the average is between 394 (FOCUS Online) and 590 (Handelsblatt), with press releases the range is between 162 (FDP) and 275 (CDU). The article with the most words (14.507) was published by DIE WELT - the longest press release has 1.048 words and was published by DIE LINKE.
 
-## Data preparation
+## Text pre-processing
 
 To use text as data for statistical analysis, different pre-processing steps have to be conducted. In fact, in order to use text as data and reduce the dimensionality to avoid unnecessary computational complexity and overfitting, pre-processsing the text is a central task in text mining (@gentzkow_text_2017, @bholat_text_2015). Intuitively the term frequency (tf) of a word is a measure of how important that word may be for the understanding of the text. To visualize these terms, word clouds are a commonly used technique in text mining as they translate the tf into the size of the term in the cloud. As can be seen in \autoref{fig:wordcloud1}, problems arise with words that are highly frequent. For example "die", or "der" (eng. "the"), "und" (eng.  "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. These terms, often called stop words [@gentzkow_text_2017], are important to the grammatical structure of a text, but typically don't add any additional meaning and can therefore be neglected. 
 
@@ -319,7 +325,7 @@ dtm[sample(nrow(dtm),10), sample(ncol(dtm),7)] %>%
                 full_width = F)
 ```
 
-# Estimate topic similarity of documents
+# IV Estimate topic similarity of documents
 
 ## A structural topic model to identify the latent topics
 
@@ -346,8 +352,6 @@ stmModel$settings$call
 ```
 
 In general inference of mixed-membership models, such as the one applied in this paper, has been a thread of research in applied statistics [@blei_latent_2003, @erosheva_mixed-membership_2004, @braun_variational_2010]. Topic models are usually imprecise as the function to be optimized has multiple modes, such that the model results can be sensitive to the starting values (e.g. the number of topics and the covariates influencing the prior distributions). Since an ex ante valuation of a model is hardly possible, I compute a variety of different models and compare their posterior probability. This enables me to check how results vary for different model specifications [@roberts_navigating_2016]. I then cross-checked some subset of assigned topic distributions to evaluate whether the estimates align with the concept of interest [@gentzkow_text_2017]. 
-
-<!--Show results of the stm -->
 
 ## Results of the STM
 ```{r Prepare dataframes}
@@ -474,7 +478,7 @@ p3 <- plot_topic_distr_time(39, source_filter) + labs(title = NULL)
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
 
-## Document Cosine similarity 
+## Cosine similarity 
 
 ```{r Create matrix of topic distribution }
 td_gamma <- tidy(stmModel,
@@ -587,7 +591,7 @@ temp_df %>%
                 full_width = F)
 ```
 
-# Model estimations
+# V Model estimations
 
 ```{r Plot data & estimate models}
 # ----------------------------
@@ -794,7 +798,7 @@ General interpretation:
 
 The results show, that for some news papers (*DIE WELT* & *Bild.de*), the there is a significant change in the topic similarity between their news articles and the press releases of parties. 
 
-# Discussion and conclusion
+# VI Discussion and conclusion
 
 This paper investigates whether political reporting of news papers is similar for all political parties. Results show, that the news articles of all news papers (except for *Handelsblatt*) are significantly more similar to press releases of the AfD than any other party.
 

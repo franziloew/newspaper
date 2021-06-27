@@ -132,8 +132,8 @@
 \begin{document}
 \maketitle
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\hypertarget{i-introduction}{%
+\section{I Introduction}\label{i-introduction}}
 
 In democracies, the media fulfill fundamental functions: They should
 inform the people, contribute to the formation of opinion through
@@ -250,8 +250,10 @@ the degree of difference between the news articles of different media
 providers and the press releases of the parties using a linear
 regression model.
 
-\hypertarget{background-information}{%
-\section{Background information}\label{background-information}}
+\includegraphics{../figs/high_level_overview.png}
+
+\hypertarget{ii-background-information}{%
+\section{II Background information}\label{ii-background-information}}
 
 \hypertarget{the-political-situation-in-germany-june-2017---march-2018}{%
 \subsection{The political situation in Germany (June 2017 - March
@@ -362,8 +364,8 @@ media used for the analysis play a relevant role in their consumption.
 \caption{Selected german news brands \label{fig:news_market}}\label{fig:unnamed-chunk-1}
 \end{figure}
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+\hypertarget{iii-text-data}{%
+\section{III Text data}\label{iii-text-data}}
 
 I conduct the estimation on a sample of 18,757 online news articles from
 the seven German news providers described in the previous
@@ -451,8 +453,8 @@ between 162 (FDP) and 275 (CDU). The article with the most words
 (14.507) was published by DIE WELT - the longest press release has 1.048
 words and was published by DIE LINKE.
 
-\hypertarget{data-preparation}{%
-\subsection{Data preparation}\label{data-preparation}}
+\hypertarget{text-pre-processing}{%
+\subsection{Text pre-processing}\label{text-pre-processing}}
 
 To use text as data for statistical analysis, different pre-processing
 steps have to be conducted. In fact, in order to use text as data and
@@ -542,26 +544,26 @@ is disregarded.
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
-  & betreibt & bedeutung & erstmals & putschversuch & gegangen & kontrollieren & castor\\
+  & kommune & stickoxid & künast & staatsbürgerschaft & holm & abschluss & spürbar\\
 \midrule
-\cellcolor{gray!6}{12788} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-16034 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{6953} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-16394 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{16620} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\cellcolor{gray!6}{10562} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+5920 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{1957} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{2} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+13484 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{15418} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
 \addlinespace
-14203 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{15551} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-5333 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{18667} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-10532 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+15988 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{15913} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+3600 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{6201} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{2} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+17176 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\hypertarget{estimate-topic-similarity-of-documents}{%
-\section{Estimate topic similarity of
-documents}\label{estimate-topic-similarity-of-documents}}
+\hypertarget{iv-estimate-topic-similarity-of-documents}{%
+\section{IV Estimate topic similarity of
+documents}\label{iv-estimate-topic-similarity-of-documents}}
 
 \hypertarget{a-structural-topic-model-to-identify-the-latent-topics}{%
 \subsection{A structural topic model to identify the latent
@@ -808,9 +810,8 @@ negotiations.
 \caption{Comparison of topic probability - sample topics FDP \label{fig:sample_topics_fdp}}\label{fig:Top FDP topics}
 \end{figure}
 
-\hypertarget{document-cosine-similarity}{%
-\subsection{Document Cosine
-similarity}\label{document-cosine-similarity}}
+\hypertarget{cosine-similarity}{%
+\subsection{Cosine similarity}\label{cosine-similarity}}
 
 Next, the cosine similarity measure is used in order to compare the
 retrieved topic distribution of documents. Cosine similarity is a
@@ -878,11 +879,11 @@ data for DIE WELT.
 \toprule
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
 \midrule
-\cellcolor{gray!6}{Groko: Durchbruch...} & \cellcolor{gray!6}{Bernd Baumann: Di...} & \cellcolor{gray!6}{0.03} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-01-12} & \cellcolor{gray!6}{2018-01-07}\\
-Asylverfahren: De... & Gedenken an Hiros... & 0.14 & DIE WELT & B90/GRÜNE & 2017-08-10 & 2017-08-04\\
-\cellcolor{gray!6}{Seehofer zu GroKo...} & \cellcolor{gray!6}{Götz Frömming:  A...} & \cellcolor{gray!6}{0.08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-02-09} & \cellcolor{gray!6}{2018-02-06}\\
-Grüne: „Ehe für a... & Koalition stärkt... & 0.35 & DIE WELT & CDU & 2017-06-20 & 2017-06-16\\
-\cellcolor{gray!6}{ARD-Format: Polit...} & \cellcolor{gray!6}{Paul Hampel: BIBB...} & \cellcolor{gray!6}{0.28} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-08-22} & \cellcolor{gray!6}{2017-08-22}\\
+\cellcolor{gray!6}{Grünen-Streit: Ex...} & \cellcolor{gray!6}{Werbeverbot für ...} & \cellcolor{gray!6}{0.23} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{2017-12-18} & \cellcolor{gray!6}{2017-12-13}\\
+Martin Schulz war... & Alice Weidel: Jam... & 0.51 & DIE WELT & AfD & 2017-11-13 & 2017-11-07\\
+\cellcolor{gray!6}{Jamaika-Sondierun...} & \cellcolor{gray!6}{Ausverkauf von V...} & \cellcolor{gray!6}{0.10} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{2017-11-13} & \cellcolor{gray!6}{2017-11-09}\\
+AfD: Nach "Hochof... & Freibetrag bei G... & 0.04 & DIE WELT & FDP & 2018-02-09 & 2018-02-06\\
+\cellcolor{gray!6}{Zu hohe Zuwanderu...} & \cellcolor{gray!6}{Soziale Sicherhei...} & \cellcolor{gray!6}{0.27} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{B90/GRÜNE} & \cellcolor{gray!6}{2017-10-11} & \cellcolor{gray!6}{2017-10-09}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -900,17 +901,17 @@ Next, the mean cosine similarity for each news article publication date
 \toprule
 date1 & source1 & source2 & cos\_sim\\
 \midrule
-\cellcolor{gray!6}{2017-12-28} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{0.13}\\
-2017-06-30 & DIE WELT & FDP & 0.23\\
-\cellcolor{gray!6}{2017-12-22} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.15}\\
-2017-06-27 & DIE WELT & B90/GRÜNE & 0.09\\
-\cellcolor{gray!6}{2017-06-20} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.12}\\
+\cellcolor{gray!6}{2017-09-25} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.10}\\
+2017-08-09 & DIE WELT & SPD & 0.06\\
+\cellcolor{gray!6}{2017-08-11} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.22}\\
+2017-07-01 & DIE WELT & SPD & 0.06\\
+\cellcolor{gray!6}{2017-09-14} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{0.13}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\hypertarget{model-estimations}{%
-\section{Model estimations}\label{model-estimations}}
+\hypertarget{v-model-estimations}{%
+\section{V Model estimations}\label{v-model-estimations}}
 
 To get a first idea of the trend of the data over time, the mean cosine
 similarity between the news articles and each parties press releases
@@ -1107,8 +1108,9 @@ The results show, that for some news papers (\emph{DIE WELT} \&
 similarity between their news articles and the press releases of
 parties.
 
-\hypertarget{discussion-and-conclusion}{%
-\section{Discussion and conclusion}\label{discussion-and-conclusion}}
+\hypertarget{vi-discussion-and-conclusion}{%
+\section{VI Discussion and
+conclusion}\label{vi-discussion-and-conclusion}}
 
 This paper investigates whether political reporting of news papers is
 similar for all political parties. Results show, that the news articles
@@ -1156,7 +1158,7 @@ AfD & afd.de & afdbundestag.de \\
 
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
 University. E-mail: hlavac at fas.harvard.edu \% Date and time: So, Jun
-20, 2021 - 20:15:07
+27, 2021 - 08:45:04
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 
