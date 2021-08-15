@@ -103,6 +103,7 @@ After the failure of the Jamaica coalition talks, a possible re-election or a mi
 
 ```{r election polls, fig.cap= "Election polls during the period under review \\label{fig:election_polls}", out.width="50%", fig.height=4}
 load("../data/polldata.Rda")
+parties <- c("AfD","CDU/CSU","FDP","B90/GRÜNE","DIE LINKE","SPD")
 
 df.plot <- df.small %>%
   filter(date > as.Date("2017-06-01")) %>%
@@ -120,7 +121,7 @@ ggplot(df.plot) +
              alpha = 0.6, size = 0.4) +
   geom_line(aes(date, ma, color = party), size = 0.8) +
   geom_vline(xintercept = as.Date("2017-09-24"), linetype=2) +
-  scale_color_manual(values = custom_colors) +
+  scale_color_manual(values = custom_colors[parties]) +
   scale_x_date(date_breaks = "1 month", labels = date_format("%m-%Y")) +
   labs(x=NULL,y=NULL,color=NULL) +
   theme(axis.text.x = element_text(angle = 45))
@@ -601,7 +602,7 @@ cosine_distances_df <- df_prep_ols(welt)
 welt_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 welt_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 welt_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
-welt_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+welt_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 welt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 
 target_source <- "stern.de"
@@ -610,7 +611,7 @@ cosine_distances_df <- df_prep_ols(stern)
 stern_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 stern_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 stern_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
-stern_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+stern_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 stern_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 
 target_source <- "ZEIT ONLINE"
@@ -619,7 +620,7 @@ cosine_distances_df <- df_prep_ols(zeit)
 zeit_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 zeit_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 zeit_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
-zeit_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+zeit_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 zeit_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 
 target_source <- "Handelsblatt"
@@ -628,7 +629,7 @@ cosine_distances_df <- df_prep_ols(handelsblatt)
 handelsblatt_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 handelsblatt_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 handelsblatt_model <- calc_ols_dummy(cosine_distances_df)
-handelsblatt_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+handelsblatt_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 handelsblatt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 
 target_source <- "FOCUS Online"
@@ -637,7 +638,7 @@ cosine_distances_df <- df_prep_ols(focus)
 focus_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 focus_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 focus_model <- calc_ols_dummy(cosine_distances_df)
-focus_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+focus_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 focus_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 
 target_source <- "Bild.de"
@@ -646,7 +647,7 @@ cosine_distances_df <- df_prep_ols(bild)
 bild_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 bild_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 bild_model <- calc_ols_dummy(cosine_distances_df)
-bild_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+bild_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 bild_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 
 target_source <- "SPIEGEL ONLINE"
@@ -655,7 +656,7 @@ cosine_distances_df <- df_prep_ols(spiegel)
 spiegel_p <- plot_cosine_sim_ols(cosine_distances_df, target_source)
 spiegel_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source)
 spiegel_model <- calc_ols_dummy(cosine_distances_df)
-spiegel_model1 <- calc_rd_dummy(cosine_distances_df, target_source) # estimate rd I
+spiegel_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
 spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
 ```
 
@@ -673,10 +674,10 @@ handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
 To measure whether there is a significant difference in the topic similarity for each party for a news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{i})$) on day $i$ between the news articles of that news publisher and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
 
 $$
-\ln(\text{CS}_{i})=\beta_0+\beta_nD_{i,k-1}+\epsilon_i\text{,}
+\ln(\text{CS}_{t})=\beta_0+\beta_nD_{t,k-1}+\epsilon_t\text{,}
 $$ 
 
-with $i$ = date^[date1 in \autoref{table:dataset_structure_final}], $k$ = political party^[source2 in \autoref{table:dataset_structure_final}]
+with $t$ = date^[date1 in \autoref{table:dataset_structure_final}], $k$ = political party^[source2 in \autoref{table:dataset_structure_final}]
 
 \autoref{table:results_ols} display the result of that estimation. Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ is $-0.2067$, a switch from from 0 to 1 can be interpreted as a 21% decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. Or, in other words: Compared to AfD, the similarity of topics of DIE WELT and B90/GRÜNE is 21% lower. In general, for all news papers (except for Handelsblat) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD.
 
@@ -706,12 +707,13 @@ cat(table)
 
 ## Regression discontinuity model
 
-We assume that news paper report differently during election campaigns and that the election day introduces a change in the reporting. The assumption, that news papers report differently before elections (during election campaigns) coincides with the basic idea of regression discontinuity design (RDD). Therefore, a RDD is applied to identify the short-term effect of the election on the topic similarity between news paper articles and press releases.
-The RDD was designed by @thistlethwaite_regression-discontinuity_1960 and formalized by @hahn_identification_2001 to measure the effect of a treatment in a nonexperimental setting, where the treatment defined as discontinuous function of a continuous, observed variable (the 'running' or 'forcing' variable). Like @thistlethwaite_regression-discontinuity_1960, who estimated the effect of receiving the National Merit Scholarship on future academic outcomes, early studies that rely on RD designs estimate the effects of certain thresholds of a running variable on educational outcomes (i.e. financial aid (@van_der_klaauw_estimating_2002) or class size (@angrist_using_1999)). Following these early studies in the area of education, the RDD has received attention in a wider range of the economic literature, including labor economics, political economy, health economics, and environmental economics. Compared to alternative quasi-experimental estimators like difference-in-difference and matching techniques, RDD is considered as the estimator with the greatest internal validity (@lee_regression_2010).
+We assume that news publisher report differently during election campaigns and that the election day introduces a change in the reporting. The underlying dynamic of this assumption coincides with the basic idea of regression discontinuity design (RDD). Therefore, a RDD is applied to identify the short-term effect of the election on the topic similarity between news paper articles and press releases.
+The RDD was designed by @thistlethwaite_regression-discontinuity_1960 and formalized by @hahn_identification_2001 to measure the effect of a treatment in a nonexperimental setting, where the treatment defined as discontinuous function of a continuous, observed variable (the 'running' or 'forcing' variable). Like @thistlethwaite_regression-discontinuity_1960, who estimated the effect of receiving the National Merit Scholarship on future academic outcomes, early studies that rely on RD designs estimate the effects of certain thresholds of a running variable on educational outcomes (i.e. financial aid (@van_der_klaauw_estimating_2002) or class size (@angrist_using_1999)). Following these early studies in the area of education, the RDD has received attention in a wider range of the economic literature, including labor economics, political economy, health economics, and environmental economics. Compared to alternative quasi-experimental estimators like difference-in-difference and matching techniques, RDD is considered as the estimator with the greatest internal validity (@lee_regression_2010). While RDD was originally applied in cross-sectional studies, an increasing number of studies, especially in the field of environmental and energy economics, has adapted the framework to time series applications.\footnote{See @hausman_regression_2018 for examples of this regression discontinuity in time (RDiT).} In these studies, time is the running variable and treatment begins at a particular threshold in time. 
+An important conceptual difference between RD and RDiT exists in the possible interpretation. The fact that in RDiT the running variable of time is not random eliminates the interpretation of local randomization in which it is assumed that treatment status within a small neighborhood around the threshold can essentially be compared to a roll of the dice. As noted by @jacob_practical_2012, although some researchers have focused on this interpretation of local randomization (@lee_regression_2010), others have instead emphasized RD characterized by discontinuity at a threshold (@hahn_identification_2001). Thus, to the extent that the RD framework is simply another quasi-experimental framework (one that uses discontinuity), RDiT is conceptually similar to RD.
 
-In our model, the running variable $W$ is the time difference between date $i$ and the election date (in days) and the cutoff point $c$ is the election day. We use a sharp RDD, where the probability that an individual receives a treatment jumps from 0 to 1 at the cutoff (i.e. at the threshold $W_i = c$).\footnote{In the other design - the fuzzy RDD - the probability that an individual receives a treatment increases discontinuously from a to b (where $0 <a < b < 1$) at the threshold $W_i = c$.}
+In this paper date is the running variable, the election day is the treatment and news publishers are the units that receive the treatment. Since the running variable (date) completely determines the treatment (election day), we use a sharp regression design, such that the probability that a news publisher receives a treatment jumps from 0 to 1 at the cutoff.
 
-The visual representation of the treatment effect for the two sample new publisher Handelsblatt and Bild.de in \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic similarity for Handelsblatt decreases after the election for CDU, FDP and B90/Grüne. A less clear to no effect can be seen for SPD, DIE LINKE and AfD. In contrast, the treatment effect at Bild.de seems to exist only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
+The visual representation of the treatment effect for two sample news publisher Handelsblatt and Bild.de in \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic similarity for Handelsblatt decreases after the election for CDU, FDP and B90/Grüne. A less clear to no effect can be seen for SPD, DIE LINKE and AfD. In contrast, the treatment effect at Bild.de seems to exist only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
 
 ```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
 handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
@@ -719,23 +721,68 @@ handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
   plot_layout(ncol = 1)
 ```
 
-In order to statistically evaluate this observations, for each news paper the following model is estimated.
+In order to statistically evaluate these observations, two model specifications are estimated for each news publisher: (1) First, a simple regression discontinuity specification is estimated followed by (2) a specification that includes dummy variables for parties to check for differences in news publisher - party pairs.
+
+### Regression Discontinuity (RD) specification
+
+*Todo:* 
+- Define bandwidth
+- Write interpretation
+- use r package for estimation (?)
+
+A RD design is used to estimate the effects of the election day. Specifically, I estimate the equation
 
 $$
-\ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+f(W_t)+\epsilon_t
 $$
 where
 
 $$
-T_i = 
+T_t = 
 \begin{cases}
 1, & \text{ if date } \geq \text{election date} \\
 0, & \text{ if date } < \text{election date}
 \end{cases}
 $$
-such that the receipt of treatment $T_i$ is determined by the threshold $c$ (election day) of the continuous (running) variable $W_i$ and $\beta_1$ is the average treatment effect for observations with $W_i = c$. In other words, $\beta_1$ gives the average change of the similarity between the content of news articles and press releases after the election day.
+and the running variable $W_t$ is the time difference between date $i$ and the election date (in days), such that $\beta_1$ is the average treatment effect for observations with $W_t = \text{election date}$. In other words, $\beta_1$ gives the average change of the similarity between the content of news publisher and press releases after the election day. Identification in the RD model comes from assuming that the underlying, potentially endogenous relationship between $\epsilon_t$ and the date is eliminated by the flexible function $f(.)$. In particular, the relationship between $\epsilon_t$ and the date must not change discontinuously on or near the election date. 
 
-Including interaction terms $T_iD_{i,k-1}$ and since we are estimating an isolated model for each newspaper $\beta_4$ gives the average treatment effect for each newspaper/party pair (i.e. how how much the slope changes for each party).
+Following @imbens_regression_2008 I estimate a local linear regression of the form:
+
+$$
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_t+\beta_3W_t*T_t+\epsilon_t
+$$
+
+In this specification, the function $f(W_t)$ is specified as $\beta_2W_t+\beta_3W_t*T_t$.
+
+\autoref{table:results_rd1} shows the results of the estimation.
+
+```{r Model results RDD wihout dummies, results='asis'}
+table <- capture.output({
+  stargazer::stargazer(welt_model1, stern_model1, zeit_model1, handelsblatt_model1,
+                     focus_model1, bild_model1, spiegel_model1,
+                     column.labels = c("DIE WELT", "stern.de", "ZEIT ONLINE", "Handelsblatt","FOCUS Online", "Bild.de", "SPIEGEL ONLINE"),
+                     dep.var.labels = paste0("Cosine similarity of topic distribution"), 
+                     digits = 3, type = "latex",
+                     header = FALSE,
+                     label = "table:results_rd1",
+                     title = "Results from the regression discontinuity model")
+})
+
+table <- gsub("\\begin{tabular}","\\resizebox{0.99\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
+table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
+cat(table)
+```
+
+### RD model with dummies
+
+*Todo:* 
+- Define why we need the interaction term between treatment + dummy (find literature!)
+
+Including interaction terms $T_iD_{i,k-1}$ - and since we are estimating an isolated model for each newspaper - $\beta_4$ gives the average treatment effect for each newspaper/party pair (i.e. how how much the slope changes for each party).
+
+$$
+\ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
+$$
 
 ```{r Model results with interaction terms, results='asis'}
 table <- capture.output({
@@ -745,7 +792,7 @@ table <- capture.output({
                      dep.var.labels = paste0("Cosine similarity of topic distribution"), 
                      digits = 3, type = "latex",
                      header = FALSE,
-                     label = "table:results_rd",
+                     label = "table:results_rd2",
                      title = "Results from the regression discontinuity model")
 })
 
@@ -755,7 +802,7 @@ cat(table)
 ```
 
 <!-- Interpretation -->
-Example interpretation for *Bild.de* (see \autoref{table:results_rd})
+Example interpretation for *Bild.de* (see \autoref{table:results_rd2})
 
 The coefficient $\beta_4$ for $D_{SPD} = 1$ shows the difference of the treatment effect for SPD. To illustrate this, we can compare the model equation for $D_{SPD} = 1$ and $D_{SPD} = 0$ 
 

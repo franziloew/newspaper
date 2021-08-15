@@ -38,7 +38,7 @@ plot_topic_distr_time <- function(topic_filter, source_filter_array) {
     ylim(c(0,0.35)) +
     geom_line(size = 0.3) +
     geom_vline(xintercept = election_date, linetype = 'dashed', size = 0.3) +
-    scale_color_manual(values = custom_colors) +
+    scale_color_manual(values = custom_colors[source_filter]) +
     scale_x_date(date_breaks = "1 month", labels = date_format("%m-%Y")) +
     labs(x = NULL, y = 'Topic proportion', 
          title = NULL,
@@ -185,6 +185,17 @@ transform_coeff_ols <- function(coeff) {
 ##########################################
 ### Calculate regression discontinuity ###
 ##########################################
+### Simple RDD (no dummy)
+calc_rd <- function(dataframe, target_source) { 
+  temp_df <- dataframe %>%
+    mutate(
+      X_centered = I(date1 - election_date),
+      treated = date1 >= election_date)
+  
+  model_outcome <- temp_df %$%
+    lm(log(cos_sim) ~ treated * X_centered)
+}
+
 ### Dummy
 calc_rd_dummy<- function(dataframe, target_source) { 
   temp_df <- dataframe %>%
