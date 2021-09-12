@@ -247,15 +247,19 @@ Airoldi} (\protect\hyperlink{ref-roberts_model_2016}{2016}) is applied.
 This probabilistic text model results in a probability distribution for
 each document across all topics, which is then aggregated to calculate
 the degree of difference between the news articles of different media
-providers and the press releases of the parties using a linear
-regression model.
+providers and the press releases of the parties.
 
-The figure below gives a high level overview of the research method: 1.
-in section III: explain which data is used and how the text is processed
-in order to use it as input for the structural topic model. 2. in
-section IV: explains how the cosine similarity between documents is
-calculated using the output of the structural topic model 3. in section
-V: model estimation
+The figure below gives a high level overview of the different steps that
+are taken to text data for the analysis. Section III describes the
+sources of data and how text data is processed in order to use it as
+input for the structural topic model. Section IV briefly explains how
+the STM uses this input in order to calculate topic probabilities for
+the different documents and how these probabilities are used to
+calculate the similarity between the documents. In the final section V,
+we use the similarity measures as our dependent variable in a regression
+discontinuity model. In order to set the context, the following section
+II provides an introduction to the political situation in Germany as
+well as the German news market during the time under investigation.
 
 \includegraphics{../figs/high_level_overview.png}
 
@@ -422,7 +426,7 @@ FOCUS ONLINE.
 
 \begin{table}[H]
 
-\caption{\label{tab:table text length}Summary statistics of text length \label{tab:textlength}}
+\caption{\label{tab:table text length}Summary statistics of word counts \label{tab:textlength}}
 \centering
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrr}
@@ -450,15 +454,15 @@ source & n & mean & sd & median & min & max\\
 \end{tabular}
 \end{table}
 
-\autoref{tab:textlength} illustrates that on average, news articles are
-longer than the parties' press releases.\footnote{News articles with
-  less than 120 words were filtered out in advance, as these were mostly
-  reader comments. Similarly press releases with less than 100 words
-  were filtered out.} While for news articles the average is between 394
-(FOCUS Online) and 590 (Handelsblatt), with press releases the range is
-between 162 (FDP) and 275 (CDU). The article with the most words
-(14.507) was published by DIE WELT - the longest press release has 1.048
-words and was published by DIE LINKE.
+\autoref{tab:textlength} illustrates that on average, news articles have
+a higher word count than the parties' press releases.\footnote{News
+  articles with less than 120 words were filtered out in advance, as
+  these were mostly reader comments. Similarly press releases with less
+  than 100 words were filtered out.} While for news articles the average
+is between 394 (FOCUS Online) and 590 (Handelsblatt), with press
+releases the range is between 162 (FDP) and 275 (CDU). The article with
+the most words (14.507) was published by DIE WELT - the longest press
+release has 1.048 words and was published by DIE LINKE.
 
 \hypertarget{text-pre-processing}{%
 \subsection{Text pre-processing}\label{text-pre-processing}}
@@ -551,19 +555,19 @@ is disregarded.
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
-  & lkw & vorläufigen & bringe & streit & meldung & vermitteln & bundestagspräsidenten\\
+  & radikalisierung & auseinandersetzung & definitiv & atommüll & brechen & teils & amerikaner\\
 \midrule
-\cellcolor{gray!6}{4553} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-17827 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{3523} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-16982 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{4051} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\cellcolor{gray!6}{5804} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+2709 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{14655} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+12840 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{10033} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
 \addlinespace
-4466 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\cellcolor{gray!6}{15332} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-1984 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{11404} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-7287 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+17727 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{18713} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+4277 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{9057} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{4} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+12950 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -886,11 +890,11 @@ data for DIE WELT.
 \toprule
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
 \midrule
-\cellcolor{gray!6}{Bundestagswahl 20...} & \cellcolor{gray!6}{Georg Pazderski: ...} & \cellcolor{gray!6}{0.04} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-01-26} & \cellcolor{gray!6}{2018-01-26}\\
-SPD-Kritik an Mer... & Alice Weidel: Imm... & 0.02 & DIE WELT & AfD & 2017-11-28 & 2017-11-28\\
-\cellcolor{gray!6}{Kooperationsverbo...} & \cellcolor{gray!6}{Götz Frömming:  U...} & \cellcolor{gray!6}{0.47} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2018-02-02} & \cellcolor{gray!6}{2018-01-29}\\
-RCDS-Vorsitzender... & JEFTA: Zurück in ... & 0.22 & DIE WELT & B90/GRÜNE & 2017-07-11 & 2017-07-06\\
-\cellcolor{gray!6}{Jeder zweite Deut...} & \cellcolor{gray!6}{DIE LINKE fordert...} & \cellcolor{gray!6}{0.01} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-06-07} & \cellcolor{gray!6}{2017-06-02}\\
+\cellcolor{gray!6}{Der Mensch Helmut...} & \cellcolor{gray!6}{Bundesregierung b...} & \cellcolor{gray!6}{0.03} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-06-18} & \cellcolor{gray!6}{2017-06-12}\\
+Deutschlandtrend:... & Brexit-Verhandlu... & 0.04 & DIE WELT & FDP & 2017-06-15 & 2017-06-09\\
+\cellcolor{gray!6}{Pressestimmen zum...} & \cellcolor{gray!6}{Brauchen endlich...} & \cellcolor{gray!6}{0.02} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{2017-12-03} & \cellcolor{gray!6}{2017-11-30}\\
+Umfrageverlierer ... & Anerkennungsgeset... & 0.12 & DIE WELT & SPD & 2017-06-11 & 2017-06-07\\
+\cellcolor{gray!6}{Beate Zschäpe: Ge...} & \cellcolor{gray!6}{Tanz auf dem Vulkan} & \cellcolor{gray!6}{0.01} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-07-11} & \cellcolor{gray!6}{2017-07-05}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -908,45 +912,37 @@ Next, the mean cosine similarity for each news article publication date
 \toprule
 date1 & source1 & source2 & cos\_sim\\
 \midrule
-\cellcolor{gray!6}{2017-12-04} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.09}\\
-2017-06-16 & DIE WELT & SPD & 0.19\\
-\cellcolor{gray!6}{2018-01-15} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{0.20}\\
-2017-07-30 & DIE WELT & B90/GRÜNE & 0.13\\
-\cellcolor{gray!6}{2017-09-26} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.07}\\
+\cellcolor{gray!6}{2017-08-04} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.09}\\
+2017-07-04 & DIE WELT & CDU & 0.18\\
+\cellcolor{gray!6}{2017-06-14} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.13}\\
+2017-12-30 & DIE WELT & DIE LINKE & 0.20\\
+\cellcolor{gray!6}{2017-08-24} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.13}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\hypertarget{v-model-estimations}{%
-\section{V Model estimations}\label{v-model-estimations}}
+\hypertarget{v-regression-model}{%
+\section{V Regression model}\label{v-regression-model}}
 
-To get a first idea of the trend of the data over time, the mean cosine
-similarity between the news articles and each parties press releases
-conditional on the day can be plotted.
-\autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for
-Handelsblatt and Bild.de (See \autoref{fig:mean_cosine_sim_ols} for all
-news papers). Based on these figures, a few observations can be made.
-The similarity with the FDP, e.g., seems to increase over time for both
-Handelsblatt and Bild.de. In the case of Bild.de, this applies to all
-parties, except for the AfD, where a slight downward trend is
-discernible.
+In order to find out if the similarity between press releases and news
+articles is different for certain party-news publisher pairs and/or
+change over time, the cosine similarity measure from the previous
+section is used as the dependent variable in a regression model.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - example-1} 
-
-}
-
-\caption{Log of daily mean cosine similarity between newspaper/press articles pairs \label{fig:mean_cosine_sim_ols_example}}\label{fig:Daily mean cosine similarity - example}
-\end{figure}
+Three different model specifications are estimated for each news
+publisher: (1) First, a OLS regression is estimated including party
+dummies. (2) Second, a simple regression discontinuity specification is
+estimated (without dummies) followed by (2) a specification that
+includes dummy variables for parties to check for differences in news
+publisher/party pairs.
 
 \hypertarget{ols-dummy-regression}{%
 \subsection{OLS dummy regression}\label{ols-dummy-regression}}
 
 To measure whether there is a significant difference in the topic
 similarity for each party for a news publisher, a simple OLS regression
-is estimated, where the similarity score (\(\ln(\text{CS}_{i})\)) on day
-\(i\) between the news articles of that news publisher and the press
+is estimated, where the similarity score (\(\ln(\text{CS}_{t})\)) on day
+\(t\) between the news articles of that news publisher and the press
 releases of a political party \(k\) is the dependent variable and the
 political party dummies are the independent variables.
 
@@ -958,17 +954,61 @@ with \(t\) = date\footnote{date1 in
   \autoref{table:dataset_structure_final}}, \(k\) = political
 party\footnote{source2 in \autoref{table:dataset_structure_final}}
 
-\autoref{table:results_ols} display the result of that estimation. Since
-the dependent variable is log transformed, the the \% impact of \(D\) on
-\(Y\) can be estimated as \(exp(\beta)-1\). E.g. since the transformed
-coefficient for \(D_{B90/GRÜNE}\) is \(-0.2067\), a switch from from 0
-to 1 can be interpreted as a 21\% decrease of topic similarity for
-B90/GRÜNE compared to AfD (the base dummy group), holding everything
-else equal. Or, in other words: Compared to AfD, the similarity of
-topics of DIE WELT and B90/GRÜNE is 21\% lower. In general, for all news
-papers (except for Handelsblat) the topic similarity is significantly
-less between the news articles of that news paper and press releases of
-political parties when compared to press releases of the AfD.
+\hypertarget{ols-dummy-results}{%
+\subsubsection{OLS dummy results}\label{ols-dummy-results}}
+
+\autoref{fig:mean_cosine_sim_ols_example} plots the mean cosine
+similarity between the news articles and each parties press releases
+over time for Handelsblatt and Bild.de (See
+\autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these
+figures, a few observations can be made. The similarity with the FDP,
+e.g., seems to increase over time for both Handelsblatt and Bild.de. In
+the case of Bild.de, this applies to all parties, except for the AfD,
+where a slight downward trend is discernible.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/Daily mean cosine similarity - example-1} 
+
+}
+
+\caption{Log of daily mean cosine similarity between newspaper/press articles pairs \label{fig:mean_cosine_sim_ols_example}}\label{fig:Daily mean cosine similarity - example}
+\end{figure}
+
+The columns in \autoref{table:results_ols} report the results for each
+new publisher.\footnote{All regression output tables are created using
+  \protect\hyperlink{ref-hlavac_stargazer_2018}{Hlavac}
+  (\protect\hyperlink{ref-hlavac_stargazer_2018}{2018})} Since the
+dependent variable is log transformed, the the \% impact of \(D\) on
+\(Y\) can be estimated as \(exp(\hat\beta)-1\). E.g. since the
+transformed coefficient for \(D_{B90/GRÜNE}\) in the first column -
+representing the model for DIE WELT - is \(-0.232\), a switch from from
+0 to 1 can be interpreted as a \(20.6%
+\) decrease of topic similarity for B90/GRÜNE compared to AfD (the base
+dummy group), holding everything else equal. In other words: Compared to
+AfD, the similarity of topics of DIE WELT and B90/GRÜNE is \(20.6%
+\) lower. \autoref{fig:coeff_ols_dummy} plots the transformed
+coefficients for all news paper / party pairs (insignifcant coefficients
+are shown with a low opacity). In general, for all news papers - except
+for Handelsblatt - the topic similarity is significantly less between
+the news articles of that news paper and press releases of political
+parties when compared to press releases of the AfD. The biggest
+difference for all parties exist for Bild.de followed by FOCUS ONLINE
+and DIE WELT. In the case of Handelsblatt not significant difference can
+be found for CDU/CSU, B90/GRÜNE and SPD (compared to AfD). However, the
+positive coefficients of FDP and DIE LINKE indicate, that the topics
+discussed in press releases of these parties and the articles of
+Handelsblatt are significantly similar when compared to the press
+releases of the AfD.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/Plot coefficients - simple dummy-1} 
+
+}
+
+\caption{Coefficients of OLS dummy regression \label{fig:coeff_ols_dummy}}\label{fig:Plot coefficients - simple dummy}
+\end{figure}
 
 \begin{table}[!htbp] \centering    \caption{Results from the OLS model}    \label{table:results_ols}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   source2B90/GRÜNE & $-$0.232$^{***}$ & $-$0.237$^{***}$ & $-$0.220$^{***}$ & 0.033 & $-$0.297$^{***}$ & $-$0.319$^{***}$ & $-$0.202$^{***}$ \\    & (0.036) & (0.045) & (0.057) & (0.050) & (0.038) & (0.055) & (0.045) \\    & & & & & & & \\   source2CDU & $-$0.274$^{***}$ & $-$0.207$^{***}$ & $-$0.280$^{***}$ & $-$0.003 & $-$0.300$^{***}$ & $-$0.347$^{***}$ & $-$0.240$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   source2DIE LINKE & $-$0.268$^{***}$ & $-$0.140$^{***}$ & $-$0.197$^{***}$ & 0.078$^{*}$ & $-$0.290$^{***}$ & $-$0.272$^{***}$ & $-$0.208$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.042) \\    & & & & & & & \\   source2FDP & $-$0.247$^{***}$ & $-$0.139$^{***}$ & $-$0.201$^{***}$ & 0.080$^{*}$ & $-$0.281$^{***}$ & $-$0.292$^{***}$ & $-$0.221$^{***}$ \\    & (0.033) & (0.042) & (0.053) & (0.047) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   source2SPD & $-$0.263$^{***}$ & $-$0.180$^{***}$ & $-$0.228$^{***}$ & 0.026 & $-$0.301$^{***}$ & $-$0.337$^{***}$ & $-$0.267$^{***}$ \\    & (0.034) & (0.042) & (0.054) & (0.048) & (0.036) & (0.051) & (0.043) \\    & & & & & & & \\   Constant & $-$1.765$^{***}$ & $-$1.991$^{***}$ & $-$1.764$^{***}$ & $-$1.856$^{***}$ & $-$1.831$^{***}$ & $-$1.746$^{***}$ & $-$1.878$^{***}$ \\    & (0.024) & (0.030) & (0.038) & (0.033) & (0.025) & (0.036) & (0.030) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,372 & 1,378 & 1,404 & 1,206 & 1,428 & 1,321 & 1,424 \\  R$^{2}$ & 0.069 & 0.027 & 0.023 & 0.005 & 0.072 & 0.047 & 0.035 \\  Adjusted R$^{2}$ & 0.065 & 0.023 & 0.019 & 0.001 & 0.069 & 0.044 & 0.031 \\  Residual Std. Error & 0.365 (df = 1366) & 0.458 (df = 1372) & 0.589 (df = 1398) & 0.484 (df = 1200) & 0.401 (df = 1422) & 0.549 (df = 1315) & 0.473 (df = 1418) \\  F Statistic & 20.144$^{***}$ (df = 5; 1366) & 7.532$^{***}$ (df = 5; 1372) & 6.540$^{***}$ (df = 5; 1398) & 1.188 (df = 5; 1200) & 22.193$^{***}$ (df = 5; 1422) & 13.048$^{***}$ (df = 5; 1315) & 10.136$^{***}$ (df = 5; 1418) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
 
@@ -999,34 +1039,40 @@ who estimated the effect of receiving the National Merit Scholarship on
 future academic outcomes, early studies that rely on RD designs estimate
 the effects of certain thresholds of a running variable on educational
 outcomes (i.e.~financial aid
-((\protect\hyperlink{ref-van_der_klaauw_estimating_2002}{\textbf{van\_der\_klaauw\_estimating\_2002?}}))
-or class size
-((\protect\hyperlink{ref-angrist_using_1999}{\textbf{angrist\_using\_1999?}}))).
-Following these early studies in the area of education, the RDD has
-received attention in a wider range of the economic literature,
-including labor economics, political economy, health economics, and
-environmental economics. Compared to alternative quasi-experimental
-estimators like difference-in-difference and matching techniques, RDD is
-considered as the estimator with the greatest internal validity
-((\protect\hyperlink{ref-lee_regression_2010}{\textbf{lee\_regression\_2010?}})).
+(\protect\hyperlink{ref-van_der_klaauw_estimating_2002}{Klaauw}
+(\protect\hyperlink{ref-van_der_klaauw_estimating_2002}{2002})) or class
+size (\protect\hyperlink{ref-angrist_using_1999}{Angrist and Lavy}
+(\protect\hyperlink{ref-angrist_using_1999}{1999}))). Following these
+early studies in the area of education, the RDD has received attention
+in a wider range of the economic literature, including labor economics,
+political economy, health economics, and environmental economics.
+Compared to alternative quasi-experimental estimators like
+difference-in-difference and matching techniques, RDD is considered as
+the estimator with the greatest internal validity
+(\protect\hyperlink{ref-lee_regression_2010}{Lee and Lemieux}
+(\protect\hyperlink{ref-lee_regression_2010}{2010})).
+
 While RDD was originally applied in cross-sectional studies, an
 increasing number of studies, especially in the field of environmental
 and energy economics, has adapted the framework to time series
-applications.\textbackslash footnote\{See
-(\protect\hyperlink{ref-hausman_regression_2018}{\textbf{hausman\_regression\_2018?}})
-for examples of this regression discontinuity in time (RDiT).\} In these
-studies, time is the running variable and treatment begins at a
-particular threshold in time. An important conceptual difference between
-RD and RDiT exists in the possible interpretation. The fact that in RDiT
-the running variable of time is not random eliminates the interpretation
-of local randomization in which it is assumed that treatment status
-within a small neighborhood around the threshold can essentially be
-compared to a roll of the dice. As noted by
-(\protect\hyperlink{ref-jacob_practical_2012}{\textbf{jacob\_practical\_2012?}}),
-although some researchers have focused on this interpretation of local
-randomization
-((\protect\hyperlink{ref-lee_regression_2010}{\textbf{lee\_regression\_2010?}})),
-others have instead emphasized RD characterized by discontinuity at a
+applications.\footnote{See
+  \protect\hyperlink{ref-hausman_regression_2018}{Hausman and Rapson}
+  (\protect\hyperlink{ref-hausman_regression_2018}{2018}) for examples
+  of this regression discontinuity in time (RDiT).} In these studies,
+time is the running variable and treatment begins at a particular
+threshold in time. An important conceptual difference between regression
+discontinuity (RD) and regression discontinuity in time (RDiT) exists in
+the possible interpretation. The fact that in RDiT the running variable
+of time is not random, eliminates the interpretation of local
+randomization in which it is assumed that treatment status within a
+small neighborhood around the threshold can essentially be compared to a
+roll of the dice. As noted by
+\protect\hyperlink{ref-jacob_practical_2012}{Jacob et al.}
+(\protect\hyperlink{ref-jacob_practical_2012}{2012}), although some
+researchers have focused on this interpretation of local randomization
+(\protect\hyperlink{ref-lee_regression_2010}{Lee and Lemieux}
+(\protect\hyperlink{ref-lee_regression_2010}{2010})), others have
+instead emphasized that RD is characterized by discontinuity at a
 threshold (\protect\hyperlink{ref-hahn_identification_2001}{Hahn, Todd,
 and Van der Klaauw}
 (\protect\hyperlink{ref-hahn_identification_2001}{2001})). Thus, to the
@@ -1037,15 +1083,88 @@ RD.
 In this paper date is the running variable, the election day is the
 treatment and news publishers are the units that receive the treatment.
 Since the running variable (date) completely determines the treatment
-(election day), we use a sharp regression design, such that the
+(election day), a sharp regression design is used, such that the
 probability that a news publisher receives a treatment jumps from 0 to 1
-at the cutoff.
+at the cutoff. Specifically, I estimate the equation
+
+\[
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+f(W_t)+\epsilon_t
+\] where
+
+\[
+T_t = 
+\begin{cases}
+1, & \text{ if date } \geq \text{election date} \\
+0, & \text{ if date } < \text{election date}
+\end{cases}
+\]
+
+and the running variable \(W_t\) is the time difference between date
+\(i\) and the election date (in days), such that \(\beta_1\) is the
+average treatment effect for observations with
+\(W_t = \text{election date}\). In other words, \(\beta_1\) gives the
+average change of the similarity between the content of news publisher
+and press releases after the election day. Identification in the RD
+model comes from assuming that the underlying, potentially endogenous
+relationship between \(\epsilon_t\) and the date is eliminated by the
+flexible function \(f(.)\). In particular, the relationship between
+\(\epsilon_t\) and the date must not change discontinuously on or near
+the election date.
+
+Following \protect\hyperlink{ref-imbens_regression_2008}{Imbens and
+Lemieux} (\protect\hyperlink{ref-imbens_regression_2008}{2008}) I
+estimate a local linear regression of the form:
+
+\[
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_t+\beta_3W_t*T_t+\epsilon_t
+\]
+
+In this specification, the function \(f(W_t)\) is specified as
+\(\beta_2W_t+\beta_3W_t*T_t\). The terms \(W_t\) and \(W_t*T_t\) should
+absorb any smooth relationship between the date and \(\epsilon_t\) in
+the days surrounding the election day. If the RD assumption is valid
+(i.e., \(\epsilon_t\) does not change discontinuously at the election
+day) the estimate of \(\beta_1\), the coefficient of interest, will be
+unbiased even without further controls. However, in the following
+section dummy variables for each party \(k\) (\(D_{t,k-1}\)) are
+included in the model to estimate the isolated effect for each news
+paper / party pair.
+
+\[
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_{t}+\beta_3D_{t,k-1}+\beta_4T_tD_{t,k-1}+\epsilon_t
+\]
+
+Including interaction terms \(T_tD_{t,k-1}\) - and since we are
+estimating an isolated model for each newspaper - \(\beta_4\) gives the
+average treatment effect for each newspaper/party pair (i.e.~how how
+much the slope changes for each party).
+
+I specify a uniform kernel
+(\protect\hyperlink{ref-lee_regression_2010}{Lee and Lemieux}
+(\protect\hyperlink{ref-lee_regression_2010}{2010})) and use a bandwidth
+of 115 days on each side of the election day threshold. The election
+took place on September 24, 2017, so the sample includes dates between
+June 1, 2017 and January 17, 2018. Since the identification strategy
+only attempts to estimate \(\beta\) at \(W_t=0\) (the election day) no
+additional dates beyond the 115 day bandwidth enter the sample.
+Alternative specifications with varying bandwidths led to similar
+results.
+
+\hypertarget{rdit-results}{%
+\subsubsection{RDiT Results}\label{rdit-results}}
+
+\autoref{table:results_rd1} shows the results of the estimation.
+
+\begin{table}[!htbp] \centering    \caption{Results from the regression discontinuity model}    \label{table:results_rd1}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   treated & $-$0.169$^{***}$ & $-$0.118$^{**}$ & $-$0.145$^{**}$ & $-$0.242$^{***}$ & $-$0.058 & $-$0.032 & 0.035 \\    & (0.045) & (0.057) & (0.065) & (0.060) & (0.048) & (0.066) & (0.055) \\    & & & & & & & \\   X\_centered & $-$0.001$^{*}$ & $-$0.0005 & $-$0.002$^{***}$ & $-$0.0003 & $-$0.001 & $-$0.001 & $-$0.002$^{***}$ \\    & (0.0004) & (0.001) & (0.001) & (0.001) & (0.0005) & (0.001) & (0.001) \\    & & & & & & & \\   treatedTRUE:X\_centered & 0.003$^{***}$ & 0.003$^{***}$ & 0.002$^{*}$ & 0.005$^{***}$ & 0.002$^{**}$ & 0.003$^{***}$ & 0.003$^{***}$ \\    & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) \\    & & & & & & & \\   Constant & $-$1.972$^{***}$ & $-$2.181$^{***}$ & $-$1.927$^{***}$ & $-$1.812$^{***}$ & $-$2.091$^{***}$ & $-$2.080$^{***}$ & $-$2.160$^{***}$ \\    & (0.029) & (0.036) & (0.045) & (0.043) & (0.033) & (0.046) & (0.038) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,212 & 1,218 & 1,244 & 1,046 & 1,268 & 1,161 & 1,264 \\  R$^{2}$ & 0.031 & 0.011 & 0.059 & 0.035 & 0.005 & 0.013 & 0.009 \\  Adjusted R$^{2}$ & 0.028 & 0.009 & 0.056 & 0.032 & 0.003 & 0.011 & 0.007 \\  Residual Std. Error & 0.377 (df = 1208) & 0.471 (df = 1214) & 0.586 (df = 1240) & 0.491 (df = 1042) & 0.427 (df = 1264) & 0.579 (df = 1157) & 0.495 (df = 1260) \\  F Statistic & 12.805$^{***}$ (df = 3; 1208) & 4.655$^{***}$ (df = 3; 1214) & 25.810$^{***}$ (df = 3; 1240) & 12.532$^{***}$ (df = 3; 1042) & 2.134$^{*}$ (df = 3; 1264) & 5.154$^{***}$ (df = 3; 1157) & 3.820$^{***}$ (df = 3; 1260) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
+
+\hypertarget{rdit-dummy-results}{%
+\subsubsection{RDiT dummy results}\label{rdit-dummy-results}}
 
 The visual representation of the treatment effect for two sample news
 publisher Handelsblatt and Bild.de in
 \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic
 similarity for Handelsblatt decreases after the election for CDU, FDP
-and B90/Grüne. A less clear to no effect can be seen for SPD, DIE LINKE
+and B90/GRÜNE. A less clear to no effect can be seen for SPD, DIE LINKE
 and AfD. In contrast, the treatment effect at Bild.de seems to exist
 only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news
 publisher).
@@ -1059,75 +1178,7 @@ publisher).
 \caption{Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \label{fig:mean_cosine_sim_rd_example}}\label{fig:Daily mean cosine similarity - rd example}
 \end{figure}
 
-In order to statistically evaluate these observations, two model
-specifications are estimated for each news publisher: (1) First, a
-simple regression discontinuity specification is estimated followed by
-(2) a specification that includes dummy variables for parties to check
-for differences in news publisher - party pairs.
-
-\hypertarget{regression-discontinuity-rd-specification}{%
-\subsubsection{Regression Discontinuity (RD)
-specification}\label{regression-discontinuity-rd-specification}}
-
-\emph{Todo:} - Define bandwidth - Write interpretation - use r package
-for estimation (?)
-
-A RD design is used to estimate the effects of the election day.
-Specifically, I estimate the equation
-
-\[
-\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+f(W_t)+\epsilon_t
-\] where
-
-\[
-T_t = 
-\begin{cases}
-1, & \text{ if date } \geq \text{election date} \\
-0, & \text{ if date } < \text{election date}
-\end{cases}
-\] and the running variable \(W_t\) is the time difference between date
-\(i\) and the election date (in days), such that \(\beta_1\) is the
-average treatment effect for observations with
-\(W_t = \text{election date}\). In other words, \(\beta_1\) gives the
-average change of the similarity between the content of news publisher
-and press releases after the election day. Identification in the RD
-model comes from assuming that the underlying, potentially endogenous
-relationship between \(\epsilon_t\) and the date is eliminated by the
-flexible function \(f(.)\). In particular, the relationship between
-\(\epsilon_t\) and the date must not change discontinuously on or near
-the election date.
-
-Following
-(\protect\hyperlink{ref-imbens_regression_2008}{\textbf{imbens\_regression\_2008?}})
-I estimate a local linear regression of the form:
-
-\[
-\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_t+\beta_3W_t*T_t+\epsilon_t
-\]
-
-In this specification, the function \(f(W_t)\) is specified as
-\(\beta_2W_t+\beta_3W_t*T_t\).
-
-\autoref{table:results_rd1} shows the results of the estimation.
-
-\begin{table}[!htbp] \centering    \caption{Results from the regression discontinuity model}    \label{table:results_rd1}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   treated & $-$0.122$^{***}$ & $-$0.106$^{**}$ & $-$0.141$^{**}$ & $-$0.155$^{***}$ & $-$0.045 & 0.015 & 0.053 \\    & (0.041) & (0.050) & (0.061) & (0.056) & (0.043) & (0.060) & (0.050) \\    & & & & & & & \\   X\_centered & $-$0.001$^{*}$ & $-$0.0005 & $-$0.002$^{***}$ & $-$0.0003 & $-$0.001 & $-$0.001 & $-$0.002$^{***}$ \\    & (0.0004) & (0.001) & (0.001) & (0.001) & (0.0005) & (0.001) & (0.001) \\    & & & & & & & \\   treatedTRUE:X\_centered & 0.002$^{***}$ & 0.003$^{***}$ & 0.002$^{**}$ & 0.002$^{***}$ & 0.001$^{**}$ & 0.002$^{**}$ & 0.002$^{***}$ \\    & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) \\    & & & & & & & \\   Constant & $-$1.972$^{***}$ & $-$2.181$^{***}$ & $-$1.927$^{***}$ & $-$1.812$^{***}$ & $-$2.091$^{***}$ & $-$2.080$^{***}$ & $-$2.160$^{***}$ \\    & (0.029) & (0.035) & (0.045) & (0.042) & (0.032) & (0.045) & (0.037) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,372 & 1,378 & 1,404 & 1,206 & 1,428 & 1,321 & 1,424 \\  R$^{2}$ & 0.025 & 0.021 & 0.058 & 0.016 & 0.004 & 0.010 & 0.008 \\  Adjusted R$^{2}$ & 0.023 & 0.019 & 0.056 & 0.013 & 0.002 & 0.008 & 0.006 \\  Residual Std. Error & 0.373 (df = 1368) & 0.459 (df = 1374) & 0.578 (df = 1400) & 0.481 (df = 1202) & 0.415 (df = 1424) & 0.559 (df = 1317) & 0.479 (df = 1420) \\  F Statistic & 11.631$^{***}$ (df = 3; 1368) & 9.831$^{***}$ (df = 3; 1374) & 28.562$^{***}$ (df = 3; 1400) & 6.341$^{***}$ (df = 3; 1202) & 2.129$^{*}$ (df = 3; 1424) & 4.359$^{***}$ (df = 3; 1317) & 3.784$^{**}$ (df = 3; 1420) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
-
-\hypertarget{rd-model-with-dummies}{%
-\subsubsection{RD model with dummies}\label{rd-model-with-dummies}}
-
-\emph{Todo:} - Define why we need the interaction term between treatment
-+ dummy (find literature!)
-
-Including interaction terms \(T_iD_{i,k-1}\) - and since we are
-estimating an isolated model for each newspaper - \(\beta_4\) gives the
-average treatment effect for each newspaper/party pair (i.e.~how how
-much the slope changes for each party).
-
-\[
-\ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
-\]
-
-\begin{table}[!htbp] \centering    \caption{Results from the regression discontinuity model}    \label{table:results_rd2}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   treated & $-$0.149$^{**}$ & $-$0.090 & $-$0.113 & $-$0.089 & $-$0.100 & $-$0.189$^{**}$ & 0.047 \\    & (0.058) & (0.073) & (0.089) & (0.081) & (0.062) & (0.087) & (0.073) \\    & & & & & & & \\   X\_centered & 0.0002 & 0.001$^{***}$ & $-$0.001$^{**}$ & 0.001$^{***}$ & 0.0003 & 0.001 & $-$0.0003 \\    & (0.0003) & (0.0003) & (0.0004) & (0.0004) & (0.0003) & (0.0004) & (0.0003) \\    & & & & & & & \\   source2B90/GRÜNE & $-$0.267$^{***}$ & $-$0.216$^{***}$ & $-$0.180$^{**}$ & 0.105 & $-$0.338$^{***}$ & $-$0.445$^{***}$ & $-$0.187$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2CDU & $-$0.259$^{***}$ & $-$0.115$^{*}$ & $-$0.232$^{***}$ & 0.098 & $-$0.288$^{***}$ & $-$0.450$^{***}$ & $-$0.170$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2DIE LINKE & $-$0.251$^{***}$ & $-$0.109$^{*}$ & $-$0.160$^{**}$ & 0.134$^{**}$ & $-$0.270$^{***}$ & $-$0.342$^{***}$ & $-$0.156$^{**}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2FDP & $-$0.291$^{***}$ & $-$0.195$^{***}$ & $-$0.201$^{***}$ & 0.069 & $-$0.355$^{***}$ & $-$0.441$^{***}$ & $-$0.292$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   source2SPD & $-$0.278$^{***}$ & $-$0.143$^{**}$ & $-$0.201$^{***}$ & 0.098 & $-$0.339$^{***}$ & $-$0.479$^{***}$ & $-$0.266$^{***}$ \\    & (0.048) & (0.060) & (0.077) & (0.066) & (0.053) & (0.078) & (0.062) \\    & & & & & & & \\   treatedTRUE:source2B90/GRÜNE & 0.050 & $-$0.042 & $-$0.154 & $-$0.184$^{*}$ & 0.078 & 0.245$^{**}$ & $-$0.031 \\    & (0.071) & (0.089) & (0.112) & (0.102) & (0.077) & (0.110) & (0.091) \\    & & & & & & & \\   treatedTRUE:source2CDU & $-$0.030 & $-$0.175$^{**}$ & $-$0.090 & $-$0.204$^{**}$ & $-$0.022 & 0.178$^{*}$ & $-$0.131 \\    & (0.066) & (0.083) & (0.104) & (0.094) & (0.072) & (0.103) & (0.085) \\    & & & & & & & \\   treatedTRUE:source2DIE LINKE & $-$0.032 & $-$0.059 & $-$0.068 & $-$0.113 & $-$0.037 & 0.120 & $-$0.097 \\    & (0.066) & (0.083) & (0.104) & (0.094) & (0.072) & (0.103) & (0.085) \\    & & & & & & & \\   treatedTRUE:source2FDP & 0.084 & 0.109 & $-$0.002 & 0.024 & 0.137$^{*}$ & 0.260$^{**}$ & 0.134 \\    & (0.066) & (0.083) & (0.104) & (0.094) & (0.072) & (0.103) & (0.085) \\    & & & & & & & \\   treatedTRUE:source2SPD & 0.025 & $-$0.068 & $-$0.058 & $-$0.145 & 0.070 & 0.252$^{**}$ & $-$0.002 \\    & (0.067) & (0.084) & (0.105) & (0.095) & (0.072) & (0.104) & (0.086) \\    & & & & & & & \\   Constant & $-$1.689$^{***}$ & $-$1.956$^{***}$ & $-$1.692$^{***}$ & $-$1.816$^{***}$ & $-$1.780$^{***}$ & $-$1.647$^{***}$ & $-$1.900$^{***}$ \\    & (0.037) & (0.047) & (0.059) & (0.051) & (0.041) & (0.059) & (0.048) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,372 & 1,378 & 1,404 & 1,206 & 1,428 & 1,321 & 1,424 \\  R$^{2}$ & 0.091 & 0.045 & 0.080 & 0.023 & 0.080 & 0.059 & 0.043 \\  Adjusted R$^{2}$ & 0.083 & 0.037 & 0.072 & 0.013 & 0.072 & 0.050 & 0.035 \\  Residual Std. Error & 0.361 (df = 1359) & 0.455 (df = 1365) & 0.573 (df = 1391) & 0.481 (df = 1193) & 0.401 (df = 1415) & 0.547 (df = 1308) & 0.472 (df = 1411) \\  F Statistic & 11.334$^{***}$ (df = 12; 1359) & 5.354$^{***}$ (df = 12; 1365) & 10.113$^{***}$ (df = 12; 1391) & 2.335$^{***}$ (df = 12; 1193) & 10.240$^{***}$ (df = 12; 1415) & 6.847$^{***}$ (df = 12; 1308) & 5.310$^{***}$ (df = 12; 1411) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
+\begin{table}[!htbp] \centering    \caption{Results from the regression discontinuity model}    \label{table:results_rd2}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   treated & $-$0.132$^{**}$ & $-$0.011 & $-$0.028 & $-$0.076 & $-$0.063 & $-$0.176$^{*}$ & 0.091 \\    & (0.063) & (0.080) & (0.096) & (0.091) & (0.068) & (0.097) & (0.081) \\    & & & & & & & \\   X\_centered & 0.0003 & 0.001 & $-$0.001$^{**}$ & 0.002$^{***}$ & 0.0002 & 0.001 & $-$0.001 \\    & (0.0003) & (0.0004) & (0.001) & (0.0005) & (0.0004) & (0.001) & (0.0004) \\    & & & & & & & \\   source2B90/GRÜNE & $-$0.267$^{***}$ & $-$0.215$^{***}$ & $-$0.180$^{**}$ & 0.104 & $-$0.338$^{***}$ & $-$0.445$^{***}$ & $-$0.187$^{***}$ \\    & (0.049) & (0.062) & (0.078) & (0.068) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   source2CDU & $-$0.259$^{***}$ & $-$0.115$^{*}$ & $-$0.232$^{***}$ & 0.098 & $-$0.288$^{***}$ & $-$0.450$^{***}$ & $-$0.170$^{***}$ \\    & (0.048) & (0.062) & (0.078) & (0.068) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   source2DIE LINKE & $-$0.251$^{***}$ & $-$0.109$^{*}$ & $-$0.160$^{**}$ & 0.134$^{**}$ & $-$0.270$^{***}$ & $-$0.342$^{***}$ & $-$0.156$^{**}$ \\    & (0.048) & (0.062) & (0.078) & (0.068) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   source2FDP & $-$0.291$^{***}$ & $-$0.195$^{***}$ & $-$0.201$^{***}$ & 0.069 & $-$0.355$^{***}$ & $-$0.441$^{***}$ & $-$0.292$^{***}$ \\    & (0.048) & (0.062) & (0.078) & (0.068) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   source2SPD & $-$0.278$^{***}$ & $-$0.143$^{**}$ & $-$0.201$^{***}$ & 0.098 & $-$0.339$^{***}$ & $-$0.479$^{***}$ & $-$0.266$^{***}$ \\    & (0.048) & (0.062) & (0.078) & (0.068) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   treatedTRUE:source2B90/GRÜNE & 0.052 & $-$0.144 & $-$0.252$^{**}$ & $-$0.292$^{**}$ & 0.052 & 0.216$^{*}$ & $-$0.036 \\    & (0.080) & (0.102) & (0.124) & (0.121) & (0.087) & (0.125) & (0.104) \\    & & & & & & & \\   treatedTRUE:source2CDU & $-$0.080 & $-$0.223$^{**}$ & $-$0.161 & $-$0.274$^{***}$ & $-$0.073 & 0.148 & $-$0.166$^{*}$ \\    & (0.071) & (0.090) & (0.111) & (0.105) & (0.078) & (0.112) & (0.093) \\    & & & & & & & \\   treatedTRUE:source2DIE LINKE & $-$0.063 & $-$0.089 & $-$0.123 & $-$0.163 & $-$0.074 & 0.092 & $-$0.135 \\    & (0.071) & (0.090) & (0.111) & (0.105) & (0.078) & (0.112) & (0.093) \\    & & & & & & & \\   treatedTRUE:source2FDP & 0.065 & 0.078 & $-$0.083 & $-$0.063 & 0.104 & 0.218$^{*}$ & 0.107 \\    & (0.071) & (0.091) & (0.111) & (0.105) & (0.078) & (0.113) & (0.093) \\    & & & & & & & \\   treatedTRUE:source2SPD & 0.012 & $-$0.101 & $-$0.091 & $-$0.191$^{*}$ & 0.058 & 0.236$^{**}$ & $-$0.017 \\    & (0.072) & (0.091) & (0.112) & (0.106) & (0.079) & (0.113) & (0.094) \\    & & & & & & & \\   Constant & $-$1.686$^{***}$ & $-$1.988$^{***}$ & $-$1.720$^{***}$ & $-$1.783$^{***}$ & $-$1.787$^{***}$ & $-$1.639$^{***}$ & $-$1.917$^{***}$ \\    & (0.039) & (0.050) & (0.062) & (0.056) & (0.043) & (0.064) & (0.052) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,212 & 1,218 & 1,244 & 1,046 & 1,268 & 1,161 & 1,264 \\  R$^{2}$ & 0.099 & 0.044 & 0.089 & 0.028 & 0.086 & 0.061 & 0.046 \\  Adjusted R$^{2}$ & 0.090 & 0.034 & 0.080 & 0.016 & 0.077 & 0.052 & 0.037 \\  Residual Std. Error & 0.365 (df = 1199) & 0.465 (df = 1205) & 0.579 (df = 1231) & 0.495 (df = 1033) & 0.411 (df = 1255) & 0.566 (df = 1148) & 0.487 (df = 1251) \\  F Statistic & 10.939$^{***}$ (df = 12; 1199) & 4.569$^{***}$ (df = 12; 1205) & 10.021$^{***}$ (df = 12; 1231) & 2.447$^{***}$ (df = 12; 1033) & 9.797$^{***}$ (df = 12; 1255) & 6.262$^{***}$ (df = 12; 1148) & 4.990$^{***}$ (df = 12; 1251) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
 
 Example interpretation for \emph{Bild.de} (see
 \autoref{table:results_rd2})
@@ -1231,8 +1282,8 @@ AfD & afd.de & afdbundestag.de \\
 \end{longtable}
 
 \% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: So, Aug
-15, 2021 - 18:33:22
+University. E-mail: hlavac at fas.harvard.edu \% Date and time: So, Sep
+12, 2021 - 15:29:18
 
 \begin{table}[!htbp] \centering 
   \caption{7 most probable terms per topic} 
@@ -1312,6 +1363,12 @@ University. E-mail: hlavac at fas.harvard.edu \% Date and time: So, Aug
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-angrist_using_1999}{}%
+Angrist, Joshua D., and Victor Lavy. 1999. {``Using Maimonides' Rule to
+Estimate the Effect of Class Size on Scholastic Achievement.''}
+\emph{The Quarterly Journal of Economics} 114 (2): 533--75.
+\url{https://www.jstor.org/stable/2587016}.
+
 \leavevmode\hypertarget{ref-bholat_text_2015}{}%
 Bholat, David M., Stephen Hansen, Pedro M. Santos, and Cheryl
 Schonhardt-Bailey. 2015. {``Text Mining for Central Banks.''}
@@ -1361,7 +1418,7 @@ Party Preferences.''} \emph{Communication Research} 44 (8): 1125--48.
 \leavevmode\hypertarget{ref-erosheva_mixed-membership_2004}{}%
 Erosheva, Elena, Stephen Fienberg, and John Lafferty. 2004.
 {``Mixed-Membership Models of Scientific Publications.''}
-\emph{Proceedings of the National Academy of Sciences} 101 (April):
+\emph{Proceedings of the National Academy of Sciences} 101 (June):
 5220--27. \url{https://doi.org/10.1073/pnas.0307760101}.
 
 \leavevmode\hypertarget{ref-gentzkow_media_2004}{}%
@@ -1383,7 +1440,7 @@ Meeting of the Cognitive Science Society} 24 (24).
 
 \leavevmode\hypertarget{ref-griffiths_finding_2004}{}%
 ---------. 2004. {``Finding Scientific Topics.''} \emph{Proceedings of
-the National Academy of Sciences} 101 (April): 5228--35.
+the National Academy of Sciences} 101 (June): 5228--35.
 \url{https://doi.org/10.1073/pnas.0307752101}.
 
 \leavevmode\hypertarget{ref-grimmer_text_2013}{}%
@@ -1402,12 +1459,34 @@ Hahn, Jinyong, Petra Todd, and Wilbert Van der Klaauw. 2001.
 Regression-Discontinuity Design.''} \emph{Econometrica} 69 (1): 201--9.
 \url{https://www.jstor.org/stable/2692190}.
 
+\leavevmode\hypertarget{ref-hausman_regression_2018}{}%
+Hausman, Catherine, and David S. Rapson. 2018. {``Regression
+Discontinuity in Time: Considerations for Empirical Applications.''}
+\emph{Annual Review of Resource Economics} 10 (1): 533--52.
+\url{https://doi.org/10.1146/annurev-resource-121517-033306}.
+
+\leavevmode\hypertarget{ref-hlavac_stargazer_2018}{}%
+Hlavac, Marek. 2018. \emph{Stargazer: Well-Formatted Regression and
+Summary Statistics Tables. R Package Version 5.2.2}.
+\url{https://CRAN.R-project.org/package=stargazer}.
+
 \leavevmode\hypertarget{ref-hofmann_probabilistic_1999}{}%
 Hofmann, Thomas. 1999. {``Probabilistic Latent Semantic Indexing.''} In
 \emph{Proceedings of the 22Nd Annual International {ACM} {SIGIR}
 Conference on Research and Development in Information Retrieval},
 50--57. {SIGIR} '99. New York, {NY}, {USA}: {ACM}.
 \url{https://doi.org/10.1145/312624.312649}.
+
+\leavevmode\hypertarget{ref-imbens_regression_2008}{}%
+Imbens, Guido W., and Thomas Lemieux. 2008. {``Regression Discontinuity
+Designs: A Guide to Practice.''} \emph{Journal of Econometrics}, The
+regression discontinuity design: Theory and applications, 142 (2):
+615--35. \url{https://doi.org/10.1016/j.jeconom.2007.05.001}.
+
+\leavevmode\hypertarget{ref-jacob_practical_2012}{}%
+Jacob, Robin, Pei Zhu, Marie-Andrée Somers, and Howard Bloom. 2012.
+\emph{A Practical Guide to Regression Discontinuity}. {MDRC}.
+\url{https://eric.ed.gov/?id=ED565862}.
 
 \leavevmode\hypertarget{ref-kepplinger_einfluss_2004}{}%
 Kepplinger, Hans Mathias, and Marcus Maurer. 2004. {``Der Einfluss Der
@@ -1417,6 +1496,17 @@ Dem Weg Zum Kommunikationsmanagement: Bestandsaufnahmen Und
 Entwicklungen}, edited by Juliana Raupp and Joachim Klewes, 113--24.
 Wiesbaden: {VS} Verlag für Sozialwissenschaften.
 \url{https://doi.org/10.1007/978-3-322-83381-5_9}.
+
+\leavevmode\hypertarget{ref-van_der_klaauw_estimating_2002}{}%
+Klaauw, Wilbert van der. 2002. {``Estimating the Effect of Financial Aid
+Offers on College Enrollment: A Regression-Discontinuity Approach.''}
+\emph{International Economic Review} 43 (4): 1249--87.
+\url{https://www.jstor.org/stable/826967}.
+
+\leavevmode\hypertarget{ref-lee_regression_2010}{}%
+Lee, David S., and Thomas Lemieux. 2010. {``Regression Discontinuity
+Designs in Economics.''} \emph{Journal of Economic Literature} 48 (2):
+281--355. \url{https://doi.org/10.1257/jel.48.2.281}.
 
 \leavevmode\hypertarget{ref-lott_is_2014}{}%
 Lott, John R., and Kevin A. Hassett. 2014. {``Is Newspaper Coverage of
@@ -1469,7 +1559,7 @@ York: Cambridge University Press.
 
 \leavevmode\hypertarget{ref-roberts_stm:_2016}{}%
 ---------. 2016b. {``Stm: R Package for Structural Topic Models.''}
-\emph{Journal of Statistical Software} forthcoming (December).
+\emph{Journal of Statistical Software} forthcoming (January).
 
 \leavevmode\hypertarget{ref-stromback_four_2008}{}%
 Strömbäck, Jesper. 2008. {``Four Phases of Mediatization: An Analysis of

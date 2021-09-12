@@ -38,9 +38,10 @@ library(stm)
 library(magrittr)
 library(scales)
 
-# data
+# Set globals
 election_date <- as.Date('2017-09-24')
 max_date <- as.Date('2018-02-13')
+parties <- c("AfD","CDU/CSU","FDP","B90/GRÜNE","DIE LINKE","SPD")
 
 load("../output/models/model40_weekly_source.Rda")
 model_df <- model_df %>%
@@ -63,7 +64,7 @@ custom_colors <- c(
 
 theme_set(theme_bw(base_size=8))
 theme_update(axis.text = element_text(size = 8),
-             axis.title = element_text(size=10))
+             axis.title = element_text(size=8))
 ```
 
 # I Introduction
@@ -78,12 +79,9 @@ This conclusion, derived from the economic theory of platform markets, correspon
 However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to measure how online news coverage coincides with the messaging of different political parties. Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004]. This paper therefore analyzes the period before and after the 2017 federal elections in Germany to answer the question whether political news report about similar topics and if this similarity changes after the election campaign is over. 
 
 In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content - be it audio, video or text content. Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
-Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties using a linear regression model.
+Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties.
 
-The figure below gives a high level overview of the research method: 
-1. in section III: explain which data is used and how the text is processed in order to use it as input for the structural topic model. 
-2. in section IV: explains how the cosine similarity between documents is calculated using the output of the structural topic model
-3. in section V: model estimation 
+The figure below gives a high level overview of the different steps that are taken to text data for the analysis. Section III describes the sources of data and how text data is processed in order to use it as input for the structural topic model. Section IV briefly explains how the STM uses this input in order to calculate topic probabilities for the different documents and how these probabilities are used to calculate the similarity between the documents. In the final section V, we use the similarity measures as our dependent variable in a regression discontinuity model. In order to set the context, the following section II provides an introduction to the political situation in Germany as well as the German news market during the time under investigation.
 
 ![High level overview](../figs/high_level_overview.png)
 <!-- To Do: Point out distribution to research -->
@@ -267,7 +265,7 @@ model_df %>%
     max = max(text_length)
   ) %>% arrange(type) %>% select(-type) %>% 
   kbl(format = 'latex', 
-      caption = "Summary statistics of text length \\label{tab:textlength}",
+      caption = "Summary statistics of word counts \\label{tab:textlength}",
       booktabs = T) %>% 
   kable_styling(latex_options = c("striped","HOLD_position"), 
                 font_size = 7,
@@ -277,7 +275,7 @@ model_df %>%
 ```
 
 <!-- text length -->
-\autoref{tab:textlength} illustrates that on average, news articles are longer than the parties' press releases.^[News articles with less than 120 words were filtered out in advance, as these were mostly reader comments. Similarly press releases with less than 100 words were filtered out.] While for news articles the average is between 394 (FOCUS Online) and 590 (Handelsblatt), with press releases the range is between 162 (FDP) and 275 (CDU). The article with the most words (14.507) was published by DIE WELT - the longest press release has 1.048 words and was published by DIE LINKE.
+\autoref{tab:textlength} illustrates that on average, news articles have a higher word count than the parties' press releases.^[News articles with less than 120 words were filtered out in advance, as these were mostly reader comments. Similarly press releases with less than 100 words were filtered out.] While for news articles the average is between 394 (FOCUS Online) and 590 (Handelsblatt), with press releases the range is between 162 (FDP) and 275 (CDU). The article with the most words (14.507) was published by DIE WELT - the longest press release has 1.048 words and was published by DIE LINKE.
 
 ## Text pre-processing
 
@@ -592,7 +590,7 @@ temp_df %>%
                 full_width = F)
 ```
 
-# V Model estimations
+# V Regression model
 
 ```{r Plot data & estimate models}
 # ----------------------------
@@ -602,8 +600,8 @@ cosine_distances_df <- df_prep_ols(welt)
 welt_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 welt_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 welt_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
-welt_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-welt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+welt_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+welt_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 
 target_source <- "stern.de"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
@@ -611,8 +609,8 @@ cosine_distances_df <- df_prep_ols(stern)
 stern_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 stern_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 stern_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
-stern_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-stern_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+stern_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+stern_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 
 target_source <- "ZEIT ONLINE"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
@@ -620,8 +618,8 @@ cosine_distances_df <- df_prep_ols(zeit)
 zeit_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 zeit_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 zeit_model <- calc_ols_dummy(cosine_distances_df) # estimate OLS
-zeit_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-zeit_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+zeit_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+zeit_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 
 target_source <- "Handelsblatt"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
@@ -629,8 +627,8 @@ cosine_distances_df <- df_prep_ols(handelsblatt)
 handelsblatt_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 handelsblatt_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 handelsblatt_model <- calc_ols_dummy(cosine_distances_df)
-handelsblatt_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-handelsblatt_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+handelsblatt_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+handelsblatt_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 
 target_source <- "FOCUS Online"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
@@ -638,8 +636,8 @@ cosine_distances_df <- df_prep_ols(focus)
 focus_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 focus_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 focus_model <- calc_ols_dummy(cosine_distances_df)
-focus_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-focus_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+focus_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+focus_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 
 target_source <- "Bild.de"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
@@ -647,8 +645,8 @@ cosine_distances_df <- df_prep_ols(bild)
 bild_p <- plot_cosine_sim_ols(cosine_distances_df, target_source) # plot data
 bild_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source) # plot data rd
 bild_model <- calc_ols_dummy(cosine_distances_df)
-bild_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-bild_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+bild_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+bild_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 
 target_source <- "SPIEGEL ONLINE"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
@@ -656,22 +654,19 @@ cosine_distances_df <- df_prep_ols(spiegel)
 spiegel_p <- plot_cosine_sim_ols(cosine_distances_df, target_source)
 spiegel_p1 <- plot_cosine_sim_rd(cosine_distances_df, target_source)
 spiegel_model <- calc_ols_dummy(cosine_distances_df)
-spiegel_model1 <- calc_rd(cosine_distances_df, target_source) # estimate rd I
-spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df, target_source) # estimate rd II
+spiegel_model1 <- calc_rd(cosine_distances_df) # estimate rd I
+spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 ```
 
-To get a first idea of the trend of the data over time, the mean cosine similarity between the news articles and each parties press releases conditional on the day can be plotted. \autoref{fig:mean_cosine_sim_ols_example} shows that kind of plot for Handelsblatt and Bild.de (See \autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these figures, a few observations can be made. The similarity with the FDP, e.g., seems to increase over time for both Handelsblatt and Bild.de. In the case of Bild.de, this applies to all parties, except for the AfD, where a slight downward trend is discernible.
+In order to find out if the similarity between press releases and news articles is different for certain party-news publisher pairs and/or change over time, the cosine similarity measure from the previous section is used as the dependent variable in a regression model.
 
-```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="90%"}
-handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
-  bild_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
-  plot_layout(ncol = 1)
-```
+<!-- TODO: give a brief overview of all models: 1) OLS Dummy, 2) RDiT without dummies, 3) RDiT with dummies-->
 
+Three different model specifications are estimated for each news publisher: (1) First, a OLS regression is estimated including party dummies. (2) Second, a simple regression discontinuity specification is estimated (without dummies) followed by (2) a specification that includes dummy variables for parties to check for differences in news publisher/party pairs.
 
 ## OLS dummy regression
 
-To measure whether there is a significant difference in the topic similarity for each party for a news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{i})$) on day $i$ between the news articles of that news publisher and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
+To measure whether there is a significant difference in the topic similarity for each party for a news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{t})$) on day $t$ between the news articles of that news publisher and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
 
 $$
 \ln(\text{CS}_{t})=\beta_0+\beta_nD_{t,k-1}+\epsilon_t\text{,}
@@ -679,11 +674,73 @@ $$
 
 with $t$ = date^[date1 in \autoref{table:dataset_structure_final}], $k$ = political party^[source2 in \autoref{table:dataset_structure_final}]
 
-\autoref{table:results_ols} display the result of that estimation. Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ is $-0.2067$, a switch from from 0 to 1 can be interpreted as a 21% decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. Or, in other words: Compared to AfD, the similarity of topics of DIE WELT and B90/GRÜNE is 21% lower. In general, for all news papers (except for Handelsblat) the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD.
+### OLS dummy results
 
-```{r eval=FALSE, include=FALSE}
-transform_coeff_ols(welt_model$coefficients[2])
+\autoref{fig:mean_cosine_sim_ols_example} plots the mean cosine similarity between the news articles and each parties press releases over time for Handelsblatt and Bild.de (See \autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these figures, a few observations can be made. The similarity with the FDP, e.g., seems to increase over time for both Handelsblatt and Bild.de. In the case of Bild.de, this applies to all parties, except for the AfD, where a slight downward trend is discernible.
+
+```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="90%"}
+handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
+  bild_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
+  plot_layout(ncol = 1)
 ```
+
+The columns in \autoref{table:results_ols} report the results for each new publisher.^[All regression output tables are created using @hlavac_stargazer_2018] Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\hat\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ in the first column - representing the model for DIE WELT - is $-0.232$, a switch from from 0 to 1 can be interpreted as a $20.6%$ decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. In other words: Compared to AfD, the similarity of topics of DIE WELT and B90/GRÜNE is $20.6%$ lower. \autoref{fig:coeff_ols_dummy} plots the transformed coefficients for all news paper / party pairs (insignifcant coefficients are shown with a low opacity). In general, for all news papers - except for Handelsblatt - the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD. The biggest difference for all parties exist for Bild.de followed by FOCUS ONLINE and DIE WELT. In the case of Handelsblatt not significant difference can be found for CDU/CSU, B90/GRÜNE and SPD (compared to AfD). However, the positive coefficients of FDP and DIE LINKE indicate, that the topics discussed in press releases of these parties and the articles of Handelsblatt are significantly similar when compared to the press releases of the AfD.
+
+```{r Extract coefficient}
+news_names = c('DIE WELT','stern.de','Handelsblatt','FOCUS Online','SPIEGEL ONLINE','ZEIT ONLINE','Bild.de')
+news_models = list(welt_model,stern_model,handelsblatt_model,focus_model,spiegel_model,zeit_model,bild_model)
+
+for (i in 1:length(news_names)) {
+  model <- news_models[[i]]
+  
+  temp_df <- as_tibble(
+    cbind(
+      news= news_names[i],
+      covariate = names(model$coefficients),
+      coeff = summary(model)$coefficients[,1],
+      p_val = round(summary(model)$coefficients[,4], 3)
+      )) %>% 
+    mutate(
+      coeff = as.numeric(coeff),
+      coeff_transf = round(transform_coeff_ols(coeff),3) * 100
+      ) %>%
+    filter(covariate != "(Intercept)")
+  
+  if (i == 1) {
+    plot_df <- temp_df
+  } else {
+    plot_df <- rbind(plot_df, temp_df)
+  }
+}
+
+plot_df %<>% 
+  mutate(covariate = str_remove(covariate, "source2"),
+         significant = ifelse(p_val < 0.1, 1, 0)
+         )
+```
+
+```{r Plot coefficients - simple dummy, fig.cap="Coefficients of OLS dummy regression \\label{fig:coeff_ols_dummy}", fig.height=3, out.width="100%"}
+parties <- c("CDU","FDP","B90/GRÜNE","DIE LINKE","SPD")
+
+plot_df %>% 
+  ggplot(aes(x=covariate, y=coeff_transf, color = covariate, alpha=significant)) +
+  geom_point() +
+  geom_segment( aes(x=covariate, xend=covariate, y=0, yend=coeff_transf)) +
+  scale_color_manual(values = custom_colors[parties]) +
+  geom_hline(yintercept = 0, color = custom_colors["AfD"]) +
+  facet_wrap(~news, nrow = 1) +
+  labs(y=expression('% change*'), x = NULL,
+       caption = expression(paste('*% change=(exp(',beta,')-1)*100'))) +
+  theme(
+      strip.background = element_blank(),
+      panel.grid.major.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.text.x = element_blank(),
+      legend.title = element_blank(),
+      legend.position = "bottom") +
+  scale_alpha(guide = 'none')
+```
+
 
 ```{r Model results OLS dummy 1, results='asis' }
 table <- capture.output({
@@ -708,29 +765,12 @@ cat(table)
 ## Regression discontinuity model
 
 We assume that news publisher report differently during election campaigns and that the election day introduces a change in the reporting. The underlying dynamic of this assumption coincides with the basic idea of regression discontinuity design (RDD). Therefore, a RDD is applied to identify the short-term effect of the election on the topic similarity between news paper articles and press releases.
-The RDD was designed by @thistlethwaite_regression-discontinuity_1960 and formalized by @hahn_identification_2001 to measure the effect of a treatment in a nonexperimental setting, where the treatment defined as discontinuous function of a continuous, observed variable (the 'running' or 'forcing' variable). Like @thistlethwaite_regression-discontinuity_1960, who estimated the effect of receiving the National Merit Scholarship on future academic outcomes, early studies that rely on RD designs estimate the effects of certain thresholds of a running variable on educational outcomes (i.e. financial aid (@van_der_klaauw_estimating_2002) or class size (@angrist_using_1999)). Following these early studies in the area of education, the RDD has received attention in a wider range of the economic literature, including labor economics, political economy, health economics, and environmental economics. Compared to alternative quasi-experimental estimators like difference-in-difference and matching techniques, RDD is considered as the estimator with the greatest internal validity (@lee_regression_2010). While RDD was originally applied in cross-sectional studies, an increasing number of studies, especially in the field of environmental and energy economics, has adapted the framework to time series applications.\footnote{See @hausman_regression_2018 for examples of this regression discontinuity in time (RDiT).} In these studies, time is the running variable and treatment begins at a particular threshold in time. 
-An important conceptual difference between RD and RDiT exists in the possible interpretation. The fact that in RDiT the running variable of time is not random eliminates the interpretation of local randomization in which it is assumed that treatment status within a small neighborhood around the threshold can essentially be compared to a roll of the dice. As noted by @jacob_practical_2012, although some researchers have focused on this interpretation of local randomization (@lee_regression_2010), others have instead emphasized RD characterized by discontinuity at a threshold (@hahn_identification_2001). Thus, to the extent that the RD framework is simply another quasi-experimental framework (one that uses discontinuity), RDiT is conceptually similar to RD.
+The RDD was designed by @thistlethwaite_regression-discontinuity_1960 and formalized by @hahn_identification_2001 to measure the effect of a treatment in a nonexperimental setting, where the treatment defined as discontinuous function of a continuous, observed variable (the 'running' or 'forcing' variable). Like @thistlethwaite_regression-discontinuity_1960, who estimated the effect of receiving the National Merit Scholarship on future academic outcomes, early studies that rely on RD designs estimate the effects of certain thresholds of a running variable on educational outcomes (i.e. financial aid (@van_der_klaauw_estimating_2002) or class size (@angrist_using_1999)). Following these early studies in the area of education, the RDD has received attention in a wider range of the economic literature, including labor economics, political economy, health economics, and environmental economics. Compared to alternative quasi-experimental estimators like difference-in-difference and matching techniques, RDD is considered as the estimator with the greatest internal validity (@lee_regression_2010). 
 
-In this paper date is the running variable, the election day is the treatment and news publishers are the units that receive the treatment. Since the running variable (date) completely determines the treatment (election day), we use a sharp regression design, such that the probability that a news publisher receives a treatment jumps from 0 to 1 at the cutoff.
+<!-- RDiT -->
+While RDD was originally applied in cross-sectional studies, an increasing number of studies, especially in the field of environmental and energy economics, has adapted the framework to time series applications.^[See @hausman_regression_2018 for examples of this regression discontinuity in time (RDiT).] In these studies, time is the running variable and treatment begins at a particular threshold in time. An important conceptual difference between regression discontinuity (RD) and regression discontinuity in time (RDiT) exists in the possible interpretation. The fact that in RDiT the running variable of time is not random, eliminates the interpretation of local randomization in which it is assumed that treatment status within a small neighborhood around the threshold can essentially be compared to a roll of the dice. As noted by @jacob_practical_2012, although some researchers have focused on this interpretation of local randomization (@lee_regression_2010), others have instead emphasized that RD is characterized by discontinuity at a threshold (@hahn_identification_2001). Thus, to the extent that the RD framework is simply another quasi-experimental framework (one that uses discontinuity), RDiT is conceptually similar to RD.
 
-The visual representation of the treatment effect for two sample news publisher Handelsblatt and Bild.de in \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic similarity for Handelsblatt decreases after the election for CDU, FDP and B90/Grüne. A less clear to no effect can be seen for SPD, DIE LINKE and AfD. In contrast, the treatment effect at Bild.de seems to exist only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
-
-```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
-handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
-  bild_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
-  plot_layout(ncol = 1)
-```
-
-In order to statistically evaluate these observations, two model specifications are estimated for each news publisher: (1) First, a simple regression discontinuity specification is estimated followed by (2) a specification that includes dummy variables for parties to check for differences in news publisher - party pairs.
-
-### Regression Discontinuity (RD) specification
-
-*Todo:* 
-- Define bandwidth
-- Write interpretation
-- use r package for estimation (?)
-
-A RD design is used to estimate the effects of the election day. Specifically, I estimate the equation
+In this paper date is the running variable, the election day is the treatment and news publishers are the units that receive the treatment. Since the running variable (date) completely determines the treatment (election day), a sharp regression design is used, such that the probability that a news publisher receives a treatment jumps from 0 to 1 at the cutoff. Specifically, I estimate the equation
 
 $$
 \ln(\text{CS}_{t})=\beta_0+\beta_1T_t+f(W_t)+\epsilon_t
@@ -744,6 +784,7 @@ T_t =
 0, & \text{ if date } < \text{election date}
 \end{cases}
 $$
+
 and the running variable $W_t$ is the time difference between date $i$ and the election date (in days), such that $\beta_1$ is the average treatment effect for observations with $W_t = \text{election date}$. In other words, $\beta_1$ gives the average change of the similarity between the content of news publisher and press releases after the election day. Identification in the RD model comes from assuming that the underlying, potentially endogenous relationship between $\epsilon_t$ and the date is eliminated by the flexible function $f(.)$. In particular, the relationship between $\epsilon_t$ and the date must not change discontinuously on or near the election date. 
 
 Following @imbens_regression_2008 I estimate a local linear regression of the form:
@@ -752,7 +793,20 @@ $$
 \ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_t+\beta_3W_t*T_t+\epsilon_t
 $$
 
-In this specification, the function $f(W_t)$ is specified as $\beta_2W_t+\beta_3W_t*T_t$.
+In this specification, the function $f(W_t)$ is specified as $\beta_2W_t+\beta_3W_t*T_t$. The terms $W_t$ and $W_t*T_t$ should absorb
+any smooth relationship between the date and $\epsilon_t$ in the days surrounding the election day. If the RD assumption is valid (i.e., $\epsilon_t$ does not change discontinuously at the election day) the estimate of $\beta_1$, the coefficient of interest, will be unbiased even without further controls. However, in the following section dummy variables for each party $k$ ($D_{t,k-1}$) are included in the model to estimate the isolated effect for each news paper / party pair.
+
+$$
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_{t}+\beta_3D_{t,k-1}+\beta_4T_tD_{t,k-1}+\epsilon_t
+$$
+
+Including interaction terms $T_tD_{t,k-1}$ - and since we are estimating an isolated model for each newspaper - $\beta_4$ gives the average treatment effect for each newspaper/party pair (i.e. how how much the slope changes for each party).
+<!-- Todo: Define why we need the interaction term between treatment + dummy (find literature!) -->
+
+I specify a uniform kernel (@lee_regression_2010) and use a bandwidth of 115 days on each side of the election day threshold. The election took place on September 24, 2017, so the sample includes dates between June 1, 2017 and January 17, 2018. Since the identification strategy only attempts to estimate $\beta$ at $W_t=0$ (the election day) no additional dates beyond the 115 day bandwidth enter the sample. Alternative specifications with varying bandwidths led to similar results.
+
+### RDiT Results
+<!-- Todo: Write interpretation -->
 
 \autoref{table:results_rd1} shows the results of the estimation.
 
@@ -773,16 +827,15 @@ table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
 cat(table)
 ```
 
-### RD model with dummies
+### RDiT dummy results
 
-*Todo:* 
-- Define why we need the interaction term between treatment + dummy (find literature!)
+The visual representation of the treatment effect for two sample news publisher Handelsblatt and Bild.de in \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic similarity for Handelsblatt decreases after the election for CDU, FDP and B90/GRÜNE. A less clear to no effect can be seen for SPD, DIE LINKE and AfD. In contrast, the treatment effect at Bild.de seems to exist only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
 
-Including interaction terms $T_iD_{i,k-1}$ - and since we are estimating an isolated model for each newspaper - $\beta_4$ gives the average treatment effect for each newspaper/party pair (i.e. how how much the slope changes for each party).
-
-$$
-\ln(\text{CS}_{i})=\beta_0+\beta_1T_i+\beta_2W_{i}+\beta_3D_{i,k-1}+\beta_4T_iD_{i,k-1}+\epsilon_i
-$$
+```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
+handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
+  bild_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
+  plot_layout(ncol = 1)
+```
 
 ```{r Model results with interaction terms, results='asis'}
 table <- capture.output({
