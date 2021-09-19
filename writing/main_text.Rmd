@@ -665,6 +665,8 @@ In order to find out if the similarity between press releases and news articles 
 Three different model specifications are estimated for each news publisher: (1) First, a OLS regression is estimated including party dummies. (2) Second, a simple regression discontinuity specification is estimated (without dummies) followed by (2) a specification that includes dummy variables for parties to check for differences in news publisher/party pairs.
 
 ## OLS dummy regression
+<!-- General finding: 
+      - compared to AfD, the topic similarity is lower for all newspaper / party pairs. Except Handelsblatt -->
 
 To measure whether there is a significant difference in the topic similarity for each party for a news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{t})$) on day $t$ between the news articles of that news publisher and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
 
@@ -741,7 +743,6 @@ plot_df %>%
   scale_alpha(guide = 'none')
 ```
 
-
 ```{r Model results OLS dummy 1, results='asis' }
 table <- capture.output({
   stargazer::stargazer(welt_model, stern_model, zeit_model, handelsblatt_model, 
@@ -753,14 +754,14 @@ table <- capture.output({
                      header = FALSE, digits = 3, 
                      type = "latex",
                      label = "table:results_ols",
-                     title = "Results from the OLS model")
+                     title = "Results from the OLS dummy regression")
 })
 
+table <- remove_text(table)
 table <- gsub("\\begin{tabular}","\\resizebox{0.99\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
 table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
 cat(table)
 ```
-<!-- TODO: Model diagnostics: F-test, plot residuals -->
 
 ## Regression discontinuity model
 
@@ -793,22 +794,31 @@ $$
 \ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_t+\beta_3W_t*T_t+\epsilon_t
 $$
 
-In this specification, the function $f(W_t)$ is specified as $\beta_2W_t+\beta_3W_t*T_t$. The terms $W_t$ and $W_t*T_t$ should absorb
-any smooth relationship between the date and $\epsilon_t$ in the days surrounding the election day. If the RD assumption is valid (i.e., $\epsilon_t$ does not change discontinuously at the election day) the estimate of $\beta_1$, the coefficient of interest, will be unbiased even without further controls. However, in the following section dummy variables for each party $k$ ($D_{t,k-1}$) are included in the model to estimate the isolated effect for each news paper / party pair.
+In this specification (results are shown in [RDiT Results](#RDiT-Results)), the function $f(W_t)$ is specified as $\beta_2W_t+\beta_3W_t*T_t$, where by $W_t*T_t$ is assumed that in addition to the intercept (captured by the treatment effect $T_t$), the slope also changes after the election day. Both this interaction term and $W_t$ should absorb
+any smooth relationship between the date and $\epsilon_t$ in the days surrounding the election day. If the RD assumption is valid (i.e., $\epsilon_t$ does not change discontinuously at the election day) the estimate of $\beta_1$, the coefficient of interest, will be unbiased even without further controls. However, in section [RDiT dummy results](#RDiT-dummy-results) I include dummy variables for each party $k$ ($D_{t,k-1}$) assuming that the effect of the election day on topic similarity differs for different parties. Again, the interaction term $T_t*D_{t,k-1}$ is included to allow for a slope change depending on the party. Thus $\beta_5$ gives the average treatment effect for each newspaper / party pair.
 
 $$
-\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_{t}+\beta_3D_{t,k-1}+\beta_4T_tD_{t,k-1}+\epsilon_t
+\ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_{t}+\beta_3W_t*T_t+\beta_4D_{t,k-1}+\beta_5T_t*D_{t,k-1}+\epsilon_t
 $$
-
-Including interaction terms $T_tD_{t,k-1}$ - and since we are estimating an isolated model for each newspaper - $\beta_4$ gives the average treatment effect for each newspaper/party pair (i.e. how how much the slope changes for each party).
-<!-- Todo: Define why we need the interaction term between treatment + dummy (find literature!) -->
 
 I specify a uniform kernel (@lee_regression_2010) and use a bandwidth of 115 days on each side of the election day threshold. The election took place on September 24, 2017, so the sample includes dates between June 1, 2017 and January 17, 2018. Since the identification strategy only attempts to estimate $\beta$ at $W_t=0$ (the election day) no additional dates beyond the 115 day bandwidth enter the sample. Alternative specifications with varying bandwidths led to similar results.
 
 ### RDiT Results
-<!-- Todo: Write interpretation -->
+<!-- General finding: 
+      - negative treatment effect of the election day on the topic similarity -->
 
-\autoref{table:results_rd1} shows the results of the estimation.
+\autoref{table:results_rd1} shows the results of the estimation. The negative and significant values for $\beta_1$ indicate that - holding the time constant -, the election day is associated with a decrease in topic similarity for DIE WELT, stern.de, ZEIT ONLINE and Handelsblatt. Since we are interested in the treatment effect at the cutoff point (remember that $W_t=0$ for the election day) and since
+
+$$
+\frac{\Delta Y}{\Delta T}=\beta_1+\beta_3W,
+$$
+
+we can interpret $\beta_1$ as the change in topic similarity with respect to the election day. Similarly to the interpretation in [OLS dummy results](#OLS-dummy-results), the the % impact of $T$ on $Y$ can be estimated as $exp(\hat\beta)-1$. \autoref{fig:coeff_rdit} shows the transformed coefficients (of $beta_1$) for all newspapers: The negative effect of the election day on the topic similarity is strongest for Handelsblatt (~21.5% decrease), followed by DIE WELT (~15.6% decrease), ZEIT ONLINE (~13.5% decrease) and stern.de (~11.1% decrease).
+
+```{r eval=FALSE, include=FALSE}
+coef <- summary(welt_model1)$coefficients[2,1]
+transform_coeff_ols(coef)
+```
 
 ```{r Model results RDD wihout dummies, results='asis'}
 table <- capture.output({
@@ -819,7 +829,7 @@ table <- capture.output({
                      digits = 3, type = "latex",
                      header = FALSE,
                      label = "table:results_rd1",
-                     title = "Results from the regression discontinuity model")
+                     title = "Results from the RDiT model")
 })
 
 table <- gsub("\\begin{tabular}","\\resizebox{0.99\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
@@ -827,9 +837,58 @@ table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
 cat(table)
 ```
 
-### RDiT dummy results
+```{r Extract coefficients - RDiT}
+news_names = c('DIE WELT','stern.de','Handelsblatt','FOCUS Online','SPIEGEL ONLINE','ZEIT ONLINE','Bild.de')
+news_models = list(welt_model1,stern_model1,handelsblatt_model1,focus_model1,spiegel_model1,zeit_model1,bild_model1)
 
-The visual representation of the treatment effect for two sample news publisher Handelsblatt and Bild.de in \autoref{fig:mean_cosine_sim_rd_example} reveals that the topic similarity for Handelsblatt decreases after the election for CDU, FDP and B90/GRÜNE. A less clear to no effect can be seen for SPD, DIE LINKE and AfD. In contrast, the treatment effect at Bild.de seems to exist only for the AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher).
+for (i in 1:length(news_names)) {
+  model <- news_models[[i]]
+  
+  temp_df <- as_tibble(
+    cbind(
+      news= news_names[i],
+      covariate = names(model$coefficients),
+      coeff = summary(model)$coefficients[,1],
+      p_val = round(summary(model)$coefficients[,4], 3)
+      )) %>% 
+    mutate(
+      coeff = as.numeric(coeff),
+      coeff_transf = round(transform_coeff_ols(coeff),3) * 100
+      ) %>% 
+    filter(covariate == "TTRUE")
+  
+  if (i == 1) {
+    plot_df <- temp_df
+  } else {
+    plot_df <- rbind(plot_df, temp_df)
+  }
+}
+
+plot_df %<>% mutate(significant = ifelse(p_val < 0.1, 1, 0))
+```
+
+```{r Plot coefficients - RDiT, fig.cap="Treatment effect of RDiT regression \\label{fig:coeff_rdit}", fig.height=3, out.width="60%"}
+plot_df %>% 
+  ggplot(aes(x=covariate, y=coeff_transf, alpha=significant)) +
+  geom_point() +
+  geom_segment( aes(x=covariate, xend=covariate, y=0, yend=coeff_transf)) +
+  geom_hline(yintercept = 0) +
+  facet_wrap(~news, nrow = 1) +
+  labs(y=expression('% change*'), x = NULL,
+       caption = expression(paste('*% change=(exp(',beta,')-1)*100'))) +
+  theme(
+      strip.background = element_blank(),
+      panel.grid.major.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.text.x = element_blank(),
+      legend.title = element_blank(),
+      legend.position = "none") 
+```
+
+### RDiT dummy results
+<!-- TODO: Interpretation! -->
+
+As mentioned above, I assume that the effect of the election day on the topic similarity differs depending on the party. \autoref{fig:mean_cosine_sim_rd_example} visually captures the treatment effect for two sample news publisher Handelsblatt and Bild.de and it reveals a treatment effect around the cutoff point for Handelsblatt and CDU, FDP and B90/GRÜNE: For all pairs, the topic similarity decreases right after the election day. Same is true for Bild.de and AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher). A positive effect can only be found for the pair Bild.de and B90/GRÜNE. The figure also illustrates a change of the slope after the election day for nearly all newspaper / party pairs. 
 
 ```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
 handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
@@ -837,7 +896,7 @@ handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
   plot_layout(ncol = 1)
 ```
 
-```{r Model results with interaction terms, results='asis'}
+```{r Model results with dummies & interaction terms, results='asis'}
 table <- capture.output({
   stargazer::stargazer(welt_model2, stern_model2, zeit_model2, handelsblatt_model2,
                      focus_model2, bild_model2, spiegel_model2,
@@ -849,12 +908,12 @@ table <- capture.output({
                      title = "Results from the regression discontinuity model")
 })
 
+table <- remove_text(table)
 table <- gsub("\\begin{tabular}","\\resizebox{0.99\\textwidth}{!}{\\begin{tabular}", table,fixed=T)
 table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
 cat(table)
 ```
 
-<!-- Interpretation -->
 Example interpretation for *Bild.de* (see \autoref{table:results_rd2})
 
 The coefficient $\beta_4$ for $D_{SPD} = 1$ shows the difference of the treatment effect for SPD. To illustrate this, we can compare the model equation for $D_{SPD} = 1$ and $D_{SPD} = 0$ 

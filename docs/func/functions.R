@@ -167,6 +167,12 @@ plot_cosine_sim_rd <- function(df, target) {
       axis.title.y = element_text(size = 3, angle = 90))  
 }
 
+# quick and dirty workaround for removing text from covariates  
+remove_text = function(text){
+  text = gsub("source2", "", text, perl = TRUE)
+  text
+}
+
 #####################
 ### Calculate OLS ###
 #####################
@@ -186,37 +192,37 @@ transform_coeff_ols <- function(coeff) {
 ### Calculate regression discontinuity ###
 ##########################################
 ### Simple RDD (no dummy)
-calc_rd <- function(dataframe) { 
+calc_rd <- function(dataframe) {
   temp_df <- dataframe %>%
     mutate(
-      X_centered = I(date1 - election_date),
-      treated = date1 >= election_date) %>% 
-    filter(between(X_centered,-115,115))
+      W = I(date1 - election_date),
+      `T` = date1 >= election_date) %>% 
+    filter(between(W,-115,115))
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ treated * X_centered)
+    lm(log(cos_sim) ~ `T` * W)
 }
 
 ### Dummy
 calc_rd_dummy<- function(dataframe) { 
   temp_df <- dataframe %>%
     mutate(
-      X_centered = I(date1 - election_date),
-      treated = date1 >= election_date) %>% 
-    filter(between(X_centered,-115,115))
+      W = I(date1 - election_date),
+      `T` = date1 >= election_date) %>% 
+    filter(between(W,-115,115))
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ treated + X_centered + source2 )
+    lm(log(cos_sim) ~ `T` * W + source2 )
 }
 
 ### Dummy & interaction term
 calc_rd_dummy_interaction <- function(dataframe) { 
   temp_df <- dataframe %>%
     mutate(
-      X_centered = I(date1 - election_date),
-      treated = date1 >= election_date) %>% 
-    filter(between(X_centered,-115,115))
+      W = I(date1 - election_date),
+      `T` = date1 >= election_date) %>% 
+    filter(between(W,-115,115))
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ treated + X_centered + source2 + treated:source2)
+    lm(log(cos_sim) ~ `T` * W + `T` * source2)
 }
