@@ -888,7 +888,7 @@ plot_df %>%
 ### RDiT dummy results
 <!-- TODO: Interpretation! -->
 
-As mentioned above, I assume that the effect of the election day on the topic similarity differs depending on the party. \autoref{fig:mean_cosine_sim_rd_example} visually captures the treatment effect for two sample news publisher Handelsblatt and Bild.de and it reveals a treatment effect around the cutoff point for Handelsblatt and CDU, FDP and B90/GRÜNE: For all pairs, the topic similarity decreases right after the election day. Same is true for Bild.de and AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher). A positive effect can only be found for the pair Bild.de and B90/GRÜNE. The figure also illustrates a change of the slope after the election day for nearly all newspaper / party pairs. 
+As mentioned above, I assume that the effect of the election day on the topic similarity differs depending on the party. \autoref{fig:mean_cosine_sim_rd_example} visually captures the treatment effect for two sample news publisher Handelsblatt and Bild.de and it reveals a treatment effect around the cutoff point for Handelsblatt and CDU, FDP and B90/GRÜNE: For all pairs, the topic similarity decreases right after the election day. Same is true for Bild.de and AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher). A positive effect can only be found for the pair Bild.de and B90/GRÜNE and Bild.de and CDU. The figure also illustrates a change of the slope after the election day for nearly all newspaper / party pairs. 
 
 ```{r Daily mean cosine similarity - rd example, fig.cap="Log of mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd_example}", fig.height=3, out.width="90%"}
 handelsblatt_p1 + theme(strip.text.x = element_text(size = 6)) +
@@ -914,48 +914,89 @@ table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
 cat(table)
 ```
 
-Example interpretation for *Bild.de* (see \autoref{table:results_rd2})
+\autoref{table:results_rd2} outputs the results for all newspaper models. The coefficients for the treatment variables(e.g. "TTRUE:B90/GRÜNE") give the effect of the election day on the topic similarity depending on the party for a given $W$. This can be illustrated using the pair Handelsblatt and B90/GRÜNE as an example and comparing the model equation for $D_{B90/GRÜNE} = 1$ and $D_{B90/GRÜNE} = 0$ for $W=0$. For $D_{B90/GRÜNE} = 1$ the equation is
 
-The coefficient $\beta_4$ for $D_{SPD} = 1$ shows the difference of the treatment effect for SPD. To illustrate this, we can compare the model equation for $D_{SPD} = 1$ and $D_{SPD} = 0$ 
+$$
+\ln(\text{CS})=-1.896+(-0.091)T+(-0.260)T,
+$$
 
-$D_{SPD} = 1$:
-$\begin{aligned}
-\ln(\text{CS})(D_{SPD}=1)=-1.647+(-0.189)T+(0.001)W-0.479+(0.252)T \\
-\ln(\text{CS})(D_{SPD}=1)=-2,126+(0.001)W+(0.252-0.189)T
-\end{aligned}$
+whereas for $D_{B90/GRÜNE} = 0$ it is
 
-$D_{SPD} = 0$:
-$\begin{aligned}
-\ln(\text{CS})(D_{SPD}=0)=-1.647+(-0.189)T+(0.001)W \\
-\ln(\text{CS})(D_{SPD}=0)=-1.647+(0.001)W+(-0.189)T
-\end{aligned}$
+$$
+\ln(\text{CS})=-1.896+(-0.091)T.
+$$
 
-- When $D_{SPD}$ switches from 0 to 1, the treatment effect increases by $0.252$.
+In other words, when $D_{B90/GRÜNE}$ switches from 0 to 1, the treatment effect decreases by $0.260$ compared to the base dummy group AfD, for wich the treatment effect is $-0.091$. Again, since we are estimating a log linear model, we have to transform this coefficient using $\exp(-0.260)-1 = -0.229$. Therefore, the topic similarity between Handelsblatt and B90/GRÜNE decreases right after the election day by $22.9%$ compared to AfD (the base dummy-group).
 
-To interpret this coefficient, we have to transform it (our dependent variable is log transformed).
-
-For $D_{SPD} = 0$: $\exp(-0.189)-1 = -0.172$
 ```{r eval=FALSE, include=FALSE}
-coef <- bild_model2$coefficients["treatedTRUE"]
+coef <- handelsblatt_model2$coefficients["TTRUE:source2B90/GRÜNE"]
 transform_coeff_ols(coef)
 ```
 
-After the election day the topic similarity between *Bild.de* and AfD decreased by ~17.2%
+```{r Extract coefficients - RDiT dummy}
+# TODO: Use T as the base (for AfD)
 
-$D_{SPD} = 1$: $\exp(-0.189+0.252)-1 = 0.065$
-```{r eval=FALSE, include=FALSE}
-coef <- bild_model2$coefficients["treatedTRUE:source2SPD"] + bild_model2$coefficients["treatedTRUE"]
-transform_coeff_ols(coef)
+news_names = c('DIE WELT','stern.de','Handelsblatt','FOCUS Online','SPIEGEL ONLINE','ZEIT ONLINE','Bild.de')
+news_models = list(welt_model2,stern_model2,handelsblatt_model2,focus_model2,spiegel_model2,zeit_model2,bild_model2)
+
+for (i in 1:length(news_names)) {
+  model <- news_models[[i]]
+
+  temp_df <- as_tibble(
+    cbind(
+      news= news_names[i],
+      covariate = names(model$coefficients),
+      coef_interaction = summary(model)$coefficients[,1],
+      #coef_treatment = summary(model)$coefficients["TTRUE",1],
+      p_val = round(summary(model)$coefficients[,4], 3)
+      )) %>% 
+    filter(grepl("TTRUE", covariate)) %>% 
+    filter(covariate != "TTRUE:W") %>% 
+    mutate(
+      coef_interaction = as.numeric(coef_interaction),
+      #coef_treatment = as.numeric(coef_treatment),
+      coeff = coef_interaction,
+      coeff_transf = round(transform_coeff_ols(coeff),3) * 100,
+      p_val = as.numeric(p_val),
+      significant = ifelse(p_val < 0.1, 1, 0),
+      covariate = gsub("source2", "", covariate))
+  
+  if (i == 1) {
+    plot_df <- temp_df
+  } else {
+    plot_df <- rbind(plot_df, temp_df)
+  }
+}
 ```
 
-After the election day the topic similarity between *Bild.de* and SPD increased by ~6.5% compared to AfD.
+```{r Plot coefficients - RDiT dummy, fig.cap="Coefficients of RDiT dummy regression \\label{fig:coeff_rdit_dummy}", fig.height=3, out.width="100%"}
+custom_colors2 <- c("TTRUE:CDU"="#32302e","TTRUE:FDP"="#ffed00",
+                    "TTRUE:B90/GRÜNE"="#46962b","TTRUE:DIE LINKE"="#ec008c",
+                    "TTRUE:SPD"="#E3000F", "TTRUE"="#009ee0")
 
-General interpretation:
+plot_df %>% 
+  ggplot(aes(x=covariate, y=coeff_transf, color = covariate, alpha=significant)) +
+  geom_point() +
+  geom_segment( aes(x=covariate, xend=covariate, y=0, yend=coeff_transf)) +
+  scale_color_manual(values = custom_colors2) +
+  facet_wrap(~news, nrow = 1) +
+  labs(y=expression('% change*'), x = NULL,
+       caption = expression(paste('*% change=(exp(',beta,')-1)*100'))) +
+  theme(
+      strip.background = element_blank(),
+      panel.grid.major.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.text.x = element_blank(),
+      legend.title = element_blank(),
+      legend.position = "bottom") +
+  scale_alpha(guide = 'none')
+```
 
-- News articles of *DIE WELT* and *Bild.de* show a significant decrease of topic similarity with AfD after the election. No such effect can be found for the other news papers.
-- News articles of *Handelsblatt* are significantly less similar with B90/G & CDU after the election (compared to AfD). The opposite is true for *Bild.de* where new articles are more similar to ALL party press releases (except for DIE LINKE) when compared to AfD.
+\autoref{fig:coeff_rdit_dummy} displays the transformed coefficients of the interaction terms. A decrease of topic similarity with the CDU (when compared to AfD) right after the election day can be found for For Handelsblatt, SPIEGEL ONLINE and stern.de. In the case of Handelsblatt, a similar negative effect exists from B90/GRÜNE. Same is true for ZEIT ONLINE, where the topic similarity decreases for B90/GRÜNE right after the election day. 
 
-The results show, that for some news papers (*DIE WELT* & *Bild.de*), the there is a significant change in the topic similarity between their news articles and the press releases of parties. 
+<!-- TODO: 
+  - interpret Bild.de
+  - interpret T for AfD -->
 
 # VI Discussion and conclusion
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.6.20)  19 SEP 2021 16:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.6.20)  20 SEP 2021 13:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -845,7 +845,7 @@ File: main_text_files/figure-latex/Plot coefficients - RDiT-1.pdf Graphic file
 (type pdf)
 <use main_text_files/figure-latex/Plot coefficients - RDiT-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Plot coefficients - RDiT-
-1.pdf  used on input line 1185.
+1.pdf  used on input line 1184.
 (pdftex.def)             Requested size: 281.8624pt x 124.52971pt.
 [16] [17 <./main_text_files/figure-latex/Plot coefficients - RDiT-1.pdf>]
 <main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf, 
@@ -855,40 +855,64 @@ pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - rd example-1.p
 df>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - rd example-1.pdf  used on input line 1206.
+ity - rd example-1.pdf  used on input line 1208.
 (pdftex.def)             Requested size: 422.78372pt x 183.45462pt.
+
+LaTeX Warning: Command \" invalid in math mode on input line 1222.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 1223.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 1223.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 1230.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 1236.
+
+<main_text_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf, id=522, 465
+.74pt x 205.76875pt>
+File: main_text_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf Graphic
+ file (type pdf)
+<use main_text_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf>
+Package pdftex.def Info: main_text_files/figure-latex/Plot coefficients - RDiT 
+dummy-1.pdf  used on input line 1247.
+(pdftex.def)             Requested size: 465.73886pt x 205.76823pt.
 [18 <./main_text_files/figure-latex/Daily mean cosine similarity - rd example-1
-.pdf>] [19]
-<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=549, 455.7
+.pdf>] [19 <./main_text_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf
+>] [20]
+<main_text_files/figure-latex/Daily mean cosine similarity-1.pdf, id=568, 455.7
 025pt x 561.09625pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity-1.pdf Graphic f
 ile (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity-1.pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity-1.pdf  used on input line 1374.
+ity-1.pdf  used on input line 1368.
 (pdftex.def)             Requested size: 455.72223pt x 561.12056pt.
 <main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf
-, id=550, 455.7025pt x 561.09625pt>
+, id=569, 455.7025pt x 561.09625pt>
 File: main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-
 1.pdf Graphic file (type pdf)
 <use main_text_files/figure-latex/Daily mean cosine similarity - cutoff value-1
 .pdf>
 Package pdftex.def Info: main_text_files/figure-latex/Daily mean cosine similar
-ity - cutoff value-1.pdf  used on input line 1383.
+ity - cutoff value-1.pdf  used on input line 1377.
 (pdftex.def)             Requested size: 455.72223pt x 561.12056pt.
-[20] [21] [22 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pd
-f>] [23 <./main_text_files/figure-latex/Daily mean cosine similarity - cutoff v
-alue-1.pdf>] [24] [25] [26] (./main_text.aux)
+[21] [22] [23 <./main_text_files/figure-latex/Daily mean cosine similarity-1.pd
+f>] [24 <./main_text_files/figure-latex/Daily mean cosine similarity - cutoff v
+alue-1.pdf>] [25] [26] [27] (./main_text.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16253 strings out of 478994
- 253301 string characters out of 5858184
- 648316 words of memory out of 5000000
- 32993 multiletter control sequences out of 15000+600000
- 490649 words of font info for 200 fonts, out of 8000000 for 9000
+ 16262 strings out of 478994
+ 253826 string characters out of 5858184
+ 648471 words of memory out of 5000000
+ 33001 multiletter control sequences out of 15000+600000
+ 490472 words of font info for 199 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,12n,88p,4372b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{OLS-dummy-results} has been referenced but does n
@@ -921,10 +945,10 @@ ic/lm/lmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri10
 .pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr
 /local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texl
 ive/2021/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main_text.pdf (26 pages, 2189987 bytes).
+Output written on main_text.pdf (27 pages, 2199620 bytes).
 PDF statistics:
- 818 PDF objects out of 1000 (max. 8388607)
- 711 compressed objects within 8 object streams
- 168 named destinations out of 1000 (max. 500000)
- 51448 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 838 PDF objects out of 1000 (max. 8388607)
+ 727 compressed objects within 8 object streams
+ 170 named destinations out of 1000 (max. 500000)
+ 51453 words of extra memory for PDF output out of 51595 (max. 10000000)
 
