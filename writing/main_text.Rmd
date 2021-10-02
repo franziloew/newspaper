@@ -2,7 +2,7 @@
 title: "Political news coverage of online news"
 subtitle: "..."
 author: "Franziska Löw^[Institut für Industrieökonomik, Helmut Schmidt Universität. Email: .]"
-date: November 2020
+date: October 2021
 header-includes:
 - \usepackage{float}
 - \usepackage{pdflscape}
@@ -28,6 +28,7 @@ library(tidytext)
 library(dplyr)
 library(ggridges)
 library(ggplot2)
+library(ggrepel)
 library(stargazer)
 library(kableExtra)
 library(ggthemes)
@@ -71,17 +72,17 @@ theme_update(axis.text = element_text(size = 8),
 
 In democracies, the media fulfill fundamental functions: They should inform the people, contribute to the formation of opinion through criticism and discussion and thus enable participation. In recent decades, however, concern has grown about the role of the media in politics in general and in election campaigns in particular. They are criticized for influencing election results through their reporting and for helping populist parties in particular to flourish. After the 2017 federal elections in Germany, for example, the media were accused of contributing to the success of the right-wing populist AfD by increasingly including the party's content and using the same language in their articles as the AfD. Representatives of these media houses strongly opposed this accusation. The purpose of this study is to examine whether there is evidence that supports the accusation of biased media reporting, especially during election campaigns. 
 
-<!-- Populist messaging follows same logic as media logic & attention economy, that's why it makes sense for media to report more about populist parties -->
 For advertising-financed media the battle for the attention of the recipients is at the center of economic decisions. Online media in particular, which offer their content to a large extent free of charge and generate their revenue through advertising space, compete for the scarce resource of attention. Consumers pay a non-monetary price providing their attention, which the media platform bundles and sells on to advertising customers. This business model corresponds to that of a platform market, in which media companies act as platforms that connect the market of advertising with the reader market to exploit the indirect network effects between them [@dewenter_einfuhrung_2014]. A profit-maximizing publisher therefore directs its economic decisions according to what will attract the most attention.
 
 This conclusion, derived from the economic theory of platform markets, corresponds to the notion of media logic, a central concept in the field of media and communication studies [@takens_media_2013]. The debate about media logic is embedded in the broader discussion about the interaction between the press, politics and the public. The underlying thesis is that the content of political news is the product of news values and narrative techniques that media use to attract audiences [@stromback_four_2008]. According to @takens_media_2013, three content attributes highly correspond with news values and influence how journalists interpret political events: 1) personalized content, i.e., the focus on individual politicians; 2) the framing of politics as a contest and 3) negative coverage. Similarly @blassnig_hitting_2019 states that media primarily focus on news factors, i.e. the factors that turn an event into news worth reporting like conflict, drama, negativity, surprise or proximity. Likewise populist messages often co-occur with negative, emotionalized, or dramatized communication style, thus utilizing similar mechanisms as the media logic, respectively the attention economy. In fact, @blassnig_hitting_2019 shows that populist key messages by political and media actors in news articles provoke more reader comments under these articles. Media competing for the attention of readers therefore have an incentive to pick up on the key messages of these parties. These, in turn, benefit from being able to place their agendas in the public debate (@druckman_impact_2005, @eberl_lying_2018). It is assumed, that smaller, non-established parties in particular benefit from placing their topics in the media in order to get them into the voters' heads. Here, the tendency of the reporting is irrelevant but rather the quantity is decisive. 
 
-However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to measure how online news coverage coincides with the messaging of different political parties. Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004]. This paper therefore analyzes the period before and after the 2017 federal elections in Germany to answer the question whether political news report about similar topics and if this similarity changes after the election campaign is over. 
+However, the causal relationship between reporting and voter preferences is not the subject of this study. Rather, it is intended to measure how online news coverage coincides with the messaging of different political parties. Especially during election campaigns political parties want the media agenda to be congruent with their own agenda to define the issue-based criteria on which they will be evaluated by voters [@eberl_one_2017]. Parties instrumentalize their public relations in order to highlight issues that they are perceived to be competent on, that they "own" and that are important to their voters [@kepplinger_einfluss_2004]. This paper therefore analyzes the content of political news in the period before and after the 2017 federal elections in Germany to determine a) the extent to which these news echo topics covered by the parties during the election campaign, b) whether there is a difference between the parties, and c) how and/or if topic similarity changes after the election. 
 
-In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content - be it audio, video or text content. Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media) or tonality (how they are evaluated). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
+In order to answer these and other media-related questions in the political context, quantifying the content of media is a prerequisite. One of the key challenges is to determine the features that are used to describe media content - be it audio, video or text content. Studies that rely on quantifying media content for their analyses use, for example, visibility (how often political actors appear in the media 
+[@lengauer_candidate_2013]) or tonality (how they are evaluated [@eberl_one_2017]). Other studies examine the topics discussed or the language used in the media, in order to identify whether political actors are able to place their own policy positions in the media. Leading studies from economic literature, for example, examine how often a newspaper quotes the same think tanks (@groseclose_measure_2005, @lott_is_2014) or uses the same language [@gentzkow_media_2004] as members of Congress.
 Following this approach, the present paper compares topics discussed in media outlets with topics addressed in the press releases of the parties in the German "Bundestag", to measure the content similarity between online news and parties press releases.^[For the sake of simplicity, both news articles and press releases will be referred to as documents in the following.] To discover the latent topics in the corpus of text data, the structural topic model (STM) developed by @roberts_model_2016 is applied. This probabilistic text model results in a probability distribution for each document across all topics, which is then aggregated to calculate the degree of difference between the news articles of different media providers and the press releases of the parties.
 
-The figure below gives a high level overview of the different steps that are taken to text data for the analysis. Section III describes the sources of data and how text data is processed in order to use it as input for the structural topic model. Section IV briefly explains how the STM uses this input in order to calculate topic probabilities for the different documents and how these probabilities are used to calculate the similarity between the documents. In the final section V, we use the similarity measures as our dependent variable in a regression discontinuity model. In order to set the context, the following section II provides an introduction to the political situation in Germany as well as the German news market during the time under investigation.
+The following Section [II Background information](#ii-background-information) provides background information on the political situation in Germany as well as on the German online news market during the period under consideration. Sections III to V contain the analysis of the text data necessary to answer the research question. The diagram below provides an overview of these steps. Section [III Text data](#iii-text-data) describes the data sources and how text data are processed to be used as input for the structural topic model. Section [IV Estimate topic similarity of documents](#iv-estimate-topic-similarity-of-documents) then explains how the STM uses this input to compute the topic probabilities for the different documents, and how these probabilities are used to compute the similarity between documents. In the final Section [V Regression model](#v-regression-model), the similarity measure is used as a dependent variable in a regression model with different specifications. To provide context, the following section II gives an introduction to the political situation in Germany as well as to the German news market during the study period.
 
 ![High level overview](../figs/high_level_overview.png)
 <!-- To Do: Point out distribution to research -->
@@ -129,7 +130,6 @@ ggplot(df.plot) +
 The analysis performed in this paper is based on the news articles of the following news websites: Bild.de, DIE WELT, FOCUS ONLINE, Handelsblatt, SPIEGEL ONLINE, stern.de, ZEIT ONLINE. As can be seen from \autoref{fig:news_market}(a), expect for Handelsblatt (position 53), these media outlets are among the top 30 German online news providers in the period under review in terms of visits.^[The term visit is used to describe the call to a website by a visitor. The visit begins as soon as a user generates a page impression (PI) within an offer and each additional PI, which the user generates within the offer, belongs to this visit.] 
 
 The main source of income for these privately managed media houses is digital advertising, even though paid content is playing an increasingly important role. However, according to a survey on digital news by the Reuters Institute [@newman_reuters_2018]  only 8% of respondents pay for online news. The online survey for German data was undertaken between 19th - 22nd January 2018 by the Hans Bredow Institute^[https://www.hans-bredow-institut.de/de/projekte/reuters-institute-digital-news-survey] with a total sample size of 2038 adults (aged 18+) who access news once a month or more. Among other questions, participants were asked which news sources they use to access news online.^[The exact question was: "Which of the following brands have you used to access news online in the last week (via websites, apps, social media, and other forms of Internet access)? Please select all that apply."] The results displayed in \autoref{fig:news_market}(b) indicate that the media used for the analysis play a relevant role in their consumption.
-
 
 ```{r AGOF total visits}
 visits <- read_delim("../data/download_201801.csv", ";", escape_double = FALSE, 
@@ -252,7 +252,6 @@ p2 <- press_df %>%
 p1 + p2 + plot_layout(widths = c(2,1))
 ```
 
-
 ```{r table text length}
 model_df %>%
   group_by(source, type) %>% 
@@ -279,7 +278,7 @@ model_df %>%
 
 ## Text pre-processing
 
-To use text as data for statistical analysis, different pre-processing steps have to be conducted. In fact, in order to use text as data and reduce the dimensionality to avoid unnecessary computational complexity and overfitting, pre-processsing the text is a central task in text mining (@gentzkow_text_2017, @bholat_text_2015). Intuitively the term frequency (tf) of a word is a measure of how important that word may be for the understanding of the text. To visualize these terms, word clouds are a commonly used technique in text mining as they translate the tf into the size of the term in the cloud. As can be seen in \autoref{fig:wordcloud1}, problems arise with words that are highly frequent. For example "die", or "der" (eng. "the"), "und" (eng.  "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. These terms, often called stop words [@gentzkow_text_2017], are important to the grammatical structure of a text, but typically don't add any additional meaning and can therefore be neglected. 
+To use text as data for statistical analysis, different pre-processing steps have to be conducted. In fact, in order to use text as data and reduce the dimensionality to avoid unnecessary computational complexity and overfitting, pre-processing the text is a central task in text mining (@gentzkow_text_2017, @bholat_text_2015). Intuitively the term frequency (tf) of a word is a measure of how important that word may be for the understanding of the text. To visualize these terms, word clouds are a commonly used technique in text mining as they translate the tf into the size of the term in the cloud. As can be seen in \autoref{fig:wordcloud1}, problems arise with words that are highly frequent. For example "die", or "der" (eng. "the"), "und" (eng.  "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. These terms, often called stop words [@gentzkow_text_2017], are important to the grammatical structure of a text, but typically don't add any additional meaning and can therefore be neglected. 
 
 ```{r eval=FALSE, include=FALSE}
 png('../figs/wordcloud.png', width = 300, height = 300)
@@ -301,7 +300,7 @@ dev.off()
 knitr::include_graphics("../figs/wordcloud.png")
 ```
 
-To remove distorting words, the pre-defined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of stop-words. Additionally punctuation character (e.g. ., ,, !, ?, etc.) and all numbers are removed from the data. A next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. I apply the widely used Porter-Stemmer algorithm, which is based on a set of shortening rules that are applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
+To remove distorting words, the predefined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of stop-words. Additionally punctuation characters (e.g. ., ,, !, ?, etc.) and all numbers are removed from the data. A next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. I apply the widely used Porter-Stemmer algorithm, which is based on a set of shortening rules that are applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
 
 As an example, the following word clouds represent the most frequent words of the pre-processed articles for Bild.de (\autoref{fig:wordclouds2}(a)) and press releases of AfD (\autoref{fig:wordclouds2}(b)). It becomes evident that these are texts discussing domestic policy issues. The SPD in particular seems to be highly frequent for Bild.de.
 
@@ -342,11 +341,11 @@ In order to include the covariates in the statistical inference procedure, two d
 - for each word word $n$, draw the term distribution for the selected topic $\phi_{z_{d,n}}$.
 
 <!-- model specification -->
-One crucial assumption to be made for topic models like LDA or STM is the number of topics ($K$) that occur over the entire corpus. There is not a "right" answer to the number of topics that are appropriate for a given corpus [@grimmer_text_2013]. @roberts_stm:_2016 propose to measure topic quality through a combination of semantic coherence and exclusivity of words to topics. Semantic coherence is a criterion developed by @mimno_optimizing_2011 and is closely related to pointwise mutual information [@newman_automatic_2010]: it is maximized when the most probable words in a given topic frequently co-occur together.
+One crucial assumption to be made for topic models like LDA or STM is the number of topics ($K$) that occur over the entire corpus. There is not a "right" answer to the number of topics that are appropriate for a given corpus [@grimmer_text_2013]. @roberts_stm:_2016 proposes to measure topic quality through a combination of semantic coherence and exclusivity of words to topics. Semantic coherence is a criterion developed by @mimno_optimizing_2011 and is closely related to pointwise mutual information [@newman_automatic_2010]: it is maximized when the most probable words in a given topic frequently co-occur together.
 
-Using the function $searchK$ from the $stm$ package several automated tests are performed to help choose the number of topics including the average exclusivity and semantic coherence as well as the held out likelihood [@wallach_rethinking_2009] and the residuals [@taddy_estimation_2012]. This process revealed that a model with 40 topics best reflects the structure in the corpus. Furthermore, I use the author and bi-week dummies of a document as topical prevalence variable. In other words, I assume that the probability of a topic to be included in a news article or a press release depends on the author of that document and when it was published. I argue that these variables are best suited to capture temporal and publisher level variation in the documents.
+Using the function $searchK$ from the $stm$ package several automated tests are performed to help choose the number of topics including the average exclusivity and semantic coherence as well as the held out likelihood [@wallach_rethinking_2009] and the residuals [@taddy_estimation_2012]. This process revealed that a model with 40 topics best reflects the structure in the corpus. Furthermore, I use the author and bi-week dummies of a document as topical prevalence variables. In other words, I assume that the probability of a topic to be included in a news article or a press release depends on the author of that document and when it was published. I argue that these variables are best suited to capture temporal and publisher level variation in the documents.
 
-```{r STM specification}
+```{r STM specification, eval=FALSE, include=FALSE}
 stmModel$settings$call
 ```
 
@@ -392,7 +391,7 @@ theta <- as.data.frame(stmModel$theta) %>%
 
 As mentioned in the previous section, the generative process of the STM results in a topic distribution $\theta_d$ for each document $d$ over all topics $k$ and a word distribution $\phi_k$ for each topic over all terms in the vocabulary. The most probable words of each topic may help to understand what each topic is about.^[\autoref{table:top_terms} gives an overview of the most probable terms for each topic.] However, since those most probable words are not necessarily the most exclusive words and they only represent a small fraction of the probability distribution, interpretation should be done very cautiously.
 
-For our analysis, we use the topic distribution of each document to estimate the similarity of documents. \autoref{fig:sample_docs12} illustrates such a topic distribution of two news paper articles. The red numbers display the topic probability (for probabilities $>= 0.02$). News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36, for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does not show such a clear tendency towards a single topic. Topic 40, 18 and 5 are within a comparable range. However, for all three topics similar terms are among the top terms.
+For our analysis, we use the topic distribution of each document to estimate the similarity of documents. \autoref{fig:sample_docs12} illustrates such a topic distribution of two newspaper articles. The red numbers display the topic probability (for probabilities $>= 0.02$). News article 1^[Bundeswehr scandal: ex-commander attacks Von Der Leyen] shows a clear distribution towards topic 36, for which terms like Bundeswehr, Soldaten (soldiers), Nato, Verteidigungsministerin (defense minister) are among the most probable words. News article 2^[Bundestag elections: 42 parties want to be elected to parliament.] does not show such a clear tendency towards a single topic. Topic 40, 18 and 5 are within a comparable range. However, for all three topics similar terms are among the top terms.
 
 Similarly as for the news articles, \autoref{fig:sample_docs34} illustrates the topic distribution for two press releases randomly chosen from the corpus. For press release 1^[Lars Herrmann: The danger for Germany and its Basic Law is also coming from the left] topic 24 is the most probable topic which contains terms about the G20 Summit, during which left-wing radicals caused considerable riots. Topic distribution of press article 2^[Trump chooses the path to isolation] shows peaks for topic 6 and 35. Top terms of topic 6 contain the words trump, us, usa, deutschland (Germany) and präsident (president). Similarly topic 35 seems to deal with German foreign policy, since top terms include words like eu, deutschland (Germany), europa and bundesregierung (Federal Government).
 
@@ -420,7 +419,7 @@ p2 <- plot_topic_distr_document(sample4)
 p1 / p2
 ```
 
-Since the source and publication date is known for each document, the probability of certain topics can be analysed, aggregated by this metadata. The left chart of \autoref{fig:sample_topics_afd} is showing the 15 topics with the highest probability for press releases published by the AfD. The right side of the figure is aggregating the probability by source and time (in weeks) for two sample topics, displaying how they change over time in the AfD press releases compared to two sample news papers. It becomes clear, that topic 9^[translation: afd, party, saxony, gauland, parties, pazderski, höcke] is systematically more likely in the AfD's press releases compared to the two newspapers. There is a noticeable increase in probability during the election campaign period and ends in a peak on election day itself. For Handelsblatt and Bild.de, too, a slight increase around election day is discernible and the probability of this topic shows some peaks for Bild.de both before and after the election. 
+Since the source and publication date is known for each document, the probability of certain topics can be analysed, aggregated by this metadata. The left chart of \autoref{fig:sample_topics_afd} is showing the 15 topics with the highest probability for press releases published by the AfD. The right side of the figure is aggregating the probability by source and time (in weeks) for two sample topics, displaying how they change over time in the AfD press releases compared to two sample news papers. It becomes clear that topic 9^[translation: afd, party, saxony, gauland, parties, pazderski, höcke] is systematically more likely in the AfD's press releases compared to the two newspapers. There is a noticeable increase in probability during the election campaign period and ends in a peak on election day itself. For Handelsblatt and Bild.de, too, a slight increase around election day is discernible and the probability of this topic shows some peaks for Bild.de both before and after the election. 
 The top words of Theme 38^[translation: refugees, germany, people, number, refugees, family reunion, year] suggest that it addresses refugees - a topic the AfD has a very clear position on. The probability of this topic increases in the AfD's press releases until about a month before the election and then levels off somewhat. A similar trend can be seen for the news articles from Bild.de. The curve from Handelsblatt is rather flat and shows no apparent difference between before and after the election. 
 
 ```{r Top AfD topics, fig.cap="Comparison of topic probability - sample topics AfD \\label{fig:sample_topics_afd}", fig.height=3, out.width="100%"}
@@ -449,8 +448,8 @@ p3 <- plot_topic_distr_time(38, source_filter) + labs(title = NULL)
 p1 + (p2 / p3) + plot_layout(widths = c(1,2))
 ```
 
-\autoref{fig:sample_topics_fdp} is doing a similar analysis for the aggregated topic distribution in press releases of the FDP. The chart on the left illustrates that, as in the case of the AfD, the topic 35 has the highest probability in the press releases of the FDP. Unlike in the case of the AfD, however, this is followed by topics that have clearer temporal peaks, as shown on the right using two example topics. Topic 10^[translation: diesel, enterprises, germany, cars, german, industry, driving bans] has a clear peak for both the news papers and the FDP press releases around august 2017. At that time, there was a debate about whether and where driving bans for diesel cars would be introduced. After the states of Baden-Württemberg and North Rhine-Westphalia initially filed a lawsuit against this, the court proceedings that would decide whether driving bans are permissible began in mid-February 2018. The temporal curve of the FDP shows a further increase in topic probability at this time, which can also be detected at Handelsblatt. At Bild.de, however, the topic is apparently only taken up once briefly in August 2017, as only a very low topic probability can be seen thereafter.
-The peak of the probabilty of topic 39^[translation: fdp, grünen, jamaika, cdu, union, grüne, cdu] in all three sources right after the election is reflecting the exploratory talks on the possible formation of a Jamaica coalition, which officially failed on November 19, 2017 after the FDP announced its withdrawal from the negotiations.
+\autoref{fig:sample_topics_fdp} is doing a similar analysis for the aggregated topic distribution in press releases of the FDP. The chart on the left illustrates that, as in the case of the AfD, the topic 35 has the highest probability in the press releases of the FDP. Unlike in the case of the AfD, however, this is followed by topics that have clearer temporal peaks, as shown on the right using two example topics. Topic 10^[translation: diesel, enterprises, germany, cars, german, industry, driving bans] has a clear peak for both the newspapers and the FDP press releases around august 2017. At that time, there was a debate about whether and where driving bans for diesel cars would be introduced. After the states of Baden-Württemberg and North Rhine-Westphalia initially filed a lawsuit against this, the court proceedings that would decide whether driving bans are permissible began in mid-February 2018. The temporal curve of the FDP shows a further increase in topic probability at this time, which can also be detected at Handelsblatt. At Bild.de, however, the topic is apparently only taken up once briefly in August 2017, as only a very low topic probability can be seen thereafter.
+The peak of the probability of topic 39^[translation: fdp, grünen, jamaika, cdu, union, grüne, cdu] in all three sources right after the election is reflecting the exploratory talks on the possible formation of a Jamaica coalition, which officially failed on November 19, 2017 after the FDP announced its withdrawal from the negotiations.
 
 ```{r Top FDP topics, fig.cap="Comparison of topic probability - sample topics FDP \\label{fig:sample_topics_fdp}", fig.height=3, out.width="100%"}
 p1 <- theta %>% 
@@ -593,7 +592,6 @@ temp_df %>%
 # V Regression model
 
 ```{r Plot data & estimate models}
-# ----------------------------
 target_source <- "DIE WELT"
 load(paste0("../output/cosine_dist_", target_source, ".Rda"))
 cosine_distances_df <- df_prep_ols(welt)
@@ -658,15 +656,10 @@ spiegel_model1 <- calc_rd(cosine_distances_df) # estimate rd I
 spiegel_model2 <- calc_rd_dummy_interaction(cosine_distances_df) # estimate rd II
 ```
 
-In order to find out if the similarity between press releases and news articles is different for certain party-news publisher pairs and/or change over time, the cosine similarity measure from the previous section is used as the dependent variable in a regression model.
-
-<!-- TODO: give a brief overview of all models: 1) OLS Dummy, 2) RDiT without dummies, 3) RDiT with dummies-->
-
-Three different model specifications are estimated for each news publisher: (1) First, a OLS regression is estimated including party dummies. (2) Second, a simple regression discontinuity specification is estimated (without dummies) followed by (2) a specification that includes dummy variables for parties to check for differences in news publisher/party pairs.
+Finally, cosine similarity can be used as independent variable in different model specifications to answer the research questions of this paper: (a) whether the issues addressed by the parties during the campaign are echoed in online news, (b) whether there is a difference with respect to parties, and (c) how and/or whether issue similarity changes after the election. In [OLS dummy regression](#ols-dummy-regression) a OLS model with party dummies is computed for the pre-election period to examine the extent to which the news outlets pick up on the parties' issues during election campaigns. Next, we estimate a regression discontinuity specification to test whether Election Day had an effect on overall topic similarity ([Regression discontinuity model
+](#regression-discontinuity-model)).
 
 ## OLS dummy regression
-<!-- General finding: 
-      - compared to AfD, the topic similarity is lower for all newspaper / party pairs. Except Handelsblatt -->
 
 To measure whether there is a significant difference in the topic similarity for each party for a news publisher, a simple OLS regression is estimated, where the similarity score ($\ln(\text{CS}_{t})$) on day $t$ between the news articles of that news publisher and the press releases of a political party $k$ is the dependent variable and the political party dummies are the independent variables.
 
@@ -678,15 +671,7 @@ with $t$ = date^[date1 in \autoref{table:dataset_structure_final}], $k$ = politi
 
 ### OLS dummy results
 
-\autoref{fig:mean_cosine_sim_ols_example} plots the mean cosine similarity between the news articles and each parties press releases over time for Handelsblatt and Bild.de (See \autoref{fig:mean_cosine_sim_ols} for all news papers). Based on these figures, a few observations can be made. The similarity with the FDP, e.g., seems to increase over time for both Handelsblatt and Bild.de. In the case of Bild.de, this applies to all parties, except for the AfD, where a slight downward trend is discernible.
-
-```{r Daily mean cosine similarity - example, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols_example}", fig.height=3, out.width="90%"}
-handelsblatt_p + theme(strip.text.x = element_text(size = 6)) +
-  bild_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
-  plot_layout(ncol = 1)
-```
-
-The columns in \autoref{table:results_ols} report the results for each new publisher.^[All regression output tables are created using @hlavac_stargazer_2018] Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\hat\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ in the first column - representing the model for DIE WELT - is $-0.232$, a switch from from 0 to 1 can be interpreted as a $20.6%$ decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. In other words: Compared to AfD, the similarity of topics of DIE WELT and B90/GRÜNE is $20.6%$ lower. \autoref{fig:coeff_ols_dummy} plots the transformed coefficients for all news paper / party pairs (insignifcant coefficients are shown with a low opacity). In general, for all news papers - except for Handelsblatt - the topic similarity is significantly less between the news articles of that news paper and press releases of political parties when compared to press releases of the AfD. The biggest difference for all parties exist for Bild.de followed by FOCUS ONLINE and DIE WELT. In the case of Handelsblatt not significant difference can be found for CDU/CSU, B90/GRÜNE and SPD (compared to AfD). However, the positive coefficients of FDP and DIE LINKE indicate, that the topics discussed in press releases of these parties and the articles of Handelsblatt are significantly similar when compared to the press releases of the AfD.
+The columns in \autoref{table:results_ols} report the results for each new publisher.^[All regression output tables are created using @hlavac_stargazer_2018] Since the dependent variable is log transformed, the the % impact of $D$ on $Y$ can be estimated as $exp(\hat\beta)-1$. E.g. since the transformed coefficient for $D_{B90/GRÜNE}$ in the first column - representing the model for DIE WELT - is $-0.279$, a switch from from 0 to 1 can be interpreted as a $36.4\%$ decrease of topic similarity for B90/GRÜNE compared to AfD (the base dummy group), holding everything else equal. In other words: Compared to AfD, the similarity of topics of DIE WELT and B90/GRÜNE is $36.4\%$ lower. \autoref{fig:coeff_ols_dummy} plots the transformed coefficients for all news paper / party pairs (insignificant coefficients are shown with a low opacity). In general, for all newspapers - except for Handelsblatt - the topic similarity is significantly less between the news articles of that newspaper and press releases of political parties when compared to press releases of the AfD. The biggest difference for all parties exists for Bild.de followed by FOCUS ONLINE and DIE WELT. In the case of Handelsblatt no significant difference can be found for CDU/CSU, B90/GRÜNE and SPD (compared to AfD). However, the positive coefficients of DIE LINKE indicate that the topics discussed in press releases of that party and the articles of Handelsblatt are significantly similar when compared to the press releases of the AfD.
 
 ```{r Extract coefficient}
 news_names = c('DIE WELT','stern.de','Handelsblatt','FOCUS Online','SPIEGEL ONLINE','ZEIT ONLINE','Bild.de')
@@ -727,6 +712,12 @@ parties <- c("CDU","FDP","B90/GRÜNE","DIE LINKE","SPD")
 plot_df %>% 
   ggplot(aes(x=covariate, y=coeff_transf, color = covariate, alpha=significant)) +
   geom_point() +
+  geom_label_repel(aes(label= ifelse(significant==1,
+                                     paste0(as.character(coeff_transf),'%'),'')),
+                   box.padding   = 0.35, 
+                  point.padding = 0.5,
+                  segment.color = 'grey50',
+                   show.legend = FALSE, size = 1.5) +
   geom_segment( aes(x=covariate, xend=covariate, y=0, yend=coeff_transf)) +
   scale_color_manual(values = custom_colors[parties]) +
   geom_hline(yintercept = 0, color = custom_colors["AfD"]) +
@@ -804,16 +795,15 @@ $$
 I specify a uniform kernel (@lee_regression_2010) and use a bandwidth of 115 days on each side of the election day threshold. The election took place on September 24, 2017, so the sample includes dates between June 1, 2017 and January 17, 2018. Since the identification strategy only attempts to estimate $\beta$ at $W_t=0$ (the election day) no additional dates beyond the 115 day bandwidth enter the sample. Alternative specifications with varying bandwidths led to similar results.
 
 ### RDiT Results
-<!-- General finding: 
-      - negative treatment effect of the election day on the topic similarity -->
+<!-- General finding: negative treatment effect of the election day on the topic similarity -->
 
-\autoref{table:results_rd1} shows the results of the estimation. The negative and significant values for $\beta_1$ indicate that - holding the time constant -, the election day is associated with a decrease in topic similarity for DIE WELT, stern.de, ZEIT ONLINE and Handelsblatt. Since we are interested in the treatment effect at the cutoff point (remember that $W_t=0$ for the election day) and since
+\autoref{table:results_rd1} shows the results of this estimation. The negative and significant values for $\beta_1$ indicate that - holding the time constant - the election day is associated with a decrease in topic similarity for DIE WELT, stern.de, ZEIT ONLINE and Handelsblatt. Since we are interested in the treatment effect at the cutoff point (remember that $W_t=0$ for the election day) and since
 
 $$
 \frac{\Delta Y}{\Delta T}=\beta_1+\beta_3W,
 $$
 
-we can interpret $\beta_1$ as the change in topic similarity with respect to the election day. Similarly to the interpretation in [OLS dummy results](#OLS-dummy-results), the the % impact of $T$ on $Y$ can be estimated as $exp(\hat\beta)-1$. \autoref{fig:coeff_rdit} shows the transformed coefficients (of $beta_1$) for all newspapers: The negative effect of the election day on the topic similarity is strongest for Handelsblatt (~21.5% decrease), followed by DIE WELT (~15.6% decrease), ZEIT ONLINE (~13.5% decrease) and stern.de (~11.1% decrease).
+we can interpret $\beta_1$ as the change in topic similarity with respect to the election day. Similarly to the interpretation in [OLS dummy results](#OLS-dummy-results), the the % impact of $T$ on $Y$ can be estimated as $exp(\beta_1)-1$. \autoref{fig:coeff_rdit} shows the transformed coefficients for all newspapers: The negative effect of the election day on the topic similarity is strongest for Handelsblatt (~21.5% decrease), followed by DIE WELT (~15.6% decrease), ZEIT ONLINE (~13.5% decrease) and stern.de (~11.1% decrease).
 
 ```{r eval=FALSE, include=FALSE}
 coef <- summary(welt_model1)$coefficients[2,1]
@@ -871,6 +861,12 @@ plot_df %<>% mutate(significant = ifelse(p_val < 0.1, 1, 0))
 plot_df %>% 
   ggplot(aes(x=covariate, y=coeff_transf, alpha=significant)) +
   geom_point() +
+  geom_label_repel(aes(label= ifelse(significant==1,
+                                     paste0(as.character(coeff_transf),'%'),'')),
+                   box.padding   = 0.35, 
+                  point.padding = 0.5,
+                  segment.color = 'grey50',
+                   show.legend = FALSE, size = 1.5) +
   geom_segment( aes(x=covariate, xend=covariate, y=0, yend=coeff_transf)) +
   geom_hline(yintercept = 0) +
   facet_wrap(~news, nrow = 1) +
@@ -886,7 +882,6 @@ plot_df %>%
 ```
 
 ### RDiT dummy results
-<!-- TODO: Interpretation! -->
 
 As mentioned above, I assume that the effect of the election day on the topic similarity differs depending on the party. \autoref{fig:mean_cosine_sim_rd_example} visually captures the treatment effect for two sample news publisher Handelsblatt and Bild.de and it reveals a treatment effect around the cutoff point for Handelsblatt and CDU, FDP and B90/GRÜNE: For all pairs, the topic similarity decreases right after the election day. Same is true for Bild.de and AfD (see \autoref{fig:mean_cosine_sim_rd} for all news publisher). A positive effect can only be found for the pair Bild.de and B90/GRÜNE and Bild.de and CDU. The figure also illustrates a change of the slope after the election day for nearly all newspaper / party pairs. 
 
@@ -914,7 +909,7 @@ table <- gsub("\\end{tabular}","\\end{tabular}}", table,fixed=T)
 cat(table)
 ```
 
-\autoref{table:results_rd2} outputs the results for all newspaper models. The coefficients for the treatment variables(e.g. "TTRUE:B90/GRÜNE") give the effect of the election day on the topic similarity depending on the party for a given $W$. This can be illustrated using the pair Handelsblatt and B90/GRÜNE as an example and comparing the model equation for $D_{B90/GRÜNE} = 1$ and $D_{B90/GRÜNE} = 0$ for $W=0$. For $D_{B90/GRÜNE} = 1$ the equation is
+\autoref{table:results_rd2} outputs the results for all newspaper models. The coefficients for the treatment variables (e.g. "TTRUE:B90/GRÜNE") shows the effect of the election day on the topic similarity depending on the party for a given $W$. This can be illustrated using the pair Handelsblatt and B90/GRÜNE as an example and comparing the model equation for $D_{B90/GRÜNE} = 1$ and $D_{B90/GRÜNE} = 0$ for $W=0$. For $D_{B90/GRÜNE} = 1$ the equation is
 
 $$
 \ln(\text{CS})=-1.896+(-0.091)T+(-0.260)T,
@@ -975,8 +970,14 @@ custom_colors2 <- c("TTRUE:CDU"="#32302e","TTRUE:FDP"="#ffed00",
                     "TTRUE:SPD"="#E3000F", "TTRUE"="#009ee0")
 
 plot_df %>% 
-  ggplot(aes(x=covariate, y=coeff_transf, color = covariate, alpha=significant)) +
+  ggplot(aes(x=covariate, y=coeff_transf, color = covariate, alpha=significant, label=coeff_transf)) +
   geom_point() +
+  geom_label_repel(aes(label= ifelse(significant==1,
+                                     paste0(as.character(coeff_transf),'%'),'')),
+                   box.padding   = 0.35, 
+                  point.padding = 0.5,
+                  segment.color = 'grey50',
+                   show.legend = FALSE, size = 1.5) +
   geom_segment( aes(x=covariate, xend=covariate, y=0, yend=coeff_transf)) +
   scale_color_manual(values = custom_colors2) +
   facet_wrap(~news, nrow = 1) +
@@ -992,15 +993,18 @@ plot_df %>%
   scale_alpha(guide = 'none')
 ```
 
-\autoref{fig:coeff_rdit_dummy} displays the transformed coefficients of the interaction terms. A decrease of topic similarity with the CDU (when compared to AfD) right after the election day can be found for For Handelsblatt, SPIEGEL ONLINE and stern.de. In the case of Handelsblatt, a similar negative effect exists from B90/GRÜNE. Same is true for ZEIT ONLINE, where the topic similarity decreases for B90/GRÜNE right after the election day. 
+\autoref{fig:coeff_rdit_dummy} displays the transformed coefficients of the interaction terms. Note, that the coefficient of the treatment effect (without interaction) shows the treatment effect for AfD, since it is the base dummy group. While in the previous model without party dummies the treatment effect for Bild.de was not significant, the present model shows a significant negative effect for the topic similarity for Bild.de and AfD ($-17\%$), as well as a significant positive effect between Bild.de and B90/GRÜNE ($25\%$), SPD ($27.7\%$) and FDP ($24.4\%$). In the case of DIE WELT, the only significant effect is the one regarding AfD: The topic similarity decreases by about 15.4% shortly after election day, which roughly corresponds to the total treatment effect found in the previous model. Also, the results show a decrease in topic similarity between CDU and the online news of Handelsblatt ($-23.8\%$), SPIEGEL ONLINE ($-15.2\%$) and stern.de ($-19.9\%$. In the case of Handelsblatt, a similar negative effect exists for B90/GRÜNE ($-22.9\%$). Same is true for ZEIT ONLINE, where the topic similarity decreases for B90/GRÜNE right after the election day by $22\%$. No effect of the election day can be detected in the case of FOCUS ONLINE on neither of the model specifications.
 
-<!-- TODO: 
-  - interpret Bild.de
-  - interpret T for AfD -->
+
 
 # VI Discussion and conclusion
 
 This paper investigates whether political reporting of news papers is similar for all political parties. Results show, that the news articles of all news papers (except for *Handelsblatt*) are significantly more similar to press releases of the AfD than any other party.
+
+General finding
+ - compared to AfD, the topic similarity is lower for all newspaper / party pairs. Except Handelsblatt (simple OLS Dummy)
+ - There was a significant negative effect of the election day on topic similarity for four news papers - no significant positive effect was found
+ - when controlling for the parties, 
 
 Furthermore, it was assumed, that this reporting differs between periods of election campaign. The results show a significant effect of the switch between "before" election (election campaign period) and "after" election for some news papers.
 
@@ -1034,16 +1038,6 @@ gamma_terms %>%
             title = "7 most probable terms per topic")
 ```
 
-```{r Daily mean cosine similarity, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs \\label{fig:mean_cosine_sim_ols}", fig.height=8, out.width="100%"}
-welt_p + theme(strip.text.x = element_text(size = 6)) +
-  stern_p +
-  zeit_p +
-  handelsblatt_p +
-  focus_p +
-  bild_p + 
-  spiegel_p + theme(axis.text.x = element_text(size = 4, angle = 45)) +
-  plot_layout(ncol = 1)
-```
 
 ```{r Daily mean cosine similarity - cutoff value, fig.cap="Log of daily mean cosine similarity between newspaper/press articles pairs - with cutoff value \\label{fig:mean_cosine_sim_rd}", fig.height=8, out.width="100%"}
 welt_p1 + theme(strip.text.x = element_text(size = 6)) +

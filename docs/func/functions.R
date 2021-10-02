@@ -122,8 +122,9 @@ df_prep_ols <- function(cosine_df) {
 ## Plot data ##
 ###############
 plot_cosine_sim_ols <- function(df, target) {
-  ggplot(cosine_distances_df, 
-         aes(date1, log(cos_sim))) +
+  df %>% 
+    filter(election_dummy == "pre") %>% 
+    ggplot(aes(date1, log(cos_sim))) +
     geom_point(size = 0.2, alpha = 0.5) +
     geom_smooth(method = lm, 
                 color='red',
@@ -176,9 +177,12 @@ remove_text = function(text){
 #####################
 ### Calculate OLS ###
 #####################
-calc_ols_dummy <- function(dataframe) { 
-model_outcome <- dataframe %$%
-  lm(log(cos_sim) ~ source2)
+calc_ols_dummy <- function(dataframe) {
+  truncated_df <- dataframe %>% 
+    filter(election_dummy == "pre")
+  
+  model_outcome <- truncated_df %$%
+    lm(log(cos_sim) ~ source2)
 }
 
 ##################################
