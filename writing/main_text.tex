@@ -253,14 +253,13 @@ each document across all topics, which is then aggregated to calculate
 the degree of difference between the news articles of different media
 providers and the parties' press releases.
 
-The following Section \protect\hyperlink{ii-background-information}{II
-Background information} provides background information on Germany's
+The following Section provides background information on Germany's
 political situation and the German online news market during the period
 under consideration.
 
-\hypertarget{ii-the-political-situation-in-germany-june-2017---march-2018}{%
-\section{II The political situation in Germany (June 2017 - March
-2018)}\label{ii-the-political-situation-in-germany-june-2017---march-2018}}
+\hypertarget{ii-the-political-situation-in-germany}{%
+\section{II The political situation in
+Germany}\label{ii-the-political-situation-in-germany}}
 
 The articles analyzed in this paper cover a period from June 1, 2017, to
 March 1, 2018, and thus cover both the most crucial election campaign
@@ -369,16 +368,7 @@ The empirical strategy used in this paper leverages the structure of the
 topic model framework, specifically the Structural Topic Model (STM), to
 generate topic distributions for each document which are then used to
 measure similarity between documents. The diagram below outlines the
-approach in more detail. Section III describes the data sources and how
-text data is processed to obtain a multi-dimensional space, where each
-dimension corresponds to a word in the document. Subsequently, section
-IV uses this so-called document-term matrix as input to calculate each
-document's topic distribution using an STM. This, in turn, leads to a
-reduction in dimensionality in that each document is now represented as
-a distribution over the topics. These document-topic vectors are then
-used to calculate the cosine similarity between two documents. The final
-Section uses this similarity measure as a dependent variable in a
-regression model with different specifications.
+approach in more detail.
 
 \begin{figure}
 \centering
@@ -386,9 +376,22 @@ regression model with different specifications.
 \caption{High level overview}
 \end{figure}
 
-\hypertarget{text-data-as-input-for-statistical-modelling}{%
-\subsubsection{Text data as input for statistical
-modelling}\label{text-data-as-input-for-statistical-modelling}}
+In \protect\hyperlink{text-pre-processing}{Text pre-processing} the text
+data is processed resulting in a matrix that represents a
+multi-dimensional space, where each dimension corresponds to a word in
+the document. Subsequently, in
+\protect\hyperlink{structural-topic-model}{Structural topic model} this
+so-called document-term matrix is used as input to calculate each
+document's topic distribution applying a STM. This, in turn, leads to a
+reduction in dimensionality in that each document is now represented as
+a distribution over the topics. These document-topic vectors are then
+used to calculate the cosine similarity between two documents as
+described in \protect\hyperlink{similarity-measure}{Similarity measure}.
+In the final sections, this similarity measure is utilized as the
+dependent variable in a regression model with various specifications.
+
+\hypertarget{text-pre-processing}{%
+\subsubsection{Text pre-processing}\label{text-pre-processing}}
 
 I conduct the estimation on a sample of 18,757 online news articles from
 the seven German news providers described in the previous
@@ -549,26 +552,25 @@ Taddy 2017}) since it disregards the words' order within a document.
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
-  & papers & nachzug & sex & stimmten & abgestürzt & gdp & autos\\
+  & versprochen & stärkt & bayerische & regulierung & aufgebaut & parteichefs & streitet\\
 \midrule
-\cellcolor{gray!6}{14317} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-851 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{96} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-2801 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{13257} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\cellcolor{gray!6}{1686} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+1738 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{8455} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+943 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{18211} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
 \addlinespace
-14957 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{2308} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-3117 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{6357} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{1} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-18293 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+2049 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{18416} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+936 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{3136} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+1417 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\hypertarget{a-structural-topic-model-to-identify-the-latent-topics}{%
-\subsection{A structural topic model to identify the latent
-topics}\label{a-structural-topic-model-to-identify-the-latent-topics}}
+\hypertarget{structural-topic-model}{%
+\subsection{Structural topic model}\label{structural-topic-model}}
 
 Next, a structural topic modeling (STM) developed by
 (\protect\hyperlink{ref-roberts_model_2016}{M. E. Roberts, Stewart, and
@@ -684,7 +686,7 @@ with the concept of interest
 Taddy 2017}).
 
 \hypertarget{results-of-the-stm}{%
-\subsection{Results of the STM}\label{results-of-the-stm}}
+\subsubsection{Results of the STM}\label{results-of-the-stm}}
 
 As mentioned in the previous section, the generative process of the STM
 results in a topic distribution \(\theta_d\) for each document 4d4 over
@@ -804,8 +806,8 @@ formation of a Jamaica coalition, which officially failed on November
 \caption{Comparison of topic probability - sample topics FDP \label{fig:sample_topics_fdp}}\label{fig:Top FDP topics}
 \end{figure}
 
-\hypertarget{similarity-measures}{%
-\subsection{Similarity Measures}\label{similarity-measures}}
+\hypertarget{similarity-measure}{%
+\subsection{Similarity measure}\label{similarity-measure}}
 
 The topic distributions calculated by the STM are a vectorized
 representation of each document as represented by each row in the matrix
@@ -864,42 +866,11 @@ of the data for DIE WELT.
 \toprule
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
 \midrule
-\cellcolor{gray!6}{Bundestagswahl 20...} & \cellcolor{gray!6}{Alexander Gauland...} & \cellcolor{gray!6}{0.33} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-09-25} & \cellcolor{gray!6}{2017-09-19}\\
-WELT-Trend: Wird ... & Große Koalition ... & 0.31 & DIE WELT & FDP & 2018-02-07 & 2018-02-05\\
-\cellcolor{gray!6}{Befangenheit fest...} & \cellcolor{gray!6}{Der Bundestag bes...} & \cellcolor{gray!6}{0.07} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{2017-06-25} & \cellcolor{gray!6}{2017-06-23}\\
-Missbrauch in der... & Eine gerechte Fin... & 0.01 & DIE WELT & DIE LINKE & 2017-07-19 & 2017-07-13\\
-\cellcolor{gray!6}{\#CheckdieWahl: „W...} & \cellcolor{gray!6}{Paul Hampel: Dipl...} & \cellcolor{gray!6}{0.23} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-09-22} & \cellcolor{gray!6}{2017-09-22}\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\autoref{table:cosine_sim_sample_doc}\footnote{Translations: 1) Asylum
-  figures 2017 - black-red (synonym for GroKo) introduces upper limit
-  through the back door (DIE LINKE) 2) Jörg Meuthen: Not a new GroKo,
-  but LoKo - Loser Coalition (AfD) 3) Pension plans of Union and SPD
-  worse than expected (FDP) 4) Union and SPD stabilize the extreme
-  social injustice in this country (DIE LINKE) 5) Jürgen Pohl: Union and
-  SPD agree on policy at the expense of pensioners and East Germans
-  (AfD)} displays the most similar documents of the document with the
-title \emph{Parteitag, Koalitions-Krimi, Ur-Wahl - Woran kann die GroKo
-jetzt noch scheitern? (Bild.de)}.\footnote{Translation: Party
-  conference, coalition thriller, primal election - what can fail the
-  GroKo now? (Bild.de)}
-
-\begin{table}[H]
-
-\caption{\label{tab:Documents with highest similarity}Most similar documents \label{table:cosine_sim_sample_doc}}
-\centering
-\fontsize{7}{9}\selectfont
-\begin{tabular}[t]{llr}
-\toprule
-title & source & cos\_sim\\
-\midrule
-\cellcolor{gray!6}{Asylzahlen 2017 - schwarz-rot führt Obergrenze durch die Hintertür ein} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.542}\\
-Jörg Meuthen: Nicht neue GroKo, sondern LoKo – Loser Koalition & AfD & 0.522\\
-\cellcolor{gray!6}{Rentenpläne von Union und SPD schlimmer als erwartet} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.478}\\
-Union und SPD stabilisieren die krasse soziale Ungerechtigkeit in diesem Land & DIE LINKE & 0.401\\
-\cellcolor{gray!6}{Jürgen Pohl: Union und SPD verabreden Politik zu Lasten von Rentnern und Ostdeutschen} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{0.388}\\
+\cellcolor{gray!6}{Seyran Ates: „Sol...} & \cellcolor{gray!6}{Alice Weidel: Isl...} & \cellcolor{gray!6}{0.23} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-08-19} & \cellcolor{gray!6}{2017-08-18}\\
+De Maizière wehrt... & SPD-Frauen forder... & 0.65 & DIE WELT & SPD & 2017-10-17 & 2017-10-11\\
+\cellcolor{gray!6}{Frank Richter tra...} & \cellcolor{gray!6}{Bundesregierung m...} & \cellcolor{gray!6}{0.43} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-10-19} & \cellcolor{gray!6}{2017-10-16}\\
+Islamisten-Terror... & Orbán muss kritis... & 0.04 & DIE WELT & B90/GRÜNE & 2017-06-14 & 2017-06-13\\
+\cellcolor{gray!6}{Sondierungsgesprä...} & \cellcolor{gray!6}{SPD-Modell zum Ab...} & \cellcolor{gray!6}{0.31} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{2017-10-30} & \cellcolor{gray!6}{2017-10-28}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -917,11 +888,11 @@ Next, the mean cosine similarity for each news article publication date
 \toprule
 date1 & source1 & source2 & cos\_sim\\
 \midrule
-\cellcolor{gray!6}{2017-10-24} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{0.09}\\
-2017-06-03 & DIE WELT & DIE LINKE & 0.21\\
-\cellcolor{gray!6}{2017-10-09} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.13}\\
-2017-11-30 & DIE WELT & SPD & 0.08\\
-\cellcolor{gray!6}{2018-01-14} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.13}\\
+\cellcolor{gray!6}{2017-10-30} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.16}\\
+2017-06-05 & DIE WELT & DIE LINKE & 0.12\\
+\cellcolor{gray!6}{2017-12-08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{B90/GRÜNE} & \cellcolor{gray!6}{0.15}\\
+2017-10-28 & DIE WELT & FDP & 0.03\\
+\cellcolor{gray!6}{2017-11-05} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.24}\\
 \bottomrule
 \end{tabular}
 \end{table}
