@@ -14,10 +14,11 @@ plot_topic_distr_document <- function(doc_id){
               size = 2, color = 'red', vjust = 0
     ) +
     ylim(c(0,1)) +
-    labs(x = "Topic", y = "Topic proportion",
-         title = paste0(title$title," (",title$source,")")) +
+    labs(x = "Topic", y = NULL,
+         title = title$source,
+         subtitle = title$title) +
     theme(
-      axis.title = element_text(size=4),
+      axis.text.x = element_text(size = 8),
       axis.title.y = element_text(angle = 90))
 }
 

@@ -4,6 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
 \documentclass[
+  12pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -255,31 +256,11 @@ providers and the parties' press releases.
 The following Section \protect\hyperlink{ii-background-information}{II
 Background information} provides background information on Germany's
 political situation and the German online news market during the period
-under consideration. Sections III to V contain the analysis of the text
-data necessary to answer the research question. The diagram below
-provides an overview of these steps. Section
-\protect\hyperlink{iii-text-data}{III Text data} describes the data
-sources and how text data is processed to be used as input for the
-structural topic model. Section
-\protect\hyperlink{iv-estimate-topic-similarity-of-documents}{IV
-Estimate topic similarity of documents} then explains how the STM uses
-this input to compute the topic probabilities for the different
-documents and how the similarity between documents is computed based on
-these probabilities. The final Section
-\protect\hyperlink{v-regression-model}{V Regression model} uses the
-similarity measure as a dependent variable in a regression model with
-different specifications. To provide context, the following section II
-introduces the political situation in Germany and the German news market
-during the study period.
+under consideration.
 
-\includegraphics{../figs/high_level_overview.png}
-
-\hypertarget{ii-background-information}{%
-\section{II Background information}\label{ii-background-information}}
-
-\hypertarget{the-political-situation-in-germany-june-2017---march-2018}{%
-\subsection{The political situation in Germany (June 2017 - March
-2018)}\label{the-political-situation-in-germany-june-2017---march-2018}}
+\hypertarget{ii-the-political-situation-in-germany-june-2017---march-2018}{%
+\section{II The political situation in Germany (June 2017 - March
+2018)}\label{ii-the-political-situation-in-germany-june-2017---march-2018}}
 
 The articles analyzed in this paper cover a period from June 1, 2017, to
 March 1, 2018, and thus cover both the most crucial election campaign
@@ -335,7 +316,7 @@ increasingly positive survey results since June 2017.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/election polls-1} 
+{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/election polls-1} 
 
 }
 
@@ -347,7 +328,7 @@ increasingly positive survey results since June 2017.
 
 \begin{figure}
 
-{\centering \subfloat[Total visits in million (Jan 2018)\label{fig:unnamed-chunk-1-1}]{\includegraphics[width=0.45\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-1} }\subfloat[Use of a brand to access news online\label{fig:unnamed-chunk-1-2}]{\includegraphics[width=0.45\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-2} }
+{\centering \subfloat[Total visits in million (Jan 2018)\label{fig:unnamed-chunk-1-1}]{\includegraphics[width=0.49\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-1} }\subfloat[Use of a brand to access news online\label{fig:unnamed-chunk-1-2}]{\includegraphics[width=0.49\linewidth]{main_text_files/figure-latex/unnamed-chunk-1-2} }
 
 }
 
@@ -381,8 +362,33 @@ news sources they use to access news online.\footnote{The exact question
 results displayed in \autoref{fig:news_market}(b) indicate that the
 media used for the analysis play a relevant role in their consumption.
 
-\hypertarget{iii-text-data}{%
-\section{III Text data}\label{iii-text-data}}
+\hypertarget{iii-empirical-analysis}{%
+\section{III Empirical analysis}\label{iii-empirical-analysis}}
+
+The empirical strategy used in this paper leverages the structure of the
+topic model framework, specifically the Structural Topic Model (STM), to
+generate topic distributions for each document which are then used to
+measure similarity between documents. The diagram below outlines the
+approach in more detail. Section III describes the data sources and how
+text data is processed to obtain a multi-dimensional space, where each
+dimension corresponds to a word in the document. Subsequently, section
+IV uses this so-called document-term matrix as input to calculate each
+document's topic distribution using an STM. This, in turn, leads to a
+reduction in dimensionality in that each document is now represented as
+a distribution over the topics. These document-topic vectors are then
+used to calculate the cosine similarity between two documents. The final
+Section uses this similarity measure as a dependent variable in a
+regression model with different specifications.
+
+\begin{figure}
+\centering
+\includegraphics{../figs/high_level_overview.png}
+\caption{High level overview}
+\end{figure}
+
+\hypertarget{text-data-as-input-for-statistical-modelling}{%
+\subsubsection{Text data as input for statistical
+modelling}\label{text-data-as-input-for-statistical-modelling}}
 
 I conduct the estimation on a sample of 18,757 online news articles from
 the seven German news providers described in the previous
@@ -414,7 +420,7 @@ FOCUS ONLINE.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{main_text_files/figure-latex/Distribution of news articles-1} 
+{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Distribution of news articles-1} 
 
 }
 
@@ -423,7 +429,7 @@ FOCUS ONLINE.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{main_text_files/figure-latex/Distribution of press releases-1} 
+{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Distribution of press releases-1} 
 
 }
 
@@ -467,9 +473,6 @@ news articles, the average is between 394 (FOCUS Online) and 590
 275 (CDU). DIE WELT published the article with the most words (14.507) -
 the most extended press release has 1.048 words published by DIE LINKE.
 
-\hypertarget{text-pre-processing}{%
-\subsection{Text pre-processing}\label{text-pre-processing}}
-
 Several processing steps have to be performed to make the text
 quantifiable to use text as data input for statistical analyses. In
 fact, in order to use text as data and reduce the dimensionality to
@@ -482,25 +485,15 @@ Taddy} (\protect\hyperlink{ref-gentzkow_text_2017}{2017}),
 frequency (tf) of a word measures how important that word may be for
 understanding the text. Word clouds are a commonly used visualization
 technique in text mining as they translate the tf into the size of the
-term in the cloud. As can be seen in \autoref{fig:wordcloud1}, problems
-arise with highly frequent words. For example, ``die,'' or ``der'' (eng.
-``the''), ``and'' (eng. ``and''), and ``ist'' (eng. ``is'') are
-extremely common but unrelated to the quantity of interest. Often called
-stop words (\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow,
-Kelly, and Taddy 2017}), these terms are essential to the grammatical
-structure but typically do not add any additional meaning and can be
-neglected.
+term in the cloud.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.4\linewidth]{../figs/wordcloud} 
-
-}
-
-\caption{Wordcloud before pre-processing \label{fig:wordcloud1}}\label{fig:wordcloud pre-processing}
-\end{figure}
-
-The predefined stop word list from the Snowball project\footnote{\url{http://snowball.tartarus.org/algorithms/german/stop.txt}}
+Words like ``die,'' or ``der'' (eng. ``the''), ``and'' (eng. ``and''),
+and ``ist'' (eng. ``is'') are extremely common but unrelated to the
+quantity of interest. Often called stop words
+(\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow, Kelly, and
+Taddy 2017}), these terms are essential to the grammatical structure but
+typically do not add any additional meaning and can be neglected. The
+predefined stop word list from the Snowball project\footnote{\url{http://snowball.tartarus.org/algorithms/german/stop.txt}}
 is used together with a customized, domain-specific list of words to
 identify and remove these distorting words. Additionally, punctuation
 characters (e.g.~., !, ?) and all numbers are removed from the data. The
@@ -556,26 +549,22 @@ Taddy 2017}) since it disregards the words' order within a document.
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
-  & axel & mails & schülern & kritisierten & senkung & geworfen & fahrplan\\
+  & papers & nachzug & sex & stimmten & abgestürzt & gdp & autos\\
 \midrule
-\cellcolor{gray!6}{18125} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-3329 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
-\cellcolor{gray!6}{11778} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-14292 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{1077} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\cellcolor{gray!6}{14317} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+851 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{96} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+2801 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{13257} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
 \addlinespace
-15568 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{15392} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-10529 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{6777} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-15275 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+14957 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{2308} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+3117 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{6357} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{1} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+18293 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\hypertarget{iv-estimate-topic-similarity-of-documents}{%
-\section{IV Estimate topic similarity of
-documents}\label{iv-estimate-topic-similarity-of-documents}}
 
 \hypertarget{a-structural-topic-model-to-identify-the-latent-topics}{%
 \subsection{A structural topic model to identify the latent
@@ -735,7 +724,7 @@ Government).
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/News articles sample documents-1} 
+{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/News articles sample documents-1} 
 
 }
 
@@ -744,7 +733,7 @@ Government).
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{main_text_files/figure-latex/Press releases sample documents-1} 
+{\centering \includegraphics[width=0.9\linewidth]{main_text_files/figure-latex/Press releases sample documents-1} 
 
 }
 
@@ -815,35 +804,85 @@ formation of a Jamaica coalition, which officially failed on November
 \caption{Comparison of topic probability - sample topics FDP \label{fig:sample_topics_fdp}}\label{fig:Top FDP topics}
 \end{figure}
 
-\hypertarget{cosine-similarity}{%
-\subsection{Cosine similarity}\label{cosine-similarity}}
+\hypertarget{similarity-measures}{%
+\subsection{Similarity Measures}\label{similarity-measures}}
 
-Next, the cosine similarity measure is used in order to compare the
-retrieved topic distribution of documents. Cosine similarity measures
-the distance between two vectors and is defined between zero and one;
-values towards 1 indicate similarity. As topic proportions per document
-are vectors of the same length, the cosine similarity allows a
-comparison of the topic distribution between two documents.\footnote{For
-  applications of cosine similarity to compare of topic model outcomes
-  see e.g. \protect\hyperlink{ref-rehs_structural_2020}{Rehs}
+The topic distributions calculated by the STM are a vectorized
+representation of each document as represented by each row in the matrix
+in \autoref{table:document_topic_distribution}. Therefore, it is
+possible to calculate the similarity between two documents by estimating
+the cosine similarity between these vectors.\footnote{For applications
+  of cosine similarity to compare of topic model outcomes see e.g.
+  \protect\hyperlink{ref-rehs_structural_2020}{Rehs}
   (\protect\hyperlink{ref-rehs_structural_2020}{2020}) and
   \protect\hyperlink{ref-ramage_characterizing_2010}{Ramage, Dumais, and
   Liebling} (\protect\hyperlink{ref-ramage_characterizing_2010}{2010})}
 
+\begin{table}[H]
+
+\caption{\label{tab:Document-topic distribution matrix - sample values}Document-topic distribution matrix \label{table:document_topic_distribution}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{rrrrrrrlr}
+\toprule
+doc\_index & 1 & 2 & 3 & 4 & 5 & 6 & .. & 40\\
+\midrule
+\cellcolor{gray!6}{1} & \cellcolor{gray!6}{0.0016} & \cellcolor{gray!6}{0.0453} & \cellcolor{gray!6}{0.0005} & \cellcolor{gray!6}{0.0078} & \cellcolor{gray!6}{0.0151} & \cellcolor{gray!6}{0.0118} & \cellcolor{gray!6}{...} & \cellcolor{gray!6}{0.4376}\\
+2 & 0.0041 & 0.0302 & 0.0003 & 0.0044 & 0.0007 & 0.2056 & ... & 0.0006\\
+\cellcolor{gray!6}{3} & \cellcolor{gray!6}{0.0043} & \cellcolor{gray!6}{0.0039} & \cellcolor{gray!6}{0.0012} & \cellcolor{gray!6}{0.0003} & \cellcolor{gray!6}{0.0017} & \cellcolor{gray!6}{0.0266} & \cellcolor{gray!6}{...} & \cellcolor{gray!6}{0.0050}\\
+4 & 0.0016 & 0.0436 & 0.0006 & 0.0089 & 0.0095 & 0.0126 & ... & 0.5181\\
+\cellcolor{gray!6}{5} & \cellcolor{gray!6}{0.0016} & \cellcolor{gray!6}{0.0515} & \cellcolor{gray!6}{0.0002} & \cellcolor{gray!6}{0.0122} & \cellcolor{gray!6}{0.0050} & \cellcolor{gray!6}{0.0121} & \cellcolor{gray!6}{...} & \cellcolor{gray!6}{0.5750}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The cosine similarity is the cosine of the angle between two vectors
+projected in a multi-dimensional space and is defined between zero and
+one; values towards 1 indicate similarity. For example, the cosine
+similarity (CS) between document 1 and 2 for \(K=40\) topics can be
+calculated as follows.
+
 \[
-\text{CS} = \text{cos}(\theta)=\frac{a*b}{||a|| ||b||}
+\text{CS} = \text{cos}(\vec{doc_1},\vec{doc_2})=\frac{\vec{doc_1}*\vec{doc_2}}{||\vec{doc_1}||\vec{doc_2}||}=\frac{\sum^K_{i=1} \vec{doc_{1,i}}\vec{doc_{2,i}}}{\sqrt{\sum^K_{i=1} \vec{doc^2_{1,i}}}, \sqrt{\sum^K_{i=1}\vec{doc^2_{2,i}}}}
 \]
 
-For example, \autoref{table:cosine_sim_sample_doc}\footnote{Translations:
-  1) Asylum figures 2017 - black-red (synonym for GroKo) introduces
-  upper limit through the back door (DIE LINKE) 2) Jörg Meuthen: Not a
-  new GroKo, but LoKo - Loser Coalition (AfD) 3) Pension plans of Union
-  and SPD worse than expected (FDP) 4) Union and SPD stabilize the
-  extreme social injustice in this country (DIE LINKE) 5) Jürgen Pohl:
-  Union and SPD agree on policy at the expense of pensioners and East
-  Germans (AfD)} displays the most similar documents of the document
-with the title \emph{Parteitag, Koalitions-Krimi, Ur-Wahl - Woran kann
-die GroKo jetzt noch scheitern? (Bild.de)}.\footnote{Translation: Party
+For each newspaper, the cosine similarity between all topic-document
+distribution pairs between the newspapers articles and the press
+releases is calculated if that press release was published within seven
+days before the publication date of the news article. Thus, the topic
+distribution of news article 1 is compared to press releases 1, 2, 3,
+and so on for press releases published within seven days before the news
+article. \autoref{table:dataset_structure1} illustrates a sample subset
+of the data for DIE WELT.
+
+\begin{table}[H]
+
+\caption{\label{tab:Dataset structure 1}Dataset structure step 1 - DIE WELT \label{table:dataset_structure1}}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{llrllll}
+\toprule
+title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
+\midrule
+\cellcolor{gray!6}{Bundestagswahl 20...} & \cellcolor{gray!6}{Alexander Gauland...} & \cellcolor{gray!6}{0.33} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-09-25} & \cellcolor{gray!6}{2017-09-19}\\
+WELT-Trend: Wird ... & Große Koalition ... & 0.31 & DIE WELT & FDP & 2018-02-07 & 2018-02-05\\
+\cellcolor{gray!6}{Befangenheit fest...} & \cellcolor{gray!6}{Der Bundestag bes...} & \cellcolor{gray!6}{0.07} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{2017-06-25} & \cellcolor{gray!6}{2017-06-23}\\
+Missbrauch in der... & Eine gerechte Fin... & 0.01 & DIE WELT & DIE LINKE & 2017-07-19 & 2017-07-13\\
+\cellcolor{gray!6}{\#CheckdieWahl: „W...} & \cellcolor{gray!6}{Paul Hampel: Dipl...} & \cellcolor{gray!6}{0.23} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-09-22} & \cellcolor{gray!6}{2017-09-22}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\autoref{table:cosine_sim_sample_doc}\footnote{Translations: 1) Asylum
+  figures 2017 - black-red (synonym for GroKo) introduces upper limit
+  through the back door (DIE LINKE) 2) Jörg Meuthen: Not a new GroKo,
+  but LoKo - Loser Coalition (AfD) 3) Pension plans of Union and SPD
+  worse than expected (FDP) 4) Union and SPD stabilize the extreme
+  social injustice in this country (DIE LINKE) 5) Jürgen Pohl: Union and
+  SPD agree on policy at the expense of pensioners and East Germans
+  (AfD)} displays the most similar documents of the document with the
+title \emph{Parteitag, Koalitions-Krimi, Ur-Wahl - Woran kann die GroKo
+jetzt noch scheitern? (Bild.de)}.\footnote{Translation: Party
   conference, coalition thriller, primal election - what can fail the
   GroKo now? (Bild.de)}
 
@@ -865,33 +904,6 @@ Union und SPD stabilisieren die krasse soziale Ungerechtigkeit in diesem Land & 
 \end{tabular}
 \end{table}
 
-In the next step, for each newspaper, the cosine similarity between all
-topic-document distribution pairs between the newspapers articles and
-the press releases is calculated if that press release was published
-within seven days before the publication date of the news article. Thus,
-the topic distribution of news article 1 is compared to press releases
-1, 2, 3, and so on for press releases published within seven days before
-the news article. \autoref{table:dataset_structure1} illustrates a
-sample subset of the data for DIE WELT.
-
-\begin{table}[H]
-
-\caption{\label{tab:Dataset structure 1}Dataset structure step 1 - DIE WELT \label{table:dataset_structure1}}
-\centering
-\fontsize{7}{9}\selectfont
-\begin{tabular}[t]{llrllll}
-\toprule
-title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
-\midrule
-\cellcolor{gray!6}{Muslime gegen Ter...} & \cellcolor{gray!6}{Musterfeststellun...} & \cellcolor{gray!6}{0.01} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{2017-06-18} & \cellcolor{gray!6}{2017-06-17}\\
-Klaus von Dohnany... & Mehr Lohn in der... & 0.04 & DIE WELT & CDU & 2017-07-22 & 2017-07-19\\
-\cellcolor{gray!6}{Erststimme: Finde...} & \cellcolor{gray!6}{Ungarns Ignoranz...} & \cellcolor{gray!6}{0.01} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{2017-09-11} & \cellcolor{gray!6}{2017-09-06}\\
-Große Koalition: ... & Jörg Meuthen: Nic... & 0.13 & DIE WELT & AfD & 2018-01-12 & 2018-01-12\\
-\cellcolor{gray!6}{Merkels verbale W...} & \cellcolor{gray!6}{Integration und S...} & \cellcolor{gray!6}{0.06} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-09-13} & \cellcolor{gray!6}{2017-09-08}\\
-\bottomrule
-\end{tabular}
-\end{table}
-
 Next, the mean cosine similarity for each news article publication date
 (date1) and party (source2) is estimated to obtain the final data frame
 (see \autoref{table:dataset_structure_final}).
@@ -905,17 +917,17 @@ Next, the mean cosine similarity for each news article publication date
 \toprule
 date1 & source1 & source2 & cos\_sim\\
 \midrule
-\cellcolor{gray!6}{2018-01-20} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.15}\\
-2017-08-30 & DIE WELT & B90/GRÜNE & 0.12\\
-\cellcolor{gray!6}{2017-10-11} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.16}\\
-2017-10-24 & DIE WELT & SPD & 0.09\\
-\cellcolor{gray!6}{2017-06-08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.15}\\
+\cellcolor{gray!6}{2017-10-24} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{0.09}\\
+2017-06-03 & DIE WELT & DIE LINKE & 0.21\\
+\cellcolor{gray!6}{2017-10-09} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.13}\\
+2017-11-30 & DIE WELT & SPD & 0.08\\
+\cellcolor{gray!6}{2018-01-14} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.13}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\hypertarget{v-regression-model}{%
-\section{V Regression model}\label{v-regression-model}}
+\hypertarget{ols-dummy-regression}{%
+\subsection{OLS dummy regression}\label{ols-dummy-regression}}
 
 Finally, cosine similarity can be used as the independent variable in
 different model specifications to answer the research questions of this
@@ -929,9 +941,6 @@ up on the parties' issues during election campaigns. Then, in
 \protect\hyperlink{regression-discontinuity-model}{Regression
 discontinuity model}, a regression discontinuity is specified to test
 whether the election day affected overall topic similarity.
-
-\hypertarget{ols-dummy-regression}{%
-\subsection{OLS dummy regression}\label{ols-dummy-regression}}
 
 To measure whether there is a significant difference in the topic
 similarity for each party for a news publisher, a simple OLS regression
@@ -1077,7 +1086,7 @@ not change discontinuously on or near the election date.
 
 Following \protect\hyperlink{ref-imbens_regression_2008}{Imbens and
 Lemieux} (\protect\hyperlink{ref-imbens_regression_2008}{2008}) I
-estimate a local linear regression of the form:
+estimate a local linear regression model of the form:
 
 \[
 \ln(\text{CS}_{t})=\beta_0+\beta_1T_t+\beta_2W_t+\beta_3W_t*T_t+\epsilon_t
@@ -1199,10 +1208,10 @@ whereas for \(D_{B90/GRÜNE} = 0\) it is
 In other words, when \(D_{B90/GRÜNE}\) switches from 0 to 1, the
 treatment effect decreases by \(0.260\) compared to the base dummy group
 AfD, for which the treatment effect is \(-0.091\). Again, since I
-estimate a log-linear model, the coefficient should be transformed using
-\(\exp(-0.260)-1 = -0.229\). Therefore, the topic similarity between
-Handelsblatt and B90/GRÜNE decreases right after the election day by
-\(22.9\%\) compared to AfD (the base dummy group).
+estimate a log-linear regression model, the coefficient should be
+transformed using \(\exp(-0.260)-1 = -0.229\). Therefore, the topic
+similarity between Handelsblatt and B90/GRÜNE decreases right after the
+election day by \(22.9\%\) compared to AfD (the base dummy group).
 
 \begin{table}[!htbp] \centering    \caption{Results from the regression discontinuity model}    \label{table:results_rd2}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & DIE WELT & stern.de & ZEIT ONLINE & Handelsblatt & FOCUS Online & Bild.de & SPIEGEL ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   T & $-$0.167$^{***}$ & $-$0.048 & $-$0.038 & $-$0.091 & $-$0.072 & $-$0.187$^{*}$ & 0.076 \\    & (0.063) & (0.081) & (0.096) & (0.090) & (0.068) & (0.097) & (0.081) \\    & & & & & & & \\   W & $-$0.001$^{*}$ & $-$0.0005 & $-$0.002$^{***}$ & $-$0.0003 & $-$0.001 & $-$0.001 & $-$0.002$^{***}$ \\    & (0.0004) & (0.001) & (0.001) & (0.001) & (0.0005) & (0.001) & (0.001) \\    & & & & & & & \\   B90/GRÜNE & $-$0.267$^{***}$ & $-$0.215$^{***}$ & $-$0.180$^{**}$ & 0.105 & $-$0.337$^{***}$ & $-$0.445$^{***}$ & $-$0.186$^{***}$ \\    & (0.048) & (0.062) & (0.078) & (0.067) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   CDU & $-$0.259$^{***}$ & $-$0.115$^{*}$ & $-$0.232$^{***}$ & 0.098 & $-$0.288$^{***}$ & $-$0.450$^{***}$ & $-$0.170$^{***}$ \\    & (0.048) & (0.061) & (0.078) & (0.067) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   DIE LINKE & $-$0.251$^{***}$ & $-$0.109$^{*}$ & $-$0.160$^{**}$ & 0.134$^{**}$ & $-$0.270$^{***}$ & $-$0.342$^{***}$ & $-$0.156$^{**}$ \\    & (0.048) & (0.061) & (0.078) & (0.067) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   FDP & $-$0.291$^{***}$ & $-$0.195$^{***}$ & $-$0.201$^{***}$ & 0.069 & $-$0.355$^{***}$ & $-$0.441$^{***}$ & $-$0.292$^{***}$ \\    & (0.048) & (0.061) & (0.078) & (0.067) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   SPD & $-$0.278$^{***}$ & $-$0.143$^{**}$ & $-$0.201$^{***}$ & 0.098 & $-$0.339$^{***}$ & $-$0.479$^{***}$ & $-$0.266$^{***}$ \\    & (0.048) & (0.061) & (0.078) & (0.067) & (0.054) & (0.081) & (0.064) \\    & & & & & & & \\   TTRUE:W & 0.003$^{***}$ & 0.003$^{***}$ & 0.002$^{*}$ & 0.004$^{***}$ & 0.002$^{**}$ & 0.003$^{***}$ & 0.003$^{***}$ \\    & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) \\    & & & & & & & \\   TTRUE:B90/GRÜNE & 0.058 & $-$0.137 & $-$0.249$^{**}$ & $-$0.260$^{**}$ & 0.055 & 0.223$^{*}$ & $-$0.032 \\    & (0.079) & (0.101) & (0.124) & (0.120) & (0.087) & (0.124) & (0.103) \\    & & & & & & & \\   TTRUE:CDU & $-$0.080 & $-$0.222$^{**}$ & $-$0.161 & $-$0.272$^{***}$ & $-$0.073 & 0.149 & $-$0.165$^{*}$ \\    & (0.070) & (0.090) & (0.111) & (0.104) & (0.078) & (0.112) & (0.092) \\    & & & & & & & \\   TTRUE:DIE LINKE & $-$0.062 & $-$0.089 & $-$0.122 & $-$0.162 & $-$0.074 & 0.092 & $-$0.134 \\    & (0.070) & (0.090) & (0.111) & (0.104) & (0.078) & (0.112) & (0.092) \\    & & & & & & & \\   TTRUE:FDP & 0.066 & 0.078 & $-$0.083 & $-$0.061 & 0.104 & 0.219$^{*}$ & 0.107 \\    & (0.071) & (0.090) & (0.111) & (0.104) & (0.078) & (0.112) & (0.093) \\    & & & & & & & \\   TTRUE:SPD & 0.020 & $-$0.093 & $-$0.087 & $-$0.173 & 0.062 & 0.244$^{**}$ & $-$0.010 \\    & (0.071) & (0.091) & (0.112) & (0.105) & (0.079) & (0.113) & (0.093) \\    & & & & & & & \\   Constant & $-$1.747$^{***}$ & $-$2.051$^{***}$ & $-$1.765$^{***}$ & $-$1.896$^{***}$ & $-$1.826$^{***}$ & $-$1.721$^{***}$ & $-$1.982$^{***}$ \\    & (0.042) & (0.053) & (0.067) & (0.061) & (0.047) & (0.069) & (0.056) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,212 & 1,218 & 1,244 & 1,046 & 1,268 & 1,161 & 1,264 \\  R$^{2}$ & 0.111 & 0.052 & 0.091 & 0.047 & 0.089 & 0.069 & 0.053 \\  Adjusted R$^{2}$ & 0.101 & 0.042 & 0.082 & 0.035 & 0.080 & 0.059 & 0.043 \\  Residual Std. Error & 0.362 (df = 1198) & 0.463 (df = 1204) & 0.578 (df = 1230) & 0.490 (df = 1032) & 0.410 (df = 1254) & 0.564 (df = 1147) & 0.486 (df = 1250) \\  F Statistic & 11.491$^{***}$ (df = 13; 1198) & 5.087$^{***}$ (df = 13; 1204) & 9.506$^{***}$ (df = 13; 1230) & 3.915$^{***}$ (df = 13; 1032) & 9.423$^{***}$ (df = 13; 1254) & 6.584$^{***}$ (df = 13; 1147) & 5.364$^{***}$ (df = 13; 1250) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
 
