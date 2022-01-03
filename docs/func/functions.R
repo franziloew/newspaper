@@ -125,16 +125,16 @@ df_prep_ols <- function(cosine_df) {
 plot_cosine_sim_ols <- function(df, target) {
   df %>% 
     filter(election_dummy == "pre") %>% 
-    ggplot(aes(date1, log(cos_sim))) +
+    ggplot(aes(date1, cos_sim)) +
     geom_point(size = 0.2, alpha = 0.5) +
     geom_smooth(method = lm, 
                 color='red',
                 formula = y ~ x,
                 se=FALSE, size = 0.3) +
-    scale_y_continuous(limits = c(-4,-1)) +
+    #scale_y_continuous(limits = c(-4,-1)) +
     scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
     facet_wrap(~source2, nrow = 1) +
-    labs(x=NULL, y = 'log(cos_sim)',
+    labs(x=NULL, y = 'CS',
          caption = paste0(target)) +
     theme(
       strip.background = element_blank(),
@@ -147,7 +147,7 @@ plot_cosine_sim_ols <- function(df, target) {
 
 plot_cosine_sim_rd <- function(df, target) {
   ggplot(cosine_distances_df, 
-         aes(date1, log(cos_sim),
+         aes(date1, cos_sim,
              group = election_dummy)) +
     geom_vline(xintercept = as.Date('2017-09-24'), size = 0.3, linetype = 'dashed') +
     geom_point(size = 0.2, alpha = 0.5) +
@@ -155,10 +155,10 @@ plot_cosine_sim_rd <- function(df, target) {
                 color='red',
                 formula = y ~ x,
                 se=FALSE, size = 0.3) +
-    scale_y_continuous(limits = c(-4,-1)) +
+    #scale_y_continuous(limits = c(-4,-1)) +
     scale_x_date(date_breaks = "2 month", labels = date_format("%m-%Y")) +
     facet_wrap(~source2, nrow = 1) +
-    labs(x=NULL, y = 'log(cos_sim)',
+    labs(x=NULL, y = 'CS',
          caption = paste0(target)) +
     theme(
       strip.background = element_blank(),
@@ -183,14 +183,15 @@ calc_ols_dummy <- function(dataframe) {
     filter(election_dummy == "pre")
   
   model_outcome <- truncated_df %$%
-    lm(log(cos_sim) ~ source2)
+    lm(cos_sim ~ source2)
 }
 
 ##################################
 ### Calculate OLS coefficients ###
 ##################################
 transform_coeff_ols <- function(coeff) {
-  exp(coeff)-1
+  coeff
+  #exp(coeff)-1
 }
 
 ##########################################
@@ -205,7 +206,7 @@ calc_rd <- function(dataframe) {
     filter(between(W,-115,115))
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ `T` * W)
+    lm(cos_sim ~ `T` * W)
 }
 
 ### Dummy
@@ -217,7 +218,7 @@ calc_rd_dummy<- function(dataframe) {
     filter(between(W,-115,115))
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ `T` * W + source2 )
+    lm(cos_sim ~ `T` * W + source2 )
 }
 
 ### Dummy & interaction term
@@ -229,5 +230,5 @@ calc_rd_dummy_interaction <- function(dataframe) {
     filter(between(W,-115,115))
   
   model_outcome <- temp_df %$%
-    lm(log(cos_sim) ~ `T` * W + `T` * source2)
+    lm(cos_sim ~ `T` * W + `T` * source2)
 }
