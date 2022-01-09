@@ -165,22 +165,6 @@ claiming balanced reporting. The purpose of this study is to examine
 whether there is evidence that supports the allegation of biased media
 reporting in either direction, especially during election campaigns.
 
-More specifically, this paper uses the content of the seven biggest
-German online news providers about politics and press releases of major
-German parties to analyze whether online news equally addresses the
-topics covered in the press releases of different parties during the
-election campaign for the federal elections in Germany in 2017. The
-alternative hypothesis is, that there is a significant difference
-between the topic coverage for different parties, indicating biased
-reporting. Furthermore, we analyze the effect of the election results on
-the news content. Since we assume that media bias is driven by the
-demand, we test the hypothesis that newspapers to adjust their slanting
-after observing the election results.
-
-The results show that all newspapers under examination slant towards AfD
-topics during the election campaign resulting in a biased landscape for
-political news.
-
 Economic literature examines both the supply and demand sides as factors
 driving media bias. In the former case, bias reflects the preferences of
 editors, owners (\protect\hyperlink{ref-besley_handcuffs_2006}{Besley
@@ -211,7 +195,10 @@ about information quality on past reports. As a result, this can lead to
 incentives to misrepresent the truth. In particular, low-quality firms
 are incentivized to ignore signals that contradict prior common
 expectations. Although this information is valuable to readers, it also
-reveals that its sources are of low quality.
+reveals that its sources are of low quality.\footnote{See
+  \protect\hyperlink{ref-acemoglu_political_2013}{Prat and Strömberg}
+  (\protect\hyperlink{ref-acemoglu_political_2013}{2013}) for a survey
+  about economic literature on the topic of mass media.}
 
 This logic of a rational reader that uses news purely as a source of
 information differs from noneconomic media studies. Instead,
@@ -246,19 +233,20 @@ transportation cost is interpreted as the ideological distance between a
 reader and a newspaper. If reader beliefs are homogeneous, the monopoly
 and the duopoly produce the same amount of bias. In the case of
 heterogenous preferences, competition lead to market segmentation
-through extremely biased news avoid price competition. The idea that the
-main driver of bias is the distribution of priors in the population
-resonates with the framing idea in the communications literature that
-newspapers tend to select frames that people like to hear.
+through extremely biased news because market participants want to avoid
+price competition.
 
-Another important driver for bias is the entertainment factor of news.
-This assumption corresponds to the notion of media logic, a central
-concept in media and communication studies
-(\protect\hyperlink{ref-takens_media_2013}{Takens et al. 2013}). The
-underlying thesis is that political news content produces news values
-and narrative techniques that media use to attract audiences, i.e., the
-factors that turn an event into news worth reporting like conflict,
-drama, negativity, surprise, or proximity
+The concept that the main driver of bias is the distribution of priors
+in the population resonates with the concept of framing from the
+communications literature. The central argument is that newspapers tend
+to select frames people like to hear. Another important driver for bias
+is the entertainment factor of news. This assumption corresponds to the
+notion of media logic, a central concept in media and communication
+studies (\protect\hyperlink{ref-takens_media_2013}{Takens et al. 2013}).
+The underlying thesis is that political news content produces news
+values and narrative techniques that media use to attract audiences,
+i.e., the factors that turn an event into news worth reporting like
+conflict, drama, negativity, surprise, or proximity
 \protect\hyperlink{ref-blassnig_hitting_2019}{Blassnig et al.}
 (\protect\hyperlink{ref-blassnig_hitting_2019}{2019}). According to
 \protect\hyperlink{ref-takens_media_2013}{Takens et al.}
@@ -275,6 +263,17 @@ respectively the attention economy.
 key messages by political and media actors in news articles provoke more
 reader comments. Therefore, new outlets competing for readers' attention
 have an incentive to pick up on the key messages of these parties.
+
+This paper uses the content of German online newspapers and press
+releases of major German parties to analyze whether online news equally
+addresses the topics covered in these press releases during the election
+campaign for the federal elections in Germany in 2017. The alternative
+hypothesis is, that a significant difference between the topic coverage
+for different parties exist, indicating biased reporting. Furthermore,
+we analyze the effect of the election results on the news content. Since
+we follow the notion of a demand-driven media bias, we expect newspapers
+to adjust their content after observing the beliefs of potential
+readers.
 
 To answer these and other media-related questions in the political
 context, quantifying media content is a prerequisite. One of the
@@ -419,7 +418,7 @@ similarity measure is utilized as the dependent variable in a regression
 model with various specifications.
 
 \hypertarget{text-pre-processing}{%
-\subsubsection{3.1 Text pre-processing}\label{text-pre-processing}}
+\subsection{3.1 Text pre-processing}\label{text-pre-processing}}
 
 The analysis performed in this paper is based on a sample of 18,757
 online news articles from seven German online news providers\footnote{Bild.de,
@@ -568,7 +567,7 @@ adequate stemming technique. Stemming is a process by which different
 morphological variants of a word are traced back to their common root.
 For example, ``voting'' and ``vote'' would be treated as two instances
 of the same token after the stemming process. There are many different
-techniques for the stemming process. I apply the widely used
+techniques for the stemming process. We apply the widely used
 Porter-Stemmer algorithm based on a set of shortening rules applied to a
 word until it has a minimum number of syllables.\footnote{\url{https://tartarus.org/martin/PorterStemmer/}}
 
@@ -615,19 +614,19 @@ Taddy 2017}) since it disregards the words' order within a document.
 \fontsize{7}{9}\selectfont
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
-  & abhängig & trump & hansestadt & kümmern & söder & infrastruktur & integrieren\\
+  & folgten & bezogen & aufkommen & behörde & g & offizielle & teurer\\
 \midrule
-\cellcolor{gray!6}{15324} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-10174 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{9953} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-16127 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{13332} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+\cellcolor{gray!6}{15499} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+10577 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+\cellcolor{gray!6}{11112} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+1369 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{3116} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{14} & \cellcolor{gray!6}{1} & \cellcolor{gray!6}{0}\\
 \addlinespace
-957 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{10386} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-17224 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\cellcolor{gray!6}{18642} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
-12648 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+7710 & 0 & 0 & 0 & 0 & 6 & 0 & 0\\
+\cellcolor{gray!6}{2895} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+17243 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\cellcolor{gray!6}{323} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0} & \cellcolor{gray!6}{0}\\
+14880 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -725,10 +724,10 @@ McCallum 2009}) and the residuals
 (\protect\hyperlink{ref-taddy_estimation_2012}{Taddy 2012}). This
 process revealed that a model with 40 topics best reflects the structure
 in the corpus. Furthermore, the author and bi-week dummies of a document
-are included as topical prevalence variables. In other words, I assume
+are included as topical prevalence variables. In other words, we assume
 that the probability of a topic being included in a news article or a
 press release depends on the author and the publication date of that
-document. Therefore, I argue that these variables are best suited to
+document. Therefore, we argue that these variables are best suited to
 capture temporal and publisher level variation in the documents.
 
 In general, inference of mixed-membership models, such as the one
@@ -739,10 +738,10 @@ However, topic models are usually imprecise as the function to be
 optimized has multiple modes so that the model results can be sensitive
 to the starting values (e.g., the number of topics and the covariates
 influencing the prior distributions). Since an ex-ante valuation is
-impossible, I compute various models and compare their posterior
+impossible, we compute various models and compare their posterior
 probability to evaluate how results vary for different model
 specifications (\protect\hyperlink{ref-roberts_navigating_2016}{M.
-Roberts, Stewart, and Tingley 2016a}). I then cross-checked some subset
+Roberts, Stewart, and Tingley 2016a}). We then cross-checked some subset
 of assigned topic distributions to evaluate whether the estimates align
 with the concept of interest
 (\protect\hyperlink{ref-gentzkow_text_2017}{M. Gentzkow, Kelly, and
@@ -929,11 +928,11 @@ of the data for DIE WELT.
 \toprule
 title1 & title2 & cosine\_sim & source1 & source2 & date1 & date2\\
 \midrule
-\cellcolor{gray!6}{Volker Kauder for...} & \cellcolor{gray!6}{Georg Pazderski: ...} & \cellcolor{gray!6}{0.17} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{AfD} & \cellcolor{gray!6}{2017-08-05} & \cellcolor{gray!6}{2017-08-01}\\
-G20-Proteste: Gip... & Macrons Reformen... & 0.02 & DIE WELT & FDP & 2017-07-07 & 2017-07-03\\
-\cellcolor{gray!6}{Berliner Obdachlo...} & \cellcolor{gray!6}{Eumann: Brauchen ...} & \cellcolor{gray!6}{0.65} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{2017-10-24} & \cellcolor{gray!6}{2017-10-18}\\
-Forsa-Umfrage: De... & G20-Afrikakonfer... & 0.07 & DIE WELT & CDU & 2017-06-13 & 2017-06-12\\
-\cellcolor{gray!6}{Ronja von Rönne: ...} & \cellcolor{gray!6}{Nitrat im Trinkwa...} & \cellcolor{gray!6}{0.21} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{B90/GRÜNE} & \cellcolor{gray!6}{2017-06-13} & \cellcolor{gray!6}{2017-06-10}\\
+\cellcolor{gray!6}{SPD-General: "Ein...} & \cellcolor{gray!6}{Benötigen umfass...} & \cellcolor{gray!6}{0.13} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{2018-02-11} & \cellcolor{gray!6}{2018-02-05}\\
+Demo am Breitsche... & Georg Pazderski: ... & 0.29 & DIE WELT & AfD & 2017-07-10 & 2017-07-05\\
+\cellcolor{gray!6}{Deutschlandtrend:...} & \cellcolor{gray!6}{Nährstoffbilanzie...} & \cellcolor{gray!6}{0.08} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{2017-06-09} & \cellcolor{gray!6}{2017-06-09}\\
+Haushaltsausschus... & Kampf gegen Antis... & 0.05 & DIE WELT & CDU & 2018-01-31 & 2018-01-26\\
+\cellcolor{gray!6}{Grünen-Politiker ...} & \cellcolor{gray!6}{Personalmangel im...} & \cellcolor{gray!6}{0.17} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{2017-09-14} & \cellcolor{gray!6}{2017-09-12}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -951,11 +950,11 @@ Next, the mean cosine similarity for each news article publication date
 \toprule
 date1 & source1 & source2 & cos\_sim\\
 \midrule
-\cellcolor{gray!6}{2017-12-09} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{DIE LINKE} & \cellcolor{gray!6}{0.16}\\
-2017-07-07 & DIE WELT & FDP & 0.10\\
-\cellcolor{gray!6}{2017-11-06} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.08}\\
-2017-10-12 & DIE WELT & B90/GRÜNE & 0.17\\
-\cellcolor{gray!6}{2017-11-15} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{0.12}\\
+\cellcolor{gray!6}{2017-10-07} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{FDP} & \cellcolor{gray!6}{0.16}\\
+2018-01-30 & DIE WELT & CDU & 0.25\\
+\cellcolor{gray!6}{2017-10-26} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{CDU} & \cellcolor{gray!6}{0.16}\\
+2017-07-09 & DIE WELT & CDU & 0.08\\
+\cellcolor{gray!6}{2017-12-05} & \cellcolor{gray!6}{DIE WELT} & \cellcolor{gray!6}{SPD} & \cellcolor{gray!6}{0.14}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -969,11 +968,11 @@ previously. In \protect\hyperlink{ols-dummy-regression}{3.4.1 OLS dummy
 regression}, an OLS model with party dummies is computed for the
 pre-election period to analyze whether online news equally addresses the
 topics covered in the press releases of different parties during the
-election campaign. The alternative hypothesis is, that there is a
+election campaign. The alternative hypothesis is that there is a
 significant difference between the topic similarity for different
-parties, indicating biased reporting. However, if different news papers
-slant towards different parties, the overall landscape of political news
-would still be unbiased.
+parties, indicating biased reporting of the individual newspapers.
+However, if different newspapers slant towards different parties, the
+overall landscape of political news would still be unbiased.
 
 In \protect\hyperlink{rdit}{3.4.2. Regression discontinuity in time
 (RDiT) regression}, a regression discontinuity is specified to test
@@ -1035,19 +1034,30 @@ everything else equal. \autoref{table:results_ols} reveals that all
 coefficients are negative, meaning that the topic similarity is
 significantly lower between news articles and press releases when
 compared to AfD for all party/newspaper pairs (except for Handelsblatt).
+
+\begin{table}[!htbp] \centering    \caption{Results from the OLS dummy regression}    \label{table:results_ols}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & Bild.de & DIE WELT & FOCUS Online & Handelsblatt & SPIEGEL ONLINE & stern.de & ZEIT ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   B90/GRÜNE & $-$0.055$^{***}$ & $-$0.041$^{***}$ & $-$0.047$^{***}$ & 0.020$^{**}$ & $-$0.021$^{**}$ & $-$0.028$^{***}$ & $-$0.023$^{**}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.011) \\    & & & & & & & \\   CDU & $-$0.059$^{***}$ & $-$0.040$^{***}$ & $-$0.038$^{***}$ & 0.020$^{**}$ & $-$0.027$^{***}$ & $-$0.014$^{**}$ & $-$0.035$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   DIE LINKE & $-$0.047$^{***}$ & $-$0.041$^{***}$ & $-$0.041$^{***}$ & 0.022$^{**}$ & $-$0.027$^{***}$ & $-$0.016$^{**}$ & $-$0.028$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   FDP & $-$0.060$^{***}$ & $-$0.045$^{***}$ & $-$0.049$^{***}$ & 0.013 & $-$0.041$^{***}$ & $-$0.026$^{***}$ & $-$0.030$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   SPD & $-$0.062$^{***}$ & $-$0.042$^{***}$ & $-$0.047$^{***}$ & 0.016$^{*}$ & $-$0.038$^{***}$ & $-$0.018$^{***}$ & $-$0.029$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   Constant & 0.203$^{***}$ & 0.190$^{***}$ & 0.177$^{***}$ & 0.164$^{***}$ & 0.168$^{***}$ & 0.142$^{***}$ & 0.206$^{***}$ \\    & (0.009) & (0.005) & (0.006) & (0.006) & (0.006) & (0.005) & (0.007) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 594 & 683 & 695 & 641 & 695 & 689 & 671 \\  R$^{2}$ & 0.056 & 0.072 & 0.073 & 0.013 & 0.040 & 0.032 & 0.021 \\  Adjusted R$^{2}$ & 0.048 & 0.065 & 0.066 & 0.005 & 0.033 & 0.025 & 0.013 \\  Residual Std. Error & 0.089 (df = 588) & 0.057 (df = 677) & 0.061 (df = 689) & 0.065 (df = 635) & 0.066 (df = 689) & 0.050 (df = 683) & 0.079 (df = 665) \\  F Statistic & 6.951$^{***}$ (df = 5; 588) & 10.466$^{***}$ (df = 5; 677) & 10.807$^{***}$ (df = 5; 689) & 1.647 (df = 5; 635) & 5.693$^{***}$ (df = 5; 689) & 4.486$^{***}$ (df = 5; 683) & 2.798$^{**}$ (df = 5; 665) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
+
 \autoref{fig:coeff_ols_dummy} plots the sum of the intercept and the
-coefficients (\(\beta_0+\beta_{j}\)) for all models\footnote{Handelsblatt
-  model is not included, since the F-statistic is not significant.} to
-illustrate the overall magnitude of the effect. This shows that the
-topics in the news articles from Bild.de and ZEIT ONLINE are most
-similar to press releases of AfD (remember that the intercept represents
-the conditional mean topic similarity of the base category AfD), whereas
-the similarity is lowest in the case of stern.de and SPIEGEL ONLINE.
-Furthermore, the figure visualizes that the topic similarity for all
-party/newspaper pairs is significantly smaller, when compared to the
-AfD. This difference is biggest for Bild.de, meaning that this newspaper
-has the strongest bias towards topics adressed in AfD press releases in
-the period under consideration.
+coefficients (\(\beta_0+\beta_{j}\)) for all models with a significant
+F-statistic to illustrate the overall magnitude of the effect. This
+shows that the topics in the news articles from Bild.de and ZEIT ONLINE
+are most similar to press releases of AfD (remember that the intercept
+represents the conditional mean topic similarity of the base category
+AfD), whereas the similarity is lowest in the case of stern.de and
+SPIEGEL ONLINE. Furthermore, the figure visualizes that the topic
+similarity for all party/newspaper pairs is significantly smaller, when
+compared to the AfD. This difference is biggest for Bild.de, meaning
+that this newspaper has the strongest bias towards topics adressed in
+AfD press releases in the period under consideration.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/Plot coefficients - simple dummy-1} 
+
+}
+
+\caption{Coefficients of OLS dummy regression \label{fig:coeff_ols_dummy}}\label{fig:Plot coefficients - simple dummy}
+\end{figure}
 
 The results also allow to compare between any other two parties, by
 taking the difference in their dummy-regressor coefficients. However,
@@ -1066,30 +1076,20 @@ discussed.\footnote{Nevertheless, it is assumed in communication
   their topics in the media to get them into the voters' heads. Here,
   the tendency of the reporting is irrelevant, but rather the quantity
   is decisive (see, e.g.
-  (\protect\hyperlink{ref-mazzoleni_media_2003}{\textbf{mazzoleni\_media\_2003?}})).}
-
-\begin{table}[!htbp] \centering    \caption{Results from the OLS dummy regression}    \label{table:results_ols}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & Bild.de & DIE WELT & FOCUS Online & Handelsblatt & SPIEGEL ONLINE & stern.de & ZEIT ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   B90/GRÜNE & $-$0.055$^{***}$ & $-$0.041$^{***}$ & $-$0.047$^{***}$ & 0.020$^{**}$ & $-$0.021$^{**}$ & $-$0.028$^{***}$ & $-$0.023$^{**}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.011) \\    & & & & & & & \\   CDU & $-$0.059$^{***}$ & $-$0.040$^{***}$ & $-$0.038$^{***}$ & 0.020$^{**}$ & $-$0.027$^{***}$ & $-$0.014$^{**}$ & $-$0.035$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   DIE LINKE & $-$0.047$^{***}$ & $-$0.041$^{***}$ & $-$0.041$^{***}$ & 0.022$^{**}$ & $-$0.027$^{***}$ & $-$0.016$^{**}$ & $-$0.028$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   FDP & $-$0.060$^{***}$ & $-$0.045$^{***}$ & $-$0.049$^{***}$ & 0.013 & $-$0.041$^{***}$ & $-$0.026$^{***}$ & $-$0.030$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   SPD & $-$0.062$^{***}$ & $-$0.042$^{***}$ & $-$0.047$^{***}$ & 0.016$^{*}$ & $-$0.038$^{***}$ & $-$0.018$^{***}$ & $-$0.029$^{***}$ \\    & (0.013) & (0.008) & (0.008) & (0.009) & (0.009) & (0.007) & (0.010) \\    & & & & & & & \\   Constant & 0.203$^{***}$ & 0.190$^{***}$ & 0.177$^{***}$ & 0.164$^{***}$ & 0.168$^{***}$ & 0.142$^{***}$ & 0.206$^{***}$ \\    & (0.009) & (0.005) & (0.006) & (0.006) & (0.006) & (0.005) & (0.007) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 594 & 683 & 695 & 641 & 695 & 689 & 671 \\  R$^{2}$ & 0.056 & 0.072 & 0.073 & 0.013 & 0.040 & 0.032 & 0.021 \\  Adjusted R$^{2}$ & 0.048 & 0.065 & 0.066 & 0.005 & 0.033 & 0.025 & 0.013 \\  Residual Std. Error & 0.089 (df = 588) & 0.057 (df = 677) & 0.061 (df = 689) & 0.065 (df = 635) & 0.066 (df = 689) & 0.050 (df = 683) & 0.079 (df = 665) \\  F Statistic & 6.951$^{***}$ (df = 5; 588) & 10.466$^{***}$ (df = 5; 677) & 10.807$^{***}$ (df = 5; 689) & 1.647 (df = 5; 635) & 5.693$^{***}$ (df = 5; 689) & 4.486$^{***}$ (df = 5; 683) & 2.798$^{**}$ (df = 5; 665) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{main_text_files/figure-latex/Plot coefficients - simple dummy-1} 
-
-}
-
-\caption{Coefficients of OLS dummy regression \label{fig:coeff_ols_dummy}}\label{fig:Plot coefficients - simple dummy}
-\end{figure}
+  \protect\hyperlink{ref-mazzoleni_media_2003}{Mazzoleni, Stewart, and
+  Horsfield} (\protect\hyperlink{ref-mazzoleni_media_2003}{2003})).}
 
 \hypertarget{rdit}{%
 \subsubsection{3.4.2 Regression discontinuity in time (RDiT)
 regression}\label{rdit}}
 
-I assume that news publishers report differently during election
-campaigns when political competition is stronger and that the election
-day introduces a change in the reporting. The underlying dynamic of this
-assumption coincides with the basic idea of regression discontinuity
-design (RDD). Therefore, an RDD is applied to identify the short-term
-effect of the election on the topic similarity between newspaper
-articles and press releases. The RDD was designed by
+As mentioned above, we assume that the election day affects the
+reporting since media outlets can observe the beliefs of potential
+readers. The underlying dynamic of this assumption coincides with the
+basic idea of regression discontinuity design (RDD). Therefore, an RDD
+is applied to identify the short-term effect of the election on the
+topic similarity between newspaper articles and press releases. The RDD
+was designed by
 \protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{Thistlethwaite
 and Campbell}
 (\protect\hyperlink{ref-thistlethwaite_regression-discontinuity_1960}{1960})
@@ -1168,7 +1168,7 @@ particular, the relationship between \(\epsilon_t\) and the date must
 not change discontinuously on or near the election date.
 
 Following \protect\hyperlink{ref-imbens_regression_2008}{Imbens and
-Lemieux} (\protect\hyperlink{ref-imbens_regression_2008}{2008}) I
+Lemieux} (\protect\hyperlink{ref-imbens_regression_2008}{2008}) we
 estimate a local linear regression model of the form:
 
 \[
@@ -1185,10 +1185,20 @@ if the RD assumption is valid (i.e., \(\epsilon_t\) does not change
 discontinuously at the election day), the estimate of \(\beta_1\), the
 coefficient of interest, will be unbiased even without further controls.
 
+We specify a uniform kernel
+(\protect\hyperlink{ref-lee_regression_2010}{Lee and Lemieux 2010}) and
+use a bandwidth of 115 days on each side of the election day threshold.
+The election took place on September 24, 2017, so the sample includes
+dates between June 1, 2017, and January 17, 2018. Since the
+identification strategy only attempts to estimate \(\beta\) at \(W_t=0\)
+(the election day), no additional dates beyond the 115-day bandwidth
+enter the sample. Alternative specifications with varying bandwidths led
+to similar results.
+
 \hypertarget{rdit-results}{%
 \paragraph{RDiT Results}\label{rdit-results}}
 
-Since I am interested in the treatment effect at the cutoff point
+Since we are interested in the treatment effect at the cutoff point
 (remember that \(W_t=0\) for the election day) and since
 
 \[
@@ -1197,13 +1207,14 @@ Since I am interested in the treatment effect at the cutoff point
 
 \(\beta_1\) can be interpreted as the change in topic similarity with
 respect to the election day. The results in \autoref{table:results_rd1}
-show a significant F-statistic for all models, such that we can reject
-the null hypothesis. However, only the models for DIE WELT, Handelsblatt
-and SPIEGEL ONLINE show a significant coefficient for \(\beta_1\): For
-DIE WELT (-0.018) and Handelsblatt (-0.023) this effect is negative,
-indicating a drop in topic similarity overall. In the case of SPIEGEL
-ONLINE (0.012), the coefficient suggests an increase of topic similarity
-between the news articles and press releases.
+show a significant F-statistic for all models. We can reject the null
+hypothesis for all newspapers that the regressors do not have a combined
+effect on the topic similarity. However, only the DIE WELT,
+Handelsblatt, and SPIEGEL ONLINE models show a significant coefficient
+for \(\beta_1\): For DIE WELT (-0.018) and Handelsblatt (-0.023), this
+effect is negative, indicating a drop in topic similarity overall. In
+the case of SPIEGEL ONLINE (0.012), the coefficient suggests an increase
+of topic similarity between the news articles and press releases.
 
 \begin{table}[!htbp] \centering    \caption{Results from the RDiT model}    \label{table:results_rd1}  \resizebox{0.99\textwidth}{!}{\begin{tabular}{@{\extracolsep{5pt}}lccccccc}  \\[-1.8ex]\hline  \hline \\[-1.8ex]   & \multicolumn{7}{c}{\textit{Dependent variable:}} \\  \cline{2-8}  \\[-1.8ex] & \multicolumn{7}{c}{Cosine similarity of topic distribution} \\   & Bild.de & DIE WELT & FOCUS Online & Handelsblatt & SPIEGEL ONLINE & stern.de & ZEIT ONLINE \\  \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7)\\  \hline \\[-1.8ex]   T & $-$0.008 & $-$0.018$^{***}$ & $-$0.009 & $-$0.023$^{***}$ & 0.012$^{*}$ & $-$0.002 & $-$0.014 \\    & (0.009) & (0.007) & (0.006) & (0.009) & (0.007) & (0.007) & (0.009) \\    & & & & & & & \\   W & $-$0.0003$^{***}$ & $-$0.0001$^{**}$ & $-$0.00003 & $-$0.0001 & $-$0.0003$^{***}$ & $-$0.0001$^{*}$ & $-$0.0004$^{***}$ \\    & (0.0001) & (0.0001) & (0.0001) & (0.0001) & (0.0001) & (0.0001) & (0.0001) \\    & & & & & & & \\   TTRUE:W & 0.001$^{***}$ & 0.0003$^{***}$ & 0.0001 & 0.001$^{***}$ & 0.0004$^{***}$ & 0.0004$^{***}$ & 0.0005$^{***}$ \\    & (0.0001) & (0.0001) & (0.0001) & (0.0001) & (0.0001) & (0.0001) & (0.0001) \\    & & & & & & & \\   Constant & 0.142$^{***}$ & 0.148$^{***}$ & 0.138$^{***}$ & 0.171$^{***}$ & 0.124$^{***}$ & 0.119$^{***}$ & 0.159$^{***}$ \\    & (0.006) & (0.004) & (0.004) & (0.006) & (0.005) & (0.004) & (0.006) \\    & & & & & & & \\  \hline \\[-1.8ex]  Observations & 1,161 & 1,212 & 1,268 & 1,046 & 1,264 & 1,218 & 1,244 \\  R$^{2}$ & 0.016 & 0.027 & 0.005 & 0.036 & 0.014 & 0.014 & 0.048 \\  Adjusted R$^{2}$ & 0.013 & 0.025 & 0.003 & 0.034 & 0.012 & 0.011 & 0.045 \\  Residual Std. Error & 0.079 (df = 1157) & 0.055 (df = 1208) & 0.057 (df = 1264) & 0.072 (df = 1042) & 0.065 (df = 1260) & 0.056 (df = 1214) & 0.083 (df = 1240) \\  F Statistic & 6.076$^{***}$ (df = 3; 1157) & 11.316$^{***}$ (df = 3; 1208) & 2.267$^{*}$ (df = 3; 1264) & 13.155$^{***}$ (df = 3; 1042) & 6.055$^{***}$ (df = 3; 1260) & 5.570$^{***}$ (df = 3; 1214) & 20.630$^{***}$ (df = 3; 1240) \\  \hline  \hline \\[-1.8ex]  \textit{Note:}  & \multicolumn{7}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\  \end{tabular}}  \end{table}
 
@@ -1223,7 +1234,10 @@ Since the model estimated in the previous section gives the effect of
 the election day on the overall topic similarity without differentiating
 per party, we now include dummy variables for each party \(k\)
 (\(D_{t,k-1}\)). In doing so, we can test whether the election day's
-effect on topic similarity differs for different parties.
+effect on topic similarity differs for different parties and test our
+hypothesis that newspapers adjust their slant after observing the
+beliefs of potential readers.
+
 \autoref{fig:mean_cosine_sim_rd_example} visually captures that
 hypothesis for two sample news publishers, Bild.de and Handelsblatt. For
 the former, the illustration suggests a negative treatment effect for
@@ -1231,22 +1245,14 @@ AfD as well as a positive effect for B90/GRÜNE. In the case of
 Handeslblatt a negative effect for CDU can be observed. Since the
 figures (see \autoref{fig:mean_cosine_sim_rd} for all news publishers)
 suggest that the slope changes after the election day for nearly all
-newspaper/party pairs, the interaction term \(T_tD_{t,k-1}\) is
-included. Thus, \(\gamma_1, ..., \gamma_{k-1}\) give the average
-treatment effect for each newspaper/party pair in the following
+newspaper/party pairs, the interaction term \(T_tD_{t,k-1}\) is included
+to capture this effect. Thus, \(\gamma_1, ..., \gamma_{k-1}\) give the
+average treatment effect for each newspaper/party pair in the following
 equation.
 
 \[
 \text{CS}_{t}=\beta_0+\beta_1T_t+\beta_2W_{t}+\beta_3W_tT_t+\beta_jD_{t,j}+\gamma_jT_tD_{t,j}+ \epsilon_t
-\] I specify a uniform kernel
-(\protect\hyperlink{ref-lee_regression_2010}{Lee and Lemieux 2010}) and
-use a bandwidth of 115 days on each side of the election day threshold.
-The election took place on September 24, 2017, so the sample includes
-dates between June 1, 2017, and January 17, 2018. Since the
-identification strategy only attempts to estimate \(\beta\) at \(W_t=0\)
-(the election day), no additional dates beyond the 115-day bandwidth
-enter the sample. Alternative specifications with varying bandwidths led
-to similar results.
+\]
 
 \hypertarget{rdit-dummy-results}{%
 \paragraph{RDiT dummy results}\label{rdit-dummy-results}}
@@ -1281,23 +1287,24 @@ which the treatment effect is \(-0.025\).
 \end{figure}
 
 \autoref{fig:coeff_rdit_dummy} plots the sum of the treatment
-coefficients and the interaction terms (\(\beta_1+\gamma_j\)). Remember
-that the coefficient of the treatment effect shows the treatment effect
-for AfD since it is the base dummy group. While in the previous model
-without party dummies, the treatment effect for Bild.de was not
-significant, the present model gives a more differentiated analysis,
-showing a significant negative effect for the topic similarity for AfD
-(\(-0.031\)), as well as a significant positive effect for B90/GRÜNE
-(\(0.002\)), SPD (\(0.004\)) and FDP (\(0.01\)) holding the respective
-other variables equal. Besides Bild.de, in the case of DIE WELT and
-FOCUS Online, a significant negative effect of the election day on the
-topic similarity with AfD press releases is discernible. The only other
-negative treatment effect - except a small negative effect for DIE
-WELT/FDP - exists for the CDU in the case of Handelsblatt and stern.de.
-In both cases, the topic similarity between the news articles and the
-CDU press releases significantly decreased right after the election day.
-No significant effect of the election day can be detected in the case of
-ZEIT ONLINE on neither of the model specifications.
+coefficients and the interaction terms (\(\beta_1+\gamma_j\)) for
+\(W=0\). Remember that the coefficient of the treatment effect
+(\(\beta_1\)) shows the treatment effect for AfD since it is the base
+dummy group. While in the previous model without party dummies, the
+treatment effect for Bild.de was not significant, the present model
+gives a more differentiated analysis, showing a significant negative
+effect for the topic similarity for AfD (\(-0.031\)), as well as a
+significant positive effect for B90/GRÜNE (\(0.002\)), SPD (\(0.004\))
+and FDP (\(0.01\)) holding the respective other variables equal. Besides
+Bild.de, in the case of DIE WELT and FOCUS Online, a significant
+negative effect of the election day on the topic similarity with AfD
+press releases is discernible. The only other negative treatment effect
+- except a small negative effect for DIE WELT/FDP - exists for the CDU
+in the case of Handelsblatt and stern.de. In both cases, the topic
+similarity between the news articles and the CDU press releases
+significantly decreased right after the election day. No significant
+effect of the election day can be detected in the case of ZEIT ONLINE on
+neither of the model specifications.
 
 \pagebreak
 
@@ -1309,22 +1316,52 @@ indirectly influencing the election through its political coverage. On
 the one hand, it was accused of providing a stage for the AfD through
 its choice of topics, which led to a rise in the party's popularity.
 But, on the other hand, the AfD accused the same media of devaluing the
-party through negative reporting.
+party through negative reporting. This paper investigates whether
+political reporting of German online newspapers was similar for the
+major political parties during the election campaign for the Bundestag
+2017.
 
-This paper investigates whether political reporting of German online
-newspapers was similar for the major political parties during the
-election campaign for the Bundestag 2017. Results show that the news
-articles of all newspapers (except for Handelsblatt) are significantly
-more similar to press releases of the AfD than any other party.
+The STM (Structural Topic Modeling) as applied in this paper helps
+detect the latent topics discussed in news articles and press releases.
+The result from this unsupervised machine learning approach is a
+vectorized topic distribution for each document (either a news article
+or a press release), which allows us to calculate the cosine similarity
+between documents. This approach helps analyze text content
+programmatically and put it into a format usable for a regression model.
+Using the topic similarity - measured as the cosine similarity between
+topic distributions - as the dependent variable, the applied regression
+models with different specifications allow estimating:
 
-Although no statement can be made about the tonality with which
-AfD-related issues are discussed, it can be assumed that the mere
-disproportionate mention of these topics in the media has brought the
-party more into the focus of voters. The assumption that the RDiT
-results can partially confirm coverage changes as Election Day
-approaches: Although the topic probability decreases for almost all news
-providers, except for FOCUS ONLINE, there are considerable differences
-with regard to the parties.
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  whether there is an observable difference in topic similarity between
+  different newspaper/party pairs and
+\item
+  whether the election results had a significant effect.
+\end{enumerate}
+
+Results show that the news articles of all newspapers (except for
+Handelsblatt) slant towards AfD topics during the election campaign
+resulting in a biased landscape for political news. Although no
+statement can be made about the tonality with which AfD-related issues
+are discussed, it can be assumed that the mere disproportionate mention
+of these topics in the media has brought the party more into the focus
+of voters.
+
+The hypothesis that the election day results in changes in news coverage
+can only be partially accepted as the results show a significant change
+in topic similarity for specific newspaper/party pairs. Especially the
+decrease of the topic similarity with AfD (for Bild.de, DIE WELT, FOCUS
+ONLINE) and CDU (for Handelsblatt, stern.de) might indicate an
+adjustment of content based on the observed reader preferences. In the
+latter case, election results for CDU turned out to be worse than
+predicted, whereas, in the case of AfD, newspapers might realize an
+``over-reporting'' that does not fit the true beliefs of readers.
+Similarly, the increase of topic similarity with FDP (Bild.de, FOCUS
+Online, SPIEGEL ONLINE, stern.de) could be interpreted as an upward
+adjustment based on the good election results of that party.
 
 \newpage
 
@@ -1579,6 +1616,11 @@ Lott, John R., and Kevin A. Hassett. 2014. {``Is Newspaper Coverage of
 Economic Events Politically Biased?''} \emph{Public Choice} 160 (1):
 65--108. \url{https://doi.org/10.1007/s11127-014-0171-5}.
 
+\leavevmode\hypertarget{ref-mazzoleni_media_2003}{}%
+Mazzoleni, G., J. Stewart, and Bruce Horsfield. 2003. {``The Media and
+Neo-Populism : A Contemporary Comparative Analysis.''} \emph{Undefined}.
+\url{https://www.semanticscholar.org/paper/The-media-and-neo-populism-\%3A-a-contemporary-Mazzoleni-Stewart/53e24419dbaddd6dbd4ca93aef60c472912fa9b0}.
+
 \leavevmode\hypertarget{ref-mimno_optimizing_2011}{}%
 Mimno, David, Hanna M. Wallach, Edmund Talley, Miriam Leenders, and
 Andrew McCallum. 2011. {``Optimizing Semantic Coherence in Topic
@@ -1605,6 +1647,14 @@ Newman, Nic, Richard Fletcher, Antonis Kalogeropoulos, David Levy, and
 Rasmus Kleis Nielsen. 2018. {``Reuters Institute Digital News Report
 2018.''} Reuters Institute for the Study of Journalism.
 \url{http://media.digitalnewsreport.org/wp-content/uploads/2018/06/digital-news-report-2018.pdf?x89475}.
+
+\leavevmode\hypertarget{ref-acemoglu_political_2013}{}%
+Prat, Andrea, and David Strömberg. 2013. {``The Political Economy of
+Mass Media.''} In \emph{Advances in Economics and Econometrics: Tenth
+World Congress: Volume 2: Applied Economics}, edited by Daron Acemoglu,
+Eddie Dekel, and Manuel Arellano, 2:135--87. Econometric Society
+Monographs. Cambridge: Cambridge University Press.
+\url{https://doi.org/10.1017/CBO9781139060028.004}.
 
 \leavevmode\hypertarget{ref-ramage_characterizing_2010}{}%
 Ramage, Daniel, Susan Dumais, and Daniel Liebling. 2010.
