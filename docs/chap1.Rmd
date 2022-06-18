@@ -3,7 +3,7 @@ title: "Biased reporting by the German media?"
 subtitle: "An Analysis of Political News Coverage in Germany for the 2017 Bundestag Election"
 author: "Franziska Löw^[Institut für Industrieökonomik, Helmut Schmidt Universität. Email: franzi@localyzeapp.com]"
 date: October 2021
-abstract: "The dynamics of online news and policy outcomes have been of great interest in several research areas in recent years. This paper provides a new method to estimate media bias using a structural topic model and cosine similarity to test slanting toward different political actors. For the empirical analysis, the content of German online newspapers and press releases of German parties during the election campaign before the federal election in 2017 is analyzed. Following the assumption that a) potential media bias is demand-driven and b) election results can be used as a proxy for reader beliefs, the results show that news articles of most newspapers slant towards AfD topics. Furthermore, we find evidence for the hypothesis that the election day results in changes in news coverage since newspapers can observe the true beliefs of readers. "
+abstract: "The dynamics of online news and policy outcomes have been of great interest in several research areas in recent years. This paper provides a new method to estimate media bias using a structural topic model and cosine similarity to test slanting toward different political actors. For the empirical analysis, the content of German online newspapers and press releases of German parties during the election campaign before the federal election in 2017 is analyzed. Following the assumption that a) potential media bias is demand-driven and b) election results can be used as a proxy for reader beliefs, the results show that news articles of most newspapers slant towards AfD topics. Furthermore, we find evidence for the hypothesis that the election day results in changes in news coverage after newspapers can observe the true beliefs of readers. "
 header-includes:
 - \usepackage{float}
 - \usepackage{pdflscape}
@@ -14,7 +14,7 @@ output:
         keep_tex: true
         extra_dependencies: "subfig"
 bibliography: ref.bib
-link-citations: yes
+link-citations: no
 space_between_paragraphs: true
 linkcolor: blue
 fontsize: 12pt
@@ -111,7 +111,7 @@ After the election, forming a government was difficult due to the large number o
 
 After the failure of the Jamaica coalition talks, the media discussed possible re-election or a minority government as alternatives before the SPD decided to hold coalition talks with the CDU/CSU. This step provoked significant resistance from the party base, which called for a party-internal referendum on a grand coalition. However, after the party members voted in favor of the grand coalition, CDU/CSU and SPD formed a government 171 days after the federal elections.
 
-\autoref{fig:election_polls} shows that support for the two major popular parties has been declining in recent months since August 2017, with the CDU/CSU again showing positive survey results since November 2017.^[The graph shows the moving average within 15 days from major German research institutes. Since the institutions do not all publish new values on the same days, the overall temporal accuracy is higher than the weekly accuracy. The data is scraped from https://www.wahlrecht.de/.] However, the poll results of the SPD have been falling since March 2017. At the same time, the AfD, in particular, has been recording increasingly positive survey results since June 2017.
+\autoref{fig:election_polls} shows that support for the two major popular parties has been declining in recent months since August 2017, with the CDU/CSU again showing positive survey results since November 2017.^[The graph shows the moving average within 15 days of the values from major German research institutes. Since the institutions do not all publish new values on the same days, the overall temporal accuracy is higher than the weekly accuracy. The data is scraped from https://www.wahlrecht.de/.] However, the poll results of the SPD have been falling since March 2017. At the same time, the AfD, in particular, has been recording increasingly positive survey results since June 2017.
 
 ```{r election polls, fig.cap= "Election polls during the period under review \\label{fig:election_polls}", out.width="80%", fig.height=3}
 load("../output/polldata.Rda")
@@ -298,7 +298,7 @@ model_df %>%
 
 Several processing steps have to be performed to make the text quantifiable to use text as data input for statistical analyses. In fact, in order to use text as data and reduce the dimensionality to avoid unnecessary computational complexity and overfitting, pre-processing the text is a central task in text mining (@gentzkow_text_2017, @bholat_text_2015). Intuitively, the term frequency (tf) of a word measures how important that word may be for understanding the text. Word clouds are a commonly used visualization technique in text mining as they translate the tf into the size of the term in the cloud. 
 
-Words like "die," or "der" (eng. "the"), "and" (eng. "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. Often called stop words [@gentzkow_text_2017], these terms are essential to the grammatical structure but typically do not add any additional meaning and can be neglected. The predefined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of words to identify and remove these distorting words. <!-- add list of stopwords --> Additionally, punctuation characters (e.g. ., !, ?) and all numbers are removed from the data. The next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. We apply the widely used Porter-Stemmer algorithm based on a set of shortening rules applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
+Words like "die," or "der" (eng. "the"), "and" (eng. "and"), and "ist" (eng. "is") are extremely common but unrelated to the quantity of interest. Often called stop words [@gentzkow_text_2017], these terms are essential to the grammatical structure but typically do not add any additional meaning and can be neglected. The predefined stop word list from the Snowball project^[http://snowball.tartarus.org/algorithms/german/stop.txt] is used together with a customized, domain-specific list of words to identify and remove these distorting words.^[Additional to the list of stopwords commonly used in web projects and search engines (@g_german_2022), additional domain-specific stopwords where used and can be found in \autoref{table:stop_words}] Additionally, punctuation characters (e.g. ., !, ?) and all numbers are removed from the data. The next step to reduce the dimensionality of text data is to apply an adequate stemming technique. Stemming is a process by which different morphological variants of a word are traced back to their common root. For example, "voting" and "vote" would be treated as two instances of the same token after the stemming process. There are many different techniques for the stemming process. We apply the widely used Porter-Stemmer algorithm based on a set of shortening rules applied to a word until it has a minimum number of syllables.^[https://tartarus.org/martin/PorterStemmer/] 
 
 As an example, the following word clouds represent the most frequent words of the pre-processed articles for Bild.de (\autoref{fig:wordclouds2}(a)) and press releases of AfD (\autoref{fig:wordclouds2}(b)). Thus, it becomes evident that these are texts discussing domestic policy issues. The SPD, in particular, seems to be highly frequent for Bild.de.
 
@@ -1009,6 +1009,21 @@ welt_p1 + theme(strip.text.x = element_text(size = 6)) +
   spiegel_p1 + theme(axis.text.x = element_text(size = 4, angle = 45)) +
   plot_layout(ncol = 1)
 ```
+
+```{r List of additional stopwords, results='asis'}
+mystopwords <- c("focus","online","spiegel","stern","bild","bildplus","n-tv.de", "zeit", "ersten","ard", "tagesschau","faktenfinder","zeitmagazin","seitenanfang","passwort","kommentar","artikel","comment","ticker","live","laif","uhr","videolänge","mail","abschnitt", "login", "loggen", "inaktiv","nwmi","nwnoa","morgenkolumne","dpa","video","quelle","afp","fotogalerie","spon","registrierter","spiegel","bitte","dank","nutzer","beitrag","user","zeichen","tba","datenschutzerklärung","premium","nutzungsbedingungen","nutzungsrechte","pflichtfelder","registrierung","anzeige","großbuchstaben","sonderzeichen","html","seitennavigation","fullscreen","statista","club","shopübersicht","imago","hauptstadtstudio","newsletter","premiumbereich","nachrichtenpodcast","karrierespiegel","appnutzer","civey","abo")
+
+mystopwords %>% 
+  as_tibble() %>% 
+  arrange(value) %>% 
+  stargazer(type = 'latex', 
+            summary = FALSE,
+            header = FALSE, 
+            label = "table:stop_words",
+            title = "Domain specific stopwords",
+            font.size = "tiny")
+```
+
 
 \newpage
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.12)  12 JUN 2022 22:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.12)  18 JUN 2022 10:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -638,140 +638,140 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \openout6 = `chap1.lof'.
 
 [4] [5] [6] [7]
-<chap1_files/figure-latex/election polls-1.pdf, id=228, 460.72125pt x 197.73875pt>
+<chap1_files/figure-latex/election polls-1.pdf, id=190, 460.72125pt x 197.73875pt>
 File: chap1_files/figure-latex/election polls-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/election polls-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/election polls-1.pdf  used on input line 416.
+Package pdftex.def Info: chap1_files/figure-latex/election polls-1.pdf  used on input line 398.
 (pdftex.def)             Requested size: 375.80437pt x 161.29294pt.
 [8]
-<../figs/high_level_overview.png, id=236, 1927.2pt x 1084.05pt>
+<../figs/high_level_overview.png, id=198, 1927.2pt x 1084.05pt>
 File: ../figs/high_level_overview.png Graphic file (type png)
 <use ../figs/high_level_overview.png>
-Package pdftex.def Info: ../figs/high_level_overview.png  used on input line 436.
+Package pdftex.def Info: ../figs/high_level_overview.png  used on input line 418.
 (pdftex.def)             Requested size: 469.7421pt x 264.22992pt.
 [9 <./chap1_files/figure-latex/election polls-1.pdf> <../figs/high_level_overview.png>]
-<chap1_files/figure-latex/unnamed-chunk-1-1.pdf, id=271, 460.72125pt x 425.59pt>
+<chap1_files/figure-latex/unnamed-chunk-1-1.pdf, id=231, 460.72125pt x 425.59pt>
 File: chap1_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/unnamed-chunk-1-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/unnamed-chunk-1-1.pdf  used on input line 500.
+Package pdftex.def Info: chap1_files/figure-latex/unnamed-chunk-1-1.pdf  used on input line 480.
 (pdftex.def)             Requested size: 230.17728pt x 212.62563pt.
-<chap1_files/figure-latex/unnamed-chunk-1-2.pdf, id=272, 460.72125pt x 423.5825pt>
+<chap1_files/figure-latex/unnamed-chunk-1-2.pdf, id=232, 460.72125pt x 423.5825pt>
 File: chap1_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/unnamed-chunk-1-2.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/unnamed-chunk-1-2.pdf  used on input line 500.
+Package pdftex.def Info: chap1_files/figure-latex/unnamed-chunk-1-2.pdf  used on input line 480.
 (pdftex.def)             Requested size: 230.17728pt x 211.62268pt.
-<chap1_files/figure-latex/Distribution of news articles-1.pdf, id=275, 450.68375pt x 160.6pt>
+<chap1_files/figure-latex/Distribution of news articles-1.pdf, id=235, 450.68375pt x 160.6pt>
 File: chap1_files/figure-latex/Distribution of news articles-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Distribution of news articles-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Distribution of news articles-1.pdf  used on input line 518.
+Package pdftex.def Info: chap1_files/figure-latex/Distribution of news articles-1.pdf  used on input line 498.
 (pdftex.def)             Requested size: 375.821pt x 133.92284pt.
 [10] [11 <./chap1_files/figure-latex/unnamed-chunk-1-1.pdf> <./chap1_files/figure-latex/unnamed-chunk-1-2.pdf> <./chap1_files/figure-latex/Distribution of news articles-1.pdf>]
-<chap1_files/figure-latex/Distribution of press releases-1.pdf, id=328, 450.68375pt x 160.6pt>
+<chap1_files/figure-latex/Distribution of press releases-1.pdf, id=285, 450.68375pt x 160.6pt>
 File: chap1_files/figure-latex/Distribution of press releases-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Distribution of press releases-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Distribution of press releases-1.pdf  used on input line 532.
+Package pdftex.def Info: chap1_files/figure-latex/Distribution of press releases-1.pdf  used on input line 512.
 (pdftex.def)             Requested size: 375.821pt x 133.92284pt.
 [12 <./chap1_files/figure-latex/Distribution of press releases-1.pdf>]
-<../figs/wordcloud_bild.png, id=357, 301.125pt x 301.125pt>
+<../figs/wordcloud_bild.png, id=311, 301.125pt x 301.125pt>
 File: ../figs/wordcloud_bild.png Graphic file (type png)
 <use ../figs/wordcloud_bild.png>
-Package pdftex.def Info: ../figs/wordcloud_bild.png  used on input line 616.
+Package pdftex.def Info: ../figs/wordcloud_bild.png  used on input line 597.
 (pdftex.def)             Requested size: 187.90399pt x 187.90399pt.
-<../figs/wordcloud_afd.png, id=358, 301.125pt x 301.125pt>
+<../figs/wordcloud_afd.png, id=312, 301.125pt x 301.125pt>
 File: ../figs/wordcloud_afd.png Graphic file (type png)
 <use ../figs/wordcloud_afd.png>
-Package pdftex.def Info: ../figs/wordcloud_afd.png  used on input line 616.
+Package pdftex.def Info: ../figs/wordcloud_afd.png  used on input line 597.
 (pdftex.def)             Requested size: 187.90399pt x 187.90399pt.
 [13 <../figs/wordcloud_bild.png> <../figs/wordcloud_afd.png>]
 pdfTeX warning (ext4): destination with the same identifier (name{structural-topic-model}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.668 ...pic model}\label{structural-topic-model}}
+l.648 ...pic model}\label{structural-topic-model}}
                                                    [14] [15]
-<chap1_files/figure-latex/News articles sample documents-1.pdf, id=426, 450.68375pt x 271.0125pt>
+<chap1_files/figure-latex/News articles sample documents-1.pdf, id=352, 450.68375pt x 271.0125pt>
 File: chap1_files/figure-latex/News articles sample documents-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/News articles sample documents-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/News articles sample documents-1.pdf  used on input line 820.
+Package pdftex.def Info: chap1_files/figure-latex/News articles sample documents-1.pdf  used on input line 787.
 (pdftex.def)             Requested size: 422.7969pt x 254.24313pt.
-<chap1_files/figure-latex/Press releases sample documents-1.pdf, id=427, 450.68375pt x 271.0125pt>
+<chap1_files/figure-latex/Press releases sample documents-1.pdf, id=353, 450.68375pt x 271.0125pt>
 File: chap1_files/figure-latex/Press releases sample documents-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Press releases sample documents-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Press releases sample documents-1.pdf  used on input line 829.
+Package pdftex.def Info: chap1_files/figure-latex/Press releases sample documents-1.pdf  used on input line 796.
 (pdftex.def)             Requested size: 422.7969pt x 254.24313pt.
 [16 <./chap1_files/figure-latex/News articles sample documents-1.pdf>]
-<chap1_files/figure-latex/Top AfD topics-1.pdf, id=447, 450.68375pt x 187.70125pt>
+<chap1_files/figure-latex/Top AfD topics-1.pdf, id=372, 450.68375pt x 187.70125pt>
 File: chap1_files/figure-latex/Top AfD topics-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Top AfD topics-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Top AfD topics-1.pdf  used on input line 861.
+Package pdftex.def Info: chap1_files/figure-latex/Top AfD topics-1.pdf  used on input line 828.
 (pdftex.def)             Requested size: 450.71013pt x 187.71223pt.
 [17 <./chap1_files/figure-latex/Press releases sample documents-1.pdf>]
-<chap1_files/figure-latex/Top FDP topics-1.pdf, id=466, 450.68375pt x 187.70125pt>
+<chap1_files/figure-latex/Top FDP topics-1.pdf, id=391, 450.68375pt x 187.70125pt>
 File: chap1_files/figure-latex/Top FDP topics-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Top FDP topics-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Top FDP topics-1.pdf  used on input line 894.
+Package pdftex.def Info: chap1_files/figure-latex/Top FDP topics-1.pdf  used on input line 861.
 (pdftex.def)             Requested size: 450.71013pt x 187.71223pt.
 [18 <./chap1_files/figure-latex/Top AfD topics-1.pdf> <./chap1_files/figure-latex/Top FDP topics-1.pdf>] [19] [20]
-<chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf, id=530, 461.725pt x 192.72pt>
+<chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf, id=451, 461.725pt x 192.72pt>
 File: chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf  used on input line 1084.
+Package pdftex.def Info: chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf  used on input line 1048.
 (pdftex.def)             Requested size: 461.72388pt x 192.71951pt.
 [21] [22 <./chap1_files/figure-latex/Plot coefficients - simple dummy-1.pdf>] [23]
-<chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf, id=585, 451.6875pt x 192.72pt>
+<chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf, id=484, 451.6875pt x 192.72pt>
 File: chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf  used on input line 1249.
+Package pdftex.def Info: chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf  used on input line 1202.
 (pdftex.def)             Requested size: 451.68639pt x 192.71951pt.
 [24]
-<chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf, id=595, 461.725pt x 192.72pt>
+<chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf, id=494, 461.725pt x 192.72pt>
 File: chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf  used on input line 1305.
+Package pdftex.def Info: chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf  used on input line 1258.
 (pdftex.def)             Requested size: 461.72388pt x 192.71951pt.
 [25 <./chap1_files/figure-latex/Daily mean cosine similarity - rd example-1.pdf>] [26 <./chap1_files/figure-latex/Plot coefficients - RDiT dummy-1.pdf>] [27] [28] [29]
-<chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf, id=651, 451.6875pt x 554.07pt>
+<chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf, id=546, 451.6875pt x 554.07pt>
 File: chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf Graphic file (type pdf)
 <use chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf>
-Package pdftex.def Info: chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf  used on input line 1508.
+Package pdftex.def Info: chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf  used on input line 1459.
 (pdftex.def)             Requested size: 451.68639pt x 554.06865pt.
-[30] [31] [32 <./chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf>]
-Underfull \hbox (badness 2961) in paragraph at lines 1540--1545
+[30] [31] [32 <./chap1_files/figure-latex/Daily mean cosine similarity - cutoff value-1.pdf>] [33]
+Underfull \hbox (badness 2961) in paragraph at lines 1574--1579
 []\T1/lmr/m/n/12 Bholat, David M., Stephen Hansen, Pe-dro M. San-tos, and Cheryl Schonhardt-
  []
 
-[33]
-Underfull \hbox (badness 1571) in paragraph at lines 1693--1697
+[34]
+Underfull \hbox (badness 1571) in paragraph at lines 1731--1735
 []\T1/lmr/m/n/12 Mazzoleni, G., J. Stew-art, and Bruce Hors-field. 2003. ``The Me-dia and Neo-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1693--1697
+Underfull \hbox (badness 10000) in paragraph at lines 1731--1735
 \T1/lmr/m/n/12 semanticscholar . org / paper / The -[] media -[] and -[] neo -[] populism -[] %3A -[] a -[] contemporary -[]
  []
 
-[34] [35] [36] (./chap1.aux)
+[35] [36] [37] (./chap1.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `chap1.out' has not changed.
-(rerunfilecheck)             Checksum: 6CA201CB08AFA3431BF61F83DF991050;2514.
+(rerunfilecheck)             Checksum: 8D465839DB2DDCEFA4690AFEBA76DCAC;2514.
  ) 
 Here is how much of TeX's memory you used:
- 15130 strings out of 480000
- 250443 string characters out of 5887336
- 606543 words of memory out of 5000000
- 32827 multiletter control sequences out of 15000+600000
+ 15135 strings out of 480000
+ 250513 string characters out of 5887336
+ 606601 words of memory out of 5000000
+ 32828 multiletter control sequences out of 15000+600000
  560371 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  72i,12n,79p,4406b,492s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{34-model-estimations} has been referenced but does not exist, replaced by a fixed one
 
-{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on chap1.pdf (36 pages, 1466260 bytes).
+{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/franzilow/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/franzilow/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
+Output written on chap1.pdf (37 pages, 1495284 bytes).
 PDF statistics:
- 883 PDF objects out of 1000 (max. 8388607)
- 753 compressed objects within 8 object streams
- 182 named destinations out of 1000 (max. 500000)
+ 842 PDF objects out of 1000 (max. 8388607)
+ 709 compressed objects within 8 object streams
+ 186 named destinations out of 1000 (max. 500000)
  193 words of extra memory for PDF output out of 10000 (max. 10000000)
 
